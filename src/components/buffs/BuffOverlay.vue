@@ -121,12 +121,14 @@ onBeforeUnmount(() => {
             <button
               type="button"
               class="buff-master-btn"
-              :disabled="buffs.matchesDefault"
-              @click="buffs.resetDefaults"
+              :disabled="buffs.matchesDefaultForMode('eff')"
+              @click="buffs.resetDefaultsForMode('eff')"
             >
               套用預設
             </button>
-            <button type="button" class="buff-master-btn" @click="buffs.clearAll">全部清除</button>
+            <button type="button" class="buff-master-btn" @click="buffs.clearAllForMode('eff')">
+              全部清除
+            </button>
             <button
               ref="closeButtonRef"
               type="button"
@@ -134,7 +136,15 @@ onBeforeUnmount(() => {
               aria-label="關閉選擇 Buff"
               @click="closeOverlay"
             >
-              ×
+              <svg
+                class="buff-overlay-close-icon"
+                viewBox="0 0 12 12"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <line x1="2" y1="2" x2="10" y2="10" />
+                <line x1="10" y1="2" x2="2" y2="10" />
+              </svg>
             </button>
           </div>
         </header>
@@ -142,7 +152,7 @@ onBeforeUnmount(() => {
         <div class="buff-overlay-body">
           <section class="buff-overlay-soul-orb">
             <span class="buff-section-title">靈魂寶珠</span>
-            <SoulOrbControl />
+            <SoulOrbControl mode="eff" />
           </section>
           <BuffPanel mode="eff" embedded :panel-id="panelId" />
         </div>

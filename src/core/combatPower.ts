@@ -1,5 +1,7 @@
 import type { BuffDelta, FieldValues, JobCategory, PowerResult } from './types'
 import { resolveFamMult } from './familiar'
+import { floorPercentApplied } from './percentFloor'
+import type { CombatCorrectionState } from './combatCorrections'
 
 export interface CombatPowerContext {
   /** 職業分類（localStorage selectedJob） */
@@ -10,8 +12,10 @@ export interface CombatPowerContext {
   weaponSet: string
   /** 創世武器 10% 終傷勾選 */
   genesisFinalChecked: boolean
-  /** 是否計入 Buff（影響 adjEmpressBless 與海外創世攻擊校正交換） */
+  /** 是否計入 Buff（戰鬥力校正僅在此模式生效） */
   useBuff: boolean
+  /** 使用者選擇的含 Buff 戰鬥力校正；未提供時全部視為關閉。 */
+  combatCorrections?: CombatCorrectionState
   /**
    * 海外職業 + 創世武器 + useBuff 時加到 adjWeaponAtk 的校正差值
    * （= calculateWeaponCorrectionValue('genesis') - calculateWeaponCorrectionValue(resolveWeaponDataKey())）
@@ -75,7 +79,7 @@ export interface CombatFormulaInputs {
 
 /** 顯示用：由字面輸入重建遊戲面板等值（與戰鬥力公式同樣 floor，但不扣技能.消耗、不套其他校正）。 */
 function panelStatValue(base: number, percent: number, noApply: number): number {
-  return Math.floor(base * (1 + percent / 100)) + noApply
+  return floorPercentApplied(base, percent) + noApply
 }
 
 /** 戰鬥力公式實際採用的校正後數值，同時供數值預覽顯示。 */
@@ -92,15 +96,24 @@ export function resolveCombatFormulaInputs(
   const adjEventAllStat = getVal('adjEventAllStat')
   const adjEventBossDmg = getVal('adjEventBossDmg')
   const adjEventHP = getVal('adjEventHP')
-  const adjMentorAtk = getVal('adjMentorAtk')
-  const adjMentorBossDmg = getVal('adjMentorBossDmg')
+  const applyMentorCorrection = ctx.useBuff && ctx.combatCorrections?.mentor === true
+  const adjMentorAtk = applyMentorCorrection ? 0 : getVal('adjMentorAtk')
+  const adjMentorBossDmg = applyMentorCorrection ? 0 : getVal('adjMentorBossDmg')
   let adjWeaponAtk = getVal('adjWeaponAtk')
-  // 海外職業：女皇祝福不計入戰鬥力（無 Buff 與含 Buff 皆 0），
-  // 使「含Buff戰力增幅」在未選任何 Buff 時為 0。
-  const adjEmpressBless = currentJob === 'overseas' ? 0 : getVal('adjEmpressBless')
+  const adjEmpressBless =
+    currentJob === 'overseas'
+      ? ctx.useBuff && ctx.combatCorrections?.empress === true
+        ? getVal('adjEmpressBless')
+        : 0
+      : getVal('adjEmpressBless')
   const adjPetAtk = getVal('adjPetAtk')
 
-  if (currentJob === 'overseas' && ctx.useBuff && ctx.weaponSet === 'genesis') {
+  if (
+    currentJob === 'overseas' &&
+    ctx.useBuff &&
+    ctx.combatCorrections?.genesis === true &&
+    ctx.weaponSet === 'genesis'
+  ) {
     adjWeaponAtk += ctx.overseasGenesisAtkDelta
   }
 
@@ -117,20 +130,20 @@ export function resolveCombatFormulaInputs(
   if (currentJob === 'da') {
     const effectiveBaseMain = getVal('baseMain') + adjEventHP
     mainBase = effectiveBaseMain - getVal('skillBaseMain') + daStarBonus
-    const roundedMain = Math.floor(mainBase * (1 + mainPercent / 100))
+    const roundedMain = floorPercentApplied(mainBase, mainPercent)
     mainTotal = roundedMain + mainNoApply
     const baseHP = getVal('adjDAHP')
     equivalentMain = baseHP / 3.5 + ((mainTotal - baseHP) / 3.5) * 0.8
   } else {
     mainBase = getVal('baseMain') + xenonStarBonus + adjEventAllStat - getVal('skillBaseMain')
-    mainTotal = Math.floor(mainBase * (1 + mainPercent / 100)) + mainNoApply
+    mainTotal = floorPercentApplied(mainBase, mainPercent) + mainNoApply
     equivalentMain = mainTotal
   }
 
   const subBase = getVal('baseSub') + adjEventAllStat - getVal('skillBaseSub') + xenonStarBonus
   const subPercent = getVal('percentSub') - getVal('skillPercentSub')
   const subNoApply = getVal('noApplySub')
-  const subTotal = Math.floor(subBase * (1 + subPercent / 100)) + subNoApply
+  const subTotal = floorPercentApplied(subBase, subPercent) + subNoApply
 
   let subtwo: FormulaStatBreakdown | null = null
   if (includeSecondSub) {
@@ -141,7 +154,7 @@ export function resolveCombatFormulaInputs(
       base,
       percent,
       noApply,
-      total: Math.floor(base * (1 + percent / 100)) + noApply,
+      total: floorPercentApplied(base, percent) + noApply,
       panel: panelStatValue(getVal('baseSubtwo'), getVal('percentSubtwo'), noApply),
       skillBase: getVal('skillBaseSubtwo'),
       skillPercent: getVal('skillPercentSubtwo'),
@@ -158,7 +171,7 @@ export function resolveCombatFormulaInputs(
     adjMentorAtk
   const attackPercent = getVal('percentAtk') - getVal('skillPercentAtk')
   const attackNoApply = getVal('noApplyAtk')
-  const attackTotal = Math.floor(attackBase * (1 + attackPercent / 100)) + attackNoApply
+  const attackTotal = floorPercentApplied(attackBase, attackPercent) + attackNoApply
 
   const zeroBossDmgPenalty = ctx.jobName === '神之子' ? getVal('adjZeroWeaponFlameBossDmg') : 0
   const damage = getVal('dmg') - getVal('skillDmg')
@@ -175,7 +188,9 @@ export function resolveCombatFormulaInputs(
   const genesisMult = ctx.genesisFinalChecked ? 1.1 : 1.0
   const ruinMult =
     currentJob === 'da' || ctx.jobName === '惡魔殺手' ? 1 + getVal('ruinFinal') / 100 : 1
-  const famMult = resolveFamMult(ctx.famFinalSources, getVal('famFinal'))
+  const equipmentFamMultiplierFactor = delta.__eqFamFinalMultiplierFactor ?? 1
+  const famMult =
+    resolveFamMult(ctx.famFinalSources, getVal('famFinal')) * equipmentFamMultiplierFactor
 
   return {
     main: {

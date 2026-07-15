@@ -3,8 +3,18 @@ import { getJobStatLabelsByName } from '@/data/jobs'
 import { parseFamSources } from './familiar'
 import { calculatePower, powerValue, type CombatPowerContext } from './combatPower'
 import { calculateEquipmentOutput } from './actualDamage'
-import { getEquipmentActualDelta, getEquipmentDelta, effFieldToCombatKey } from './equipmentDelta'
-import { calculateWeaponCorrectionValue, resolveWeaponDataKey, runWeaponCorrection } from './weaponCorrection'
+import {
+  getEquipmentActualDelta,
+  getEquipmentDelta,
+  effFieldToCombatKey,
+  type EquipmentFamSources,
+} from './equipmentDelta'
+import {
+  calculateCombatWeaponAttackBasis,
+  calculateWeaponCorrectionValue,
+  resolveWeaponDataKey,
+  runWeaponCorrection,
+} from './weaponCorrection'
 import {
   getCombatBuffDelta,
   getEffBuffDelta,
@@ -20,6 +30,11 @@ import {
 } from './efficiency'
 import type { ParsedBuffTable } from './buffs/parse'
 import type { FieldValues, JobCategory, PowerResult } from './types'
+import {
+  defaultCombatCorrections,
+  normalizeCombatCorrections,
+  type CombatCorrectionState,
+} from './combatCorrections'
 import type { CompactStateWorkspaceV1, StateSlotId } from '@/stores/stateSlots'
 
 export interface WeightedSlotResult {
@@ -67,6 +82,44 @@ function weightedValues(workspace: CompactStateWorkspaceV1, id: StateSlotId): Re
   return { ...workspace.shared.values, ...state.values, ...workspace.weighted.values }
 }
 
+function weaponInput(
+  workspace: CompactStateWorkspaceV1,
+  values: Record<string, string | boolean>,
+) {
+  return {
+    weaponSet: String(values.weaponSet ?? ''),
+    flameLevel: parseInt(String(values.flameLevel ?? '')) || 0,
+    scrollAtk: parseInt(String(values.scrollAtk ?? '')) || 0,
+    starCount: parseInt(String(values.starCount ?? '')) || 0,
+    currentWeaponAtk: parseInt(String(values.currentWeaponAtk ?? '')) || 0,
+    jobCategory: workspace.shared.selectedJob as JobCategory,
+    isZeroJob: workspace.shared.selectedJobName === '神之子',
+  }
+}
+
+function equipmentFamSources(
+  values: Record<string, string | boolean>,
+  baseKey: 'famFinalSources' | 'effFamFinalSources',
+): EquipmentFamSources {
+  return {
+    base: parseFamSources(String(values[baseKey] ?? '')),
+    old: parseFamSources(String(values.eqOldFamFinalSources ?? '')),
+    new: parseFamSources(String(values.eqNewFamFinalSources ?? '')),
+  }
+}
+
+function actualCtx(
+  values: Record<string, string | boolean>,
+  job: JobCategory,
+  ignoreFactor: number,
+) {
+  return {
+    effJob: job,
+    ignoreFactor,
+    effFamFinalSources: parseFamSources(String(values.effFamFinalSources ?? '')),
+  }
+}
+
 function effectiveWeights(workspace: CompactStateWorkspaceV1): {
   weights: Record<StateSlotId, number>
   fallback: boolean
@@ -90,18 +143,7 @@ function effectiveWeights(workspace: CompactStateWorkspaceV1): {
 function resolveFields(workspace: CompactStateWorkspaceV1, id: StateSlotId): FieldValues {
   const values = weightedValues(workspace, id)
   const fields = numericFields(values)
-  const selectedJob = workspace.shared.selectedJob as JobCategory
-  const selectedJobName = workspace.shared.selectedJobName
-  const weaponInput = {
-    weaponSet: String(values.weaponSet ?? ''),
-    flameLevel: parseInt(String(values.flameLevel ?? '')) || 0,
-    scrollAtk: parseInt(String(values.scrollAtk ?? '')) || 0,
-    starCount: parseInt(String(values.starCount ?? '')) || 0,
-    currentWeaponAtk: parseInt(String(values.currentWeaponAtk ?? '')) || 0,
-    jobCategory: selectedJob,
-    isZeroJob: selectedJobName === '神之子',
-  }
-  const correction = runWeaponCorrection(weaponInput)
+  const correction = runWeaponCorrection(weaponInput(workspace, values))
   fields.adjWeaponAtk = correction.correction
   fields.baseAtk = correction.baseAtk
   return fields
@@ -111,28 +153,22 @@ function combatCtx(
   workspace: CompactStateWorkspaceV1,
   values: Record<string, string | boolean>,
   useBuff: boolean,
+  combatCorrections: CombatCorrectionState = defaultCombatCorrections(),
 ): CombatPowerContext {
   const selectedJob = workspace.shared.selectedJob as JobCategory
   const selectedJobName = workspace.shared.selectedJobName
-  const weaponInput = {
-    weaponSet: String(values.weaponSet ?? ''),
-    flameLevel: parseInt(String(values.flameLevel ?? '')) || 0,
-    scrollAtk: parseInt(String(values.scrollAtk ?? '')) || 0,
-    starCount: parseInt(String(values.starCount ?? '')) || 0,
-    currentWeaponAtk: parseInt(String(values.currentWeaponAtk ?? '')) || 0,
-    jobCategory: selectedJob,
-    isZeroJob: selectedJobName === '神之子',
-  }
-  const resolvedKey = resolveWeaponDataKey(weaponInput)
+  const wIn = weaponInput(workspace, values)
+  const resolvedKey = resolveWeaponDataKey(wIn)
   return {
     jobCategory: selectedJob,
     jobName: selectedJobName,
     weaponSet: String(values.weaponSet ?? ''),
     genesisFinalChecked: values.genesisFinalCheck === true,
     useBuff,
+    combatCorrections,
     overseasGenesisAtkDelta:
-      calculateWeaponCorrectionValue('genesis', weaponInput) -
-      calculateWeaponCorrectionValue(resolvedKey, weaponInput),
+      calculateWeaponCorrectionValue('genesis', wIn) -
+      calculateWeaponCorrectionValue(resolvedKey, wIn),
     xenonPowerCoefficientRaw: String(values.adjXenonPowerCoefficient ?? ''),
     daPowerCoefficientRaw: String(values.adjDAPowerCoefficient ?? ''),
     famFinalSources: parseFamSources(String(values.famFinalSources ?? '')),
@@ -143,11 +179,14 @@ function buffCtx(
   workspace: CompactStateWorkspaceV1,
   values: Record<string, string | boolean>,
   soulOrb: SoulOrbState,
+  combatCorrections: CombatCorrectionState = defaultCombatCorrections(),
 ): BuffComputeContext {
+  const wIn = weaponInput(workspace, values)
   return {
     job: workspace.shared.selectedJob as JobCategory,
     statLabels: getJobStatLabelsByName(workspace.shared.selectedJobName),
-    currentWeaponAtk: +String(values.currentWeaponAtk ?? '') || 0,
+    currentWeaponAtk: wIn.currentWeaponAtk,
+    combatWeaponAtk: calculateCombatWeaponAttackBasis(wIn, combatCorrections),
     soulOrb,
   }
 }
@@ -162,30 +201,44 @@ function slotResult(
   const values = weightedValues(workspace, id)
   const fields = resolveFields(workspace, id)
   const buffState = (state.buffState?.levels || {}) as BuffState
-  const soulOrb = state.buffState?.soulOrb || { value: 0, stat: 'percentStr' }
-  const combatBuffDelta = getCombatBuffDelta(table, buffState, buffCtx(workspace, values, soulOrb))
-  const effBuffDelta = getEffBuffDelta(table, buffState, buffCtx(workspace, values, soulOrb))
+  const soulOrb = state.buffState?.soulOrb || { value: 0, stat: 'percentStr', fullSoul: true }
+  const combatCorrections = normalizeCombatCorrections(state.buffState?.combatCorrections)
+  const context = buffCtx(workspace, values, soulOrb, combatCorrections)
+  const combatBuffDelta = getCombatBuffDelta(table, buffState, context)
+  const effBuffDelta = getEffBuffDelta(table, buffState, context)
   const ignoreFactor = getEffBuffIgnoreFactor(table, buffState, soulOrb)
   const job = workspace.shared.selectedJob as JobCategory
-  const powerNoBuff = calculatePower(fields, combatCtx(workspace, values, false), {}, {})
-  const powerWithBuff = calculatePower(fields, combatCtx(workspace, values, true), {}, combatBuffDelta)
-  const effOutputNoBuff = calculateEquipmentOutput(fields, { effJob: job, ignoreFactor: 1 }, {}, {})
+  const combatFamSources = equipmentFamSources(values, 'famFinalSources')
+  const actualFamSources = equipmentFamSources(values, 'effFamFinalSources')
+  const powerNoBuff = calculatePower(
+    fields,
+    combatCtx(workspace, values, false, combatCorrections),
+    {},
+    {},
+  )
+  const powerWithBuff = calculatePower(
+    fields,
+    combatCtx(workspace, values, true, combatCorrections),
+    {},
+    combatBuffDelta,
+  )
+  const effOutputNoBuff = calculateEquipmentOutput(fields, actualCtx(values, job, 1), {}, {})
   const effOutputWithBuff = calculateEquipmentOutput(
     fields,
-    { effJob: job, ignoreFactor },
+    actualCtx(values, job, ignoreFactor),
     {},
     effBuffDelta,
   )
   const equipmentChangedPower = calculatePower(
     fields,
-    combatCtx(workspace, values, false),
-    getEquipmentDelta(fields, job),
+    combatCtx(workspace, values, false, combatCorrections),
+    getEquipmentDelta(fields, job, combatFamSources),
     {},
   )
   const equipmentChangedActualOutput = calculateEquipmentOutput(
     fields,
-    { effJob: job, ignoreFactor },
-    getEquipmentActualDelta(fields, job),
+    actualCtx(values, job, ignoreFactor),
+    getEquipmentActualDelta(fields, job, actualFamSources),
     effBuffDelta,
   )
   return {
@@ -296,7 +349,11 @@ export function buildWeightedMetrics(
       const state = workspace.states.find((entry) => entry.id === slot.id) || workspace.states[0]
       const values = weightedValues(workspace, slot.id)
       const buffState = (state.buffState?.levels || {}) as BuffState
-      const soulOrb = state.buffState?.soulOrb || { value: 0, stat: 'percentStr' }
+      const soulOrb = state.buffState?.soulOrb || {
+        value: 0,
+        stat: 'percentStr',
+        fullSoul: true,
+      }
       const effBuffDelta = getEffBuffDelta(table, buffState, buffCtx(workspace, values, soulOrb))
       const ignoreFactor = getEffBuffIgnoreFactor(table, buffState, soulOrb)
       const changedOutput = calculateEquipmentOutput(

@@ -1,4 +1,5 @@
 import type { JobCategory, WeaponDatabase, WeaponSetKey } from './types'
+import type { CombatCorrectionState } from './combatCorrections'
 import { weaponDatabase, zeroWeaponDatabase } from '@/data/weapons'
 
 export interface WeaponCorrectionInput {
@@ -66,6 +67,28 @@ export function calculateWeaponCorrectionValue(
   }
 
   return initialAtk + starAtkBonus - (input.currentWeaponAtk || 0)
+}
+
+/**
+ * 含 Buff 戰鬥力使用的滿魂武器攻擊基準。
+ *
+ * 武器總攻空白時維持 0；有值時改採武器攻擊校正後的完整總攻。
+ * 海外創世武器則依「創世武器校正」勾選狀態切換海外／原廠基準。
+ */
+export function calculateCombatWeaponAttackBasis(
+  input: WeaponCorrectionInput,
+  corrections: Pick<CombatCorrectionState, 'genesis'>,
+): number {
+  const currentWeaponAtk = Math.max(0, Number(input.currentWeaponAtk) || 0)
+  if (currentWeaponAtk <= 0) return 0
+
+  const resolvedKey = resolveWeaponDataKey(input)
+  const useOriginalGenesisBasis =
+    input.jobCategory === 'overseas' &&
+    input.weaponSet === 'genesis' &&
+    corrections.genesis === true
+  const correctionKey = useOriginalGenesisBasis ? 'genesis' : resolvedKey
+  return Math.max(0, currentWeaponAtk + calculateWeaponCorrectionValue(correctionKey, input))
 }
 
 export interface WeaponCorrectionResult {

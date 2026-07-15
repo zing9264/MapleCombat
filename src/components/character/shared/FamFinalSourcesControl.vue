@@ -52,8 +52,10 @@ async function updatePlacement() {
 
   // 水平：面板預設靠右展開（向左），左緣若溢出視窗就往右推；夾在視窗內
   const maxLeft = window.innerWidth - pad - pRect.width
-  const targetLeft = Math.min(Math.max(pRect.left, pad), Math.max(pad, maxLeft))
-  panelShiftX.value = (targetLeft - pRect.left) / zoom
+  // pRect 已包含前一次 translateX；先還原原始位置，避免每次新增列時位移值在 0 與修正值間跳動。
+  const unshiftedLeft = pRect.left - panelShiftX.value * zoom
+  const targetLeft = Math.min(Math.max(unshiftedLeft, pad), Math.max(pad, maxLeft))
+  panelShiftX.value = (targetLeft - unshiftedLeft) / zoom
 }
 
 function toggle() {
@@ -75,6 +77,7 @@ function onMainUserEdit() {
 
 function addRow() {
   rows.value.push({ val: '' })
+  void updatePlacement()
 }
 
 function removeRow(i: number) {
@@ -160,9 +163,14 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', onDocumentPoin
         <div v-for="(row, i) in rows" :key="i" class="fam-src-row">
           <span class="fam-src-row-label">來源 {{ i + 1 }}</span>
           <input v-model="row.val" type="number" step="any" class="fam-src-input" />
-          <span class="fam-src-unit">%</span>
-          <button type="button" class="fam-src-del" title="刪除這條" @click="removeRow(i)">
-            ✕
+          <button
+            type="button"
+            class="fam-src-del"
+            :title="`移除來源 ${i + 1}`"
+            :aria-label="`移除來源 ${i + 1}`"
+            @click="removeRow(i)"
+          >
+            −
           </button>
         </div>
       </div>
@@ -242,8 +250,8 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', onDocumentPoin
   top: calc(100% + 6px);
   right: 0;
   z-index: 300;
-  width: 232px;
-  padding: 10px;
+  width: 194px;
+  padding: 9px;
   border: 1px solid rgba(210, 230, 255, 0.24);
   border-radius: 10px;
   background: linear-gradient(180deg, rgba(67, 75, 116, 0.98), rgba(51, 59, 98, 0.98));
@@ -274,58 +282,64 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', onDocumentPoin
 }
 
 .fam-src-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 44px 96px 18px;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .fam-src-row-label {
-  flex: 0 0 auto;
-  width: 48px;
   font-size: 12px;
-  color: rgba(214, 226, 246, 0.82);
+  font-weight: 600;
+  color: rgba(231, 239, 252, 0.94);
 }
 
-.fam-src-input {
-  flex: 1 1 auto;
+.fam-src-panel .fam-src-row > input.fam-src-input {
   min-width: 0;
   width: 100%;
-  min-height: 26px;
-  padding: 2px 8px;
+  height: 24px;
+  padding: 2px 22px;
   border: 1px solid rgba(220, 235, 255, 0.22);
   border-radius: 6px;
   background: rgba(28, 40, 62, 0.55);
+  background-image: var(--percent-suffix-icon);
+  background-repeat: no-repeat;
+  background-size: 14px 14px;
+  background-position: right 6px center;
   color: #edf5ff;
-  font-size: 13px;
+  font-size: 12px;
+  text-align: center;
 }
 
-.fam-src-input:focus {
+.fam-src-panel .fam-src-row > input.fam-src-input:focus {
   outline: none;
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-.fam-src-unit {
-  flex: 0 0 auto;
-  font-size: 12px;
-  color: rgba(214, 226, 246, 0.7);
-}
-
 .fam-src-del {
-  flex: 0 0 auto;
-  width: 20px;
-  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
   padding: 0;
-  border: 1px solid rgba(255, 150, 150, 0.4);
-  border-radius: 6px;
-  background: rgba(255, 100, 100, 0.14);
-  color: #ffc2c2;
-  font-size: 11px;
+  border: 1px solid rgba(218, 230, 250, 0.24);
+  border-radius: 5px;
+  background: transparent;
+  color: rgba(226, 235, 252, 0.72);
+  font-size: 13px;
   line-height: 1;
   cursor: pointer;
+  transition:
+    color 0.15s,
+    border-color 0.15s,
+    background 0.15s;
 }
 
 .fam-src-del:hover {
-  background: rgba(255, 100, 100, 0.26);
+  border-color: rgba(255, 170, 170, 0.46);
+  background: rgba(255, 100, 100, 0.1);
+  color: rgba(255, 220, 220, 0.94);
 }
 
 .fam-src-add {
@@ -351,41 +365,49 @@ onBeforeUnmount(() => document.removeEventListener('pointerdown', onDocumentPoin
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 6px;
   margin-top: 10px;
 }
 
 .fam-src-sum {
+  flex: 0 0 auto;
   font-size: 12px;
   font-weight: 800;
+  white-space: nowrap;
   color: var(--web-cyan, #8fe2ff);
 }
 
 .fam-src-btns {
   display: inline-flex;
-  gap: 6px;
+  flex: 0 0 auto;
+  gap: 4px;
+  white-space: nowrap;
 }
 
 .fam-src-clear {
-  min-height: 26px;
-  padding: 3px 10px;
+  min-height: 24px;
+  padding: 2px 7px;
   border: 1px solid rgba(218, 230, 250, 0.23);
   border-radius: 999px;
   background: rgba(69, 78, 119, 0.38);
   color: rgba(234, 242, 255, 0.85);
   font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
   cursor: pointer;
 }
 
 .fam-src-confirm {
-  min-height: 26px;
-  padding: 3px 14px;
+  min-height: 24px;
+  padding: 2px 10px;
   border: 1px solid rgba(218, 194, 255, 0.5);
   border-radius: 999px;
   background: linear-gradient(135deg, rgba(132, 112, 196, 0.9), rgba(91, 151, 210, 0.85));
   color: #fff;
   font-size: 12px;
   font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
   cursor: pointer;
 }
 

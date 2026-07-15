@@ -4,10 +4,7 @@ import { toFloat32 } from './float32'
 // 主萌獸每條 20%（超貴萌獸 25%），羈絆萌獸每條 2%（上限 4 條 / 8%）。
 // 20% 與 25% 互斥：整組主萌獸要嘛全 20%、要嘛全 25%，不會混用。
 // 由單一數值推測組成：優先嘗試全 20%，無解才用全 25%；各自最小化羈絆條數。
-export function overseasFamMult(famFinalPct: number): number {
-  const total = Math.round(famFinalPct)
-  if (total <= 0) return 1
-
+function solveFamComposition(total: number) {
   // 以 mainStep（20 或 25）為主萌獸單位，搭配 2% 羈絆（0..4 條）湊出 total
   const solve = (mainStep: number) => {
     for (let bond = 0; bond <= 4; bond++) {
@@ -17,8 +14,26 @@ export function overseasFamMult(famFinalPct: number): number {
     }
     return null
   }
+  return solve(20) || solve(25)
+}
 
-  const combo = solve(20) || solve(25)
+/** 單一萌獸終傷總值 → 推測的逐條來源；無標準組合時視為一條非標準來源。 */
+export function guessFamSources(famFinalPct: number): number[] {
+  const total = Math.round(famFinalPct)
+  if (total <= 0) return []
+  const combo = solveFamComposition(total)
+  if (!combo) return [total]
+  return [
+    ...Array.from({ length: combo.main }, () => combo.step),
+    ...Array.from({ length: combo.bond }, () => 2),
+  ]
+}
+
+export function overseasFamMult(famFinalPct: number): number {
+  const total = Math.round(famFinalPct)
+  if (total <= 0) return 1
+
+  const combo = solveFamComposition(total)
 
   // 無法整除拆解時（如 20/25 互斥下湊不出的數字），退回一般職業單條 float32 算法
   if (!combo) return toFloat32(1 + total / 100)

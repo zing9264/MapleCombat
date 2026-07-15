@@ -34,6 +34,20 @@ describe('buff 互斥群組', () => {
     expect(buffs.state['pot:VIP超級力量券']).toBe(0)
   })
 
+  it('榮譽靈藥/275等椅子雙向互斥', () => {
+    const buffs = useBuffsStore()
+    expect(buffs.state['pot:榮譽靈藥']).toBe(1)
+    expect(buffs.state['pot:275等椅子']).toBe(0)
+
+    buffs.toggle('pot:275等椅子')
+    expect(buffs.state['pot:275等椅子']).toBe(1)
+    expect(buffs.state['pot:榮譽靈藥']).toBe(0)
+
+    buffs.toggle('pot:榮譽靈藥')
+    expect(buffs.state['pot:榮譽靈藥']).toBe(1)
+    expect(buffs.state['pot:275等椅子']).toBe(0)
+  })
+
   it('地圖天氣/鮮奶油蛋糕/瑪瑙蘋果三者互斥', () => {
     const buffs = useBuffsStore()
     expect(buffs.state['pot:地圖天氣']).toBe(1)
@@ -53,6 +67,24 @@ describe('buff 互斥群組', () => {
     buffs.toggle('skill:妖精密語')
     expect(buffs.state['skill:妖精密語']).toBe(1)
     expect(buffs.state['skill:無雙之力']).toBe(0)
+  })
+
+  it('夕陽的現身/午夜的現身雙向互斥', () => {
+    const buffs = useBuffsStore()
+    expect(buffs.state['skill:夕陽的現身']).toBe(0)
+    expect(buffs.state['skill:午夜的現身']).toBe(0)
+
+    buffs.toggle('skill:夕陽的現身')
+    expect(buffs.state['skill:夕陽的現身']).toBe(1)
+    expect(buffs.state['skill:午夜的現身']).toBe(0)
+
+    buffs.toggle('skill:午夜的現身')
+    expect(buffs.state['skill:午夜的現身']).toBe(1)
+    expect(buffs.state['skill:夕陽的現身']).toBe(0)
+
+    buffs.toggle('skill:夕陽的現身')
+    expect(buffs.state['skill:夕陽的現身']).toBe(1)
+    expect(buffs.state['skill:午夜的現身']).toBe(0)
   })
 
   it('取消互斥項不影響其他項', () => {
@@ -129,6 +161,20 @@ describe('匯入/還原清理', () => {
     expect(buffs.state['pot:地圖天氣']).toBe(1)
     expect(buffs.state['pot:一片鮮奶油蛋糕']).toBe(0)
     expect(buffs.state['pot:瑪瑙蘋果']).toBe(0)
+  })
+
+  it('匯入榮譽靈藥與275等椅子同開時保留榮譽靈藥', () => {
+    const buffs = useBuffsStore()
+    buffs.applyState({ levels: { 'pot:榮譽靈藥': 1, 'pot:275等椅子': 1 } })
+    expect(buffs.state['pot:榮譽靈藥']).toBe(1)
+    expect(buffs.state['pot:275等椅子']).toBe(0)
+  })
+
+  it('匯入夕陽與午夜同開時保留夕陽的現身', () => {
+    const buffs = useBuffsStore()
+    buffs.applyState({ levels: { 'skill:夕陽的現身': 1, 'skill:午夜的現身': 1 } })
+    expect(buffs.state['skill:夕陽的現身']).toBe(1)
+    expect(buffs.state['skill:午夜的現身']).toBe(0)
   })
 
   it('localStorage 還原互斥同開時自動清理', () => {

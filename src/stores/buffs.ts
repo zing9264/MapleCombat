@@ -11,6 +11,13 @@ import {
   type BuffState,
   type SoulOrbState,
 } from '@/core/buffs/delta'
+import {
+  COMBAT_CORRECTION_KEYS,
+  defaultCombatCorrections,
+  normalizeCombatCorrections,
+  type CombatCorrectionKey,
+  type CombatCorrectionState,
+} from '@/core/combatCorrections'
 import { buffTableText } from '@/data/buffSource'
 import { useStateSlotsStore } from './stateSlots'
 
@@ -18,6 +25,7 @@ export interface BuffExportState {
   master: boolean
   levels: BuffState
   soulOrb: SoulOrbState
+  combatCorrections: CombatCorrectionState
 }
 
 const PREFERRED_LEVELS_KEY = 'buffPreferredLevels'
@@ -116,11 +124,22 @@ export const useBuffsStore = defineStore('buffs', () => {
     }),
   )
 
-  const soulOrb = reactive<SoulOrbState>({ value: 0, stat: 'percentStr' })
+  const soulOrb = reactive<SoulOrbState>({ value: 0, stat: 'percentStr', fullSoul: true })
   try {
     const saved = JSON.parse(localStorage.getItem('buffSoulOrb') || '{}') as Partial<SoulOrbState>
     soulOrb.value = Math.max(0, Number(saved.value) || 0)
     soulOrb.stat = isValidSoulOrbStat(saved.stat) ? saved.stat : 'percentStr'
+    soulOrb.fullSoul = typeof saved.fullSoul === 'boolean' ? saved.fullSoul : true
+  } catch {
+    /* ignore */
+  }
+
+  const combatCorrections = reactive<CombatCorrectionState>(defaultCombatCorrections())
+  try {
+    Object.assign(
+      combatCorrections,
+      normalizeCombatCorrections(JSON.parse(localStorage.getItem('buffCombatCorrections') || '{}')),
+    )
   } catch {
     /* ignore */
   }
@@ -146,14 +165,32 @@ export const useBuffsStore = defineStore('buffs', () => {
     },
     { deep: true },
   )
+  watch(
+    combatCorrections,
+    () => {
+      localStorage.setItem('buffCombatCorrections', JSON.stringify(combatCorrections))
+      slots.saveBuffForActive(collectState())
+    },
+    { deep: true },
+  )
 
-  const matchesDefault = computed(() => {
+  function levelsMatchDefault(): boolean {
     const defaults = defaultBuffState(table)
     for (const id in defaults) {
       if ((state[id] || 0) !== defaults[id]) return false
     }
     return true
-  })
+  }
+
+  const matchesDefault = computed(levelsMatchDefault)
+
+  function matchesDefaultForMode(
+    mode: 'combat' | 'eff',
+    applicableCorrections: CombatCorrectionKey[] = [],
+  ): boolean {
+    if (!levelsMatchDefault() || !soulOrb.fullSoul) return false
+    return mode !== 'combat' || applicableCorrections.every((key) => combatCorrections[key])
+  }
 
   function rememberPreferredLevel(id: string, level: number): void {
     const buff = table.buffIndex[id]
@@ -199,6 +236,29 @@ export const useBuffsStore = defineStore('buffs', () => {
     Object.assign(state, emptyBuffState(table))
   }
 
+  function resetDefaultsForMode(
+    mode: 'combat' | 'eff',
+    applicableCorrections: CombatCorrectionKey[] = [],
+  ): void {
+    resetDefaults()
+    soulOrb.fullSoul = true
+    if (mode === 'combat') {
+      applicableCorrections.forEach((key) => {
+        combatCorrections[key] = true
+      })
+    }
+  }
+
+  function clearAllForMode(mode: 'combat' | 'eff'): void {
+    clearAll()
+    soulOrb.fullSoul = false
+    if (mode === 'combat') {
+      COMBAT_CORRECTION_KEYS.forEach((key) => {
+        combatCorrections[key] = false
+      })
+    }
+  }
+
   function setSoulOrbValue(value: number): void {
     soulOrb.value = Number.isFinite(value) ? Math.max(0, value) : 0
   }
@@ -207,9 +267,26 @@ export const useBuffsStore = defineStore('buffs', () => {
     soulOrb.stat = isValidSoulOrbStat(stat) ? stat : 'percentStr'
   }
 
+  function setSoulOrbFullSoul(value: boolean): void {
+    soulOrb.fullSoul = value === true
+  }
+
+  function setCombatCorrection(key: CombatCorrectionKey, value: boolean): void {
+    combatCorrections[key] = value === true
+  }
+
+  function toggleCombatCorrection(key: CombatCorrectionKey): void {
+    combatCorrections[key] = !combatCorrections[key]
+  }
+
   /** 匯出用狀態 */
   function collectState(): BuffExportState {
-    return { master: true, levels: { ...state }, soulOrb: { ...soulOrb } }
+    return {
+      master: true,
+      levels: { ...state },
+      soulOrb: { ...soulOrb },
+      combatCorrections: { ...combatCorrections },
+    }
   }
 
   /** 匯入用還原 */
@@ -224,7 +301,11 @@ export const useBuffsStore = defineStore('buffs', () => {
       const orb = obj.soulOrb as Partial<SoulOrbState>
       soulOrb.value = Math.max(0, Number(orb.value) || 0)
       soulOrb.stat = isValidSoulOrbStat(orb.stat) ? orb.stat : 'percentStr'
+      soulOrb.fullSoul = typeof orb.fullSoul === 'boolean' ? orb.fullSoul : true
+    } else {
+      soulOrb.fullSoul = true
     }
+    Object.assign(combatCorrections, normalizeCombatCorrections(obj.combatCorrections))
     if (lv && typeof lv === 'object') {
       for (const id in lv) {
         if (Object.prototype.hasOwnProperty.call(state, id)) {
@@ -240,7 +321,9 @@ export const useBuffsStore = defineStore('buffs', () => {
     table,
     state,
     soulOrb,
+    combatCorrections,
     matchesDefault,
+    matchesDefaultForMode,
     preferredLevel,
     rememberPreferredLevel,
     setLevel,
@@ -248,8 +331,13 @@ export const useBuffsStore = defineStore('buffs', () => {
     toggle,
     resetDefaults,
     clearAll,
+    resetDefaultsForMode,
+    clearAllForMode,
     setSoulOrbValue,
     setSoulOrbStat,
+    setSoulOrbFullSoul,
+    setCombatCorrection,
+    toggleCombatCorrection,
     collectState,
     applyState,
   }

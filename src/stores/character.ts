@@ -14,8 +14,13 @@ import {
   type CombatPowerContext,
 } from '@/core/combatPower'
 import { calculateEquipmentOutput, resolveActualFormulaInputs } from '@/core/actualDamage'
-import { getEquipmentActualDelta, getEquipmentDelta } from '@/core/equipmentDelta'
 import {
+  getEquipmentActualDelta,
+  getEquipmentDelta,
+  type EquipmentFamSources,
+} from '@/core/equipmentDelta'
+import {
+  calculateCombatWeaponAttackBasis,
   calculateWeaponCorrectionValue,
   resolveWeaponDataKey,
   runWeaponCorrection,
@@ -95,6 +100,9 @@ export const useCharacterStore = defineStore('character', () => {
     isZeroJob: isZeroJob.value,
   }))
   const weaponCorrection = computed(() => runWeaponCorrection(weaponCorrectionInput.value))
+  const combatSoulOrbWeaponAtk = computed(() =>
+    calculateCombatWeaponAttackBasis(weaponCorrectionInput.value, buffs.combatCorrections),
+  )
   const weaponSetData = computed(() => {
     const db = isZeroJob.value ? zeroWeaponDatabase : weaponDatabase
     return db[(db[str('weaponSet') as WeaponSetKey] ? str('weaponSet') : 'fortune') as WeaponSetKey]
@@ -121,6 +129,7 @@ export const useCharacterStore = defineStore('character', () => {
       weaponSet: str('weaponSet'),
       genesisFinalChecked: fields.genesisFinalCheck === true,
       useBuff,
+      combatCorrections: { ...buffs.combatCorrections },
       overseasGenesisAtkDelta:
         calculateWeaponCorrectionValue('genesis', wIn) -
         calculateWeaponCorrectionValue(resolvedKey, wIn),
@@ -144,6 +153,7 @@ export const useCharacterStore = defineStore('character', () => {
       job: mode === 'combat' ? selectedJob.value : effSelectedJob.value,
       statLabels: statLabels.value,
       currentWeaponAtk: num('currentWeaponAtk'),
+      combatWeaponAtk: combatSoulOrbWeaponAtk.value,
       soulOrb: buffs.soulOrb,
     }
   }
@@ -201,14 +211,30 @@ export const useCharacterStore = defineStore('character', () => {
   )
 
   // ── 裝備變更 ──
-  const equipmentDelta = computed(() => getEquipmentDelta(numericFields.value, selectedJob.value))
+  const equipmentCombatFamSources = computed<EquipmentFamSources>(() => ({
+    base: parseFamSources(str('famFinalSources')),
+    old: parseFamSources(str('eqOldFamFinalSources')),
+    new: parseFamSources(str('eqNewFamFinalSources')),
+  }))
+  const equipmentActualFamSources = computed<EquipmentFamSources>(() => ({
+    base: parseFamSources(str('effFamFinalSources')),
+    old: parseFamSources(str('eqOldFamFinalSources')),
+    new: parseFamSources(str('eqNewFamFinalSources')),
+  }))
+  const equipmentDelta = computed(() =>
+    getEquipmentDelta(numericFields.value, selectedJob.value, equipmentCombatFamSources.value),
+  )
   const equipmentChangedPower = computed(() => computePower(false, equipmentDelta.value))
   const equipmentActualGain = computed<number | null>(() => {
     const baseOutput = computeEffOutput(true)
     if (!baseOutput || baseOutput <= 0 || !isFinite(baseOutput)) return null
     const changedOutput = computeEffOutput(
       true,
-      getEquipmentActualDelta(numericFields.value, selectedJob.value),
+      getEquipmentActualDelta(
+        numericFields.value,
+        selectedJob.value,
+        equipmentActualFamSources.value,
+      ),
     )
     if (!isFinite(changedOutput)) return null
     return ((changedOutput - baseOutput) / baseOutput) * 100
@@ -445,6 +471,7 @@ export const useCharacterStore = defineStore('character', () => {
     includeSecondSub,
     statLabels,
     weaponCorrection,
+    combatSoulOrbWeaponAtk,
     weaponSetData,
     numericFields,
     combatBuffDelta,

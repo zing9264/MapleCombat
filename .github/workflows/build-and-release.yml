@@ -89,12 +89,15 @@ jobs:
             * 安裝檔 [MapleCombat-${{ steps.ver.outputs.version }}-setup-x64.exe](https://github.com/${{ github.repository }}/releases/download/${{ steps.ver.outputs.tag }}/MapleCombat-${{ steps.ver.outputs.version }}-setup-x64.exe)（NSIS）：安裝後會建立開始選單捷徑，也可從控制台移除。
 
             ## 更新內容 
-
-            * 新增「榮譽靈藥」為預設Buff
-            * 將「275等椅子」移除預設Buff
-            * 公會被動技能統一為「公會的訣竅」
-            * 移除「公會更大的祝福」Buff
-            * 修正海外傳授技能 Lv.3 數值
+            
+            * 裝備變更頁新增「萌獸終傷」計算
+            * 將「一擊必殺」改為預設啟用
+            * 新增「神諭者的戒指」、「午夜的現身」與「內面暴風」之Buff
+            * 新增靈魂寶珠「滿魂」開關，勾選後將對應基準武器之滿魂攻擊力計入含Buff戰力
+            * 新增師徒系統校正選項，勾選後將師徒系統能力計入含Buff戰力
+            * 新增海外女皇祝福與創世武器的校正選項，勾選後將海外含Buff戰力套用原廠職業戰力公式，消除海外與原廠職業同數值下戰力差異
+            * 修正屬性/攻擊力套用百分比時，特定數值組合下結果比正確值少1的精度問題
+            * 修正實戰Buff缺少「集中狂攻」傳授
             
           files: |
             src-tauri/target/release/MapleCombat-${{ steps.ver.outputs.version }}.exe

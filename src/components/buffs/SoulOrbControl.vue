@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useBuffsStore } from '@/stores/buffs'
-import { SOUL_ORB_STATS } from '@/core/buffs/delta'
+import { SOUL_ORB_STATS, getSoulOrbAttackBonus } from '@/core/buffs/delta'
+import { useCharacterStore } from '@/stores/character'
 import CustomSelect from '@/components/character/shared/CustomSelect.vue'
 
+const props = defineProps<{
+  mode: 'combat' | 'eff'
+}>()
+
 const buffs = useBuffsStore()
+const character = useCharacterStore()
 
 const soulOrbStatOptions = computed(() =>
   SOUL_ORB_STATS.map(([value, label]) => ({ value, label })),
@@ -13,6 +19,29 @@ const soulOrbStatOptions = computed(() =>
 function onSoulOrbValueInput(event: Event) {
   buffs.setSoulOrbValue(Number((event.target as HTMLInputElement).value))
 }
+
+function onFullSoulChange(event: Event) {
+  buffs.setSoulOrbFullSoul((event.target as HTMLInputElement).checked)
+}
+
+const currentWeaponAtk = computed(
+  () => Math.max(0, Number(character.fields.currentWeaponAtk) || 0),
+)
+const soulOrbWeaponAtk = computed(() =>
+  props.mode === 'combat' ? character.combatSoulOrbWeaponAtk : currentWeaponAtk.value,
+)
+const soulOrbAttackBonus = computed(() => getSoulOrbAttackBonus(soulOrbWeaponAtk.value))
+const fullSoulTooltip = computed(
+  () =>
+    props.mode === 'combat'
+      ? `校正後基準武器總攻擊力 ${soulOrbWeaponAtk.value}，滿魂增加 ${soulOrbAttackBonus.value} 攻擊力（10% 無條件捨去）`
+      : `目前武器攻擊力 ${currentWeaponAtk.value}，滿魂增加 ${soulOrbAttackBonus.value} 攻擊力（10% 無條件捨去）`,
+)
+const fullSoulAriaLabel = computed(() =>
+  props.mode === 'combat'
+    ? `滿魂，依基準武器換算增加 ${soulOrbAttackBonus.value} 攻擊力`
+    : `滿魂，增加 ${soulOrbAttackBonus.value} 攻擊力`,
+)
 </script>
 
 <template>
@@ -32,5 +61,19 @@ function onSoulOrbValueInput(event: Event) {
       :options="soulOrbStatOptions"
       @update:model-value="buffs.setSoulOrbStat"
     />
+    <label
+      class="buff-soul-orb-full"
+      :class="{ 'is-active': buffs.soulOrb.fullSoul }"
+      :title="fullSoulTooltip"
+    >
+      <input
+        type="checkbox"
+        :checked="buffs.soulOrb.fullSoul"
+        :aria-label="fullSoulAriaLabel"
+        @change="onFullSoulChange"
+      />
+      <span v-if="mode === 'combat'">滿魂 +{{ soulOrbAttackBonus }}攻 (以基準武器換算)</span>
+      <span v-else>滿魂 +{{ soulOrbAttackBonus }}攻</span>
+    </label>
   </div>
 </template>

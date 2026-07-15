@@ -8,14 +8,17 @@ export type BuffState = Record<string, number>
 export interface SoulOrbState {
   value: number
   stat: string
+  fullSoul: boolean
 }
 
 /** 互斥 Buff 群組：同組內同時只能啟用一個（遊戲規則） */
 export const EXCLUSIVE_BUFF_GROUPS: ReadonlyArray<ReadonlyArray<string>> = [
   ['pot:閃閃發亮的紅色星星藥水', 'pot:閃閃發亮的藍色星星藥水'],
   ['pot:VIP超級力量券', 'pot:VIP終極力量券'],
+  ['pot:榮譽靈藥', 'pot:275等椅子'],
   ['pot:地圖天氣', 'pot:一片鮮奶油蛋糕', 'pot:瑪瑙蘋果'],
   ['skill:無雙之力', 'skill:妖精密語'],
+  ['skill:夕陽的現身', 'skill:午夜的現身'],
 ]
 
 /** 傳授技能（pass:）同時啟用上限（遊戲規則） */
@@ -37,8 +40,10 @@ export interface BuffComputeContext {
   job: JobCategory
   /** 主屬/副屬/副屬2 顯示標籤（靈魂寶珠 STR%/DEX%… 分配用） */
   statLabels: JobStatLabels
-  /** 當前武器攻擊力（實戰模式靈魂寶珠附帶 floor(武器攻/10) 攻擊力） */
+  /** 當前實際武器攻擊力（實戰滿魂使用） */
   currentWeaponAtk: number
+  /** 武器攻擊校正後的基準總攻（含 Buff 戰鬥力滿魂使用） */
+  combatWeaponAtk: number
   soulOrb: SoulOrbState
 }
 
@@ -123,15 +128,15 @@ function eachSelectedAbility(
   )
 }
 
-function getCurrentWeaponAttackBonus(currentWeaponAtk: number): number {
+export function getSoulOrbAttackBonus(currentWeaponAtk: number): number {
   return Math.floor(Math.max(0, currentWeaponAtk || 0) / 10)
 }
 
 /** 靈魂寶珠加成分配（combat / eff 共用，鍵前綴不同） */
 function addSoulOrbDelta(add: AddFn, mode: 'combat' | 'eff', ctx: BuffComputeContext): void {
-  const value = Number(ctx.soulOrb.value) || 0
-  if (value <= 0) return
+  if (ctx.soulOrb.fullSoul === false) return
 
+  const value = Number(ctx.soulOrb.value) || 0
   const statLabels = ctx.statLabels
   const prefix = mode === 'eff' ? 'eff' : ''
   const keyFor = (baseKey: string) =>
@@ -151,40 +156,42 @@ function addSoulOrbDelta(add: AddFn, mode: 'combat' | 'eff', ctx: BuffComputeCon
     LUK: percentKeyFor('LUK'),
   }
 
-  switch (ctx.soulOrb.stat) {
-    case 'percentStr':
-      if (percentKeyByStat.STR) add(percentKeyByStat.STR, value)
-      break
-    case 'percentDex':
-      if (percentKeyByStat.DEX) add(percentKeyByStat.DEX, value)
-      break
-    case 'percentInt':
-      if (percentKeyByStat.INT) add(percentKeyByStat.INT, value)
-      break
-    case 'percentLuk':
-      if (percentKeyByStat.LUK) add(percentKeyByStat.LUK, value)
-      break
-    case 'allStatPercent':
-      add(keyFor('percentSub'), value)
-      if (statLabels.main !== 'HP') add(keyFor('percentMain'), value)
-      if (statLabels.secondSub) add(keyFor('percentSubtwo'), value)
-      break
-    case 'dmg':
-      add(keyFor('dmg'), value)
-      break
-    case 'bossDmg':
-      add(keyFor('bossDmg'), value)
-      break
-    case 'percentAtk':
-      add(keyFor('percentAtk'), value)
-      break
-    case 'ignoreDefense':
-      break
+  if (value > 0) {
+    switch (ctx.soulOrb.stat) {
+      case 'percentStr':
+        if (percentKeyByStat.STR) add(percentKeyByStat.STR, value)
+        break
+      case 'percentDex':
+        if (percentKeyByStat.DEX) add(percentKeyByStat.DEX, value)
+        break
+      case 'percentInt':
+        if (percentKeyByStat.INT) add(percentKeyByStat.INT, value)
+        break
+      case 'percentLuk':
+        if (percentKeyByStat.LUK) add(percentKeyByStat.LUK, value)
+        break
+      case 'allStatPercent':
+        add(keyFor('percentSub'), value)
+        if (statLabels.main !== 'HP') add(keyFor('percentMain'), value)
+        if (statLabels.secondSub) add(keyFor('percentSubtwo'), value)
+        break
+      case 'dmg':
+        add(keyFor('dmg'), value)
+        break
+      case 'bossDmg':
+        add(keyFor('bossDmg'), value)
+        break
+      case 'percentAtk':
+        add(keyFor('percentAtk'), value)
+        break
+      case 'ignoreDefense':
+        break
+    }
   }
 
-  if (mode === 'eff') {
-    add(keyFor('atk'), getCurrentWeaponAttackBonus(ctx.currentWeaponAtk))
-  }
+  const weaponAtk = mode === 'combat' ? ctx.combatWeaponAtk : ctx.currentWeaponAtk
+  const attackBonus = getSoulOrbAttackBonus(weaponAtk)
+  if (attackBonus > 0) add(keyFor('atk'), attackBonus)
 }
 
 /** 戰鬥力計算用 delta（含主動+被動） */
@@ -265,7 +272,11 @@ export function getEffBuffIgnoreFactor(
     },
     options.instant === true,
   )
-  if ((Number(soulOrb.value) || 0) > 0 && soulOrb.stat === 'ignoreDefense') {
+  if (
+    soulOrb.fullSoul !== false &&
+    (Number(soulOrb.value) || 0) > 0 &&
+    soulOrb.stat === 'ignoreDefense'
+  ) {
     f *= 1 - Math.max(0, Math.min(100, Number(soulOrb.value) || 0)) / 100
   }
   return f

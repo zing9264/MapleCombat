@@ -3,6 +3,7 @@
 import { computed } from 'vue'
 import { useCharacterStore } from '@/stores/character'
 import StatInput from '@/components/character/shared/StatInput.vue'
+import FamFinalSourcesControl from '@/components/character/shared/FamFinalSourcesControl.vue'
 
 const props = defineProps<{ side: 'old' | 'new' }>()
 const store = useCharacterStore()
@@ -86,6 +87,13 @@ const showSecondSub = computed(() => store.includeSecondSub)
         />
         <span class="equipment-input-unit">%</span>
       </span>
+    </div>
+    <div class="input-group">
+      <label>萌獸終傷</label
+      ><FamFinalSourcesControl
+        :field-id="`${prefix}FamFinal`"
+        input-class="equipment-input"
+      />
     </div>
   </div>
 </template>

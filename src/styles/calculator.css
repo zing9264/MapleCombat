@@ -431,6 +431,19 @@ input:disabled {
   max-width: var(--equipment-input-width);
 }
 
+.equipment-grid .section > .input-group .fam-src-wrap {
+  justify-self: end;
+  width: 100%;
+  max-width: var(--equipment-input-width);
+}
+
+.equipment-grid .section > .input-group .fam-src-wrap input {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  max-width: none;
+}
+
 .equipment-grid .section > .input-group input:not([type='number']),
 .equipment-grid .section > .input-group select {
   text-align: right;
@@ -1737,6 +1750,10 @@ body.app-loading #dynamicStarRow {
     max-width: none;
     text-align: center;
     min-height: 38px;
+  }
+
+  .equipment-grid .section > .input-group .fam-src-wrap {
+    max-width: none;
   }
 
   .equipment-grid .section > .input-group.has-input-unit .equipment-input-wrap {

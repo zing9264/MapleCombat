@@ -2,14 +2,17 @@
 // 驗證「持久化 → 衍生欄位（武器校正）→ 計算」整條管線與舊版一致。
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
+import { nextTick } from 'vue'
 import { useCharacterStore } from '@/stores/character'
 import { useBuffsStore } from '@/stores/buffs'
 import { useUiStore } from '@/stores/ui'
 import { useStateSlotsStore } from '@/stores/stateSlots'
 import { fieldDefs } from '@/constants/fields'
 import { calculateWeightedSummary, weightedPercentGain } from '@/core/weightedStates'
+import type { CombatCorrectionState } from '@/core/combatCorrections'
 import { parseImportedData, normalizeSavedData } from '@/services/saveData'
 import golden from './fixtures/golden.json'
+import percentFloor034 from './fixtures/034-percent-floor.json'
 
 interface GoldenScenario {
   name: string
@@ -20,7 +23,8 @@ interface GoldenScenario {
   buffState: {
     master: boolean
     levels: Record<string, number>
-    soulOrb: { value: number; stat: string }
+    soulOrb: { value: number; stat: string; fullSoul?: boolean }
+    combatCorrections?: CombatCorrectionState
   }
   outputs: Record<string, unknown>
 }
@@ -57,6 +61,18 @@ describe('character store 黃金值整合', () => {
     expect(store.weaponCorrection.baseAtk).toBe(Number(s.outputs.baseAtk))
     expect(store.statLabels).toEqual(s.outputs.statLabels)
   })
+
+  it('034 百分比取整 fixture 經正式匯入得到遊戲戰鬥力', () => {
+    const store = useCharacterStore()
+    store.applySaveData(percentFloor034)
+
+    expect(store.weaponCorrection.correction).toBe(84)
+    expect(store.combatPreviewNoBuff.main.total).toBe(1331)
+    expect(store.combatPreviewNoBuff.sub.total).toBe(1283)
+    expect(store.combatPreviewNoBuff.subtwo?.total).toBe(1648)
+    expect(store.combatPreviewNoBuff.attack.total).toBe(870)
+    expect(store.powerNoBuff).toEqual({ type: 'range', high: 375551, low: 425624 })
+  })
 })
 
 describe('匯出/匯入 round-trip', () => {
@@ -80,7 +96,156 @@ describe('匯出/匯入 round-trip', () => {
     store2.applySaveData(exported)
     expect(store2.powerNoBuff).toEqual(s.outputs.powerNoBuff)
     expect(store2.powerWithBuff).toEqual(s.outputs.powerWithBuff)
-    expect(useBuffsStore().collectState().levels).toEqual(exported.buffState!.levels)
+    const restoredBuffs = useBuffsStore().collectState()
+    expect(restoredBuffs.levels).toEqual(exported.buffState!.levels)
+    expect(restoredBuffs.soulOrb).toEqual(exported.buffState!.soulOrb)
+    expect(restoredBuffs.combatCorrections).toEqual(exported.buffState!.combatCorrections)
+  })
+
+  it('舊 buffState 缺少新欄位時，滿魂與三項校正預設啟用', () => {
+    const buffs = useBuffsStore()
+    buffs.setSoulOrbFullSoul(false)
+    buffs.setCombatCorrection('mentor', false)
+    buffs.setCombatCorrection('empress', false)
+    buffs.setCombatCorrection('genesis', false)
+
+    buffs.applyState({
+      levels: {},
+      soulOrb: { value: 6, stat: 'percentAtk' },
+    })
+
+    expect(buffs.soulOrb).toMatchObject({ value: 6, stat: 'percentAtk', fullSoul: true })
+    expect(buffs.combatCorrections).toEqual({ mentor: true, empress: true, genesis: true })
+  })
+
+  it('滿魂與校正分別保存於 localStorage', async () => {
+    const buffs = useBuffsStore()
+    buffs.setSoulOrbFullSoul(false)
+    buffs.setCombatCorrection('mentor', false)
+    buffs.setCombatCorrection('empress', true)
+    buffs.setCombatCorrection('genesis', false)
+    await nextTick()
+
+    expect(JSON.parse(localStorage.getItem('buffSoulOrb') || '{}').fullSoul).toBe(false)
+    expect(JSON.parse(localStorage.getItem('buffCombatCorrections') || '{}')).toEqual({
+      mentor: false,
+      empress: true,
+      genesis: false,
+    })
+
+    setActivePinia(createPinia())
+    const restored = useBuffsStore()
+    expect(restored.soulOrb.fullSoul).toBe(false)
+    expect(restored.combatCorrections).toEqual({ mentor: false, empress: true, genesis: false })
+  })
+
+  it('戰鬥力全部清除後含 Buff 等於原始，且保留寶珠輸入內容', () => {
+    const store = useCharacterStore()
+    const buffs = useBuffsStore()
+    store.applySaveData(toSaveData(scenarios[0]))
+    buffs.setSoulOrbValue(12)
+    buffs.setSoulOrbStat('bossDmg')
+
+    buffs.clearAllForMode('combat')
+
+    expect(buffs.soulOrb).toMatchObject({ value: 12, stat: 'bossDmg', fullSoul: false })
+    expect(buffs.combatCorrections).toEqual({ mentor: false, empress: false, genesis: false })
+    expect(store.powerWithBuff).toEqual(store.powerNoBuff)
+    expect(store.effOutputWithBuff).toBe(store.effOutputNoBuff)
+  })
+
+  it('實戰頁預設與清除不修改戰鬥力校正', () => {
+    const buffs = useBuffsStore()
+    buffs.setCombatCorrection('mentor', false)
+    buffs.setCombatCorrection('empress', true)
+    buffs.setCombatCorrection('genesis', false)
+
+    buffs.clearAllForMode('eff')
+    expect(buffs.soulOrb.fullSoul).toBe(false)
+    expect(buffs.combatCorrections).toEqual({ mentor: false, empress: true, genesis: false })
+
+    buffs.resetDefaultsForMode('eff')
+    expect(buffs.soulOrb.fullSoul).toBe(true)
+    expect(buffs.combatCorrections).toEqual({ mentor: false, empress: true, genesis: false })
+  })
+
+  it('戰鬥力頁套用預設只勾選目前可見校正並啟用滿魂', () => {
+    const buffs = useBuffsStore()
+    buffs.clearAllForMode('combat')
+
+    buffs.resetDefaultsForMode('combat', ['mentor', 'empress'])
+
+    expect(buffs.soulOrb.fullSoul).toBe(true)
+    expect(buffs.combatCorrections).toEqual({ mentor: true, empress: true, genesis: false })
+  })
+
+  it('裝備萌獸原／新逐條來源可持久化並在匯出匯入後保持計算結果', () => {
+    const store = useCharacterStore()
+    store.applySaveData(toSaveData(scenarios[0]))
+    store.setField('famFinal', '20')
+    store.setField('famFinalSources', '20')
+    store.setField('effFamFinal', '20')
+    store.setField('effFamFinalSources', '20')
+    store.setField('eqOldFamFinal', '20')
+    store.setField('eqOldFamFinalSources', '20')
+    store.setField('eqNewFamFinal', '20')
+    store.setField('eqNewFamFinalSources', '17,3')
+
+    const changedPower = store.equipmentChangedPower
+    const actualGain = store.equipmentActualGain
+    expect(changedPower).not.toEqual(store.powerNoBuff)
+    expect(actualGain).not.toBe(0)
+
+    const exported = store.collectSaveData()
+    expect(exported.values.eqOldFamFinalSources).toBe('20')
+    expect(exported.values.eqNewFamFinalSources).toBe('17,3')
+
+    localStorage.clear()
+    setActivePinia(createPinia())
+    const restored = useCharacterStore()
+    restored.applySaveData(exported)
+    expect(restored.fields.eqOldFamFinalSources).toBe('20')
+    expect(restored.fields.eqNewFamFinalSources).toBe('17,3')
+    expect(restored.equipmentChangedPower).toEqual(changedPower)
+    expect(restored.equipmentActualGain).toBe(actualGain)
+  })
+
+  it('裝備純總值 20% 會先推測為一條來源，等同逐條輸入及直接加入目前來源', () => {
+    const store = useCharacterStore()
+    store.applySaveData(toSaveData(scenarios[0]))
+    store.setField('famFinal', '25')
+    store.setField('famFinalSources', '')
+    store.setField('effFamFinal', '25')
+    store.setField('effFamFinalSources', '')
+    store.setField('eqOldFamFinal', '')
+    store.setField('eqOldFamFinalSources', '')
+    store.setField('eqNewFamFinal', '20')
+    store.setField('eqNewFamFinalSources', '')
+
+    const scalarChangedPower = store.equipmentChangedPower
+    const baseActualOutput = store.effOutputWithBuff
+    const scalarActualGain = store.equipmentActualGain
+    expect(scalarActualGain).not.toBeNull()
+    const scalarChangedActualOutput = baseActualOutput * (1 + scalarActualGain! / 100)
+
+    store.setField('eqNewFamFinalSources', '20')
+
+    const changedPower = store.equipmentChangedPower
+    const actualGain = store.equipmentActualGain
+    expect(actualGain).not.toBeNull()
+    const changedActualOutput = baseActualOutput * (1 + actualGain! / 100)
+    expect(changedPower).toEqual(scalarChangedPower)
+    expect(changedActualOutput / scalarChangedActualOutput).toBeCloseTo(1, 12)
+
+    store.setField('eqNewFamFinal', '')
+    store.setField('eqNewFamFinalSources', '')
+    store.setField('famFinal', '45')
+    store.setField('famFinalSources', '25,20')
+    store.setField('effFamFinal', '45')
+    store.setField('effFamFinalSources', '25,20')
+
+    expect(store.powerNoBuff).toEqual(changedPower)
+    expect(store.effOutputWithBuff / changedActualOutput).toBeCloseTo(1, 12)
   })
 
   it('v0 扁平格式可匯入', () => {
@@ -189,24 +354,35 @@ describe('compact 五狀態 workspace', () => {
     store.setField('baseMain', '11111')
     store.setField('effBaseMain', '22222')
     buffs.setSoulOrbValue(77)
+    buffs.setSoulOrbFullSoul(false)
+    buffs.setCombatCorrection('mentor', false)
 
     store.activateWorkspaceSlot('state2')
     expect(store.fields.baseMain).toBe('11111')
     expect(store.fields.effBaseMain).not.toBe('22222')
     expect(buffs.soulOrb.value).toBe(0)
+    expect(buffs.soulOrb.fullSoul).toBe(true)
+    expect(buffs.combatCorrections.mentor).toBe(true)
 
     store.setField('effBaseMain', '33333')
     buffs.setSoulOrbValue(88)
+    buffs.setCombatCorrection('empress', false)
 
     store.activateWorkspaceSlot('state1')
     expect(store.fields.baseMain).toBe('11111')
     expect(store.fields.effBaseMain).toBe('22222')
     expect(buffs.soulOrb.value).toBe(77)
+    expect(buffs.soulOrb.fullSoul).toBe(false)
+    expect(buffs.combatCorrections.mentor).toBe(false)
+    expect(buffs.combatCorrections.empress).toBe(true)
 
     store.activateWorkspaceSlot('state2')
     expect(store.fields.baseMain).toBe('11111')
     expect(store.fields.effBaseMain).toBe('33333')
     expect(buffs.soulOrb.value).toBe(88)
+    expect(buffs.soulOrb.fullSoul).toBe(true)
+    expect(buffs.combatCorrections.mentor).toBe(true)
+    expect(buffs.combatCorrections.empress).toBe(false)
   })
 
   it('切換狀態時不清空裝備變更與數值換算的加權頁共用欄位', () => {
@@ -240,6 +416,8 @@ describe('compact 五狀態 workspace', () => {
 
     store.setField('effBaseMain', '11111')
     buffs.setSoulOrbValue(77)
+    buffs.setSoulOrbFullSoul(false)
+    buffs.setCombatCorrection('genesis', false)
 
     store.activateWorkspaceSlot('state2')
     store.setField('effBaseMain', '22222')
@@ -249,11 +427,15 @@ describe('compact 五狀態 workspace', () => {
     store.reloadWorkspaceSlot('state2')
     expect(store.fields.effBaseMain).toBe('11111')
     expect(buffs.soulOrb.value).toBe(77)
+    expect(buffs.soulOrb.fullSoul).toBe(false)
+    expect(buffs.combatCorrections.genesis).toBe(false)
 
     slots.resetState('state2')
     store.reloadWorkspaceSlot('state2')
     expect(store.fields.effBaseMain).toBe(slots.fieldDefault('effBaseMain'))
     expect(buffs.soulOrb.value).toBe(0)
+    expect(buffs.soulOrb.fullSoul).toBe(true)
+    expect(buffs.combatCorrections).toEqual({ mentor: true, empress: true, genesis: true })
   })
 
   it('狀態名稱限制與權重 fallback 資料可保存', () => {
@@ -288,6 +470,32 @@ describe('compact 五狀態 workspace', () => {
     expect(summary.actualBuffGain).not.toBe(0)
     expect(summary.equipmentBattleGain).toBe(0)
     expect(summary.equipmentActualGain).toBe(0)
+  })
+
+  it('加權裝備變更沿用原／新萌獸逐條來源', () => {
+    const store = useCharacterStore()
+    const buffs = useBuffsStore()
+    const slots = useStateSlotsStore()
+    store.applySaveData(toSaveData(scenarios[0]))
+    store.setField('famFinal', '20')
+    store.setField('famFinalSources', '20')
+    store.setField('effFamFinal', '20')
+    store.setField('effFamFinalSources', '20')
+    store.setField('eqOldFamFinal', '20')
+    store.setField('eqOldFamFinalSources', '20')
+    store.setField('eqNewFamFinal', '20')
+    store.setField('eqNewFamFinalSources', '17,3')
+
+    const summary = calculateWeightedSummary(slots.workspace, buffs.table)
+    const state1 = summary.slots.find((slot) => slot.id === 'state1')!
+    expect(state1.equipmentChangedPower).toEqual(store.equipmentChangedPower)
+    expect(store.equipmentActualGain).not.toBeNull()
+    expect(state1.equipmentChangedActualOutput).toBeCloseTo(
+      store.effOutputWithBuff * (1 + store.equipmentActualGain! / 100),
+      10,
+    )
+    expect(summary.equipmentBattleGain).not.toBe(0)
+    expect(summary.equipmentActualGain).not.toBe(0)
   })
 
   it('原輸出占比加權會先算各狀態增幅，不會先合併輸出再算總增幅', () => {
@@ -383,6 +591,46 @@ describe('compact 五狀態 workspace', () => {
     expect(summary.effectiveWeights.state1).toBe(50)
     expect(summary.effectiveWeights.state2).toBe(50)
     expect(summary.combatBuffPower).toBeCloseTo(expected, 3)
+  })
+
+  it('加權狀態的滿魂基準逐狀態跟隨海外創世武器校正，實戰仍用實際武器', () => {
+    const s = scenarios.find((x) => x.name === 'overseas-genesis-fam47')!
+    const store = useCharacterStore()
+    const buffs = useBuffsStore()
+    const slots = useStateSlotsStore()
+
+    store.applySaveData(toSaveData(s))
+    buffs.clearAllForMode('combat')
+    buffs.setSoulOrbFullSoul(true)
+    buffs.setCombatCorrection('genesis', true)
+    slots.saveRuntimeSnapshot(
+      store.fields,
+      {
+        selectedJob: store.selectedJob,
+        selectedJobName: store.selectedJobName,
+        effSelectedJob: store.effSelectedJob,
+      },
+      buffs.collectState(),
+    )
+    slots.copyState('state1', 'state2')
+
+    store.activateWorkspaceSlot('state2')
+    buffs.setCombatCorrection('genesis', false)
+    store.activateWorkspaceSlot('state1')
+    slots.setWeight('state1', 50)
+    slots.setWeight('state2', 50)
+
+    const summary = calculateWeightedSummary(slots.workspace, buffs.table)
+    const state1 = summary.slots.find((slot) => slot.id === 'state1')!
+    const state2 = summary.slots.find((slot) => slot.id === 'state2')!
+
+    expect(store.combatSoulOrbWeaponAtk).toBe(752)
+    expect(state1.powerWithBuff).toEqual(store.powerWithBuff)
+
+    store.activateWorkspaceSlot('state2')
+    expect(store.combatSoulOrbWeaponAtk).toBe(680)
+    expect(state2.powerWithBuff).toEqual(store.powerWithBuff)
+    expect(state1.effOutputWithBuff).toBe(state2.effOutputWithBuff)
   })
 })
 

@@ -225,6 +225,7 @@ const towerRings = computed(() => {
     job: store.effSelectedJob,
     statLabels: store.statLabels,
     currentWeaponAtk: +String(store.fields.currentWeaponAtk ?? '') || 0,
+    combatWeaponAtk: store.combatSoulOrbWeaponAtk,
     soulOrb: buffs.soulOrb,
   }
   const commonInput = {

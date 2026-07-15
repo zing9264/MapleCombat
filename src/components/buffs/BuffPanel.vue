@@ -2,11 +2,13 @@
 // Buff 選擇面板（combat = 全部；eff = 僅含主動效果的 Buff）。
 import { computed, ref, type CSSProperties } from 'vue'
 import { useBuffsStore } from '@/stores/buffs'
+import { useCharacterStore } from '@/stores/character'
 import { useUiStore } from '@/stores/ui'
-import { SOUL_ORB_STATS } from '@/core/buffs/delta'
+import { applicableCombatCorrectionKeys } from '@/core/combatCorrections'
 import type { BuffCategory, BuffDefinition } from '@/core/buffs/parse'
 import BuffItem from './BuffItem.vue'
-import CustomSelect from '@/components/character/shared/CustomSelect.vue'
+import CombatCorrectionControls from './CombatCorrectionControls.vue'
+import SoulOrbControl from './SoulOrbControl.vue'
 
 const props = withDefaults(
   defineProps<{
@@ -17,6 +19,7 @@ const props = withDefaults(
   { embedded: false, panelId: '' },
 )
 const buffs = useBuffsStore()
+const character = useCharacterStore()
 const ui = useUiStore()
 
 interface BuffSection {
@@ -67,6 +70,17 @@ const selectedCount = computed(() =>
 const bodyVisible = computed(() => props.embedded || ui.buffPanelOpen)
 const panelId = computed(
   () => props.panelId || (props.mode === 'combat' ? 'buffPanelCombat' : 'buffPanelEff'),
+)
+const applicableCorrections = computed(() =>
+  props.mode === 'combat'
+    ? applicableCombatCorrectionKeys(
+        character.selectedJob,
+        String(character.fields.weaponSet ?? ''),
+      )
+    : [],
+)
+const matchesModeDefault = computed(() =>
+  buffs.matchesDefaultForMode(props.mode, applicableCorrections.value),
 )
 const buffInfoStyle = ref<CSSProperties>({})
 
@@ -125,31 +139,34 @@ function positionBuffInfo(event: Event) {
   }
 }
 
-function onSoulOrbValueInput(event: Event) {
-  buffs.setSoulOrbValue(Number((event.target as HTMLInputElement).value))
+function resetModeDefaults() {
+  buffs.resetDefaultsForMode(props.mode, applicableCorrections.value)
 }
 
-const soulOrbStatOptions = computed(() =>
-  SOUL_ORB_STATS.map(([value, label]) => ({ value, label })),
-)
+function clearMode() {
+  buffs.clearAllForMode(props.mode)
+}
 </script>
 
 <template>
   <div :id="panelId" class="buff-panel" :class="{ 'buff-panel--embedded': embedded }">
     <div v-if="!embedded" class="buff-head">
-      <span v-if="!embedded" class="buff-head-title">選擇Buff</span>
+      <span v-if="!embedded" class="buff-head-title">{{
+        mode === 'combat' ? '選擇Buff/校正項' : '選擇Buff'
+      }}</span>
+      <CombatCorrectionControls v-if="mode === 'combat'" />
       <span class="buff-master-actions">
         <button
           type="button"
           class="buff-master-btn"
-          :disabled="buffs.matchesDefault"
-          @click="buffs.resetDefaults"
+          :disabled="matchesModeDefault"
+          @click="resetModeDefaults"
         >
           套用預設
         </button>
-        <button type="button" class="buff-master-btn" @click="buffs.clearAll">全部清除</button>
+        <button type="button" class="buff-master-btn" @click="clearMode">全部清除</button>
       </span>
-      <span v-if="!embedded" class="buff-head-count">已選 {{ selectedCount }}</span>
+      <span v-if="!embedded" class="buff-head-count">Buff {{ selectedCount }}</span>
       <button
         v-if="!embedded"
         type="button"
@@ -206,23 +223,7 @@ const soulOrbStatOptions = computed(() =>
 
     <div v-if="!embedded" v-show="bodyVisible" class="buff-section buff-section--soul-orb">
       <div class="buff-section-title">靈魂寶珠</div>
-      <div class="buff-soul-orb-control">
-        <input
-          class="buff-soul-orb-value"
-          type="number"
-          min="0"
-          :value="buffs.soulOrb.value || ''"
-          inputmode="decimal"
-          aria-label="靈魂寶珠數值"
-          @input="onSoulOrbValueInput"
-        />
-        <CustomSelect
-          select-class="soul-orb-select"
-          :model-value="buffs.soulOrb.stat"
-          :options="soulOrbStatOptions"
-          @update:model-value="buffs.setSoulOrbStat"
-        />
-      </div>
+      <SoulOrbControl :mode="mode" />
     </div>
   </div>
 </template>

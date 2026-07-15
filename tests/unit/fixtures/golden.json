@@ -284,7 +284,7 @@
           "skill:英雄回響": 1,
           "skill:高級武器鍛鍊": 1,
           "skill:實用的會心之眼": 1,
-          "skill:一擊必殺": 0,
+          "skill:一擊必殺": 1,
           "skill:五轉共通被動技": 1,
           "skill:真實之力": 1,
           "skill:公會的訣竅": 1,
@@ -328,7 +328,13 @@
         },
         "soulOrb": {
           "value": 0,
-          "stat": "percentStr"
+          "stat": "percentStr",
+          "fullSoul": true
+        },
+        "combatCorrections": {
+          "mentor": true,
+          "empress": true,
+          "genesis": true
         }
       },
       "outputs": {
@@ -338,10 +344,10 @@
         },
         "powerWithBuff": {
           "type": "single",
-          "value": 15732035821886
+          "value": 16162057894425
         },
         "effOutputNoBuff": 19097068740750.008,
-        "effOutputWithBuff": 47498645737427.01,
+        "effOutputWithBuff": 48949668158411.67,
         "equipmentDelta": {
           "baseMain": 0,
           "percentMain": 0,
@@ -384,10 +390,10 @@
         "combatBuffDelta": {
           "critDmg": 70.5,
           "bossDmg": 116,
-          "dmg": 179,
+          "dmg": 194,
           "adjEventAllStat": 206,
           "adjEventHP": 2500,
-          "atk": 500,
+          "atk": 584,
           "percentAtk": 24,
           "baseMain": 30,
           "baseSub": 30,
@@ -398,10 +404,10 @@
         "effBuffDelta": {
           "effCritDmg": 53.5,
           "effBossDmg": 97,
-          "effDmg": 157,
+          "effDmg": 184,
           "effBaseSub": 125,
           "effBaseMain": 125,
-          "effAtk": 400,
+          "effAtk": 450,
           "effPercentAtk": 24,
           "effBaseSubtwo": 30
         },
@@ -585,7 +591,7 @@
           "skill:英雄回響": 1,
           "skill:高級武器鍛鍊": 1,
           "skill:實用的會心之眼": 1,
-          "skill:一擊必殺": 0,
+          "skill:一擊必殺": 1,
           "skill:五轉共通被動技": 1,
           "skill:真實之力": 1,
           "skill:公會的訣竅": 1,
@@ -629,7 +635,13 @@
         },
         "soulOrb": {
           "value": 0,
-          "stat": "percentStr"
+          "stat": "percentStr",
+          "fullSoul": true
+        },
+        "combatCorrections": {
+          "mentor": true,
+          "empress": true,
+          "genesis": true
         }
       },
       "outputs": {
@@ -639,10 +651,10 @@
         },
         "powerWithBuff": {
           "type": "single",
-          "value": 20307868676461
+          "value": 20862888956819
         },
         "effOutputNoBuff": 27117839068855.734,
-        "effOutputWithBuff": 67448080571005.42,
+        "effOutputWithBuff": 69508532519507.89,
         "equipmentDelta": {
           "baseMain": 0,
           "percentMain": 0,
@@ -685,10 +697,10 @@
         "combatBuffDelta": {
           "critDmg": 70.5,
           "bossDmg": 116,
-          "dmg": 179,
+          "dmg": 194,
           "adjEventAllStat": 206,
           "adjEventHP": 2500,
-          "atk": 500,
+          "atk": 553,
           "percentAtk": 24,
           "baseMain": 30,
           "baseSub": 30,
@@ -699,10 +711,10 @@
         "effBuffDelta": {
           "effCritDmg": 53.5,
           "effBossDmg": 97,
-          "effDmg": 157,
+          "effDmg": 184,
           "effBaseSub": 125,
           "effBaseMain": 125,
-          "effAtk": 400,
+          "effAtk": 450,
           "effPercentAtk": 24,
           "effBaseSubtwo": 30
         },
@@ -886,7 +898,7 @@
           "skill:英雄回響": 1,
           "skill:高級武器鍛鍊": 1,
           "skill:實用的會心之眼": 1,
-          "skill:一擊必殺": 0,
+          "skill:一擊必殺": 1,
           "skill:五轉共通被動技": 1,
           "skill:真實之力": 1,
           "skill:公會的訣竅": 1,
@@ -930,7 +942,13 @@
         },
         "soulOrb": {
           "value": 0,
-          "stat": "percentStr"
+          "stat": "percentStr",
+          "fullSoul": true
+        },
+        "combatCorrections": {
+          "mentor": true,
+          "empress": true,
+          "genesis": true
         }
       },
       "outputs": {
@@ -941,11 +959,11 @@
         },
         "powerWithBuff": {
           "type": "range",
-          "high": 10861580878136,
-          "low": 12309791661888
+          "high": 11158473128646,
+          "low": 12646269545799
         },
         "effOutputNoBuff": 5249533601812.502,
-        "effOutputWithBuff": 13087885854752.69,
+        "effOutputWithBuff": 13487703902692.742,
         "equipmentDelta": {
           "baseMain": 0,
           "percentMain": 0,
@@ -989,10 +1007,10 @@
         "combatBuffDelta": {
           "critDmg": 70.5,
           "bossDmg": 116,
-          "dmg": 179,
+          "dmg": 194,
           "adjEventAllStat": 206,
           "adjEventHP": 2500,
-          "atk": 500,
+          "atk": 584,
           "percentAtk": 24,
           "baseMain": 30,
           "baseSub": 30,
@@ -1004,11 +1022,11 @@
         "effBuffDelta": {
           "effCritDmg": 53.5,
           "effBossDmg": 97,
-          "effDmg": 157,
+          "effDmg": 184,
           "effBaseSub": 125,
           "effBaseMain": 125,
           "effBaseSubtwo": 125,
-          "effAtk": 400,
+          "effAtk": 450,
           "effPercentAtk": 24
         },
         "effIgnoreFactor": 0.487305,
@@ -1191,7 +1209,7 @@
           "skill:英雄回響": 1,
           "skill:高級武器鍛鍊": 1,
           "skill:實用的會心之眼": 1,
-          "skill:一擊必殺": 0,
+          "skill:一擊必殺": 1,
           "skill:五轉共通被動技": 1,
           "skill:真實之力": 1,
           "skill:公會的訣竅": 1,
@@ -1235,7 +1253,13 @@
         },
         "soulOrb": {
           "value": 0,
-          "stat": "percentStr"
+          "stat": "percentStr",
+          "fullSoul": true
+        },
+        "combatCorrections": {
+          "mentor": true,
+          "empress": true,
+          "genesis": true
         }
       },
       "outputs": {
@@ -1246,11 +1270,11 @@
         },
         "powerWithBuff": {
           "type": "range",
-          "high": 10222547017563,
-          "low": 11585553286571
+          "high": 10501960540403,
+          "low": 11902221945790
         },
         "effOutputNoBuff": 5249533601812.502,
-        "effOutputWithBuff": 13087885854752.69,
+        "effOutputWithBuff": 13487703902692.742,
         "equipmentDelta": {
           "baseMain": 0,
           "percentMain": 0,
@@ -1294,10 +1318,10 @@
         "combatBuffDelta": {
           "critDmg": 70.5,
           "bossDmg": 116,
-          "dmg": 179,
+          "dmg": 194,
           "adjEventAllStat": 206,
           "adjEventHP": 2500,
-          "atk": 500,
+          "atk": 575,
           "percentAtk": 24,
           "baseMain": 30,
           "baseSub": 30,
@@ -1309,11 +1333,11 @@
         "effBuffDelta": {
           "effCritDmg": 53.5,
           "effBossDmg": 97,
-          "effDmg": 157,
+          "effDmg": 184,
           "effBaseSub": 125,
           "effBaseMain": 125,
           "effBaseSubtwo": 125,
-          "effAtk": 400,
+          "effAtk": 450,
           "effPercentAtk": 24
         },
         "effIgnoreFactor": 0.487305,
@@ -1496,7 +1520,7 @@
           "skill:英雄回響": 1,
           "skill:高級武器鍛鍊": 1,
           "skill:實用的會心之眼": 1,
-          "skill:一擊必殺": 0,
+          "skill:一擊必殺": 1,
           "skill:五轉共通被動技": 1,
           "skill:真實之力": 1,
           "skill:公會的訣竅": 1,
@@ -1540,7 +1564,13 @@
         },
         "soulOrb": {
           "value": 0,
-          "stat": "percentStr"
+          "stat": "percentStr",
+          "fullSoul": true
+        },
+        "combatCorrections": {
+          "mentor": true,
+          "empress": true,
+          "genesis": true
         }
       },
       "outputs": {
@@ -1551,11 +1581,11 @@
         },
         "powerWithBuff": {
           "type": "range",
-          "high": 26562331193866,
-          "low": 23437351053411
+          "high": 27288390353709,
+          "low": 24077991488567
         },
         "effOutputNoBuff": 76968420950421.05,
-        "effOutputWithBuff": 191159370318737.5,
+        "effOutputWithBuff": 196999042755866.34,
         "equipmentDelta": {
           "baseMain": 0,
           "percentMain": 0,
@@ -1599,10 +1629,10 @@
         "combatBuffDelta": {
           "critDmg": 70.5,
           "bossDmg": 116,
-          "dmg": 179,
+          "dmg": 194,
           "adjEventAllStat": 206,
           "adjEventHP": 2500,
-          "atk": 500,
+          "atk": 584,
           "percentAtk": 24,
           "baseMain": 30,
           "baseSub": 30,
@@ -1612,10 +1642,10 @@
         "effBuffDelta": {
           "effCritDmg": 53.5,
           "effBossDmg": 97,
-          "effDmg": 157,
+          "effDmg": 184,
           "effBaseSub": 125,
           "effBaseMain": 2530,
-          "effAtk": 400,
+          "effAtk": 450,
           "effPercentAtk": 24,
           "effBaseSubtwo": 30
         },
@@ -1799,7 +1829,7 @@
           "skill:英雄回響": 1,
           "skill:高級武器鍛鍊": 1,
           "skill:實用的會心之眼": 1,
-          "skill:一擊必殺": 0,
+          "skill:一擊必殺": 1,
           "skill:五轉共通被動技": 1,
           "skill:真實之力": 1,
           "skill:公會的訣竅": 1,
@@ -1843,7 +1873,13 @@
         },
         "soulOrb": {
           "value": 0,
-          "stat": "percentStr"
+          "stat": "percentStr",
+          "fullSoul": true
+        },
+        "combatCorrections": {
+          "mentor": true,
+          "empress": true,
+          "genesis": true
         }
       },
       "outputs": {
@@ -1853,10 +1889,10 @@
         },
         "powerWithBuff": {
           "type": "single",
-          "value": 14354624821267
+          "value": 14746938922758
         },
         "effOutputNoBuff": 19276065183375.008,
-        "effOutputWithBuff": 47962103211358.836,
+        "effOutputWithBuff": 49427283660965.33,
         "equipmentDelta": {
           "baseMain": 0,
           "percentMain": 0,
@@ -1899,10 +1935,10 @@
         "combatBuffDelta": {
           "critDmg": 70.5,
           "bossDmg": 116,
-          "dmg": 179,
+          "dmg": 194,
           "adjEventAllStat": 206,
           "adjEventHP": 2500,
-          "atk": 500,
+          "atk": 552,
           "percentAtk": 24,
           "baseMain": 30,
           "baseSub": 30,
@@ -1914,11 +1950,11 @@
         "effBuffDelta": {
           "effCritDmg": 53.5,
           "effBossDmg": 97,
-          "effDmg": 157,
+          "effDmg": 184,
           "effBaseSub": 125,
           "effBaseMain": 125,
           "effBaseSubtwo": 125,
-          "effAtk": 400,
+          "effAtk": 450,
           "effPercentAtk": 24
         },
         "effIgnoreFactor": 0.487305,
@@ -2101,7 +2137,7 @@
           "skill:英雄回響": 1,
           "skill:高級武器鍛鍊": 1,
           "skill:實用的會心之眼": 1,
-          "skill:一擊必殺": 0,
+          "skill:一擊必殺": 1,
           "skill:五轉共通被動技": 1,
           "skill:真實之力": 1,
           "skill:公會的訣竅": 1,
@@ -2145,7 +2181,13 @@
         },
         "soulOrb": {
           "value": 0,
-          "stat": "percentStr"
+          "stat": "percentStr",
+          "fullSoul": true
+        },
+        "combatCorrections": {
+          "mentor": true,
+          "empress": true,
+          "genesis": true
         }
       },
       "outputs": {
@@ -2155,10 +2197,10 @@
         },
         "powerWithBuff": {
           "type": "single",
-          "value": 14019596634650
+          "value": 14410404508395
         },
         "effOutputNoBuff": 19097068740750.008,
-        "effOutputWithBuff": 47498645737427.01,
+        "effOutputWithBuff": 48949668158411.67,
         "equipmentDelta": {
           "baseMain": 0,
           "percentMain": 0,
@@ -2201,10 +2243,10 @@
         "combatBuffDelta": {
           "critDmg": 70.5,
           "bossDmg": 116,
-          "dmg": 179,
+          "dmg": 194,
           "adjEventAllStat": 206,
           "adjEventHP": 2500,
-          "atk": 500,
+          "atk": 531,
           "percentAtk": 24,
           "baseMain": 30,
           "baseSub": 30,
@@ -2215,10 +2257,10 @@
         "effBuffDelta": {
           "effCritDmg": 53.5,
           "effBossDmg": 97,
-          "effDmg": 157,
+          "effDmg": 184,
           "effBaseSub": 125,
           "effBaseMain": 125,
-          "effAtk": 400,
+          "effAtk": 450,
           "effPercentAtk": 24,
           "effBaseSubtwo": 30
         },
@@ -2402,7 +2444,7 @@
           "skill:英雄回響": 1,
           "skill:高級武器鍛鍊": 1,
           "skill:實用的會心之眼": 1,
-          "skill:一擊必殺": 0,
+          "skill:一擊必殺": 1,
           "skill:五轉共通被動技": 1,
           "skill:真實之力": 1,
           "skill:公會的訣竅": 1,
@@ -2446,7 +2488,13 @@
         },
         "soulOrb": {
           "value": 0,
-          "stat": "percentStr"
+          "stat": "percentStr",
+          "fullSoul": true
+        },
+        "combatCorrections": {
+          "mentor": true,
+          "empress": true,
+          "genesis": true
         }
       },
       "outputs": {
@@ -2456,10 +2504,10 @@
         },
         "powerWithBuff": {
           "type": "single",
-          "value": 23125743545396
+          "value": 23757927368195
         },
         "effOutputNoBuff": 28072691595274.027,
-        "effOutputWithBuff": 69823010592964.85,
+        "effOutputWithBuff": 71956013593326.4,
         "equipmentDelta": {
           "baseMain": 0,
           "percentMain": 0,
@@ -2502,10 +2550,10 @@
         "combatBuffDelta": {
           "critDmg": 70.5,
           "bossDmg": 116,
-          "dmg": 179,
+          "dmg": 194,
           "adjEventAllStat": 206,
           "adjEventHP": 2500,
-          "atk": 500,
+          "atk": 575,
           "percentAtk": 24,
           "baseMain": 30,
           "baseSub": 30,
@@ -2516,10 +2564,10 @@
         "effBuffDelta": {
           "effCritDmg": 53.5,
           "effBossDmg": 97,
-          "effDmg": 157,
+          "effDmg": 184,
           "effBaseSub": 125,
           "effBaseMain": 125,
-          "effAtk": 400,
+          "effAtk": 450,
           "effPercentAtk": 24,
           "effBaseSubtwo": 30
         },
@@ -2703,7 +2751,7 @@
           "skill:英雄回響": 1,
           "skill:高級武器鍛鍊": 1,
           "skill:實用的會心之眼": 1,
-          "skill:一擊必殺": 0,
+          "skill:一擊必殺": 1,
           "skill:五轉共通被動技": 1,
           "skill:真實之力": 1,
           "skill:公會的訣竅": 1,
@@ -2747,7 +2795,13 @@
         },
         "soulOrb": {
           "value": 0,
-          "stat": "percentStr"
+          "stat": "percentStr",
+          "fullSoul": true
+        },
+        "combatCorrections": {
+          "mentor": true,
+          "empress": true,
+          "genesis": true
         }
       },
       "outputs": {
@@ -2757,10 +2811,10 @@
         },
         "powerWithBuff": {
           "type": "single",
-          "value": 21452148047846
+          "value": 22038548933901
         },
         "effOutputNoBuff": 28645603111125.01,
-        "effOutputWithBuff": 71247968606140.5,
+        "effOutputWithBuff": 73424502237617.52,
         "equipmentDelta": {
           "baseMain": 0,
           "percentMain": 0,
@@ -2803,10 +2857,10 @@
         "combatBuffDelta": {
           "critDmg": 70.5,
           "bossDmg": 116,
-          "dmg": 179,
+          "dmg": 194,
           "adjEventAllStat": 206,
           "adjEventHP": 2500,
-          "atk": 500,
+          "atk": 563,
           "percentAtk": 24,
           "baseMain": 30,
           "baseSub": 30,
@@ -2817,10 +2871,10 @@
         "effBuffDelta": {
           "effCritDmg": 53.5,
           "effBossDmg": 97,
-          "effDmg": 157,
+          "effDmg": 184,
           "effBaseSub": 125,
           "effBaseMain": 125,
-          "effAtk": 400,
+          "effAtk": 450,
           "effPercentAtk": 24,
           "effBaseSubtwo": 30
         },
@@ -3004,7 +3058,7 @@
           "skill:英雄回響": 1,
           "skill:高級武器鍛鍊": 1,
           "skill:實用的會心之眼": 1,
-          "skill:一擊必殺": 0,
+          "skill:一擊必殺": 1,
           "skill:五轉共通被動技": 1,
           "skill:真實之力": 1,
           "skill:公會的訣竅": 1,
@@ -3048,7 +3102,13 @@
         },
         "soulOrb": {
           "value": 0,
-          "stat": "percentStr"
+          "stat": "percentStr",
+          "fullSoul": true
+        },
+        "combatCorrections": {
+          "mentor": true,
+          "empress": true,
+          "genesis": true
         }
       },
       "outputs": {
@@ -3058,10 +3118,10 @@
         },
         "powerWithBuff": {
           "type": "single",
-          "value": 15732035821886
+          "value": 16162057894425
         },
         "effOutputNoBuff": 19097068740750.008,
-        "effOutputWithBuff": 47498645737427.01,
+        "effOutputWithBuff": 48949668158411.67,
         "equipmentDelta": {
           "baseMain": 70,
           "percentMain": 6,
@@ -3104,10 +3164,10 @@
         "combatBuffDelta": {
           "critDmg": 70.5,
           "bossDmg": 116,
-          "dmg": 179,
+          "dmg": 194,
           "adjEventAllStat": 206,
           "adjEventHP": 2500,
-          "atk": 500,
+          "atk": 584,
           "percentAtk": 24,
           "baseMain": 30,
           "baseSub": 30,
@@ -3118,10 +3178,10 @@
         "effBuffDelta": {
           "effCritDmg": 53.5,
           "effBossDmg": 97,
-          "effDmg": 157,
+          "effDmg": 184,
           "effBaseSub": 125,
           "effBaseMain": 125,
-          "effAtk": 400,
+          "effAtk": 450,
           "effPercentAtk": 24,
           "effBaseSubtwo": 30
         },
@@ -3305,7 +3365,7 @@
           "skill:英雄回響": 1,
           "skill:高級武器鍛鍊": 1,
           "skill:實用的會心之眼": 1,
-          "skill:一擊必殺": 0,
+          "skill:一擊必殺": 1,
           "skill:五轉共通被動技": 1,
           "skill:真實之力": 1,
           "skill:公會的訣竅": 1,
@@ -3349,7 +3409,13 @@
         },
         "soulOrb": {
           "value": 6,
-          "stat": "percentAtk"
+          "stat": "percentAtk",
+          "fullSoul": true
+        },
+        "combatCorrections": {
+          "mentor": true,
+          "empress": true,
+          "genesis": true
         }
       },
       "outputs": {
@@ -3359,10 +3425,10 @@
         },
         "powerWithBuff": {
           "type": "single",
-          "value": 15962823578409
+          "value": 16399154218422
         },
         "effOutputNoBuff": 19097068740750.008,
-        "effOutputWithBuff": 49797243942890.38,
+        "effOutputWithBuff": 51318200488657.4,
         "equipmentDelta": {
           "baseMain": 70,
           "percentMain": 6,
@@ -3405,10 +3471,10 @@
         "combatBuffDelta": {
           "critDmg": 70.5,
           "bossDmg": 116,
-          "dmg": 179,
+          "dmg": 194,
           "adjEventAllStat": 206,
           "adjEventHP": 2500,
-          "atk": 500,
+          "atk": 584,
           "percentAtk": 30,
           "baseMain": 30,
           "baseSub": 30,
@@ -3419,7 +3485,7 @@
         "effBuffDelta": {
           "effCritDmg": 53.5,
           "effBossDmg": 97,
-          "effDmg": 157,
+          "effDmg": 184,
           "effBaseSub": 125,
           "effBaseMain": 125,
           "effAtk": 450,
@@ -3606,7 +3672,7 @@
           "skill:英雄回響": 1,
           "skill:高級武器鍛鍊": 1,
           "skill:實用的會心之眼": 1,
-          "skill:一擊必殺": 0,
+          "skill:一擊必殺": 1,
           "skill:五轉共通被動技": 1,
           "skill:真實之力": 1,
           "skill:公會的訣竅": 1,
@@ -3650,7 +3716,13 @@
         },
         "soulOrb": {
           "value": 8,
-          "stat": "ignoreDefense"
+          "stat": "ignoreDefense",
+          "fullSoul": true
+        },
+        "combatCorrections": {
+          "mentor": true,
+          "empress": true,
+          "genesis": true
         }
       },
       "outputs": {
@@ -3660,10 +3732,10 @@
         },
         "powerWithBuff": {
           "type": "single",
-          "value": 14301259343827
+          "value": 14692111892557
         },
         "effOutputNoBuff": 19097068740750.008,
-        "effOutputWithBuff": 48111763076817.266,
+        "effOutputWithBuff": 49581240003371.65,
         "equipmentDelta": {
           "baseMain": 70,
           "percentMain": 6,
@@ -3706,10 +3778,10 @@
         "combatBuffDelta": {
           "critDmg": 70.5,
           "bossDmg": 116,
-          "dmg": 179,
+          "dmg": 194,
           "adjEventAllStat": 206,
           "adjEventHP": 2500,
-          "atk": 500,
+          "atk": 550,
           "percentAtk": 24,
           "baseMain": 30,
           "baseSub": 30,
@@ -3720,7 +3792,7 @@
         "effBuffDelta": {
           "effCritDmg": 53.5,
           "effBossDmg": 97,
-          "effDmg": 157,
+          "effDmg": 184,
           "effBaseSub": 125,
           "effBaseMain": 125,
           "effAtk": 450,

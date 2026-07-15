@@ -1,9 +1,11 @@
 // 計算核心黃金值測試：以 fixtures/golden.json 為基準，計算核心輸出必須逐位一致。
 import { describe, expect, it } from 'vitest'
 import { toFloat32 } from '@/core/float32'
+import { floorPercentApplied, floorPercentOf } from '@/core/percentFloor'
 import {
   overseasFamMult,
   famMultFromSources,
+  guessFamSources,
   resolveFamMult,
   parseFamSources,
 } from '@/core/familiar'
@@ -16,6 +18,7 @@ import {
 import { calculateEquipmentOutput, resolveActualFormulaInputs } from '@/core/actualDamage'
 import { getEquipmentActualDelta, getEquipmentDelta } from '@/core/equipmentDelta'
 import {
+  calculateCombatWeaponAttackBasis,
   calculateWeaponCorrectionValue,
   resolveWeaponDataKey,
   type WeaponCorrectionInput,
@@ -26,8 +29,15 @@ import {
   getCombatBuffDelta,
   getEffBuffDelta,
   getEffBuffIgnoreFactor,
+  getSoulOrbAttackBonus,
   type BuffComputeContext,
+  type SoulOrbState,
 } from '@/core/buffs/delta'
+import {
+  applicableCombatCorrectionKeys,
+  normalizeCombatCorrections,
+  type CombatCorrectionState,
+} from '@/core/combatCorrections'
 import {
   buildTowerRingScenarioState,
   calculateTowerRingCycleShares,
@@ -37,6 +47,7 @@ import {
   resolveTowerRingBaseAtkPercent,
 } from '@/core/buffs/towerRing'
 import type { FieldValues, JobCategory, PowerResult } from '@/core/types'
+import { buffImageFor } from '@/data/buffSource'
 import buffTableText from '@/assets/buff/增益表.txt?raw'
 import golden from './fixtures/golden.json'
 
@@ -49,7 +60,8 @@ interface GoldenScenario {
   buffState: {
     master: boolean
     levels: Record<string, number>
-    soulOrb: { value: number; stat: string }
+    soulOrb: { value: number; stat: string; fullSoul?: boolean }
+    combatCorrections?: CombatCorrectionState
   }
   outputs: {
     powerNoBuff: PowerResult
@@ -71,6 +83,23 @@ interface GoldenScenario {
 }
 
 const buffTable = parseBuffTable(buffTableText)
+
+describe('百分比套用取整', () => {
+  it.each([
+    { base: 725, percent: 16, expected: 841 },
+    { base: 100, percent: 13, expected: 113 },
+    { base: 25, percent: 16, expected: 29 },
+    { base: 3450, percent: 82, expected: 6279 },
+  ])('floorPercentApplied($base, $percent) === $expected', ({ base, percent, expected }) => {
+    expect(floorPercentApplied(base, percent)).toBe(expected)
+  })
+
+  it('非整數結果向下取整，未套用數值在取整後加入', () => {
+    expect(floorPercentOf(725, 16)).toBe(116)
+    expect(floorPercentApplied(101, 13)).toBe(114)
+    expect(floorPercentApplied(725, 16) + 9).toBe(850)
+  })
+})
 
 function buildFields(inputs: Record<string, string | boolean>): FieldValues {
   const fields: FieldValues = {}
@@ -103,6 +132,7 @@ function combatCtx(s: GoldenScenario, useBuff: boolean): CombatPowerContext {
     weaponSet: String(s.inputs.weaponSet),
     genesisFinalChecked: s.inputs.genesisFinalCheck === true,
     useBuff,
+    combatCorrections: normalizeCombatCorrections(s.buffState.combatCorrections),
     overseasGenesisAtkDelta:
       calculateWeaponCorrectionValue('genesis', wIn) -
       calculateWeaponCorrectionValue(resolvedKey, wIn),
@@ -111,12 +141,24 @@ function combatCtx(s: GoldenScenario, useBuff: boolean): CombatPowerContext {
   }
 }
 
+function soulOrbState(s: GoldenScenario): SoulOrbState {
+  return {
+    ...s.buffState.soulOrb,
+    fullSoul: s.buffState.soulOrb.fullSoul !== false,
+  }
+}
+
 function buffCtx(s: GoldenScenario, mode: 'combat' | 'eff'): BuffComputeContext {
+  const wIn = weaponInput(s)
   return {
     job: (mode === 'combat' ? s.selectedJob : s.effSelectedJob) as JobCategory,
     statLabels: s.outputs.statLabels,
     currentWeaponAtk: Number(s.inputs.currentWeaponAtk) || 0,
-    soulOrb: s.buffState.soulOrb,
+    combatWeaponAtk: calculateCombatWeaponAttackBasis(
+      wIn,
+      normalizeCombatCorrections(s.buffState.combatCorrections),
+    ),
+    soulOrb: soulOrbState(s),
   }
 }
 
@@ -161,6 +203,15 @@ describe('萌獸終傷逐條來源（famMultFromSources / resolveFamMult）', ()
     expect(parseFamSources(null)).toEqual([])
   })
 
+  it.each([
+    { total: 20, sources: [20] },
+    { total: 42, sources: [20, 20, 2] },
+    { total: 54, sources: [25, 25, 2, 2] },
+    { total: 17, sources: [17] },
+  ])('guessFamSources：總值 $total 推測為 $sources', ({ total, sources }) => {
+    expect(guessFamSources(total)).toEqual(sources)
+  })
+
   it('resolveFamMult：無來源時等同 overseasFamMult（黃金值路徑不變）', () => {
     expect(resolveFamMult(null, 42)).toBe(overseasFamMult(42))
     expect(resolveFamMult([], 42)).toBe(overseasFamMult(42))
@@ -173,6 +224,328 @@ describe('萌獸終傷逐條來源（famMultFromSources / resolveFamMult）', ()
   it('resolveFamMult：buff/裝備 delta 超出逐條加總的部分併為額外一條', () => {
     // 來源加總 40，但 resolvedPct 42（多出的 2 來自 buff/delta）→ 等同 [20,20,2]
     expect(resolveFamMult([20, 20], 42)).toBe(famMultFromSources([20, 20, 2]))
+  })
+
+  it('裝備新增一條 20% 等同直接在目前戰鬥力／實戰來源新增一條 20%', () => {
+    const baseSources = [20, 20]
+    const newSources = [20]
+    const fields: FieldValues = {
+      famFinal: 40,
+      effFamFinal: 40,
+      eqNewFamFinal: 20,
+    }
+    const sourceInputs = { base: baseSources, old: [], new: newSources }
+    const delta = getEquipmentDelta(fields, 'normal', sourceInputs)
+    const actualDelta = getEquipmentActualDelta(fields, 'normal', sourceInputs)
+    const scalarDelta = getEquipmentDelta(fields, 'normal', {
+      base: baseSources,
+      old: [],
+      new: [],
+    })
+    const actualScalarDelta = getEquipmentActualDelta(fields, 'normal', {
+      base: baseSources,
+      old: [],
+      new: [],
+    })
+
+    expect(delta.famFinal).toBe(0)
+    expect(delta.__eqFamFinalMultiplierFactor).toBe(
+      famMultFromSources([20, 20, 20]) / famMultFromSources(baseSources),
+    )
+    expect(scalarDelta.__eqFamFinalMultiplierFactor).toBe(delta.__eqFamFinalMultiplierFactor)
+    expect(actualScalarDelta.__eqFamFinalMultiplierFactor).toBe(
+      actualDelta.__eqFamFinalMultiplierFactor,
+    )
+
+    const combatResolved = resolveCombatFormulaInputs(
+      fields,
+      {
+        jobCategory: 'normal',
+        jobName: '英雄',
+        weaponSet: 'arcane',
+        genesisFinalChecked: false,
+        useBuff: false,
+        overseasGenesisAtkDelta: 0,
+        xenonPowerCoefficientRaw: '',
+        daPowerCoefficientRaw: '',
+        famFinalSources: baseSources,
+      },
+      delta,
+    )
+    const actualResolved = resolveActualFormulaInputs(
+      fields,
+      { effJob: 'normal', ignoreFactor: 1, effFamFinalSources: baseSources },
+      actualDelta,
+    )
+    expect(combatResolved.finalMult).toBe(famMultFromSources([20, 20, 20]))
+    expect(actualResolved.finalMultiplier).toBe(famMultFromSources([20, 20, 20]))
+  })
+
+  it('裝備逐條從目前來源移除一個重複值，再加入變更後來源', () => {
+    const baseSources = [20, 20, 2]
+    const fields: FieldValues = {
+      famFinal: 42,
+      eqOldFamFinal: 20,
+      eqNewFamFinal: 25,
+    }
+    const delta = getEquipmentDelta(fields, 'normal', {
+      base: baseSources,
+      old: [20],
+      new: [25],
+    })
+
+    expect(delta.__eqFamFinalMultiplierFactor).toBe(
+      famMultFromSources([25, 20, 2]) / famMultFromSources(baseSources),
+    )
+  })
+
+  it('找不到原裝備來源時仍按總值扣除，透過殘差反映', () => {
+    const baseSources = [25, 20, 2]
+    const delta = getEquipmentDelta(
+      { famFinal: 47, eqOldFamFinal: 17 },
+      'normal',
+      { base: baseSources, old: [17], new: [] },
+    )
+
+    expect(delta.__eqFamFinalMultiplierFactor).toBe(
+      resolveFamMult(baseSources, 30) / famMultFromSources(baseSources),
+    )
+  })
+
+  it('戰鬥力與實戰各自先推測目前／原／新總值來源，空白不產生差分', () => {
+    const fields = {
+      famFinal: 40,
+      effFamFinal: 20,
+      eqOldFamFinal: 20,
+      eqNewFamFinal: 25,
+    }
+    const scalarDelta = getEquipmentDelta(
+      fields,
+      'normal',
+    )
+    expect(scalarDelta.__eqFamFinalMultiplierFactor).toBe(
+      famMultFromSources([25, 20]) / overseasFamMult(40),
+    )
+    const actualScalarDelta = getEquipmentActualDelta(fields, 'normal')
+    expect(actualScalarDelta.__eqFamFinalMultiplierFactor).toBe(
+      overseasFamMult(25) / overseasFamMult(20),
+    )
+
+    const emptyDelta = getEquipmentDelta({}, 'normal')
+    expect(emptyDelta.famFinal).toBe(0)
+    expect(emptyDelta).not.toHaveProperty('__eqFamFinalMultiplierFactor')
+  })
+})
+
+describe('集中狂攻主動傳授技能', () => {
+  const ctx: BuffComputeContext = {
+    job: 'normal',
+    statLabels: { main: 'STR', sub: 'DEX', secondSub: '' },
+    currentWeaponAtk: 0,
+    combatWeaponAtk: 0,
+    soulOrb: { value: 0, stat: 'percentStr', fullSoul: false },
+  }
+
+  it.each([
+    { level: 2, damage: 12 },
+    { level: 3, damage: 18 },
+  ])('Lv.$level 在實戰 Buff 套用 $damage% 傷害', ({ level, damage }) => {
+    const buff = buffTable.buffIndex['pass:集中狂攻']
+    expect(buff.hasActive).toBe(true)
+    expect(getEffBuffDelta(buffTable, { [buff.id]: level }, ctx)).toEqual({ effDmg: damage })
+    expect(getCombatBuffDelta(buffTable, { [buff.id]: level }, ctx)).toEqual({ dmg: damage })
+  })
+})
+
+describe('靈魂寶珠滿魂', () => {
+  const context = (
+    soulOrb: SoulOrbState,
+    currentWeaponAtk = 199,
+    combatWeaponAtk = currentWeaponAtk,
+  ): BuffComputeContext => ({
+    job: 'normal',
+    statLabels: { main: 'STR', sub: 'DEX', secondSub: '' },
+    currentWeaponAtk,
+    combatWeaponAtk,
+    soulOrb,
+  })
+
+  it('顯示用攻擊力採武器攻擊力 10% 無條件捨去', () => {
+    expect(getSoulOrbAttackBonus(199)).toBe(19)
+    expect(getSoulOrbAttackBonus(200)).toBe(20)
+    expect(getSoulOrbAttackBonus(0)).toBe(0)
+    expect(getSoulOrbAttackBonus(-10)).toBe(0)
+  })
+
+  it('潛能空白時仍分別加入戰鬥力與實戰攻擊力', () => {
+    const ctx = context({ value: 0, stat: 'percentAtk', fullSoul: true }, 199, 846)
+    expect(getCombatBuffDelta(buffTable, {}, ctx)).toEqual({ atk: 84 })
+    expect(getEffBuffDelta(buffTable, {}, ctx)).toEqual({ effAtk: 19 })
+  })
+
+  it('取消滿魂後潛能、無視與攻擊力都不生效', () => {
+    const disabled = context({ value: 20, stat: 'percentAtk', fullSoul: false })
+    expect(getCombatBuffDelta(buffTable, {}, disabled)).toEqual({})
+    expect(getEffBuffDelta(buffTable, {}, disabled)).toEqual({})
+
+    const ignoreDisabled = { value: 20, stat: 'ignoreDefense', fullSoul: false }
+    expect(getEffBuffIgnoreFactor(buffTable, {}, ignoreDisabled)).toBe(1)
+    expect(
+      getEffBuffIgnoreFactor(buffTable, {}, { ...ignoreDisabled, fullSoul: true }),
+    ).toBeCloseTo(0.8, 10)
+  })
+
+  it('勾選滿魂且潛能有值時同時套用兩種效果', () => {
+    const ctx = context({ value: 6, stat: 'percentAtk', fullSoul: true }, 200)
+    expect(getCombatBuffDelta(buffTable, {}, ctx)).toEqual({ percentAtk: 6, atk: 20 })
+    expect(getEffBuffDelta(buffTable, {}, ctx)).toEqual({ effPercentAtk: 6, effAtk: 20 })
+  })
+})
+
+describe('滿魂戰鬥力基準武器', () => {
+  const baseInput: WeaponCorrectionInput = {
+    weaponSet: 'genesis',
+    flameLevel: 0,
+    scrollAtk: 0,
+    starCount: 0,
+    currentWeaponAtk: 500,
+    jobCategory: 'normal',
+    isZeroJob: false,
+  }
+
+  it('使用武器校正後完整總攻，武器總攻空白時維持 0', () => {
+    expect(calculateCombatWeaponAttackBasis(baseInput, { genesis: true })).toBe(318)
+    expect(
+      calculateCombatWeaponAttackBasis({ ...baseInput, currentWeaponAtk: 0 }, { genesis: true }),
+    ).toBe(0)
+  })
+
+  it('神之子使用專用武器資料', () => {
+    expect(
+      calculateCombatWeaponAttackBasis(
+        {
+          ...baseInput,
+          weaponSet: 'fafnir',
+          flameLevel: 6,
+          isZeroJob: true,
+        },
+        { genesis: true },
+      ),
+    ).toBe(217)
+  })
+
+  it('海外創世武器跟隨創世武器校正切換基準', () => {
+    const overseasInput: WeaponCorrectionInput = { ...baseInput, jobCategory: 'overseas' }
+    expect(calculateCombatWeaponAttackBasis(overseasInput, { genesis: false })).toBe(276)
+    expect(calculateCombatWeaponAttackBasis(overseasInput, { genesis: true })).toBe(318)
+  })
+})
+
+describe('含 Buff 戰鬥力校正', () => {
+  const context = (
+    jobCategory: JobCategory,
+    combatCorrections: CombatCorrectionState,
+    overrides: Partial<CombatPowerContext> = {},
+  ): CombatPowerContext => ({
+    jobCategory,
+    jobName: jobCategory === 'overseas' ? '墨玄' : '英雄',
+    weaponSet: 'fortune',
+    genesisFinalChecked: false,
+    useBuff: true,
+    combatCorrections,
+    overseasGenesisAtkDelta: 0,
+    xenonPowerCoefficientRaw: '',
+    daPowerCoefficientRaw: '',
+    ...overrides,
+  })
+
+  it('依職業與武器只顯示適用項目', () => {
+    expect(applicableCombatCorrectionKeys('normal', 'genesis')).toEqual(['mentor'])
+    expect(applicableCombatCorrectionKeys('overseas', 'fortune')).toEqual(['mentor', 'empress'])
+    expect(applicableCombatCorrectionKeys('overseas', 'genesis')).toEqual([
+      'mentor',
+      'empress',
+      'genesis',
+    ])
+  })
+
+  it('師徒校正不再扣除師徒攻擊力與 Boss 傷害', () => {
+    const fields = { atk: 200, bossDmg: 40, adjMentorAtk: 3, adjMentorBossDmg: 10 }
+    const off = resolveCombatFormulaInputs(
+      fields,
+      context('normal', { mentor: false, empress: true, genesis: true }),
+    )
+    const on = resolveCombatFormulaInputs(
+      fields,
+      context('normal', { mentor: true, empress: true, genesis: true }),
+    )
+    expect(off.attack.base).toBe(197)
+    expect(off.bossDamage).toBe(30)
+    expect(on.attack.base).toBe(200)
+    expect(on.bossDamage).toBe(40)
+  })
+
+  it('海外職業只有勾選女皇時才計入女皇祝福', () => {
+    const fields = { atk: 200, adjEmpressBless: 30 }
+    const off = resolveCombatFormulaInputs(
+      fields,
+      context('overseas', { mentor: false, empress: false, genesis: false }),
+    )
+    const on = resolveCombatFormulaInputs(
+      fields,
+      context('overseas', { mentor: false, empress: true, genesis: false }),
+    )
+    expect(off.attack.base).toBe(200)
+    expect(on.attack.base).toBe(230)
+  })
+
+  it('海外創世武器只有勾選創世時才加入既有攻擊校正差值', () => {
+    const fields = { atk: 200, adjWeaponAtk: 100 }
+    const off = resolveCombatFormulaInputs(
+      fields,
+      context(
+        'overseas',
+        { mentor: false, empress: false, genesis: false },
+        { weaponSet: 'genesis', overseasGenesisAtkDelta: 25 },
+      ),
+    )
+    const on = resolveCombatFormulaInputs(
+      fields,
+      context(
+        'overseas',
+        { mentor: false, empress: false, genesis: true },
+        { weaponSet: 'genesis', overseasGenesisAtkDelta: 25 },
+      ),
+    )
+    expect(off.attack.base).toBe(300)
+    expect(on.attack.base).toBe(325)
+  })
+
+  it('無 Buff 模式忽略全部校正', () => {
+    const fields = {
+      atk: 200,
+      adjWeaponAtk: 100,
+      adjMentorAtk: 3,
+      adjMentorBossDmg: 10,
+      adjEmpressBless: 30,
+    }
+    const off = resolveCombatFormulaInputs(
+      fields,
+      context(
+        'overseas',
+        { mentor: false, empress: false, genesis: false },
+        { useBuff: false, weaponSet: 'genesis', overseasGenesisAtkDelta: 25 },
+      ),
+    )
+    const on = resolveCombatFormulaInputs(
+      fields,
+      context(
+        'overseas',
+        { mentor: true, empress: true, genesis: true },
+        { useBuff: false, weaponSet: 'genesis', overseasGenesisAtkDelta: 25 },
+      ),
+    )
+    expect(on).toEqual(off)
   })
 })
 
@@ -278,7 +651,7 @@ describe('黃金值情境比對（舊版 dist 實際輸出）', () => {
     const effDelta = getEffBuffDelta(buffTable, s.buffState.levels, buffCtx(s, 'eff'))
     expect(effDelta).toEqual(s.outputs.effBuffDelta)
 
-    const ignoreFactor = getEffBuffIgnoreFactor(buffTable, s.buffState.levels, s.buffState.soulOrb)
+    const ignoreFactor = getEffBuffIgnoreFactor(buffTable, s.buffState.levels, soulOrbState(s))
     expect(ignoreFactor).toBe(s.outputs.effIgnoreFactor)
   })
 
@@ -301,7 +674,7 @@ describe('黃金值情境比對（舊版 dist 實際輸出）', () => {
     expect(noBuff).toBe(s.outputs.effOutputNoBuff)
 
     const effDelta = getEffBuffDelta(buffTable, s.buffState.levels, buffCtx(s, 'eff'))
-    const ignoreFactor = getEffBuffIgnoreFactor(buffTable, s.buffState.levels, s.buffState.soulOrb)
+    const ignoreFactor = getEffBuffIgnoreFactor(buffTable, s.buffState.levels, soulOrbState(s))
     const withBuff = calculateEquipmentOutput(fields, { effJob, ignoreFactor }, {}, effDelta)
     expect(withBuff).toBe(s.outputs.effOutputWithBuff)
   })
@@ -363,6 +736,38 @@ describe('塔戒整場輸出增幅', () => {
     expect(gauge.levelNotes[6]).toBe('持續20秒、冷卻120秒')
   })
 
+  it('新增技能／裝備 Buff 的數值與圖示可正常載入', () => {
+    const oracle = buffTable.buffIndex['skill:神諭者的戒指']
+    const midnight = buffTable.buffIndex['skill:午夜的現身']
+    const innerStorm = buffTable.buffIndex['skill:內面暴風']
+
+    expect(oracle.defaultLevel).toBe(0)
+    expect(oracle.maxLevel).toBe(10)
+    expect(oracle.levels[10]).toContainEqual({
+      cat: 'critDmg',
+      value: 10,
+      active: true,
+      equivalent: false,
+    })
+    expect(midnight.defaultLevel).toBe(0)
+    expect(midnight.levels[1]).toContainEqual({
+      cat: 'ignoreDefense',
+      value: 10,
+      active: true,
+      equivalent: false,
+    })
+    expect(innerStorm.defaultLevel).toBe(0)
+    expect(innerStorm.levels[1]).toContainEqual({
+      cat: 'atkFlat',
+      value: 20,
+      active: true,
+      equivalent: false,
+    })
+    expect(buffImageFor('skill', '神諭者的戒指')).toBeTruthy()
+    expect(buffImageFor('skill', '午夜的現身')).toBeTruthy()
+    expect(buffImageFor('skill', '內面暴風')).toBeTruthy()
+  })
+
   it('快速列計數只包含目前會套入實戰計算的 Buff', () => {
     const state = defaultBuffState(buffTable)
     const selectedActiveCount = buffTable.categories.reduce(
@@ -376,9 +781,12 @@ describe('塔戒整場輸出增幅', () => {
       0,
     )
 
-    expect(state['skill:一擊必殺']).toBe(0)
+    expect(state['skill:一擊必殺']).toBe(1)
+    expect(buffTable.buffIndex['skill:一擊必殺'].displayName).toBe(
+      '一擊必殺(依占比15%套用)',
+    )
     expect(buffTable.buffIndex['skill:一擊必殺'].nonPermanent).toBe(true)
-    expect(selectedActiveCount).toBe(33)
+    expect(selectedActiveCount).toBe(35)
   })
 
   it('賽伊蘭與收藏家靈藥使用完整數值', () => {
@@ -467,7 +875,8 @@ describe('塔戒整場輸出增幅', () => {
       job: 'normal',
       statLabels: { main: 'STR', sub: 'DEX', secondSub: '' },
       currentWeaponAtk: 0,
-      soulOrb: { value: 0, stat: 'percentMain' },
+      combatWeaponAtk: 0,
+      soulOrb: { value: 0, stat: 'percentMain', fullSoul: false },
     }
     const common = {
       table: buffTable,
@@ -500,7 +909,8 @@ describe('塔戒整場輸出增幅', () => {
           job: 'normal',
           statLabels: { main: 'STR', sub: 'DEX', secondSub: '' },
           currentWeaponAtk: 0,
-          soulOrb: { value: 0, stat: 'percentMain' },
+          combatWeaponAtk: 0,
+          soulOrb: { value: 0, stat: 'percentMain', fullSoul: false },
         },
         fields: {},
         effJob: 'normal',
@@ -523,7 +933,8 @@ describe('塔戒整場輸出增幅', () => {
         job: 'normal' as const,
         statLabels: { main: 'STR', sub: 'DEX', secondSub: '' },
         currentWeaponAtk: 0,
-        soulOrb: { value: 0, stat: 'percentMain' },
+        combatWeaponAtk: 0,
+        soulOrb: { value: 0, stat: 'percentMain', fullSoul: false },
       },
       fields: {},
       effJob: 'normal' as const,
@@ -558,7 +969,8 @@ describe('塔戒整場輸出增幅', () => {
           job: 'normal',
           statLabels: { main: 'STR', sub: 'DEX', secondSub: '' },
           currentWeaponAtk: 0,
-          soulOrb: { value: 0, stat: 'percentMain' },
+          combatWeaponAtk: 0,
+          soulOrb: { value: 0, stat: 'percentMain', fullSoul: false },
         },
         fields: {},
         effJob: 'normal',
@@ -587,7 +999,8 @@ describe('塔戒整場輸出增幅', () => {
           job: 'normal',
           statLabels: { main: 'STR', sub: 'DEX', secondSub: '' },
           currentWeaponAtk: 0,
-          soulOrb: { value: 0, stat: 'percentMain' },
+          combatWeaponAtk: 0,
+          soulOrb: { value: 0, stat: 'percentMain', fullSoul: false },
         },
         fields: {
           effBaseMain: 1000,
@@ -623,7 +1036,8 @@ describe('塔戒整場輸出增幅', () => {
           job: 'normal',
           statLabels: { main: 'STR', sub: 'DEX', secondSub: '' },
           currentWeaponAtk: 0,
-          soulOrb: { value: 0, stat: 'percentMain' },
+          combatWeaponAtk: 0,
+          soulOrb: { value: 0, stat: 'percentMain', fullSoul: false },
         },
         fields: {
           effBaseMain: 1000,
