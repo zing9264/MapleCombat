@@ -1,5 +1,6 @@
 import type { BuffDelta, FieldValues, JobCategory } from './types'
 import { resolveFamMult } from './familiar'
+import { floorPercentApplied } from './percentFloor'
 
 export interface ActualDamageContext {
   /** 實戰分頁的職業分類（localStorage effSelectedJob） */
@@ -49,7 +50,7 @@ export function resolveActualFormulaInputs(
   if (ctx.effJob === 'xenon') {
     totalStat = main.total + sub.total + (subtwo?.total || 0)
   } else if (ctx.effJob === 'da') {
-    const totalHP = Math.floor(main.total)
+    const totalHP = floorPercentApplied(main.base, main.percent) + main.noApply
     const baseHP = getVal('effBaseHP')
     const hpEquiv = Math.floor(baseHP / 3.5) + Math.floor((totalHP - baseHP) / 3.5) * 0.8
     totalStat = hpEquiv + sub.total
@@ -61,7 +62,9 @@ export function resolveActualFormulaInputs(
   const damage = getVal('effDmg')
   const bossDamage = getVal('effBossDmg')
   const critDamage = getVal('effCritDmg')
-  const finalMultiplier = resolveFamMult(ctx.effFamFinalSources, getVal('effFamFinal'))
+  const equipmentFamMultiplierFactor = delta.__eqFamFinalMultiplierFactor ?? 1
+  const finalMultiplier =
+    resolveFamMult(ctx.effFamFinalSources, getVal('effFamFinal')) * equipmentFamMultiplierFactor
 
   const monsterDefense = getVal('effMonsterDefense') / 100
   const eqIgnoreResidualFactor =
