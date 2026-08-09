@@ -14,6 +14,10 @@ const store = useCharacterStore()
 
 const labels = computed(() => store.statLabels)
 const job = computed(() => store.selectedJob)
+const barrierMainLabel = computed(() => (job.value === 'xenon' ? '全屬' : labels.value.main))
+const barrierSubLabel = computed(() =>
+  job.value === 'dual' ? labels.value.secondSub || labels.value.sub : labels.value.sub,
+)
 const hideSubFields = computed(() => store.weaponSetData.hideSubFields)
 const genesisFinalActive = computed(() => store.fields.genesisFinalCheck === true)
 
@@ -226,6 +230,9 @@ const ruinFinalOptions = [
               <span class="st-cell-label">活動B傷</span><StatInput id="adjEventBossDmg" />
             </div>
             <div class="st-cell">
+              <span class="st-cell-label">活動爆傷</span><StatInput id="adjEventCritDmg" />
+            </div>
+            <div class="st-cell">
               <span class="st-cell-label">活動攻擊</span><StatInput id="adjEventAtk" />
             </div>
             <div class="st-cell">
@@ -233,6 +240,23 @@ const ruinFinalOptions = [
             </div>
             <div class="st-cell">
               <span class="st-cell-label">活動HP</span><StatInput id="adjEventHP" />
+            </div>
+          </div>
+          <div class="st-row">
+            <div class="st-cell">
+              <span class="st-cell-label">結界{{ barrierMainLabel }}</span
+              ><StatInput id="adjBarrierMainStat" />
+            </div>
+            <div v-show="job !== 'xenon'" id="barrierSubStatGroup" class="st-cell">
+              <span class="st-cell-label">結界{{ barrierSubLabel }}</span
+              ><StatInput id="adjBarrierSubStat" />
+            </div>
+            <div class="st-cell">
+              <span class="st-cell-label">結界攻擊</span><StatInput id="adjBarrierAtk" />
+            </div>
+            <div class="st-cell">
+              <span class="st-cell-label">結界{{ barrierMainLabel }}%</span
+              ><StatInput id="adjBarrierMainStatPercent" />
             </div>
             <div class="st-cell">
               <span class="st-cell-label">師徒B傷</span><StatInput id="adjMentorBossDmg" />

@@ -95,7 +95,12 @@ export function resolveCombatFormulaInputs(
   const adjEventAtk = getVal('adjEventAtk')
   const adjEventAllStat = getVal('adjEventAllStat')
   const adjEventBossDmg = getVal('adjEventBossDmg')
+  const adjEventCritDmg = getVal('adjEventCritDmg')
   const adjEventHP = getVal('adjEventHP')
+  const adjBarrierMainStat = getVal('adjBarrierMainStat')
+  const adjBarrierSubStat = getVal('adjBarrierSubStat')
+  const adjBarrierAtk = getVal('adjBarrierAtk')
+  const adjBarrierMainStatPercent = getVal('adjBarrierMainStatPercent')
   const applyMentorCorrection = ctx.useBuff && ctx.combatCorrections?.mentor === true
   const adjMentorAtk = applyMentorCorrection ? 0 : getVal('adjMentorAtk')
   const adjMentorBossDmg = applyMentorCorrection ? 0 : getVal('adjMentorBossDmg')
@@ -120,35 +125,51 @@ export function resolveCombatFormulaInputs(
   const xenonStarBonus = currentJob === 'xenon' ? getVal('adjXenonStar') : 0
   const daStarBonus = currentJob === 'da' ? getVal('adjDASpStar') : 0
   const includeSecondSub = currentJob === 'xenon' || currentJob === 'dual'
+  const barrierSubFlat =
+    currentJob === 'xenon' ? adjBarrierMainStat : currentJob === 'dual' ? 0 : adjBarrierSubStat
+  const barrierSecondSubFlat =
+    currentJob === 'xenon' ? adjBarrierMainStat : currentJob === 'dual' ? adjBarrierSubStat : 0
+  const barrierSubPercent = currentJob === 'xenon' ? adjBarrierMainStatPercent : 0
 
-  const mainPercent = getVal('percentMain') - getVal('skillPercentMain')
+  const mainPercent = getVal('percentMain') + adjBarrierMainStatPercent - getVal('skillPercentMain')
   const mainNoApply = getVal('noApplyMain')
   let mainBase = 0
   let mainTotal = 0
   let equivalentMain = 0
 
   if (currentJob === 'da') {
-    const effectiveBaseMain = getVal('baseMain') + adjEventHP
+    const effectiveBaseMain = getVal('baseMain') + adjEventHP + adjBarrierMainStat
     mainBase = effectiveBaseMain - getVal('skillBaseMain') + daStarBonus
     const roundedMain = floorPercentApplied(mainBase, mainPercent)
     mainTotal = roundedMain + mainNoApply
     const baseHP = getVal('adjDAHP')
     equivalentMain = baseHP / 3.5 + ((mainTotal - baseHP) / 3.5) * 0.8
   } else {
-    mainBase = getVal('baseMain') + xenonStarBonus + adjEventAllStat - getVal('skillBaseMain')
+    mainBase =
+      getVal('baseMain') +
+      xenonStarBonus +
+      adjEventAllStat +
+      adjBarrierMainStat -
+      getVal('skillBaseMain')
     mainTotal = floorPercentApplied(mainBase, mainPercent) + mainNoApply
     equivalentMain = mainTotal
   }
 
-  const subBase = getVal('baseSub') + adjEventAllStat - getVal('skillBaseSub') + xenonStarBonus
-  const subPercent = getVal('percentSub') - getVal('skillPercentSub')
+  const subBase =
+    getVal('baseSub') + adjEventAllStat + barrierSubFlat - getVal('skillBaseSub') + xenonStarBonus
+  const subPercent = getVal('percentSub') + barrierSubPercent - getVal('skillPercentSub')
   const subNoApply = getVal('noApplySub')
   const subTotal = floorPercentApplied(subBase, subPercent) + subNoApply
 
   let subtwo: FormulaStatBreakdown | null = null
   if (includeSecondSub) {
-    const base = getVal('baseSubtwo') + adjEventAllStat - getVal('skillBaseSubtwo') + xenonStarBonus
-    const percent = getVal('percentSubtwo') - getVal('skillPercentSubtwo')
+    const base =
+      getVal('baseSubtwo') +
+      adjEventAllStat +
+      barrierSecondSubFlat -
+      getVal('skillBaseSubtwo') +
+      xenonStarBonus
+    const percent = getVal('percentSubtwo') + barrierSubPercent - getVal('skillPercentSubtwo')
     const noApply = getVal('noApplySubtwo')
     subtwo = {
       base,
@@ -166,7 +187,8 @@ export function resolveCombatFormulaInputs(
     adjWeaponAtk +
     adjEmpressBless +
     adjPetAtk +
-    adjEventAtk -
+    adjEventAtk +
+    adjBarrierAtk -
     getVal('skillAtk') -
     adjMentorAtk
   const attackPercent = getVal('percentAtk') - getVal('skillPercentAtk')
@@ -181,7 +203,7 @@ export function resolveCombatFormulaInputs(
     adjMentorBossDmg -
     zeroBossDmgPenalty -
     getVal('skillBossDmg')
-  const critDamage = getVal('critDmg') - getVal('skillCritDmg')
+  const critDamage = getVal('critDmg') + adjEventCritDmg - getVal('skillCritDmg')
   const rawDmgSum = 1 + (damage + bossDamage) / 100
   const rawCritSum = 1.35 + critDamage / 100
 
@@ -230,7 +252,11 @@ export function resolveCombatFormulaInputs(
       panel: getVal('bossDmg'),
       skill: getVal('skillBossDmg'),
     },
-    critDamageDetail: { value: critDamage, panel: getVal('critDmg'), skill: getVal('skillCritDmg') },
+    critDamageDetail: {
+      value: critDamage,
+      panel: getVal('critDmg'),
+      skill: getVal('skillCritDmg'),
+    },
     rawDmgSum,
     rawCritSum,
     finalMult: genesisMult * famMult * ruinMult,

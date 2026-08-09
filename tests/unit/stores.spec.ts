@@ -102,6 +102,94 @@ describe('匯出/匯入 round-trip', () => {
     expect(restoredBuffs.combatCorrections).toEqual(exported.buffState!.combatCorrections)
   })
 
+  it('活動爆傷與結界欄位可保存，且新舊版 JSON 可安全互匯', () => {
+    const newValues = {
+      adjEventCritDmg: '40',
+      adjBarrierMainStat: '49',
+      adjBarrierSubStat: '40',
+      adjBarrierAtk: '20',
+      adjBarrierMainStatPercent: '13',
+    }
+    const store = useCharacterStore()
+    store.setField('baseMain', '12345')
+    Object.entries(newValues).forEach(([id, value]) => store.setField(id, value))
+
+    const exported = store.collectSaveData()
+    expect(exported.version).toBe(2)
+    Object.entries(newValues).forEach(([id, value]) => {
+      expect(exported.values[id]).toBe(value)
+    })
+
+    localStorage.clear()
+    setActivePinia(createPinia())
+    const restored = useCharacterStore()
+    restored.applySaveData(exported)
+    Object.entries(newValues).forEach(([id, value]) => {
+      expect(restored.fields[id]).toBe(value)
+    })
+
+    // 舊版匯入器只遍歷當時的 145 個 fieldDefs；新版額外 key 不會覆蓋或阻擋既有欄位。
+    const newFieldIds = new Set(Object.keys(newValues))
+    const legacyFieldDefs = fieldDefs.filter((def) => !newFieldIds.has(def.id))
+    const legacyWorkspaceSnapshot = {
+      ...exported.workspace!.shared.values,
+      ...exported.workspace!.states[0].values,
+      ...exported.workspace!.weighted.values,
+    }
+    const legacyImportedValues: Record<string, unknown> = {}
+    legacyFieldDefs.forEach((def) => {
+      if (Object.prototype.hasOwnProperty.call(legacyWorkspaceSnapshot, def.id)) {
+        legacyImportedValues[def.id] = legacyWorkspaceSnapshot[def.id]
+      }
+    })
+    expect(fieldDefs).toHaveLength(150)
+    expect(new Set(fieldDefs.map((def) => def.id)).size).toBe(150)
+    expect(legacyFieldDefs).toHaveLength(145)
+    expect(legacyImportedValues.baseMain).toBe('12345')
+    Object.keys(newValues).forEach((id) => {
+      expect(legacyImportedValues).not.toHaveProperty(id)
+    })
+
+    const legacyExport = JSON.parse(JSON.stringify(exported))
+    Object.keys(newValues).forEach((id) => {
+      delete legacyExport.values[id]
+      delete legacyExport.workspace.shared.values[id]
+    })
+    localStorage.clear()
+    setActivePinia(createPinia())
+    const legacy = useCharacterStore()
+    legacy.applySaveData(legacyExport)
+    Object.keys(newValues).forEach((id) => {
+      expect(legacy.fields[id]).toBe('')
+    })
+  })
+
+  it('無 workspace 的舊 JSON 匯入時會清空新版活動與結界欄位', () => {
+    const newFieldIds = [
+      'adjEventCritDmg',
+      'adjBarrierMainStat',
+      'adjBarrierSubStat',
+      'adjBarrierAtk',
+      'adjBarrierMainStatPercent',
+    ]
+    const store = useCharacterStore()
+    newFieldIds.forEach((id) => store.setField(id, '99'))
+
+    store.applySaveData({
+      app: 'maplecombat',
+      version: 1,
+      selectedJob: 'normal',
+      selectedJobName: '英雄',
+      effSelectedJob: 'normal',
+      values: { baseMain: '321' },
+    })
+
+    expect(store.fields.baseMain).toBe('321')
+    newFieldIds.forEach((id) => {
+      expect(store.fields[id]).toBe('')
+    })
+  })
+
   it('舊 buffState 缺少新欄位時，滿魂與三項校正預設啟用', () => {
     const buffs = useBuffsStore()
     buffs.setSoulOrbFullSoul(false)

@@ -1964,6 +1964,8 @@ html:root[data-density='compact'][data-theme='dark'] {
     #skillCritDmg,
     #famFinal,
     #adjEventBossDmg,
+    #adjEventCritDmg,
+    #adjBarrierMainStatPercent,
     #adjMentorBossDmg,
     #adjZeroWeaponFlameBossDmg,
     #eqOldPercentMain,

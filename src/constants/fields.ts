@@ -1,4 +1,4 @@
-// 欄位註冊表：所有可儲存輸入欄位（133 個）。
+// 欄位註冊表：所有可儲存輸入欄位（150 個）。
 // id 同時是 localStorage key 與匯出 JSON values 的 key，不可更動。
 
 export type FieldKind = 'number' | 'checkbox' | 'select' | 'hidden'
@@ -37,7 +37,8 @@ export const fieldDefs: FieldDef[] = [
   s('flameLevel', '3', ['0', '1', '2', '3', '4', '5', '6', '7']),
   n('currentWeaponAtk'), n('scrollAtk', '72'), n('starCount', '22'),
   n('adjEmpressBless', '30'), n('adjPetAtk', '0'), n('famFinal'), h('famFinalSources', ''),
-  n('adjEventBossDmg'), n('adjEventAtk'), n('adjEventAllStat'), n('adjEventHP'),
+  n('adjEventBossDmg'), n('adjEventCritDmg'), n('adjEventAtk'), n('adjEventAllStat'), n('adjEventHP'),
+  n('adjBarrierMainStat'), n('adjBarrierSubStat'), n('adjBarrierAtk'), n('adjBarrierMainStatPercent'),
   n('adjMentorBossDmg', '10'), n('adjMentorAtk', '10'),
   n('adjXenonStar', '70'), n('adjXenonPowerCoefficient', '0.65625'),
   n('adjDAHP'), n('adjDASpStar'), n('adjDAPowerCoefficient', '0.75'),

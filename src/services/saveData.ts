@@ -1,6 +1,6 @@
 // 匯入/匯出存檔解析，格式不可更動。
 import { fieldDefs } from '@/constants/fields'
-import { saveExportFile } from './tauri'
+import { isTauri, saveExportFile } from './tauri'
 import type { BuffExportState } from '@/stores/buffs'
 import type { CompactStateWorkspaceV1 } from '@/stores/stateSlots'
 
@@ -63,10 +63,30 @@ export function normalizeSavedData(saveData: unknown): SaveDataV1 {
   }
 }
 
-/** 匯出：透過 Tauri 另存對話框寫入檔案。 */
+function downloadBrowserFile(fileName: string, contents: string): void {
+  const blob = new Blob([contents], { type: 'application/json;charset=utf-8' })
+  const url = URL.createObjectURL(blob)
+  const anchor = document.createElement('a')
+  anchor.href = url
+  anchor.download = fileName
+  anchor.style.display = 'none'
+  document.body.appendChild(anchor)
+  try {
+    anchor.click()
+  } finally {
+    anchor.remove()
+    URL.revokeObjectURL(url)
+  }
+}
+
+/** 匯出：桌面版透過 Tauri 另存；網頁版下載同格式 JSON。 */
 export async function exportSaveData(saveData: SaveDataV1): Promise<void> {
   const contents = JSON.stringify(saveData, null, 2)
   const timestamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-')
   const fileName = `combat-power-save-${timestamp}.json`
-  await saveExportFile(fileName, contents)
+  if (isTauri()) {
+    await saveExportFile(fileName, contents)
+    return
+  }
+  downloadBrowserFile(fileName, contents)
 }

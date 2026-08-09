@@ -57,6 +57,15 @@ const combatToEffFieldMap: Record<string, string> = {
   adjDAHP: 'effBaseHP',
 }
 
+// 舊版無 workspace 的 JSON 不含這些欄位；匯入時缺少代表使用預設空值，不能沿用目前畫面殘值。
+const fieldsAddedAfterLegacySaveFormats = new Set([
+  'adjEventCritDmg',
+  'adjBarrierMainStat',
+  'adjBarrierSubStat',
+  'adjBarrierAtk',
+  'adjBarrierMainStatPercent',
+])
+
 export const useCharacterStore = defineStore('character', () => {
   const buffs = useBuffsStore()
   const slots = useStateSlotsStore()
@@ -357,7 +366,13 @@ export const useCharacterStore = defineStore('character', () => {
     }
 
     fieldDefs.forEach((def) => {
-      if (!Object.prototype.hasOwnProperty.call(saveData.values, def.id)) return
+      if (!Object.prototype.hasOwnProperty.call(saveData.values, def.id)) {
+        if (fieldsAddedAfterLegacySaveFormats.has(def.id)) {
+          fields[def.id] = def.default
+          persistField(def.id, def.default)
+        }
+        return
+      }
       const value = saveData.values[def.id]
       if (def.kind === 'checkbox') {
         const checked = value === true || value === 'true'

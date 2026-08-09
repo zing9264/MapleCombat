@@ -549,6 +549,104 @@ describe('含 Buff 戰鬥力校正', () => {
   })
 })
 
+describe('活動與可疑的結界校正', () => {
+  const context = (jobCategory: JobCategory, jobName: string): CombatPowerContext => ({
+    jobCategory,
+    jobName,
+    weaponSet: 'fortune',
+    genesisFinalChecked: false,
+    useBuff: false,
+    overseasGenesisAtkDelta: 0,
+    xenonPowerCoefficientRaw: '',
+    daPowerCoefficientRaw: '',
+  })
+
+  it('一般職業把結界固定值與主屬百分比加到對應能力，並加上活動爆傷', () => {
+    const resolved = resolveCombatFormulaInputs(
+      {
+        baseMain: 100,
+        percentMain: 20,
+        baseSub: 50,
+        percentSub: 10,
+        atk: 200,
+        percentAtk: 10,
+        critDmg: 30,
+        adjEventCritDmg: 4,
+        adjBarrierMainStat: 10,
+        adjBarrierSubStat: 5,
+        adjBarrierAtk: 7,
+        adjBarrierMainStatPercent: 3,
+      },
+      context('normal', '英雄'),
+    )
+
+    expect(resolved.main).toMatchObject({ base: 110, percent: 23, total: 135 })
+    expect(resolved.sub).toMatchObject({ base: 55, percent: 10, total: 60 })
+    expect(resolved.attack).toMatchObject({ base: 207, percent: 10, total: 227 })
+    expect(resolved.critDamage).toBe(34)
+  })
+
+  it('惡魔復仇者把結界主屬與主屬百分比套用到 HP', () => {
+    const resolved = resolveCombatFormulaInputs(
+      {
+        baseMain: 1000,
+        percentMain: 20,
+        baseSub: 100,
+        percentSub: 10,
+        adjBarrierMainStat: 200,
+        adjBarrierSubStat: 10,
+        adjBarrierMainStatPercent: 5,
+      },
+      context('da', '惡魔復仇者'),
+    )
+
+    expect(resolved.main).toMatchObject({ base: 1200, percent: 25, total: 1500 })
+    expect(resolved.sub).toMatchObject({ base: 110, percent: 10, total: 121 })
+  })
+
+  it('傑諾把結界全屬與全屬百分比套用到三屬，且忽略不存在的副屬欄', () => {
+    const resolved = resolveCombatFormulaInputs(
+      {
+        baseMain: 100,
+        percentMain: 20,
+        baseSub: 80,
+        percentSub: 10,
+        baseSubtwo: 60,
+        percentSubtwo: 5,
+        adjBarrierMainStat: 12,
+        adjBarrierSubStat: 999,
+        adjBarrierMainStatPercent: 3,
+      },
+      context('xenon', '傑諾'),
+    )
+
+    expect(resolved.main).toMatchObject({ base: 112, percent: 23, total: 137 })
+    expect(resolved.sub).toMatchObject({ base: 92, percent: 13, total: 103 })
+    expect(resolved.subtwo).toMatchObject({ base: 72, percent: 8, total: 77 })
+  })
+
+  it('雙副屬職業只把結界副屬加到 DEX，不加到 STR', () => {
+    const resolved = resolveCombatFormulaInputs(
+      {
+        baseMain: 100,
+        percentMain: 20,
+        baseSub: 70,
+        percentSub: 10,
+        baseSubtwo: 50,
+        percentSubtwo: 5,
+        adjBarrierMainStat: 12,
+        adjBarrierSubStat: 9,
+        adjBarrierMainStatPercent: 3,
+      },
+      context('dual', '影武者'),
+    )
+
+    expect(resolved.main).toMatchObject({ base: 112, percent: 23, total: 137 })
+    expect(resolved.sub).toMatchObject({ base: 70, percent: 10, total: 77 })
+    expect(resolved.subtwo).toMatchObject({ base: 59, percent: 5, total: 61 })
+  })
+})
+
 describe('數值預覽公式前解析', () => {
   it('戰鬥力資料套用技能消耗與特殊校正', () => {
     const fields: FieldValues = {
