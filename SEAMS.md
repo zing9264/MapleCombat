@@ -53,15 +53,21 @@ git fetch upstream && git merge upstream/main
 
 ---
 
+### 分頁接縫
+
+新增分頁最少要動三處上游檔案，每處一到兩行。目前已加入「角色快照」分頁：
+
+| 檔案                                       | 改動                                                                 |
+| ------------------------------------------ | -------------------------------------------------------------------- |
+| `src/stores/ui.ts`                         | `ViewKey` 型別與 `VALID_VIEWS` 各加 `'characterSnapshot'`            |
+| `src/components/layout/CompactToolbar.vue` | `tabs` 陣列加一列 `{ view: 'characterSnapshot', label: '角色快照' }` |
+| `src/App.vue`                              | import 一行 + `<CharacterSnapshotView v-if="…" />` 一行              |
+
+之後再加分頁就照同樣三個位置擴充。
+
+---
+
 ## 尚未使用但已規劃的接縫
-
-新增分頁時最少要動三處上游檔案，每處一到兩行：
-
-| 檔案                                       | 改動                                                   |
-| ------------------------------------------ | ------------------------------------------------------ |
-| `src/stores/ui.ts`                         | `ViewKey` 型別加一個值                                 |
-| `src/components/layout/CompactToolbar.vue` | 加一顆分頁按鈕                                         |
-| `src/App.vue`                              | 加一行 `<YourView v-show="ui.activeView === '...'" />` |
 
 新增輸入欄位時：
 
