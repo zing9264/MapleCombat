@@ -82,7 +82,7 @@ describe('匯出/匯入 round-trip', () => {
     store.applySaveData(toSaveData(s))
 
     const exported = store.collectSaveData()
-    expect(exported.app).toBe('maplecombat')
+    expect(exported.app).toBe('maplebuilding')
     expect(exported.version).toBe(2)
     expect(exported.selectedJob).toBe(s.selectedJob)
     expect(exported.selectedJobName).toBe(s.selectedJobName)

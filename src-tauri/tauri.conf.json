@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "新楓之谷戰鬥力計算機",
+  "productName": "MapleBuilding",
   "version": "1.2.1",
-  "identifier": "tw.maplecombat.app",
+  "identifier": "tw.maplebuilding.app",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1422",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "戰鬥力計算機",
+        "title": "MapleBuilding",
         "width": 670,
         "height": 820,
         "minWidth": 580,

@@ -83,7 +83,7 @@ function downloadBrowserFile(fileName: string, contents: string): void {
 export async function exportSaveData(saveData: SaveDataV1): Promise<void> {
   const contents = JSON.stringify(saveData, null, 2)
   const timestamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-')
-  const fileName = `combat-power-save-${timestamp}.json`
+  const fileName = `maplebuilding-save-${timestamp}.json`
   if (isTauri()) {
     await saveExportFile(fileName, contents)
     return

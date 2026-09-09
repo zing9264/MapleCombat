@@ -35,7 +35,7 @@ describe('exportSaveData', () => {
 
     expect(saveExportFileMock).toHaveBeenCalledOnce()
     const [fileName, contents] = saveExportFileMock.mock.calls[0]
-    expect(fileName).toMatch(/^combat-power-save-\d{4}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2}\.json$/)
+    expect(fileName).toMatch(/^maplebuilding-save-\d{4}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2}\.json$/)
     expect(JSON.parse(contents)).toEqual(saveData)
   })
 
@@ -62,7 +62,7 @@ describe('exportSaveData', () => {
     expect(blob.type).toBe('application/json;charset=utf-8')
     expect(await blob.text()).toContain('"baseMain": "123"')
     expect(clickedDownload).toMatch(
-      /^combat-power-save-\d{4}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2}\.json$/,
+      /^maplebuilding-save-\d{4}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2}\.json$/,
     )
     expect(clickedHref).toBe('blob:maplecombat-save')
     expect(revokeObjectURL).toHaveBeenCalledWith('blob:maplecombat-save')

@@ -31,7 +31,7 @@ fn suppress_native_window_border(window: &tauri::WebviewWindow) {
     }
 }
 
-/// 與舊版 MapleCombat 相同的契約：跳出另存新檔對話框，
+/// 與上游 MapleCombat 相同的契約：跳出另存新檔對話框，
 /// 使用者取消時回傳 Ok(false)，成功寫入回傳 Ok(true)。
 #[tauri::command]
 async fn save_export_file(

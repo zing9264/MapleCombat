@@ -1,11 +1,11 @@
 [package]
-name = "maplecombat-app"
+name = "maplebuilding-app"
 version = "1.2.1"
-description = "新楓之谷戰鬥力計算機"
+description = "楓之谷角色構築模擬器"
 edition = "2021"
 
 [lib]
-name = "maplecombat_app_lib"
+name = "maplebuilding_app_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]

@@ -345,7 +345,7 @@ export const useCharacterStore = defineStore('character', () => {
       values[def.id] = fields[def.id]
     })
     return {
-      app: 'maplecombat',
+      app: 'maplebuilding',
       version: 2,
       savedAt: new Date().toISOString(),
       selectedJob: selectedJob.value,
