@@ -54,7 +54,10 @@ function installCorrectionLayout(initialHeaderWidth: number) {
     if (this.classList.contains('buff-head-title')) return rect(123)
     if (this.classList.contains('buff-correction-inline')) {
       const labels = Array.from(this.querySelectorAll('.buff-correction-chip-label'))
-      const width = labels.reduce((total, label) => total + (label.textContent?.length ?? 0) * 11 + 18, 0)
+      const width = labels.reduce(
+        (total, label) => total + (label.textContent?.length ?? 0) * 11 + 18,
+        0,
+      )
       return rect(width + Math.max(0, labels.length - 1) * 4)
     }
     if (this.classList.contains('buff-master-actions')) return rect(136)
@@ -145,16 +148,12 @@ describe('靈魂寶珠滿魂控制', () => {
 
     await nextTick()
     expect(character.combatSoulOrbWeaponAtk).toBe(318)
-    expect(wrapper.get('.buff-soul-orb-full').text()).toContain(
-      '滿魂 +31攻 (以基準武器換算)',
-    )
+    expect(wrapper.get('.buff-soul-orb-full').text()).toContain('滿魂 +31攻 (以基準武器換算)')
 
     buffs.setCombatCorrection('genesis', false)
     await nextTick()
     expect(character.combatSoulOrbWeaponAtk).toBe(276)
-    expect(wrapper.get('.buff-soul-orb-full').text()).toContain(
-      '滿魂 +27攻 (以基準武器換算)',
-    )
+    expect(wrapper.get('.buff-soul-orb-full').text()).toContain('滿魂 +27攻 (以基準武器換算)')
     wrapper.unmount()
   })
 })
@@ -178,7 +177,9 @@ describe('含 Buff 戰鬥力校正控制', () => {
     await nextTick()
     expect(inlineLabels()).toEqual(['師徒系統校正', '女皇祝福校正', '創世武器校正'])
     expect(
-      wrapper.findAll('.buff-correction-inline .buff-correction-tooltip').map((item) => item.text()),
+      wrapper
+        .findAll('.buff-correction-inline .buff-correction-tooltip')
+        .map((item) => item.text()),
     ).toEqual([
       '師徒能力計入含Buff戰鬥力(原始戰鬥力未計入)',
       '女皇祝福計入含Buff戰鬥力(海外職業原始戰鬥力未計入)',

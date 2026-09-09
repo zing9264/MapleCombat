@@ -27,25 +27,25 @@ git fetch upstream && git merge upstream/main
 
 上游每次改到這些檔案就可能衝突，但都是單行，解法一律是「保留我方版本」。
 
-| 檔案 | 改動 |
-| --- | --- |
-| `package.json` | `name` → `maplebuilding-app` |
-| `src-tauri/Cargo.toml` | `package.name`、`lib.name`、`description` |
-| `src-tauri/Cargo.lock` | 本地套件名稱 |
-| `src-tauri/src/main.rs` | `maplebuilding_app_lib::run()` |
-| `src-tauri/src/lib.rs` | 註解措辭 |
-| `src-tauri/tauri.conf.json` | `productName`、`identifier`、視窗 `title` |
-| `index.html` | `<title>` |
-| `src/stores/character.ts` | `collectSaveData()` 的 `app: 'maplebuilding'` |
-| `src/services/saveData.ts` | 匯出檔名 `maplebuilding-save-*.json` |
-| `README.md` | 全文重寫 |
+| 檔案                        | 改動                                          |
+| --------------------------- | --------------------------------------------- |
+| `package.json`              | `name` → `maplebuilding-app`                  |
+| `src-tauri/Cargo.toml`      | `package.name`、`lib.name`、`description`     |
+| `src-tauri/Cargo.lock`      | 本地套件名稱                                  |
+| `src-tauri/src/main.rs`     | `maplebuilding_app_lib::run()`                |
+| `src-tauri/src/lib.rs`      | 註解措辭                                      |
+| `src-tauri/tauri.conf.json` | `productName`、`identifier`、視窗 `title`     |
+| `index.html`                | `<title>`                                     |
+| `src/stores/character.ts`   | `collectSaveData()` 的 `app: 'maplebuilding'` |
+| `src/services/saveData.ts`  | 匯出檔名 `maplebuilding-save-*.json`          |
+| `README.md`                 | 全文重寫                                      |
 
 `identifier` 必須與上游不同，否則兩個版本在 Windows 上會互相覆蓋安裝。
 
 ### 樣式接縫
 
-| 檔案 | 改動 |
-| --- | --- |
+| 檔案          | 改動                                                                          |
+| ------------- | ----------------------------------------------------------------------------- |
 | `src/main.ts` | 於 `compact-desktop.css` 之後加一行 `import '@/building/styles/building.css'` |
 
 順序不可調換：上游的 `compact-desktop.css` 會覆寫所有 `:root` 變數，
@@ -57,16 +57,16 @@ git fetch upstream && git merge upstream/main
 
 新增分頁時最少要動三處上游檔案，每處一到兩行：
 
-| 檔案 | 改動 |
-| --- | --- |
-| `src/stores/ui.ts` | `ViewKey` 型別加一個值 |
-| `src/components/layout/CompactToolbar.vue` | 加一顆分頁按鈕 |
-| `src/App.vue` | 加一行 `<YourView v-show="ui.activeView === '...'" />` |
+| 檔案                                       | 改動                                                   |
+| ------------------------------------------ | ------------------------------------------------------ |
+| `src/stores/ui.ts`                         | `ViewKey` 型別加一個值                                 |
+| `src/components/layout/CompactToolbar.vue` | 加一顆分頁按鈕                                         |
+| `src/App.vue`                              | 加一行 `<YourView v-show="ui.activeView === '...'" />` |
 
 新增輸入欄位時：
 
-| 檔案 | 改動 |
-| --- | --- |
+| 檔案                      | 改動                                                                |
+| ------------------------- | ------------------------------------------------------------------- |
 | `src/constants/fields.ts` | 一行 `concat(buildingFieldDefs)`，欄位定義寫在 `src/building/data/` |
 
 **不要**把新欄位直接插進 `fields.ts` 的 150 筆陣列中間 — 那是上游會持續增修的地方。

@@ -99,7 +99,10 @@ function positionBuffInfo(event: Event) {
     const boundaryRight = overlayRect.right - viewportPadding
     const availableRight = boundaryRight - triggerRect.right - gap
     const boundedTooltipWidth = Math.min(tooltipWidth, Math.max(180, availableRight))
-    const availableHeight = Math.max(120, overlayRect.bottom - overlayRect.top - viewportPadding * 2)
+    const availableHeight = Math.max(
+      120,
+      overlayRect.bottom - overlayRect.top - viewportPadding * 2,
+    )
 
     buffInfoStyle.value = {
       position: 'absolute',

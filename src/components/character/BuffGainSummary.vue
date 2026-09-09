@@ -54,11 +54,7 @@ watch([displayText, subvalueText], () => queueCombatPowerFit())
   >
     <div class="result-item">
       <span v-if="mode === 'combat'" class="buff-info buff-gain-info">
-        <button
-          type="button"
-          class="buff-info-trigger"
-          aria-label="含 Buff 戰力增幅說明"
-        ></button>
+        <button type="button" class="buff-info-trigger" aria-label="含 Buff 戰力增幅說明"></button>
         <span class="buff-info-tooltip" role="tooltip">
           <span class="buff-info-lines">
             <span class="buff-info-line">將傳授、共通技能與Buff等計入戰鬥力公式的變化</span>

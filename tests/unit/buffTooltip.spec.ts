@@ -13,9 +13,7 @@ describe('Buff tooltip positioning', () => {
   })
 
   it('moves a right-edge tooltip left by its exact overflow', () => {
-    expect(resolveTooltipShift({ left: 145, right: 235, top: 80, bottom: 104 }, boundary)).toBe(
-      -15,
-    )
+    expect(resolveTooltipShift({ left: 145, right: 235, top: 80, bottom: 104 }, boundary)).toBe(-15)
   })
 
   it('does not move a tooltip already inside both horizontal edges', () => {
@@ -24,23 +22,13 @@ describe('Buff tooltip positioning', () => {
 
   it('places first-row tooltips below when the upper space is insufficient', () => {
     expect(
-      resolveTooltipPlacement(
-        { left: 40, right: 70, top: 48, bottom: 78 },
-        boundary,
-        24,
-        6,
-      ),
+      resolveTooltipPlacement({ left: 40, right: 70, top: 48, bottom: 78 }, boundary, 24, 6),
     ).toBe('below')
   })
 
   it('keeps tooltips above when there is enough room', () => {
     expect(
-      resolveTooltipPlacement(
-        { left: 40, right: 70, top: 120, bottom: 150 },
-        boundary,
-        24,
-        6,
-      ),
+      resolveTooltipPlacement({ left: 40, right: 70, top: 120, bottom: 150 }, boundary, 24, 6),
     ).toBe('above')
   })
 })

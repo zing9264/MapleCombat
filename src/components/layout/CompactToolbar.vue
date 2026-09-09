@@ -30,6 +30,7 @@ const tabs: { view: ViewKey; label: string }[] = [
   { view: 'characterInput', label: '角色資料' },
   { view: 'equipmentChange', label: '裝備變更' },
   { view: 'valueConversion', label: '數值換算' },
+  { view: 'characterSnapshot', label: '角色快照' },
 ]
 
 function activateState(id: StateSlotId | 'weighted') {
@@ -82,7 +83,9 @@ function stateName(id: StateSlotId): string {
 }
 
 function activeStateId(): StateSlotId | null {
-  return slots.workspace.activeSlot === 'weighted' ? null : (slots.workspace.activeSlot as StateSlotId)
+  return slots.workspace.activeSlot === 'weighted'
+    ? null
+    : (slots.workspace.activeSlot as StateSlotId)
 }
 
 function openRenameDialog() {
@@ -91,9 +94,9 @@ function openRenameDialog() {
     kind: 'rename',
     title: '編輯狀態名稱',
     message: '可一次修改 5 個狀態名稱，最多 12 字。',
-    names: Object.fromEntries(slots.workspace.states.map((state) => [state.id, state.name])) as Partial<
-      Record<StateSlotId, string>
-    >,
+    names: Object.fromEntries(
+      slots.workspace.states.map((state) => [state.id, state.name]),
+    ) as Partial<Record<StateSlotId, string>>,
   }
   closeStateMenu()
 }
@@ -303,18 +306,27 @@ function canConfirmStateDialog(): boolean {
         <div class="ct-dialog" role="dialog" aria-modal="true" @click.stop>
           <div class="ct-dialog-head">
             <strong>{{ stateDialog.title }}</strong>
-            <button type="button" class="ct-dialog-close" aria-label="關閉" @click="closeDialog">×</button>
+            <button type="button" class="ct-dialog-close" aria-label="關閉" @click="closeDialog">
+              ×
+            </button>
           </div>
           <p>{{ stateDialog.message }}</p>
 
           <div v-if="stateDialog.kind === 'rename'" class="ct-dialog-name-grid">
-            <label v-for="(state, index) in slots.workspace.states" :key="state.id" class="ct-dialog-name-row">
+            <label
+              v-for="(state, index) in slots.workspace.states"
+              :key="state.id"
+              class="ct-dialog-name-row"
+            >
               <span>狀態{{ index + 1 }}</span>
               <input v-model="stateDialog.names![state.id]" type="text" maxlength="12" />
             </label>
           </div>
 
-          <div v-if="stateDialog.kind === 'copy' || stateDialog.kind === 'apply'" class="ct-dialog-state-grid">
+          <div
+            v-if="stateDialog.kind === 'copy' || stateDialog.kind === 'apply'"
+            class="ct-dialog-state-grid"
+          >
             <button
               v-for="state in slots.workspace.states"
               :key="state.id"

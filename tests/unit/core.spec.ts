@@ -301,11 +301,11 @@ describe('萌獸終傷逐條來源（famMultFromSources / resolveFamMult）', ()
 
   it('找不到原裝備來源時仍按總值扣除，透過殘差反映', () => {
     const baseSources = [25, 20, 2]
-    const delta = getEquipmentDelta(
-      { famFinal: 47, eqOldFamFinal: 17 },
-      'normal',
-      { base: baseSources, old: [17], new: [] },
-    )
+    const delta = getEquipmentDelta({ famFinal: 47, eqOldFamFinal: 17 }, 'normal', {
+      base: baseSources,
+      old: [17],
+      new: [],
+    })
 
     expect(delta.__eqFamFinalMultiplierFactor).toBe(
       resolveFamMult(baseSources, 30) / famMultFromSources(baseSources),
@@ -319,10 +319,7 @@ describe('萌獸終傷逐條來源（famMultFromSources / resolveFamMult）', ()
       eqOldFamFinal: 20,
       eqNewFamFinal: 25,
     }
-    const scalarDelta = getEquipmentDelta(
-      fields,
-      'normal',
-    )
+    const scalarDelta = getEquipmentDelta(fields, 'normal')
     expect(scalarDelta.__eqFamFinalMultiplierFactor).toBe(
       famMultFromSources([25, 20]) / overseasFamMult(40),
     )
@@ -880,9 +877,7 @@ describe('塔戒整場輸出增幅', () => {
     )
 
     expect(state['skill:一擊必殺']).toBe(1)
-    expect(buffTable.buffIndex['skill:一擊必殺'].displayName).toBe(
-      '一擊必殺(依占比15%套用)',
-    )
+    expect(buffTable.buffIndex['skill:一擊必殺'].displayName).toBe('一擊必殺(依占比15%套用)')
     expect(buffTable.buffIndex['skill:一擊必殺'].nonPermanent).toBe(true)
     expect(selectedActiveCount).toBe(35)
   })

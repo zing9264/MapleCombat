@@ -197,7 +197,8 @@ const ruinFinalOptions = [
               <CustomSelect id="flameLevel" :options="flameLevelOptions" />
             </div>
             <div class="st-cell">
-              <span class="st-cell-label">武器總攻擊</span><StatInput id="currentWeaponAtk" min="0" />
+              <span class="st-cell-label">武器總攻擊</span
+              ><StatInput id="currentWeaponAtk" min="0" />
             </div>
             <div v-show="!hideSubFields" id="dynamicFieldsRow" class="st-cell">
               <span class="st-cell-label">卷軸攻擊總和</span><StatInput id="scrollAtk" />
@@ -222,7 +223,8 @@ const ruinFinalOptions = [
               />
             </div>
             <div class="st-cell">
-              <span class="st-cell-label">萌獸終傷</span><FamFinalSourcesControl field-id="famFinal" />
+              <span class="st-cell-label">萌獸終傷</span
+              ><FamFinalSourcesControl field-id="famFinal" />
             </div>
           </div>
           <div class="st-row">

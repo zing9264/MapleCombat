@@ -166,7 +166,8 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
 
         <p v-if="isCombat" class="stat-preview-note">
           先用<b>面板</b>對照遊戲，再確認「<b>技能.消耗</b>」是否有填。
-          <b>校正後</b>是實際計算用值，已扣除技能.消耗並套用校正；即使面板正確，技能.消耗填錯仍會影響戰鬥力的計算結果。
+          <b>校正後</b
+          >是實際計算用值，已扣除技能.消耗並套用校正；即使面板正確，技能.消耗填錯仍會影響戰鬥力的計算結果。
         </p>
 
         <table v-if="isCombat" class="stat-preview-table">

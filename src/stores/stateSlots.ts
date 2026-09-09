@@ -61,7 +61,13 @@ const ACTUAL_FIELD_IDS = new Set([
   'effBaseHP',
 ])
 
-const WEIGHTED_FIELD_PREFIXES = ['eqOld', 'eqNew', 'effUnit', 'effSelectedMetric', 'effMetricPanelOpen']
+const WEIGHTED_FIELD_PREFIXES = [
+  'eqOld',
+  'eqNew',
+  'effUnit',
+  'effSelectedMetric',
+  'effMetricPanelOpen',
+]
 const WEIGHTED_FIELD_IDS = new Set([
   'effShowActualGain',
   'effShowCombatGain',
@@ -74,7 +80,9 @@ export function isScenarioField(id: string): boolean {
 }
 
 export function isWeightedField(id: string): boolean {
-  return WEIGHTED_FIELD_IDS.has(id) || WEIGHTED_FIELD_PREFIXES.some((prefix) => id.startsWith(prefix))
+  return (
+    WEIGHTED_FIELD_IDS.has(id) || WEIGHTED_FIELD_PREFIXES.some((prefix) => id.startsWith(prefix))
+  )
 }
 
 export function isSharedField(id: string): boolean {
@@ -127,24 +135,28 @@ function normalizeWeights(raw: unknown): Record<StateSlotId, number> {
 function normalizeWorkspace(data: unknown): CompactStateWorkspaceV1 | null {
   if (!data || typeof data !== 'object') return null
   const raw = data as Record<string, unknown>
-  const sharedRaw = raw.shared && typeof raw.shared === 'object' ? (raw.shared as Record<string, unknown>) : {}
+  const sharedRaw =
+    raw.shared && typeof raw.shared === 'object' ? (raw.shared as Record<string, unknown>) : {}
   const weightedRaw =
-    raw.weighted && typeof raw.weighted === 'object' ? (raw.weighted as Record<string, unknown>) : {}
+    raw.weighted && typeof raw.weighted === 'object'
+      ? (raw.weighted as Record<string, unknown>)
+      : {}
   const rawStates = Array.isArray(raw.states) ? raw.states : []
   const states = STATE_SLOT_IDS.map((id, index) => {
     const src =
-      (rawStates.find((entry) => entry && typeof entry === 'object' && (entry as Record<string, unknown>).id === id) as
-        | Record<string, unknown>
-        | undefined) ?? {}
+      (rawStates.find(
+        (entry) =>
+          entry && typeof entry === 'object' && (entry as Record<string, unknown>).id === id,
+      ) as Record<string, unknown> | undefined) ?? {}
     return {
       id,
       name: normalizeStateName(src.name, defaultStateName(index)),
       values:
         src.values && typeof src.values === 'object'
-          ? ({ ...defaultValues(isScenarioField), ...(src.values as Record<string, string | boolean>) } as Record<
-              string,
-              string | boolean
-            >)
+          ? ({
+              ...defaultValues(isScenarioField),
+              ...(src.values as Record<string, string | boolean>),
+            } as Record<string, string | boolean>)
           : defaultValues(isScenarioField),
       buffState: src.buffState as BuffExportState | undefined,
     }
@@ -153,17 +165,18 @@ function normalizeWorkspace(data: unknown): CompactStateWorkspaceV1 | null {
   const active = String(raw.activeSlot || STATE_SLOT_IDS[0]) as WorkspaceSlotId
   return {
     version: 1,
-    activeSlot: active === 'weighted' || STATE_SLOT_IDS.includes(active as StateSlotId) ? active : 'state1',
+    activeSlot:
+      active === 'weighted' || STATE_SLOT_IDS.includes(active as StateSlotId) ? active : 'state1',
     shared: {
       selectedJob: String(sharedRaw.selectedJob || 'normal'),
       selectedJobName: String(sharedRaw.selectedJobName || ''),
       effSelectedJob: String(sharedRaw.effSelectedJob || sharedRaw.selectedJob || 'normal'),
       values:
         sharedRaw.values && typeof sharedRaw.values === 'object'
-          ? ({ ...defaultValues(isSharedField), ...(sharedRaw.values as Record<string, string | boolean>) } as Record<
-              string,
-              string | boolean
-            >)
+          ? ({
+              ...defaultValues(isSharedField),
+              ...(sharedRaw.values as Record<string, string | boolean>),
+            } as Record<string, string | boolean>)
           : defaultValues(isSharedField),
     },
     states,
@@ -171,10 +184,10 @@ function normalizeWorkspace(data: unknown): CompactStateWorkspaceV1 | null {
       weights: normalizeWeights(weightedRaw.weights),
       values:
         weightedRaw.values && typeof weightedRaw.values === 'object'
-          ? ({ ...defaultValues(isWeightedField), ...(weightedRaw.values as Record<string, string | boolean>) } as Record<
-              string,
-              string | boolean
-            >)
+          ? ({
+              ...defaultValues(isWeightedField),
+              ...(weightedRaw.values as Record<string, string | boolean>),
+            } as Record<string, string | boolean>)
           : defaultValues(isWeightedField),
     },
   }
@@ -197,7 +210,8 @@ function createWorkspaceFromRuntime(
     states: STATE_SLOT_IDS.map((id, index) => ({
       id,
       name: defaultStateName(index),
-      values: index === 0 ? valuesFromFields(fields, isScenarioField) : defaultValues(isScenarioField),
+      values:
+        index === 0 ? valuesFromFields(fields, isScenarioField) : defaultValues(isScenarioField),
       buffState: index === 0 ? buffState : undefined,
     })),
     weighted: {
@@ -267,7 +281,9 @@ export const useStateSlotsStore = defineStore('stateSlots', () => {
     persist()
   }
 
-  function snapshotValues(slot: WorkspaceSlotId = workspace.activeSlot): Record<string, string | boolean> {
+  function snapshotValues(
+    slot: WorkspaceSlotId = workspace.activeSlot,
+  ): Record<string, string | boolean> {
     const values = { ...workspace.shared.values }
     if (slot === 'weighted') {
       return { ...values, ...workspace.weighted.values }
@@ -289,12 +305,17 @@ export const useStateSlotsStore = defineStore('stateSlots', () => {
   function saveField(id: string, value: string | boolean): void {
     if (!initialized.value) return
     if (isSharedField(id)) workspace.shared.values[id] = value
-    else if (workspace.activeSlot === 'weighted' || isWeightedField(id)) workspace.weighted.values[id] = value
+    else if (workspace.activeSlot === 'weighted' || isWeightedField(id))
+      workspace.weighted.values[id] = value
     else activeState.value!.values[id] = value
     persist()
   }
 
-  function saveSharedJob(job: { selectedJob: string; selectedJobName: string; effSelectedJob: string }): void {
+  function saveSharedJob(job: {
+    selectedJob: string
+    selectedJobName: string
+    effSelectedJob: string
+  }): void {
     workspace.shared.selectedJob = job.selectedJob
     workspace.shared.selectedJobName = job.selectedJobName
     workspace.shared.effSelectedJob = job.effSelectedJob

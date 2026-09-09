@@ -209,7 +209,9 @@ export const useCharacterStore = defineStore('character', () => {
   const combatPreviewWithBuff = computed(() =>
     resolveCombatFormulaInputs(numericFields.value, combatCtx(true), {}, combatBuffDelta.value),
   )
-  const effPreviewNoBuff = computed(() => resolveActualFormulaInputs(numericFields.value, effCtx(1)))
+  const effPreviewNoBuff = computed(() =>
+    resolveActualFormulaInputs(numericFields.value, effCtx(1)),
+  )
   const effPreviewWithBuff = computed(() =>
     resolveActualFormulaInputs(
       numericFields.value,
@@ -413,7 +415,8 @@ export const useCharacterStore = defineStore('character', () => {
     const def = fieldDefById[id]
     if (!def) return value
     if (def.kind === 'checkbox') return value === true || value === 'true'
-    if (def.kind === 'select' && def.options && !def.options.includes(String(value))) return def.default
+    if (def.kind === 'select' && def.options && !def.options.includes(String(value)))
+      return def.default
     return String(value ?? '')
   }
 

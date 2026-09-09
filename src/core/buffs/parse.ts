@@ -199,8 +199,7 @@ export function parseBuffTable(text: string): ParsedBuffTable {
         note: rawNote.replace(/<[^>]+>/g, '').trim(),
         infoNote: tags
           .filter(
-            (tag) =>
-              tag !== '非常駐' && !/^簡稱\s*[:：]/.test(tag) && !/^顯示\s*[:：]/.test(tag),
+            (tag) => tag !== '非常駐' && !/^簡稱\s*[:：]/.test(tag) && !/^顯示\s*[:：]/.test(tag),
           )
           .join(' / '),
         nonPermanent: tags.includes('非常駐'),

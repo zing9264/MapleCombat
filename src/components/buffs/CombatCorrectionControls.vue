@@ -2,10 +2,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useBuffsStore } from '@/stores/buffs'
 import { useCharacterStore } from '@/stores/character'
-import {
-  applicableCombatCorrectionKeys,
-  type CombatCorrectionKey,
-} from '@/core/combatCorrections'
+import { applicableCombatCorrectionKeys, type CombatCorrectionKey } from '@/core/combatCorrections'
 import { resolveTooltipShift } from './tooltipPosition'
 
 const buffs = useBuffsStore()
@@ -36,10 +33,7 @@ const correctionMeta: Record<CombatCorrectionKey, { label: string; tooltip: stri
 }
 
 const applicableKeys = computed(() =>
-  applicableCombatCorrectionKeys(
-    character.selectedJob,
-    String(character.fields.weaponSet ?? ''),
-  ),
+  applicableCombatCorrectionKeys(character.selectedJob, String(character.fields.weaponSet ?? '')),
 )
 const selectedCount = computed(
   () => applicableKeys.value.filter((key) => buffs.combatCorrections[key]).length,

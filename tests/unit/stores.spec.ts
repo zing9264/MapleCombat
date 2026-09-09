@@ -605,7 +605,10 @@ describe('compact 五狀態 workspace', () => {
     const activeSlots = summary.slots.filter((slot) => slot.weight > 0)
     const manual = activeSlots.reduce(
       (sum, slot) =>
-        sum + (slot.weight / 100) * ((slot.effOutputWithBuff - slot.effOutputNoBuff) / slot.effOutputNoBuff) * 100,
+        sum +
+        (slot.weight / 100) *
+          ((slot.effOutputWithBuff - slot.effOutputNoBuff) / slot.effOutputNoBuff) *
+          100,
       0,
     )
     const aggregateBefore = activeSlots.reduce(

@@ -90,10 +90,7 @@ const showSecondSub = computed(() => store.includeSecondSub)
     </div>
     <div class="input-group">
       <label>萌獸終傷</label
-      ><FamFinalSourcesControl
-        :field-id="`${prefix}FamFinal`"
-        input-class="equipment-input"
-      />
+      ><FamFinalSourcesControl :field-id="`${prefix}FamFinal`" input-class="equipment-input" />
     </div>
   </div>
 </template>

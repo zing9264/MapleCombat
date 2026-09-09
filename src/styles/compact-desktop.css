@@ -736,7 +736,10 @@ html:root[data-density='compact'][data-theme='dark'] {
 }
 
 /* 當前戰鬥力 / 變更後戰鬥力：補一層暗色投影增加立體感（保留原本青色發光、不改顏色）。 */
-:root[data-density='compact'] .compact-result-bar .combat-power-summary:not(.buff-gain-summary) .result-value,
+:root[data-density='compact']
+  .compact-result-bar
+  .combat-power-summary:not(.buff-gain-summary)
+  .result-value,
 :root[data-density='compact'] .equipment-result-value {
   text-shadow:
     0 1px 2px rgba(20, 10, 40, 0.55),
@@ -2110,7 +2113,11 @@ html:root[data-density='compact'][data-theme='dark'] {
 
 /* 此 tooltip 以右緣對齊往左展開（觸發鈕在右上角），避免溢出視窗右邊。
    權重須高於 :root[data-density=compact] .buff-info-tooltip（它預設 left:0 會往右展開）。 */
-:root[data-density='compact'] .compact-result-bar .buff-gain-summary .buff-gain-info .buff-info-tooltip {
+:root[data-density='compact']
+  .compact-result-bar
+  .buff-gain-summary
+  .buff-gain-info
+  .buff-info-tooltip {
   left: auto;
   right: 0;
   width: min(320px, calc(100vw - 32px));

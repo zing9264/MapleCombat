@@ -61,9 +61,7 @@ const actualGainText = computed(() => formatActualPercentChange(store.equipmentA
             }}</span>
           </span>
           <span class="equipment-gain-badge equipment-actual-gain-badge">
-            <span class="equipment-gain-label">
-              實際增幅
-            </span>
+            <span class="equipment-gain-label"> 實際增幅 </span>
             <span id="equipmentActualGainValue" class="equipment-gain-value">{{
               actualGainText
             }}</span>

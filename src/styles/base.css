@@ -24,7 +24,11 @@ body.app-loading .container {
      平面板：var(--surface-overlay), var(--section-bg)
      結果卡：var(--surface-hero-glow), var(--surface-overlay), var(--section-bg) */
   --surface-overlay: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
-  --surface-hero-glow: radial-gradient(circle at 88% 26%, rgba(150, 195, 240, 0.12), transparent 40%);
+  --surface-hero-glow: radial-gradient(
+    circle at 88% 26%,
+    rgba(150, 195, 240, 0.12),
+    transparent 40%
+  );
   --text-color: #edf5ff;
   --muted-color: #c2cfe1;
   --accent-color: #6daee9;

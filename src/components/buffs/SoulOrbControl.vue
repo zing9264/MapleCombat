@@ -24,18 +24,15 @@ function onFullSoulChange(event: Event) {
   buffs.setSoulOrbFullSoul((event.target as HTMLInputElement).checked)
 }
 
-const currentWeaponAtk = computed(
-  () => Math.max(0, Number(character.fields.currentWeaponAtk) || 0),
-)
+const currentWeaponAtk = computed(() => Math.max(0, Number(character.fields.currentWeaponAtk) || 0))
 const soulOrbWeaponAtk = computed(() =>
   props.mode === 'combat' ? character.combatSoulOrbWeaponAtk : currentWeaponAtk.value,
 )
 const soulOrbAttackBonus = computed(() => getSoulOrbAttackBonus(soulOrbWeaponAtk.value))
-const fullSoulTooltip = computed(
-  () =>
-    props.mode === 'combat'
-      ? `校正後基準武器總攻擊力 ${soulOrbWeaponAtk.value}，滿魂增加 ${soulOrbAttackBonus.value} 攻擊力（10% 無條件捨去）`
-      : `目前武器攻擊力 ${currentWeaponAtk.value}，滿魂增加 ${soulOrbAttackBonus.value} 攻擊力（10% 無條件捨去）`,
+const fullSoulTooltip = computed(() =>
+  props.mode === 'combat'
+    ? `校正後基準武器總攻擊力 ${soulOrbWeaponAtk.value}，滿魂增加 ${soulOrbAttackBonus.value} 攻擊力（10% 無條件捨去）`
+    : `目前武器攻擊力 ${currentWeaponAtk.value}，滿魂增加 ${soulOrbAttackBonus.value} 攻擊力（10% 無條件捨去）`,
 )
 const fullSoulAriaLabel = computed(() =>
   props.mode === 'combat'

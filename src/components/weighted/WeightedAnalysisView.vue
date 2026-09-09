@@ -86,7 +86,9 @@ function onWeightInput(id: StateSlotId, event: Event) {
   slots.setWeight(id, (event.target as HTMLInputElement).value)
 }
 
-const equipmentPowerDiff = computed(() => summary.value.equipmentChangedPower - store.powerValue(summary.value.currentPower))
+const equipmentPowerDiff = computed(
+  () => summary.value.equipmentChangedPower - store.powerValue(summary.value.currentPower),
+)
 const equipmentPowerDiffText = computed(() => {
   const diff = equipmentPowerDiff.value
   if (!Number.isFinite(diff) || diff === 0) return ''
@@ -137,7 +139,11 @@ function resultsFor(selectedKey: string) {
   return visibleResults.value.filter((metric) => metric.key !== selectedKey)
 }
 
-function equivalentText(target: WeightedMetricResult, base: WeightedMetricResult, kind: 'actual' | 'combat') {
+function equivalentText(
+  target: WeightedMetricResult,
+  base: WeightedMetricResult,
+  kind: 'actual' | 'combat',
+) {
   const targetGain = kind === 'actual' ? target.gain : target.combatGain
   const baseGain = kind === 'actual' ? base.gain : base.combatGain
   const value = targetGain > 0 ? (target.unit * baseGain) / targetGain : NaN
@@ -217,7 +223,9 @@ function powerText(value: number) {
             <div class="equipment-result-rows">
               <div class="equipment-result-row">
                 <span class="equipment-result-label">變更後戰鬥力</span>
-                <div class="equipment-result-value">{{ powerText(summary.equipmentChangedPower) }}</div>
+                <div class="equipment-result-value">
+                  {{ powerText(summary.equipmentChangedPower) }}
+                </div>
                 <span
                   v-if="equipmentPowerDiffText"
                   class="equipment-result-diff"
@@ -271,7 +279,11 @@ function powerText(value: number) {
         >
           <summary>自訂顯示項目</summary>
         </details>
-        <div v-show="customPanelOpen" id="weightedEffCustomMetricList" class="equipment-efficiency-custom-grid">
+        <div
+          v-show="customPanelOpen"
+          id="weightedEffCustomMetricList"
+          class="equipment-efficiency-custom-grid"
+        >
           <label
             v-for="metric in metricResults"
             :key="metric.key"
@@ -325,7 +337,9 @@ function powerText(value: number) {
                 :aria-expanded="openPickerIndex === panel.index"
                 @click="togglePicker(panel.index)"
               >
-                <span class="equipment-efficiency-metric-trigger-text">{{ panel.metric.label }}</span>
+                <span class="equipment-efficiency-metric-trigger-text">{{
+                  panel.metric.label
+                }}</span>
               </button>
               <div class="equipment-efficiency-metric-menu" role="listbox">
                 <button

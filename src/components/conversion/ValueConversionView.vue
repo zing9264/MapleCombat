@@ -412,11 +412,7 @@ function ringGainText(value: number | null, current = false): string {
         <div class="tower-ring-head">
           <span class="tower-ring-title">塔戒效益</span>
           <span class="tower-ring-info">
-            <button
-              type="button"
-              class="buff-info-trigger"
-              aria-label="塔戒效益計算說明"
-            ></button>
+            <button type="button" class="buff-info-trigger" aria-label="塔戒效益計算說明"></button>
             <span class="tower-ring-info-tooltip" role="tooltip">
               此區計算排除套用中的武公/規範，依是否勾選為主。
             </span>

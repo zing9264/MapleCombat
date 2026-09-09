@@ -77,15 +77,15 @@ function numericFields(values: Record<string, string | boolean>): FieldValues {
   return out
 }
 
-function weightedValues(workspace: CompactStateWorkspaceV1, id: StateSlotId): Record<string, string | boolean> {
+function weightedValues(
+  workspace: CompactStateWorkspaceV1,
+  id: StateSlotId,
+): Record<string, string | boolean> {
   const state = workspace.states.find((entry) => entry.id === id) || workspace.states[0]
   return { ...workspace.shared.values, ...state.values, ...workspace.weighted.values }
 }
 
-function weaponInput(
-  workspace: CompactStateWorkspaceV1,
-  values: Record<string, string | boolean>,
-) {
+function weaponInput(workspace: CompactStateWorkspaceV1, values: Record<string, string | boolean>) {
   return {
     weaponSet: String(values.weaponSet ?? ''),
     flameLevel: parseInt(String(values.flameLevel ?? '')) || 0,
@@ -125,11 +125,17 @@ function effectiveWeights(workspace: CompactStateWorkspaceV1): {
   fallback: boolean
 } {
   const raw = workspace.weighted.weights
-  const sum = Object.values(raw).reduce((total, value) => total + Math.max(0, Number(value) || 0), 0)
+  const sum = Object.values(raw).reduce(
+    (total, value) => total + Math.max(0, Number(value) || 0),
+    0,
+  )
   if (sum > 0) {
     return {
       weights: Object.fromEntries(
-        Object.entries(raw).map(([id, value]) => [id, (Math.max(0, Number(value) || 0) / sum) * 100]),
+        Object.entries(raw).map(([id, value]) => [
+          id,
+          (Math.max(0, Number(value) || 0) / sum) * 100,
+        ]),
       ) as Record<StateSlotId, number>,
       fallback: false,
     }
@@ -273,7 +279,10 @@ export function weightedPercentGain(
   return result
 }
 
-function weightedAverage(slots: WeightedSlotResult[], fn: (slot: WeightedSlotResult) => number): number {
+function weightedAverage(
+  slots: WeightedSlotResult[],
+  fn: (slot: WeightedSlotResult) => number,
+): number {
   return slots.reduce((sum, slot) => sum + (slot.weight / 100) * fn(slot), 0)
 }
 
@@ -282,7 +291,9 @@ export function calculateWeightedSummary(
   table: ParsedBuffTable,
 ): WeightedSummary {
   const { weights, fallback } = effectiveWeights(workspace)
-  const slots = workspace.states.map((state) => slotResult(workspace, table, state.id, weights[state.id]))
+  const slots = workspace.states.map((state) =>
+    slotResult(workspace, table, state.id, weights[state.id]),
+  )
 
   return {
     currentPower: slots[0]?.powerNoBuff || { type: 'single', value: 0 },
@@ -370,7 +381,12 @@ export function buildWeightedMetrics(
         metric.fieldIds.forEach((fieldId) => {
           delta[effFieldToCombatKey(fieldId)] = metric.unit
         })
-        const changedPower = calculatePower(slot.fields, combatCtx(workspace, values, false), delta, {})
+        const changedPower = calculatePower(
+          slot.fields,
+          combatCtx(workspace, values, false),
+          delta,
+          {},
+        )
         const powerGain = ratioGain(powerValue(changedPower), powerValue(slot.powerNoBuff))
         if (powerGain == null) invalidCombatGain = true
         else combatGain += (slot.weight / 100) * powerGain

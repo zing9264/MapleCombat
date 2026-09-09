@@ -16,8 +16,9 @@ import StatInput from './shared/StatInput.vue'
                 <span class="buff-info-line">貴族傳授目前有不計入[技能]傷害的Bug</span>
                 <span class="buff-info-line">如有使用，1人情形需將[技能.消耗]傷害+2</span>
               </span>
-            </span> </span
-        ></span>
+            </span>
+          </span></span
+        >
         <StatInput id="dmg" restrict />
       </div>
       <div class="st-cell">
