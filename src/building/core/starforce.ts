@@ -290,3 +290,22 @@ export function gearKindOf(part: string, isWeaponPart: boolean): GearKind {
 export function partGainsMaxHp(part: string): boolean {
   return MAX_HP_PARTS.has(part)
 }
+
+/**
+ * 由角色主屬性推出星力用的職業分類。
+ *
+ * 戰士與海盜的主副屬性都是 STR/DEX，星力計算上完全等價，因此不需區分。
+ * 惡魔復仇者主屬為 HP，副屬 STR，比照戰士處理。
+ */
+export function jobCategoryFromMainStat(mainStat: string): JobCategory {
+  switch (mainStat) {
+    case 'INT':
+      return 'magician'
+    case 'DEX':
+      return 'bowman'
+    case 'LUK':
+      return 'thief'
+    default:
+      return 'warrior'
+  }
+}

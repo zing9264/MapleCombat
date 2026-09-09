@@ -8,9 +8,36 @@ import { computed, reactive, ref } from 'vue'
 import { useItemLibraryStore, type BaseItem } from '../stores/itemLibrary'
 import { useInventoryStore, type AppliedScroll } from '../stores/inventory'
 import { expectedOption, getScroll, scrollCategoryOf, scrollsFor } from '../data/scrolls'
+import {
+  computeStarforce,
+  gearKindOf,
+  inferItemJob,
+  jobCategoryFromMainStat,
+  maxStarFor,
+  partGainsMaxHp,
+  type NumericOption,
+} from '../core/starforce'
+import {
+  FLAME_TYPE_LABELS,
+  MAX_FLAME_LINES,
+  flameValue,
+  sumFlames,
+  supportsFlameType,
+  type FlameContext,
+  type FlameGrade,
+  type FlameLine,
+} from '../core/flame'
+import { useEquipmentSetsStore } from '../stores/equipmentSets'
+import { getJobStatLabelsByName } from '@/data/jobs'
 
 const library = useItemLibraryStore()
 const inventory = useInventoryStore()
+const sets = useEquipmentSetsStore()
+
+/** 星力的主副屬性依角色職業而定；沒有同步過的話預設戰士 */
+const jobCategory = computed(() =>
+  jobCategoryFromMainStat(getJobStatLabelsByName(sets.active?.data?.job ?? '').main),
+)
 
 // ── 挑底 ────────────────────────────────────────────
 const keyword = ref('')
@@ -30,10 +57,21 @@ const candidates = computed(() => {
 function pickBase(name: string): void {
   baseName.value = name
   scrolls.splice(0)
+  flames.splice(0)
+  starCount.value = 0
+  bossReward.value = false
   itemName.value = ''
   potentials.splice(0, 3, '', '', '')
   additionalPotentials.splice(0, 3, '', '', '')
 }
+
+/** 部位是不是武器 —— 卷軸分類已經判斷過，直接沿用 */
+const isWeaponPart = computed(
+  () =>
+    base.value !== null &&
+    scrollCategoryOf(base.value.part) === '武器' &&
+    base.value.part !== '機器心臟',
+)
 
 // ── 卷軸層 ──────────────────────────────────────────
 const scrolls = reactive<AppliedScroll[]>([])
@@ -78,9 +116,73 @@ const scrollCost = computed(() =>
   scrolls.reduce((sum, s) => sum + (getScroll(s.scrollId)?.referencePrice ?? 0) * s.count, 0),
 )
 
-// ── 星力／星火：資料表尚未建立，先保留欄位 ─────────────
+// ── 星力層 ──────────────────────────────────────────
 const starCount = ref(0)
-const flameTier = ref(0)
+const maxStar = computed(() => (base.value ? maxStarFor(base.value.level) : 0))
+
+const numericBase = computed<NumericOption>(() => {
+  const b = base.value?.base
+  const n = (v: unknown) => Number(v ?? 0)
+  return b
+    ? {
+        str: n(b.str),
+        dex: n(b.dex),
+        int: n(b.int),
+        luk: n(b.luk),
+        attackPower: n(b.attack_power),
+        magicPower: n(b.magic_power),
+        armor: n(b.armor),
+        maxHp: n(b.max_hp),
+        maxMp: n(b.max_mp),
+      }
+    : {}
+})
+
+const starforce = computed<NumericOption>(() => {
+  if (!base.value || starCount.value <= 0) return {}
+  return computeStarforce({
+    reqLevel: base.value.level,
+    star: starCount.value,
+    job: inferItemJob(base.value.part, jobCategory.value),
+    kind: gearKindOf(base.value.part, isWeaponPart.value),
+    gainsMaxHp: partGainsMaxHp(base.value.part),
+    base: numericBase.value,
+    upgrade: etc.value,
+  })
+})
+
+// ── 星火層 ──────────────────────────────────────────
+const flames = reactive<FlameLine[]>([])
+const bossReward = ref(false)
+
+const flameCtx = computed<FlameContext>(() => ({
+  reqLevel: base.value?.level ?? 0,
+  isWeapon: isWeaponPart.value,
+  bossReward: bossReward.value,
+  baseAttackPower: Number(base.value?.base.attack_power ?? 0),
+  baseMagicPower: Number(base.value?.base.magic_power ?? 0),
+}))
+
+const flameTypeOptions = computed(() =>
+  FLAME_TYPE_LABELS.filter(([type]) => supportsFlameType(type, flameCtx.value)),
+)
+
+const add = computed<NumericOption>(() => sumFlames(flames, flameCtx.value))
+
+function addFlame(): void {
+  if (flames.length >= MAX_FLAME_LINES) return
+  flames.push({ type: 'int', grade: 1 })
+}
+
+function removeFlame(index: number): void {
+  flames.splice(index, 1)
+}
+
+function flamePreview(line: FlameLine): number {
+  return flameValue(line.type, line.grade, flameCtx.value)
+}
+
+const FLAME_GRADES: FlameGrade[] = [1, 2, 3, 4, 5, 6, 7]
 
 // ── 潛能 ────────────────────────────────────────────
 const potentials = reactive(['', '', ''])
@@ -108,17 +210,35 @@ interface PreviewRow {
   label: string
   total: string
   base: number
+  star: number
   etc: number
+  add: number
 }
 
-/** 仿遊戲 tooltip：合計（白 +紫） */
+/** 星力／星火用駝峰命名，對照到 API 的底線命名 */
+const CAMEL_KEY: Record<string, keyof NumericOption> = {
+  str: 'str',
+  dex: 'dex',
+  int: 'int',
+  luk: 'luk',
+  max_hp: 'maxHp',
+  max_mp: 'maxMp',
+  attack_power: 'attackPower',
+  magic_power: 'magicPower',
+  armor: 'armor',
+}
+
+/** 仿遊戲 tooltip：合計（白 +黃 +紫 +藍綠） */
 const preview = computed<PreviewRow[]>(() => {
   if (!base.value) return []
   return STAT_LABELS.map(([key, label]) => {
+    const camel = CAMEL_KEY[key]
     const b = Number(base.value?.base[key as keyof BaseItem['base']] ?? 0)
     const e = etc.value[key] ?? 0
-    return { label, base: b, etc: e, total: fmt(b + e) }
-  }).filter((row) => row.base !== 0 || row.etc !== 0)
+    const st = camel ? (starforce.value[camel] ?? 0) : 0
+    const ad = camel ? (add.value[camel] ?? 0) : (add.value[key as keyof NumericOption] ?? 0)
+    return { label, base: b, star: st, etc: e, add: ad, total: fmt(b + e + st + ad) }
+  }).filter((row) => row.base || row.etc || row.star || row.add)
 })
 
 function fmt(n: number): string {
@@ -141,11 +261,11 @@ function save(): void {
     sets: base.value.sets,
     base: base.value.base,
     etc: { ...etc.value },
-    starforce: {},
-    add: {},
+    starforce: { ...starforce.value } as Record<string, number>,
+    add: { ...add.value } as Record<string, number>,
     scrolls: scrolls.map((s) => ({ ...s })),
     starCount: starCount.value,
-    flameTier: flameTier.value,
+    flameTier: flames.reduce((max, f) => Math.max(max, f.grade), 0),
     potentials: potentials.filter(Boolean),
     additionalPotentials: additionalPotentials.filter(Boolean),
   })
@@ -235,41 +355,58 @@ const saved = ref('')
         </template>
       </section>
 
-      <!-- 3. 星力／星火（待建表） -->
+      <!-- 3. 星力 -->
       <section class="mb-card">
-        <h3 class="mb-card-title">3. 星力與星火 <span class="mb-badge">資料表建置中</span></h3>
+        <h3 class="mb-card-title">
+          3. 星力
+          <span class="mb-badge"
+            >上限 {{ maxStar }} 星 · 職業 {{ sets.active?.data?.job ?? '未同步' }}</span
+          >
+        </h3>
         <div class="mb-row">
-          <label class="mb-field">
-            <span>星力</span>
-            <input
-              v-model.number="starCount"
-              type="number"
-              min="0"
-              max="30"
-              class="mb-input"
-              disabled
-            />
-          </label>
-          <label class="mb-field">
-            <span>星火階級</span>
-            <input
-              v-model.number="flameTier"
-              type="number"
-              min="0"
-              max="7"
-              class="mb-input"
-              disabled
-            />
-          </label>
+          <input v-model.number="starCount" type="range" min="0" :max="maxStar" class="mb-range" />
+          <span class="mb-star-value">★ {{ starCount }}</span>
         </div>
         <p class="mb-hint">
-          星力依「裝備等級 × 星數」查表、星火依「等級 × 階級」公式，表建好後這兩格會自動算。
+          飾品與機器心臟是共用裝，四項屬性從 1 星就全加；防具武器只加該職業的主副屬性，其餘 16
+          星後才加。
         </p>
+      </section>
+
+      <!-- 4. 星火 -->
+      <section class="mb-card">
+        <h3 class="mb-card-title">
+          4. 星火
+          <span class="mb-badge">{{ flames.length }} / {{ MAX_FLAME_LINES }} 條</span>
+        </h3>
+        <label v-if="isWeaponPart" class="mb-check">
+          <input v-model="bossReward" type="checkbox" />
+          <span>BOSS 掉落武器（攻擊力星火係數完全不同）</span>
+        </label>
+        <ul v-if="flames.length" class="mb-flame-list">
+          <li v-for="(line, i) in flames" :key="i" class="mb-flame">
+            <select v-model="line.type" class="mb-input mb-input--grow">
+              <option v-for="[type, label] in flameTypeOptions" :key="type" :value="type">
+                {{ label }}
+              </option>
+            </select>
+            <select v-model.number="line.grade" class="mb-input">
+              <option v-for="g in FLAME_GRADES" :key="g" :value="g">{{ g }} 階</option>
+            </select>
+            <span class="mb-flame-value">+{{ flamePreview(line) }}</span>
+            <button class="mb-btn mb-btn--sm" @click="removeFlame(i)">移除</button>
+          </li>
+        </ul>
+        <div class="mb-row mb-flame-add">
+          <button class="mb-btn" :disabled="flames.length >= MAX_FLAME_LINES" @click="addFlame">
+            新增一條星火
+          </button>
+        </div>
       </section>
 
       <!-- 4. 潛能 -->
       <section class="mb-card">
-        <h3 class="mb-card-title">4. 潛能</h3>
+        <h3 class="mb-card-title">5. 潛能</h3>
         <div class="mb-pot-grid">
           <div class="mb-pot-col">
             <span class="mb-pot-label">潛在能力</span>
@@ -563,5 +700,60 @@ const saved = ref('')
 
 .c-etc {
   color: #c9a3ff;
+}
+
+.c-star {
+  color: #ffc857;
+}
+
+.c-add {
+  color: #7fe0d0;
+}
+
+.mb-range {
+  flex: 1;
+  min-width: 0;
+}
+
+.mb-star-value {
+  width: 56px;
+  color: #ffc857;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.mb-check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.mb-flame-list {
+  margin: 0 0 6px;
+  padding: 0;
+  list-style: none;
+}
+
+.mb-flame {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 0;
+}
+
+.mb-flame-value {
+  width: 52px;
+  color: #7fe0d0;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.mb-flame-add {
+  margin-top: 4px;
 }
 </style>
