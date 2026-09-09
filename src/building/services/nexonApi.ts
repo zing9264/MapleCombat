@@ -132,6 +132,7 @@ export interface EquipmentItem {
   item_starforce_option: ItemOption
   starforce: string
   scroll_upgrade: string
+  scroll_upgradeable_count: string
   cuttable_count: string
   golden_hammer_flag: string
   potential_option_grade: string | null

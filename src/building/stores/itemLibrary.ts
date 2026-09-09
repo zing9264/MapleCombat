@@ -25,6 +25,8 @@ export interface BaseItem {
   base: ItemOption
   /** 所屬套裝（查對照表得到，可能多組） */
   sets: string[]
+  /** 卷軸總格數 = 已升級次數 + 剩餘可升級次數（舊資料沒有此欄位時為 0，重新同步即可補上） */
+  scrollSlots: number
   source: 'sync' | 'manual'
   updatedAt: string
 }
@@ -51,6 +53,7 @@ function toBaseItem(item: EquipmentItem, source: BaseItem['source']): BaseItem {
     level: Number(base.base_equipment_level ?? 0),
     base,
     sets: Object.keys(counts),
+    scrollSlots: Number(item.scroll_upgrade ?? 0) + Number(item.scroll_upgradeable_count ?? 0),
     source,
     updatedAt: new Date().toISOString(),
   }

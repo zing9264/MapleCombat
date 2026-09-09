@@ -8,6 +8,8 @@ export type ViewKey =
   | 'valueConversion'
   | 'equipmentSets'
   | 'itemLibrary'
+  | 'workbench'
+  | 'inventory'
 export type CalculatorMode = 'calculator' | 'effStats'
 
 const VALID_VIEWS: ViewKey[] = [
@@ -16,6 +18,8 @@ const VALID_VIEWS: ViewKey[] = [
   'valueConversion',
   'equipmentSets',
   'itemLibrary',
+  'workbench',
+  'inventory',
 ]
 const VALID_MODES: CalculatorMode[] = ['calculator', 'effStats']
 
