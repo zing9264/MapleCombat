@@ -2,7 +2,12 @@ import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
 import { getStoredString } from './persist'
 
-export type ViewKey = 'characterInput' | 'equipmentChange' | 'valueConversion' | 'equipmentSets'
+export type ViewKey =
+  | 'characterInput'
+  | 'equipmentChange'
+  | 'valueConversion'
+  | 'equipmentSets'
+  | 'itemLibrary'
 export type CalculatorMode = 'calculator' | 'effStats'
 
 const VALID_VIEWS: ViewKey[] = [
@@ -10,6 +15,7 @@ const VALID_VIEWS: ViewKey[] = [
   'equipmentChange',
   'valueConversion',
   'equipmentSets',
+  'itemLibrary',
 ]
 const VALID_MODES: CalculatorMode[] = ['calculator', 'effStats']
 

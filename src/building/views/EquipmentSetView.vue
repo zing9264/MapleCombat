@@ -14,8 +14,11 @@ import {
   type FetchProgress,
 } from '../services/nexonApi'
 import { useEquipmentSetsStore, type SetSlotId } from '../stores/equipmentSets'
+import { useItemLibraryStore } from '../stores/itemLibrary'
 
 const store = useEquipmentSetsStore()
+const library = useItemLibraryStore()
+const absorbedCount = ref(0)
 
 const apiKeyInput = ref(getApiKey())
 const apiKeySaved = ref(Boolean(getApiKey()))
@@ -91,6 +94,8 @@ async function onSync(id: SetSlotId): Promise<void> {
       if (!confirmed) return
     }
     store.syncInto(id, raw)
+    // 同步順便把基底收進裝備庫（全域，跨裝備組共用）
+    absorbedCount.value = library.absorb(raw.equipment)
   } catch (error) {
     errorMessage.value = (error as Error).message
   } finally {
@@ -204,6 +209,7 @@ const symbolTotals = computed(() => {
       <p v-if="progress" class="mb-hint">
         ({{ progress.step }}/{{ progress.total }}) {{ progress.label }}
       </p>
+      <p v-if="absorbedCount" class="mb-hint">已收錄 {{ absorbedCount }} 件新基底到裝備庫。</p>
       <p v-if="errorMessage" class="mb-error">{{ errorMessage }}</p>
       <p v-if="store.lastError" class="mb-error">{{ store.lastError }}</p>
       <p class="mb-hint">

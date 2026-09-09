@@ -6,6 +6,7 @@ import EquipmentChangeView from '@/components/equipment/EquipmentChangeView.vue'
 import ValueConversionView from '@/components/conversion/ValueConversionView.vue'
 import WeightedAnalysisView from '@/components/weighted/WeightedAnalysisView.vue'
 import EquipmentSetView from '@/building/views/EquipmentSetView.vue'
+import ItemLibraryView from '@/building/views/ItemLibraryView.vue'
 import { useStateSlotsStore } from '@/stores/stateSlots'
 
 const ui = useUiStore()
@@ -21,6 +22,7 @@ const slots = useStateSlotsStore()
       <EquipmentChangeView v-show="ui.activeView === 'equipmentChange'" />
       <ValueConversionView v-show="ui.activeView === 'valueConversion'" />
       <EquipmentSetView v-if="ui.activeView === 'equipmentSets'" />
+      <ItemLibraryView v-if="ui.activeView === 'itemLibrary'" />
     </template>
   </div>
 </template>

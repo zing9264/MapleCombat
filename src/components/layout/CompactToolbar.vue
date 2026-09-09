@@ -31,6 +31,7 @@ const tabs: { view: ViewKey; label: string }[] = [
   { view: 'equipmentChange', label: '裝備變更' },
   { view: 'valueConversion', label: '數值換算' },
   { view: 'equipmentSets', label: '裝備組' },
+  { view: 'itemLibrary', label: '裝備庫' },
 ]
 
 function activateState(id: StateSlotId | 'weighted') {
