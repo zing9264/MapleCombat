@@ -8,3 +8,4 @@ coverage
 *.log
 /src-tauri/target
 /src-tauri/gen/schemas
+tools/building/parser.mjs
