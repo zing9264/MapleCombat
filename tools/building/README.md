@@ -38,7 +38,7 @@ npx esbuild src/building/core/optionParser.ts --format=esm --outfile=tools/build
 | --- | --- | --- |
 | 寵物裝備 | `/character/pet-equipment` | 三隻寵物的裝備，遊戲算進「裝備道具」。實測 +315 魔攻 |
 | 套裝效果 | `/character/set-effect` | 只計 `set_count <= total_set_count` 的階層 |
-| 靈魂武器 | **無** | `soul_name` 回傳空字串，即使角色確實有靈魂武器（實測 +29 攻/魔） |
+| 靈魂武器（新系統） | **無** | API 的 `soul_*` 欄位對應的是舊的靈魂水晶系統。新版靈魂武器（共鳴效果、靈魂烙印）完全沒有端點，`soul_name` 一律空字串。實測角色有「第1階級 Lv.9 共鳴 +29 攻/魔」但 API 看不到 |
 | 寶石 | `/character/item-equipment` | 數值只在 `item_total_option`，四個分層皆為 0，且歸「%未套用」 |
 
 ## 尚未找到來源的缺口
@@ -52,3 +52,12 @@ npx esbuild src/building/core/optionParser.ts --format=esm --outfile=tools/build
 創世武器解放的永久效果（全屬性 +20、攻擊力/魔力 +20、Boss傷 +10%、
 無視防禦 +10%）是 Boss傷 那 10% 的可能來源，但套進去後全屬性與魔攻會對不上，
 需要進一步確認它被歸在哪一桶。
+
+## 這些缺口對換裝比較沒有影響
+
+上述缺口全部是**常數**：不管換哪件裝備，它們在換裝前後都存在，相減時會抵銷。
+
+    (基準 + 未知常數) - (換裝後 + 未知常數) = 基準 - 換裝後
+
+因此「換一件裝備、看戰鬥力差多少」這個核心功能不受影響，可以先做。
+缺口只影響「顯示絕對總值」時與遊戲對不對得上，那是次要需求。
