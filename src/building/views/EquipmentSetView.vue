@@ -1,33 +1,38 @@
 <script setup lang="ts">
-// 角色快照頁：從 NEXON Open API 擷取角色狀態，檢視裝備與能力值，並保留歷史快照。
+// 裝備組頁：對應遊戲內的裝備 preset，Set 1~5 固定槽位。
 //
-// API 回傳的是遊戲內當下的顯示值，且只反映目前啟用的裝備 preset。
-// 每組 preset 各擷取並保存一份快照，快照即是此工具的 preset。
+// 與上游「狀態 1~5」的分工：狀態是調 buff 用的，裝備組是換裝用的，兩者正交。
+// 一次比較應該只動其中一軸。
+//
+// API 只回傳當下啟用的 preset，因此流程是：遊戲切到某組 → 按該槽的「同步」。
 import { computed, ref } from 'vue'
 import {
   fetchCharacter,
   getApiKey,
   setApiKey,
-  type FetchProgress,
   type EquipmentItem,
+  type FetchProgress,
 } from '../services/nexonApi'
-import { useSnapshotsStore } from '../stores/snapshots'
+import { useEquipmentSetsStore, type SetSlotId } from '../stores/equipmentSets'
 
-const store = useSnapshotsStore()
+const store = useEquipmentSetsStore()
 
 const apiKeyInput = ref(getApiKey())
 const apiKeySaved = ref(Boolean(getApiKey()))
 const characterName = ref(localStorage.getItem('mbLastCharacterName') || '')
-const loading = ref(false)
+const syncing = ref(false)
 const progress = ref<FetchProgress | null>(null)
 const errorMessage = ref('')
 const expandedSlot = ref('')
 
 const maskedKey = computed(() => {
   const key = getApiKey()
-  if (!key) return ''
-  return `${key.slice(0, 8)}${'•'.repeat(12)}${key.slice(-4)}`
+  return key ? `${key.slice(0, 8)}${'•'.repeat(12)}${key.slice(-4)}` : ''
 })
+
+const canSync = computed(
+  () => apiKeySaved.value && !syncing.value && Boolean(characterName.value.trim()),
+)
 
 function onSaveKey(): void {
   setApiKey(apiKeyInput.value)
@@ -41,44 +46,79 @@ function onClearKey(): void {
   apiKeySaved.value = false
 }
 
-async function onFetch(): Promise<void> {
-  const name = characterName.value.trim()
-  if (!name || loading.value) return
-
-  loading.value = true
-  errorMessage.value = ''
-  progress.value = null
-  try {
-    const raw = await fetchCharacter(name, (p) => (progress.value = p))
-    store.add(raw)
-    localStorage.setItem('mbLastCharacterName', name)
-  } catch (error) {
-    errorMessage.value = (error as Error).message
-  } finally {
-    loading.value = false
-    progress.value = null
-  }
-}
-
-function onPin(id: string): void {
-  const label = window.prompt('替這份快照命名（可留空）', '')
-  if (label === null) return
-  store.pin(id, label)
+/** 戰鬥力照遊戲的寫法斷成億／萬 */
+function formatPower(value: string): string {
+  const n = Number(value)
+  if (!Number.isFinite(n) || n <= 0) return '（空）'
+  const yi = Math.floor(n / 100000000)
+  const wan = Math.floor((n % 100000000) / 10000)
+  const rest = n % 10000
+  if (yi) return `${yi}億${wan}萬${rest}`
+  if (wan) return `${wan}萬${rest}`
+  return String(rest)
 }
 
 function formatTime(iso: string): string {
   const d = new Date(iso)
   const pad = (n: number) => String(n).padStart(2, '0')
-  return `${d.getFullYear()}/${pad(d.getMonth() + 1)}/${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`
+  return `${pad(d.getMonth() + 1)}/${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`
+}
+
+/**
+ * 同步：擷取遊戲當下狀態，覆蓋指定槽位。
+ *
+ * 刻意先擷取、再跳確認並列出戰鬥力變化 —— API 不會告訴我們遊戲裡現在啟用的是
+ * 哪一組 preset，玩家很容易人在「刷怪」卻按了「打王」的同步，一鍵蓋掉正確資料。
+ */
+async function onSync(id: SetSlotId): Promise<void> {
+  const name = characterName.value.trim()
+  if (!name || syncing.value) return
+
+  syncing.value = true
+  errorMessage.value = ''
+  try {
+    const raw = await fetchCharacter(name, (p) => (progress.value = p))
+    const target = store.sets.find((s) => s.id === id)
+    const after = raw.stat.final_stat.find((s) => s.stat_name === '戰鬥力')?.stat_value ?? ''
+
+    if (target?.data) {
+      const confirmed = window.confirm(
+        `以遊戲當下狀態覆蓋「${target.name}」？\n\n` +
+          `戰鬥力 ${formatPower(store.statOf(id, '戰鬥力'))} → ${formatPower(after)}\n` +
+          `上次同步 ${formatTime(target.data.fetchedAt)}\n\n` +
+          `請先確認遊戲內已切到這一組裝備 preset。`,
+      )
+      if (!confirmed) return
+    }
+    store.syncInto(id, raw)
+  } catch (error) {
+    errorMessage.value = (error as Error).message
+  } finally {
+    syncing.value = false
+    progress.value = null
+    localStorage.setItem('mbLastCharacterName', name)
+  }
+}
+
+function onRename(id: SetSlotId): void {
+  const target = store.sets.find((s) => s.id === id)
+  const name = window.prompt('裝備組名稱（例如：打王、刷怪、簡窩）', target?.name ?? '')
+  if (name === null) return
+  store.rename(id, name)
+}
+
+function onClear(id: SetSlotId): void {
+  const target = store.sets.find((s) => s.id === id)
+  if (!target?.data) return
+  if (window.confirm(`清除「${target.name}」的資料？`)) store.clear(id)
 }
 
 /** 從 final_stat 取值 */
 function stat(name: string): string {
-  return store.active?.stat.find((s) => s.stat_name === name)?.stat_value ?? '—'
+  return store.active?.data?.stat.find((s) => s.stat_name === name)?.stat_value ?? '—'
 }
 
 const headlineStats = [
-  '戰鬥力',
   '傷害',
   'BOSS怪物傷害',
   '最終傷害',
@@ -88,6 +128,7 @@ const headlineStats = [
   '攻擊力',
   '魔法攻擊力',
   '星力',
+  '神秘力量',
 ]
 
 function potentials(item: EquipmentItem): string[] {
@@ -110,7 +151,7 @@ function toggleSlot(slot: string): void {
 
 const symbolTotals = computed(() => {
   const groups: Record<string, { count: number; stat: number; force: number }> = {}
-  for (const symbol of store.active?.symbols ?? []) {
+  for (const symbol of store.active?.data?.symbols ?? []) {
     const kind = symbol.symbol_name.split('：')[0]
     const bucket = (groups[kind] ??= { count: 0, stat: 0, force: 0 })
     bucket.count += 1
@@ -126,15 +167,58 @@ const symbolTotals = computed(() => {
 </script>
 
 <template>
-  <div class="mb-snapshot">
-    <!-- API Key 設定 -->
+  <div class="mb-sets">
+    <!-- 裝備組槽位 -->
+    <div class="mb-set-tabs" aria-label="裝備組切換">
+      <button
+        v-for="item in store.sets"
+        :key="item.id"
+        type="button"
+        class="mb-set-tab"
+        :class="{ active: item.id === store.activeId, empty: !item.data }"
+        @click="store.setActive(item.id)"
+      >
+        <span class="mb-set-tab-name">{{ item.name }}</span>
+        <small>{{ item.data ? formatPower(store.statOf(item.id, '戰鬥力')) : '未同步' }}</small>
+      </button>
+    </div>
+
+    <!-- 目前槽位的操作 -->
+    <section class="mb-card">
+      <div class="mb-row">
+        <input
+          v-model="characterName"
+          class="mb-input mb-input--grow"
+          placeholder="角色名稱"
+          :disabled="!apiKeySaved || syncing"
+          @keyup.enter="onSync(store.activeId)"
+        />
+        <button class="mb-btn mb-btn--primary" :disabled="!canSync" @click="onSync(store.activeId)">
+          {{ syncing ? '同步中…' : `同步到「${store.active?.name}」` }}
+        </button>
+        <button class="mb-btn" @click="onRename(store.activeId)">命名</button>
+        <button class="mb-btn" :disabled="!store.active?.data" @click="onClear(store.activeId)">
+          清除
+        </button>
+      </div>
+      <p v-if="progress" class="mb-hint">
+        ({{ progress.step }}/{{ progress.total }}) {{ progress.label }}
+      </p>
+      <p v-if="errorMessage" class="mb-error">{{ errorMessage }}</p>
+      <p v-if="store.lastError" class="mb-error">{{ store.lastError }}</p>
+      <p class="mb-hint">
+        API 只讀得到遊戲內<b>當下啟用</b>的裝備 preset。請先在遊戲裡切到要記錄的那一組，再按同步。
+        擷取到的數值等同屬性視窗顯示值，寵物、活動與師徒加成都已含在內。
+      </p>
+    </section>
+
+    <!-- API Key -->
     <section class="mb-card">
       <h3 class="mb-card-title">NEXON Open API</h3>
-      <div v-if="!apiKeySaved" class="mb-key-setup">
+      <div v-if="!apiKeySaved">
         <p class="mb-hint">
-          需要自己的 API Key：到
-          <span class="mb-code">openapi.nexon.com</span>
-          登入後，My Applications → 註冊應用程式 → 選 MapleStory (TW) → 開發階段。
+          需要自己的 API Key：到 <span class="mb-code">openapi.nexon.com</span> 登入後，My
+          Applications → 註冊應用程式 → 選 MapleStory (TW) → 開發階段。
         </p>
         <div class="mb-row">
           <input
@@ -153,80 +237,20 @@ const symbolTotals = computed(() => {
       </div>
     </section>
 
-    <!-- 擷取 -->
-    <section class="mb-card">
-      <h3 class="mb-card-title">擷取角色</h3>
-      <div class="mb-row">
-        <input
-          v-model="characterName"
-          class="mb-input mb-input--grow"
-          placeholder="角色名稱"
-          :disabled="!apiKeySaved || loading"
-          @keyup.enter="onFetch"
-        />
-        <button
-          class="mb-btn mb-btn--primary"
-          :disabled="!apiKeySaved || loading || !characterName.trim()"
-          @click="onFetch"
-        >
-          {{ loading ? '擷取中…' : '擷取' }}
-        </button>
-      </div>
-      <p v-if="progress" class="mb-hint">
-        ({{ progress.step }}/{{ progress.total }}) {{ progress.label }}
-      </p>
-      <p v-if="errorMessage" class="mb-error">{{ errorMessage }}</p>
-      <p v-if="store.lastError" class="mb-error">{{ store.lastError }}</p>
-      <p class="mb-hint">
-        API 回傳的是遊戲內當下的顯示值（含寵物、活動、師徒），且只看得到目前啟用的裝備 preset。切換
-        preset 後可再擷取一份。
-      </p>
-    </section>
-
-    <!-- 快照清單 -->
-    <section v-if="store.snapshots.length" class="mb-card">
-      <h3 class="mb-card-title">
-        快照
-        <span class="mb-badge">自動保留 {{ store.MAX_AUTO_SNAPSHOTS }} 份</span>
-      </h3>
-      <ul class="mb-snap-list">
-        <li
-          v-for="snap in store.snapshots"
-          :key="snap.id"
-          class="mb-snap"
-          :class="{ active: snap.id === store.activeId }"
-          @click="store.setActive(snap.id)"
-        >
-          <span class="mb-snap-pin" :class="{ on: snap.pinned }">{{
-            snap.pinned ? '★' : '☆'
-          }}</span>
-          <span class="mb-snap-main">
-            <b>{{ snap.label || snap.characterName }}</b>
-            <small>Lv.{{ snap.level }} {{ snap.job }} · {{ formatTime(snap.fetchedAt) }}</small>
-          </span>
-          <span class="mb-snap-actions">
-            <button v-if="!snap.pinned" class="mb-btn mb-btn--sm" @click.stop="onPin(snap.id)">
-              保存
-            </button>
-            <button v-else class="mb-btn mb-btn--sm" @click.stop="store.unpin(snap.id)">
-              取消保存
-            </button>
-            <button class="mb-btn mb-btn--sm" @click.stop="store.remove(snap.id)">刪除</button>
-          </span>
-        </li>
-      </ul>
-    </section>
-
-    <template v-if="store.active">
+    <template v-if="store.active?.data">
       <!-- 角色與能力值 -->
       <section class="mb-card">
         <h3 class="mb-card-title">
-          {{ store.active.characterName }}
+          {{ store.active.data.characterName }}
           <span class="mb-badge">
-            Lv.{{ store.active.level }} {{ store.active.job }} · {{ store.active.worldName }}
-            <template v-if="store.active.guildName"> · {{ store.active.guildName }}</template>
+            Lv.{{ store.active.data.level }} {{ store.active.data.job }} ·
+            {{ store.active.data.worldName }} · 同步於 {{ formatTime(store.active.data.fetchedAt) }}
           </span>
         </h3>
+        <div class="mb-power">
+          <span class="mb-power-label">戰鬥力</span>
+          <span class="mb-power-value">{{ formatPower(stat('戰鬥力')) }}</span>
+        </div>
         <div class="mb-stat-grid">
           <div v-for="name in headlineStats" :key="name" class="mb-stat">
             <span class="mb-stat-name">{{ name }}</span>
@@ -250,20 +274,18 @@ const symbolTotals = computed(() => {
       <section class="mb-card">
         <h3 class="mb-card-title">
           裝備
-          <span class="mb-badge">{{ store.active.equipment.length }} 件</span>
+          <span class="mb-badge">{{ store.active.data.equipment.length }} 件</span>
         </h3>
         <ul class="mb-equip-list">
           <li
-            v-for="item in store.active.equipment"
+            v-for="item in store.active.data.equipment"
             :key="item.item_equipment_slot"
             class="mb-equip"
           >
             <button class="mb-equip-head" @click="toggleSlot(item.item_equipment_slot)">
               <span class="mb-equip-part">{{ item.item_equipment_part }}</span>
               <span class="mb-equip-name">{{ item.item_name }}</span>
-              <span v-if="Number(item.starforce)" class="mb-equip-star">
-                ★{{ item.starforce }}
-              </span>
+              <span v-if="Number(item.starforce)" class="mb-equip-star">★{{ item.starforce }}</span>
               <span
                 v-if="item.potential_option_grade"
                 class="mb-equip-grade"
@@ -305,15 +327,66 @@ const symbolTotals = computed(() => {
         </ul>
       </section>
     </template>
+
+    <section v-else class="mb-card mb-empty">
+      「{{ store.active?.name }}」還沒有資料。在遊戲裡切到這組裝備，然後按上面的同步。
+    </section>
   </div>
 </template>
 
 <style scoped>
-.mb-snapshot {
+.mb-sets {
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 4px 0 24px;
+}
+
+/* 裝備組槽位 */
+.mb-set-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.mb-set-tab {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1px;
+  padding: 5px 6px;
+  border: 1px solid var(--outline, rgba(255, 255, 255, 0.14));
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.mb-set-tab:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.mb-set-tab.active {
+  border-color: transparent;
+  background: var(--accent, #6c8cff);
+  color: #fff;
+}
+
+.mb-set-tab.empty:not(.active) {
+  opacity: 0.5;
+}
+
+.mb-set-tab-name {
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mb-set-tab small {
+  font-size: 10px;
+  opacity: 0.75;
 }
 
 .mb-card {
@@ -325,6 +398,7 @@ const symbolTotals = computed(() => {
 
 .mb-card-title {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   margin: 0 0 8px;
@@ -336,6 +410,12 @@ const symbolTotals = computed(() => {
   font-size: 11px;
   font-weight: 400;
   opacity: 0.7;
+}
+
+.mb-empty {
+  font-size: 12px;
+  opacity: 0.7;
+  text-align: center;
 }
 
 .mb-row {
@@ -367,8 +447,8 @@ const symbolTotals = computed(() => {
   background: transparent;
   color: inherit;
   font-size: 12px;
-  cursor: pointer;
   white-space: nowrap;
+  cursor: pointer;
 }
 
 .mb-btn:hover:not(:disabled) {
@@ -384,12 +464,6 @@ const symbolTotals = computed(() => {
   border-color: transparent;
   background: var(--accent, #6c8cff);
   color: #fff;
-}
-
-.mb-btn--sm {
-  height: 22px;
-  padding: 0 7px;
-  font-size: 11px;
 }
 
 .mb-hint {
@@ -419,59 +493,25 @@ const symbolTotals = computed(() => {
   opacity: 0.75;
 }
 
-/* 快照清單 */
-.mb-snap-list,
-.mb-equip-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.mb-snap {
+/* 戰鬥力 */
+.mb-power {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 8px;
-  padding: 5px 6px;
-  border-radius: 6px;
-  cursor: pointer;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.mb-snap:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.mb-snap.active {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.mb-snap-pin {
-  opacity: 0.35;
-}
-
-.mb-snap-pin.on {
-  opacity: 1;
-  color: #ffc857;
-}
-
-.mb-snap-main {
-  display: flex;
-  flex: 1;
-  min-width: 0;
-  flex-direction: column;
-}
-
-.mb-snap-main b {
+.mb-power-label {
   font-size: 12px;
+  opacity: 0.7;
 }
 
-.mb-snap-main small {
-  font-size: 10px;
-  opacity: 0.6;
-}
-
-.mb-snap-actions {
-  display: flex;
-  gap: 4px;
+.mb-power-value {
+  font-size: 16px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 
 /* 能力值 */
@@ -495,11 +535,17 @@ const symbolTotals = computed(() => {
 }
 
 .mb-stat-value {
-  font-variant-numeric: tabular-nums;
   font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
 /* 裝備 */
+.mb-equip-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .mb-equip + .mb-equip {
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
@@ -525,8 +571,8 @@ const symbolTotals = computed(() => {
 .mb-equip-part {
   width: 76px;
   flex-shrink: 0;
-  opacity: 0.6;
   font-size: 11px;
+  opacity: 0.6;
 }
 
 .mb-equip-name {
@@ -573,8 +619,8 @@ const symbolTotals = computed(() => {
 .mb-equip-label {
   width: 56px;
   flex-shrink: 0;
-  opacity: 0.55;
   font-size: 11px;
+  opacity: 0.55;
 }
 
 .mb-equip-line {

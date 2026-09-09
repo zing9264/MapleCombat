@@ -30,7 +30,7 @@ const tabs: { view: ViewKey; label: string }[] = [
   { view: 'characterInput', label: '角色資料' },
   { view: 'equipmentChange', label: '裝備變更' },
   { view: 'valueConversion', label: '數值換算' },
-  { view: 'characterSnapshot', label: '角色快照' },
+  { view: 'equipmentSets', label: '裝備組' },
 ]
 
 function activateState(id: StateSlotId | 'weighted') {

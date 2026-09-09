@@ -55,13 +55,13 @@ git fetch upstream && git merge upstream/main
 
 ### 分頁接縫
 
-新增分頁最少要動三處上游檔案，每處一到兩行。目前已加入「角色快照」分頁：
+新增分頁最少要動三處上游檔案，每處一到兩行。目前已加入「裝備組」分頁：
 
-| 檔案                                       | 改動                                                                 |
-| ------------------------------------------ | -------------------------------------------------------------------- |
-| `src/stores/ui.ts`                         | `ViewKey` 型別與 `VALID_VIEWS` 各加 `'characterSnapshot'`            |
-| `src/components/layout/CompactToolbar.vue` | `tabs` 陣列加一列 `{ view: 'characterSnapshot', label: '角色快照' }` |
-| `src/App.vue`                              | import 一行 + `<CharacterSnapshotView v-if="…" />` 一行              |
+| 檔案                                       | 改動                                                           |
+| ------------------------------------------ | -------------------------------------------------------------- |
+| `src/stores/ui.ts`                         | `ViewKey` 型別與 `VALID_VIEWS` 各加 `'equipmentSets'`          |
+| `src/components/layout/CompactToolbar.vue` | `tabs` 陣列加一列 `{ view: 'equipmentSets', label: '裝備組' }` |
+| `src/App.vue`                              | import 一行 + `<EquipmentSetView v-if="…" />` 一行             |
 
 之後再加分頁就照同樣三個位置擴充。
 

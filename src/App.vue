@@ -5,7 +5,7 @@ import CharacterInputView from '@/components/character/CharacterInputView.vue'
 import EquipmentChangeView from '@/components/equipment/EquipmentChangeView.vue'
 import ValueConversionView from '@/components/conversion/ValueConversionView.vue'
 import WeightedAnalysisView from '@/components/weighted/WeightedAnalysisView.vue'
-import CharacterSnapshotView from '@/building/views/CharacterSnapshotView.vue'
+import EquipmentSetView from '@/building/views/EquipmentSetView.vue'
 import { useStateSlotsStore } from '@/stores/stateSlots'
 
 const ui = useUiStore()
@@ -20,7 +20,7 @@ const slots = useStateSlotsStore()
       <CharacterInputView v-show="ui.activeView === 'characterInput'" />
       <EquipmentChangeView v-show="ui.activeView === 'equipmentChange'" />
       <ValueConversionView v-show="ui.activeView === 'valueConversion'" />
-      <CharacterSnapshotView v-if="ui.activeView === 'characterSnapshot'" />
+      <EquipmentSetView v-if="ui.activeView === 'equipmentSets'" />
     </template>
   </div>
 </template>
