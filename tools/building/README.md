@@ -29,3 +29,26 @@ INT 與 LUK 都剛好差 50，代表缺的是單一個「全屬性」來源而�
 ```bash
 npx esbuild src/building/core/optionParser.ts --format=esm --outfile=tools/building/parser.mjs
 ```
+
+## API 已知的資料缺口
+
+以下是遊戲內確實存在、但 NEXON API 不回傳或需另外抓的來源。加總時必須補上：
+
+| 來源 | 端點 | 備註 |
+| --- | --- | --- |
+| 寵物裝備 | `/character/pet-equipment` | 三隻寵物的裝備，遊戲算進「裝備道具」。實測 +315 魔攻 |
+| 套裝效果 | `/character/set-effect` | 只計 `set_count <= total_set_count` 的階層 |
+| 靈魂武器 | **無** | `soul_name` 回傳空字串，即使角色確實有靈魂武器（實測 +29 攻/魔） |
+| 寶石 | `/character/item-equipment` | 數值只在 `item_total_option`，四個分層皆為 0，且歸「%未套用」 |
+
+## 尚未找到來源的缺口
+
+| 項目 | 缺 |
+| --- | --- |
+| 全屬性 | +50 |
+| 魔法攻擊力 | +6 |
+| 攻擊Boss怪物時傷害 | +10% |
+
+創世武器解放的永久效果（全屬性 +20、攻擊力/魔力 +20、Boss傷 +10%、
+無視防禦 +10%）是 Boss傷 那 10% 的可能來源，但套進去後全屬性與魔攻會對不上，
+需要進一步確認它被歸在哪一桶。
