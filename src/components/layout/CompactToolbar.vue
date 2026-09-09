@@ -5,6 +5,7 @@ import { useImportExport } from '@/composables/useImportExport'
 import { useCompactTheme } from '@/composables/useTheme'
 import { useCharacterStore } from '@/stores/character'
 import { useStateSlotsStore, type StateSlotId } from '@/stores/stateSlots'
+import ApiKeyControl from '@/building/components/ApiKeyControl.vue'
 
 const ui = useUiStore()
 const { fileInput, onExport, onImportFileChange } = useImportExport()
@@ -293,6 +294,7 @@ function canConfirmStateDialog(): boolean {
           <button type="button" :disabled="slots.isWeightedActive" @click="openResetDialog">
             重設目前狀態
           </button>
+          <ApiKeyControl />
         </div>
       </details>
     </div>

@@ -6,48 +6,25 @@
 //
 // API 只回傳當下啟用的 preset，因此流程是：遊戲切到某組 → 按該槽的「同步」。
 import { computed, ref } from 'vue'
-import {
-  fetchCharacter,
-  getApiKey,
-  setApiKey,
-  type EquipmentItem,
-  type FetchProgress,
-} from '../services/nexonApi'
+import { fetchCharacter, type EquipmentItem, type FetchProgress } from '../services/nexonApi'
 import { useEquipmentSetsStore, type SetSlotId } from '../stores/equipmentSets'
 import { useItemLibraryStore } from '../stores/itemLibrary'
+import { useApiKeyStore } from '../stores/apiKey'
 
 const store = useEquipmentSetsStore()
 const library = useItemLibraryStore()
+const apiKey = useApiKeyStore()
 const absorbedCount = ref(0)
 
-const apiKeyInput = ref(getApiKey())
-const apiKeySaved = ref(Boolean(getApiKey()))
 const characterName = ref(localStorage.getItem('mbLastCharacterName') || '')
 const syncing = ref(false)
 const progress = ref<FetchProgress | null>(null)
 const errorMessage = ref('')
 const expandedSlot = ref('')
 
-const maskedKey = computed(() => {
-  const key = getApiKey()
-  return key ? `${key.slice(0, 8)}${'•'.repeat(12)}${key.slice(-4)}` : ''
-})
-
 const canSync = computed(
-  () => apiKeySaved.value && !syncing.value && Boolean(characterName.value.trim()),
+  () => apiKey.hasKey && !syncing.value && Boolean(characterName.value.trim()),
 )
-
-function onSaveKey(): void {
-  setApiKey(apiKeyInput.value)
-  apiKeySaved.value = Boolean(getApiKey())
-  errorMessage.value = ''
-}
-
-function onClearKey(): void {
-  setApiKey('')
-  apiKeyInput.value = ''
-  apiKeySaved.value = false
-}
 
 /** 戰鬥力照遊戲的寫法斷成億／萬 */
 function formatPower(value: string): string {
@@ -195,7 +172,7 @@ const symbolTotals = computed(() => {
           v-model="characterName"
           class="mb-input mb-input--grow"
           placeholder="角色名稱"
-          :disabled="!apiKeySaved || syncing"
+          :disabled="!apiKey.hasKey || syncing"
           @keyup.enter="onSync(store.activeId)"
         />
         <button class="mb-btn mb-btn--primary" :disabled="!canSync" @click="onSync(store.activeId)">
@@ -206,6 +183,7 @@ const symbolTotals = computed(() => {
           清除
         </button>
       </div>
+      <p v-if="!apiKey.hasKey" class="mb-error">尚未設定 API Key，請到右上「管理」貼上。</p>
       <p v-if="progress" class="mb-hint">
         ({{ progress.step }}/{{ progress.total }}) {{ progress.label }}
       </p>
@@ -216,31 +194,6 @@ const symbolTotals = computed(() => {
         API 只讀得到遊戲內<b>當下啟用</b>的裝備 preset。請先在遊戲裡切到要記錄的那一組，再按同步。
         擷取到的數值等同屬性視窗顯示值，寵物、活動與師徒加成都已含在內。
       </p>
-    </section>
-
-    <!-- API Key -->
-    <section class="mb-card">
-      <h3 class="mb-card-title">NEXON Open API</h3>
-      <div v-if="!apiKeySaved">
-        <p class="mb-hint">
-          需要自己的 API Key：到 <span class="mb-code">openapi.nexon.com</span> 登入後，My
-          Applications → 註冊應用程式 → 選 MapleStory (TW) → 開發階段。
-        </p>
-        <div class="mb-row">
-          <input
-            v-model="apiKeyInput"
-            type="password"
-            class="mb-input mb-input--grow"
-            placeholder="貼上 API Key"
-            autocomplete="off"
-          />
-          <button class="mb-btn mb-btn--primary" @click="onSaveKey">儲存</button>
-        </div>
-      </div>
-      <div v-else class="mb-row">
-        <span class="mb-key-mask">{{ maskedKey }}</span>
-        <button class="mb-btn" @click="onClearKey">清除</button>
-      </div>
     </section>
 
     <template v-if="store.active?.data">
