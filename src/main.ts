@@ -16,6 +16,8 @@ import '@/styles/theme-web.css'
 import '@/styles/density.css'
 // 桌面緊湊版主題（必須最後載入，覆寫上方所有 :root 變數）
 import '@/styles/compact-desktop.css'
+// MapleBuilding 自有樣式（必須排在 compact-desktop.css 之後才蓋得過去）
+import '@/building/styles/building.css'
 
 applyDensity()
 applyCompactTheme()

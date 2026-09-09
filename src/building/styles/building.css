@@ -1,0 +1,9 @@
+/*
+ * MapleBuilding 自有樣式 / 覆蓋樣式。
+ *
+ * 載入順序很重要：main.ts 中此檔必須排在 compact-desktop.css 之後。
+ * 上游的 compact-desktop.css 會覆寫所有 :root 變數，若本檔先載入會被蓋掉。
+ *
+ * 覆蓋上游樣式時寫在這裡，不要去改 src/styles/ 下的檔案 — 那些每次
+ * 合併上游都會衝突。
+ */
