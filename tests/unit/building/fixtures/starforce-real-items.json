@@ -1,0 +1,743 @@
+[
+  {
+    "name": "神祕冥界幽靈魔法帽",
+    "part": "帽子",
+    "star": 25,
+    "reqLevel": 200,
+    "base": {
+      "str": 0,
+      "dex": 0,
+      "int": 65,
+      "luk": 65,
+      "attackPower": 0,
+      "magicPower": 7,
+      "armor": 600,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "upgrade": {
+      "str": 30,
+      "dex": 30,
+      "int": 30,
+      "luk": 30,
+      "attackPower": 0,
+      "magicPower": 135,
+      "armor": 0,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 105,
+      "dex": 105,
+      "int": 145,
+      "luk": 145,
+      "attackPower": 175,
+      "magicPower": 175,
+      "armor": 1456,
+      "maxHp": 255,
+      "maxMp": 0
+    }
+  },
+  {
+    "name": "口紅控制器標誌",
+    "part": "臉飾",
+    "star": 22,
+    "reqLevel": 160,
+    "base": {
+      "str": 10,
+      "dex": 10,
+      "int": 10,
+      "luk": 10,
+      "attackPower": 10,
+      "magicPower": 10,
+      "armor": 200,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "upgrade": {
+      "str": 0,
+      "dex": 0,
+      "int": 0,
+      "luk": 0,
+      "attackPower": 0,
+      "magicPower": 81,
+      "armor": 0,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 131,
+      "dex": 131,
+      "int": 131,
+      "luk": 131,
+      "attackPower": 92,
+      "magicPower": 92,
+      "armor": 406,
+      "maxHp": 0,
+      "maxMp": 0
+    }
+  },
+  {
+    "name": "附有魔力的眼罩",
+    "part": "眼飾",
+    "star": 22,
+    "reqLevel": 160,
+    "base": {
+      "str": 15,
+      "dex": 15,
+      "int": 15,
+      "luk": 15,
+      "attackPower": 3,
+      "magicPower": 3,
+      "armor": 300,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "upgrade": {
+      "str": 0,
+      "dex": 0,
+      "int": 0,
+      "luk": 0,
+      "attackPower": 0,
+      "magicPower": 65,
+      "armor": 0,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 131,
+      "dex": 131,
+      "int": 131,
+      "luk": 131,
+      "attackPower": 92,
+      "magicPower": 92,
+      "armor": 598,
+      "maxHp": 0,
+      "maxMp": 0
+    }
+  },
+  {
+    "name": "頂級培羅德耳環",
+    "part": "耳環",
+    "star": 19,
+    "reqLevel": 150,
+    "base": {
+      "str": 15,
+      "dex": 15,
+      "int": 15,
+      "luk": 15,
+      "attackPower": 10,
+      "magicPower": 10,
+      "armor": 100,
+      "maxHp": 150,
+      "maxMp": 150
+    },
+    "upgrade": {
+      "str": 0,
+      "dex": 0,
+      "int": 0,
+      "luk": 0,
+      "attackPower": 0,
+      "magicPower": 72,
+      "armor": 0,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 84,
+      "dex": 84,
+      "int": 84,
+      "luk": 84,
+      "attackPower": 42,
+      "magicPower": 42,
+      "armor": 168,
+      "maxHp": 0,
+      "maxMp": 0
+    }
+  },
+  {
+    "name": "永恆法師長袍",
+    "part": "上衣",
+    "star": 22,
+    "reqLevel": 250,
+    "base": {
+      "str": 0,
+      "dex": 0,
+      "int": 50,
+      "luk": 50,
+      "attackPower": 0,
+      "magicPower": 6,
+      "armor": 325,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "upgrade": {
+      "str": 6,
+      "dex": 6,
+      "int": 6,
+      "luk": 6,
+      "attackPower": 0,
+      "magicPower": 91,
+      "armor": 0,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 119,
+      "dex": 119,
+      "int": 159,
+      "luk": 159,
+      "attackPower": 120,
+      "magicPower": 120,
+      "armor": 645,
+      "maxHp": 255,
+      "maxMp": 0
+    }
+  },
+  {
+    "name": "永恆法師褲",
+    "part": "褲/裙",
+    "star": 22,
+    "reqLevel": 250,
+    "base": {
+      "str": 0,
+      "dex": 0,
+      "int": 50,
+      "luk": 50,
+      "attackPower": 0,
+      "magicPower": 6,
+      "armor": 325,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "upgrade": {
+      "str": 6,
+      "dex": 6,
+      "int": 6,
+      "luk": 6,
+      "attackPower": 0,
+      "magicPower": 91,
+      "armor": 0,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 119,
+      "dex": 119,
+      "int": 159,
+      "luk": 159,
+      "attackPower": 120,
+      "magicPower": 120,
+      "armor": 645,
+      "maxHp": 255,
+      "maxMp": 0
+    }
+  },
+  {
+    "name": "航海師法師鞋",
+    "part": "鞋子",
+    "star": 18,
+    "reqLevel": 160,
+    "base": {
+      "str": 0,
+      "dex": 0,
+      "int": 20,
+      "luk": 20,
+      "attackPower": 0,
+      "magicPower": 5,
+      "armor": 150,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "upgrade": {
+      "str": 0,
+      "dex": 0,
+      "int": 70,
+      "luk": 0,
+      "attackPower": 0,
+      "magicPower": 1,
+      "armor": 105,
+      "maxHp": 1190,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 0,
+      "dex": 0,
+      "int": 79,
+      "luk": 79,
+      "attackPower": 33,
+      "magicPower": 33,
+      "armor": 376,
+      "maxHp": 0,
+      "maxMp": 0
+    }
+  },
+  {
+    "name": "神祕冥界幽靈魔導士手套",
+    "part": "手套",
+    "star": 17,
+    "reqLevel": 200,
+    "base": {
+      "str": 0,
+      "dex": 0,
+      "int": 40,
+      "luk": 40,
+      "attackPower": 0,
+      "magicPower": 9,
+      "armor": 250,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "upgrade": {
+      "str": 0,
+      "dex": 0,
+      "int": 0,
+      "luk": 0,
+      "attackPower": 0,
+      "magicPower": 32,
+      "armor": 0,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 0,
+      "dex": 0,
+      "int": 70,
+      "luk": 70,
+      "attackPower": 25,
+      "magicPower": 32,
+      "armor": 334,
+      "maxHp": 0,
+      "maxMp": 0
+    }
+  },
+  {
+    "name": "航海師法師斗篷",
+    "part": "披風",
+    "star": 18,
+    "reqLevel": 160,
+    "base": {
+      "str": 15,
+      "dex": 15,
+      "int": 15,
+      "luk": 15,
+      "attackPower": 2,
+      "magicPower": 2,
+      "armor": 250,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "upgrade": {
+      "str": 0,
+      "dex": 0,
+      "int": 70,
+      "luk": 0,
+      "attackPower": 0,
+      "magicPower": 1,
+      "armor": 105,
+      "maxHp": 1190,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 39,
+      "dex": 39,
+      "int": 79,
+      "luk": 79,
+      "attackPower": 33,
+      "magicPower": 33,
+      "armor": 512,
+      "maxHp": 255,
+      "maxMp": 0
+    }
+  },
+  {
+    "name": "惡魔賢者盾",
+    "part": "盾牌",
+    "star": 20,
+    "reqLevel": 130,
+    "base": {
+      "str": 0,
+      "dex": 0,
+      "int": 10,
+      "luk": 0,
+      "attackPower": 0,
+      "magicPower": 0,
+      "armor": 71,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "upgrade": {
+      "str": 0,
+      "dex": 0,
+      "int": 0,
+      "luk": 0,
+      "attackPower": 0,
+      "magicPower": 40,
+      "armor": 0,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 0,
+      "dex": 0,
+      "int": 75,
+      "luk": 75,
+      "attackPower": 45,
+      "magicPower": 45,
+      "armor": 133,
+      "maxHp": 255,
+      "maxMp": 0
+    }
+  },
+  {
+    "name": "創世長杖",
+    "part": "長杖",
+    "star": 22,
+    "reqLevel": 200,
+    "base": {
+      "str": 0,
+      "dex": 0,
+      "int": 150,
+      "luk": 150,
+      "attackPower": 251,
+      "magicPower": 406,
+      "armor": 0,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "upgrade": {
+      "str": 0,
+      "dex": 0,
+      "int": 32,
+      "luk": 0,
+      "attackPower": 0,
+      "magicPower": 72,
+      "armor": 0,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 0,
+      "dex": 0,
+      "int": 145,
+      "luk": 145,
+      "attackPower": 198,
+      "magicPower": 276,
+      "armor": 0,
+      "maxHp": 255,
+      "maxMp": 255
+    }
+  },
+  {
+    "name": "巨大的恐怖",
+    "part": "戒指",
+    "star": 22,
+    "reqLevel": 200,
+    "base": {
+      "str": 5,
+      "dex": 5,
+      "int": 5,
+      "luk": 5,
+      "attackPower": 4,
+      "magicPower": 4,
+      "armor": 0,
+      "maxHp": 250,
+      "maxMp": 250
+    },
+    "upgrade": {
+      "str": 0,
+      "dex": 0,
+      "int": 0,
+      "luk": 0,
+      "attackPower": 0,
+      "magicPower": 50,
+      "armor": 0,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 145,
+      "dex": 145,
+      "int": 145,
+      "luk": 145,
+      "attackPower": 106,
+      "magicPower": 106,
+      "armor": 26,
+      "maxHp": 255,
+      "maxMp": 0
+    }
+  },
+  {
+    "name": "天上的氣息",
+    "part": "戒指",
+    "star": 25,
+    "reqLevel": 150,
+    "base": {
+      "str": 25,
+      "dex": 25,
+      "int": 25,
+      "luk": 25,
+      "attackPower": 25,
+      "magicPower": 25,
+      "armor": 0,
+      "maxHp": 200,
+      "maxMp": 200
+    },
+    "upgrade": {
+      "str": 0,
+      "dex": 0,
+      "int": 0,
+      "luk": 0,
+      "attackPower": 0,
+      "magicPower": 34,
+      "armor": 0,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 117,
+      "dex": 117,
+      "int": 117,
+      "luk": 117,
+      "attackPower": 145,
+      "magicPower": 145,
+      "armor": 32,
+      "maxHp": 255,
+      "maxMp": 0
+    }
+  },
+  {
+    "name": "頂級培羅德戒指",
+    "part": "戒指",
+    "star": 19,
+    "reqLevel": 150,
+    "base": {
+      "str": 10,
+      "dex": 10,
+      "int": 10,
+      "luk": 10,
+      "attackPower": 8,
+      "magicPower": 8,
+      "armor": 150,
+      "maxHp": 250,
+      "maxMp": 250
+    },
+    "upgrade": {
+      "str": 0,
+      "dex": 0,
+      "int": 0,
+      "luk": 0,
+      "attackPower": 0,
+      "magicPower": 28,
+      "armor": 0,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 84,
+      "dex": 84,
+      "int": 84,
+      "luk": 84,
+      "attackPower": 42,
+      "magicPower": 42,
+      "armor": 243,
+      "maxHp": 255,
+      "maxMp": 0
+    }
+  },
+  {
+    "name": "頂級培羅德烙印墜飾",
+    "part": "墜飾",
+    "star": 17,
+    "reqLevel": 150,
+    "base": {
+      "str": 28,
+      "dex": 28,
+      "int": 28,
+      "luk": 28,
+      "attackPower": 5,
+      "magicPower": 5,
+      "armor": 100,
+      "maxHp": 300,
+      "maxMp": 300
+    },
+    "upgrade": {
+      "str": 21,
+      "dex": 21,
+      "int": 21,
+      "luk": 21,
+      "attackPower": 28,
+      "magicPower": 28,
+      "armor": 0,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 62,
+      "dex": 62,
+      "int": 62,
+      "luk": 62,
+      "attackPower": 19,
+      "magicPower": 19,
+      "armor": 142,
+      "maxHp": 255,
+      "maxMp": 0
+    }
+  },
+  {
+    "name": "頂級培羅德烙印腰帶",
+    "part": "腰帶",
+    "star": 18,
+    "reqLevel": 150,
+    "base": {
+      "str": 60,
+      "dex": 60,
+      "int": 60,
+      "luk": 60,
+      "attackPower": 35,
+      "magicPower": 35,
+      "armor": 100,
+      "maxHp": 200,
+      "maxMp": 200
+    },
+    "upgrade": {
+      "str": 12,
+      "dex": 12,
+      "int": 12,
+      "luk": 12,
+      "attackPower": 16,
+      "magicPower": 16,
+      "armor": 0,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 73,
+      "dex": 73,
+      "int": 73,
+      "luk": 73,
+      "attackPower": 30,
+      "magicPower": 30,
+      "armor": 155,
+      "maxHp": 255,
+      "maxMp": 0
+    }
+  },
+  {
+    "name": "航海師法師護肩",
+    "part": "肩膀裝飾",
+    "star": 18,
+    "reqLevel": 160,
+    "base": {
+      "str": 14,
+      "dex": 14,
+      "int": 14,
+      "luk": 14,
+      "attackPower": 10,
+      "magicPower": 10,
+      "armor": 100,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "upgrade": {
+      "str": 0,
+      "dex": 0,
+      "int": 10,
+      "luk": 0,
+      "attackPower": 0,
+      "magicPower": 0,
+      "armor": 15,
+      "maxHp": 170,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 39,
+      "dex": 39,
+      "int": 79,
+      "luk": 79,
+      "attackPower": 33,
+      "magicPower": 33,
+      "armor": 176,
+      "maxHp": 255,
+      "maxMp": 0
+    }
+  },
+  {
+    "name": "菇菇機器人專用心臟",
+    "part": "機器心臟",
+    "star": 8,
+    "reqLevel": 100,
+    "base": {
+      "str": 0,
+      "dex": 0,
+      "int": 0,
+      "luk": 0,
+      "attackPower": 0,
+      "magicPower": 0,
+      "armor": 0,
+      "maxHp": 100,
+      "maxMp": 0
+    },
+    "upgrade": {
+      "str": 88,
+      "dex": 88,
+      "int": 88,
+      "luk": 88,
+      "attackPower": 0,
+      "magicPower": 110,
+      "armor": 0,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 19,
+      "dex": 19,
+      "int": 19,
+      "luk": 19,
+      "attackPower": 0,
+      "magicPower": 0,
+      "armor": 0,
+      "maxHp": 0,
+      "maxMp": 0
+    }
+  },
+  {
+    "name": "苦痛的根源",
+    "part": "墜飾",
+    "star": 22,
+    "reqLevel": 160,
+    "base": {
+      "str": 10,
+      "dex": 10,
+      "int": 10,
+      "luk": 10,
+      "attackPower": 3,
+      "magicPower": 3,
+      "armor": 200,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "upgrade": {
+      "str": 0,
+      "dex": 0,
+      "int": 0,
+      "luk": 0,
+      "attackPower": 0,
+      "magicPower": 54,
+      "armor": 0,
+      "maxHp": 0,
+      "maxMp": 0
+    },
+    "expected": {
+      "str": 131,
+      "dex": 131,
+      "int": 131,
+      "luk": 131,
+      "attackPower": 92,
+      "magicPower": 92,
+      "armor": 406,
+      "maxHp": 255,
+      "maxMp": 0
+    }
+  }
+]
