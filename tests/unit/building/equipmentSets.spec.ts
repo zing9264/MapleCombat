@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { countSetPieces } from '@/building/data/equipmentSets'
+import { activeTiers, countSetPieces, hasSetTiers } from '@/building/data/equipmentSets'
 
 /**
  * 283 級主教「藜樂拌楓糖」實際穿戴的 29 件裝備（取自 API item-equipment）。
@@ -82,5 +82,71 @@ describe('countSetPieces — 對照遊戲內套裝視窗', () => {
     const empty = countSetPieces([])
     expect(empty.counts).toEqual({})
     expect(empty.unknownItems).toEqual([])
+  })
+})
+
+describe('SET_TIERS — 對照先前完全吻合的對帳結果', () => {
+  /**
+   * 這組期望值來自那次七項全中的對帳：以遊戲內套裝視窗確認的件數
+   * （永恆 3、航海師 4、神祕冥界 2、頂級培羅德 4、漆黑BOSS 5）計算，
+   * 套裝合計必須是全屬性 +150、攻擊力/魔力 +260、Boss傷 +100%。
+   *
+   * 階層表是人工從截圖抄的，這個測試就是抄錯的防線。
+   */
+  const REAL_COUNTS: Record<string, number> = {
+    '永恆套裝(法師)': 3,
+    '航海師套裝(法師)': 4,
+    '神祕冥界套裝(法師)': 2,
+    頂級培羅德套裝: 4,
+    漆黑BOSS套裝: 5,
+    死後世界的的痕跡: 2,
+    小小時光音樂會套組: 2,
+  }
+
+  function totalOf(key: 'allStat' | 'magicPower' | 'attackPower', kind: 'flat' | 'percent') {
+    let sum = 0
+    for (const [setName, count] of Object.entries(REAL_COUNTS)) {
+      for (const tier of activeTiers(setName, count)) {
+        sum += Number(tier[kind]?.[key] ?? 0)
+      }
+    }
+    return sum
+  }
+
+  function bossDamageTotal() {
+    let sum = 0
+    for (const [setName, count] of Object.entries(REAL_COUNTS)) {
+      for (const tier of activeTiers(setName, count)) sum += Number(tier.percent?.bossDamage ?? 0)
+    }
+    return sum
+  }
+
+  it('全屬性合計 +150', () => {
+    expect(totalOf('allStat', 'flat')).toBe(150)
+  })
+
+  it('魔力與攻擊力合計都是 +260', () => {
+    expect(totalOf('magicPower', 'flat')).toBe(260)
+    expect(totalOf('attackPower', 'flat')).toBe(260)
+  })
+
+  it('Boss 傷害合計 +100%', () => {
+    expect(bossDamageTotal()).toBe(100)
+  })
+
+  it('未達標的階層不會生效', () => {
+    // 死後世界的的痕跡需要 3 件，目前只有 2 件
+    expect(activeTiers('死後世界的的痕跡', 2)).toHaveLength(0)
+    expect(activeTiers('死後世界的的痕跡', 3)).toHaveLength(1)
+  })
+
+  it('小小時光音樂會只給技能，不貢獻任何能力值', () => {
+    expect(activeTiers('小小時光音樂會套組', 3)).toHaveLength(0)
+    expect(hasSetTiers('小小時光音樂會套組')).toBe(true)
+  })
+
+  it('未收錄的套裝會回報，讓呼叫端知道要退回 API 資料', () => {
+    expect(hasSetTiers('不存在的套裝')).toBe(false)
+    expect(activeTiers('不存在的套裝', 5)).toHaveLength(0)
   })
 })
