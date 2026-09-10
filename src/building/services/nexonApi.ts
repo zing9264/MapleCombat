@@ -147,6 +147,17 @@ export interface EquipmentItem {
   soul_option: string | null
 }
 
+export interface SetEffectTier {
+  set_count: number
+  set_option: string
+}
+
+export interface SetEffectEntry {
+  set_name: string
+  total_set_count: number
+  set_effect_info: SetEffectTier[]
+}
+
 export interface SymbolItem {
   symbol_name: string
   symbol_level: number
@@ -181,6 +192,7 @@ export interface RawCharacterData {
   basic: CharacterBasic
   stat: CharacterStat
   equipment: EquipmentItem[]
+  setEffects: SetEffectEntry[]
   symbols: SymbolItem[]
   hyperStat: HyperStatEntry[]
   hexaStat: HexaStatCore[]
@@ -212,6 +224,7 @@ export async function fetchCharacter(
     '基本資訊',
     '綜合能力值',
     '裝備',
+    '套裝效果',
     '符文',
     '極限屬性',
     'HEXA 屬性',
@@ -240,6 +253,10 @@ export async function fetchCharacter(
   await sleep(THROTTLE_MS)
 
   advance()
+  const setRes = await request<{ set_effect: SetEffectEntry[] }>('/character/set-effect', q)
+  await sleep(THROTTLE_MS)
+
+  advance()
   const symbolRes = await request<{ symbol: SymbolItem[] }>('/character/symbol-equipment', q)
   await sleep(THROTTLE_MS)
 
@@ -255,6 +272,7 @@ export async function fetchCharacter(
     basic,
     stat,
     equipment: equipmentRes.item_equipment ?? [],
+    setEffects: setRes.set_effect ?? [],
     symbols: symbolRes.symbol ?? [],
     hyperStat: pickActiveHyperStat(hyperRes),
     hexaStat: collectHexaCores(hexaRes),

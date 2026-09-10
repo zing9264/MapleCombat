@@ -1,0 +1,890 @@
+{
+  "items": [
+    {
+      "name": "神祕冥界幽靈魔法帽",
+      "part": "帽子",
+      "base": {
+        "int": 65,
+        "luk": 65,
+        "magicPower": 7,
+        "armor": 600,
+        "ignoreDefense": 15
+      },
+      "starforce": {
+        "str": 105,
+        "dex": 105,
+        "int": 145,
+        "luk": 145,
+        "maxHp": 255,
+        "attackPower": 175,
+        "magicPower": 175,
+        "armor": 1456
+      },
+      "etc": {
+        "str": 30,
+        "dex": 30,
+        "int": 30,
+        "luk": 30,
+        "magicPower": 135
+      },
+      "add": {
+        "str": 12,
+        "int": 57,
+        "luk": 12,
+        "allStat": 3
+      },
+      "potentials": ["INT +10%", "INT +13%", "INT +13%"],
+      "additionalPotentials": ["以角色等級為準每9級 INT +1", "LUK +5%", "INT +5%"]
+    },
+    {
+      "name": "口紅控制器標誌",
+      "part": "臉飾",
+      "base": {
+        "str": 10,
+        "dex": 10,
+        "int": 10,
+        "luk": 10,
+        "attackPower": 10,
+        "magicPower": 10,
+        "armor": 200
+      },
+      "starforce": {
+        "str": 131,
+        "dex": 131,
+        "int": 131,
+        "luk": 131,
+        "attackPower": 92,
+        "magicPower": 92,
+        "armor": 406
+      },
+      "etc": {
+        "magicPower": 81
+      },
+      "add": {
+        "dex": 30,
+        "int": 42,
+        "luk": 15,
+        "attackPower": 3
+      },
+      "potentials": ["全屬性 +10%", "INT +10%", "INT +13%"],
+      "additionalPotentials": ["以角色等級為準每9級 INT +2", "INT +6%", "INT +6%"]
+    },
+    {
+      "name": "附有魔力的眼罩",
+      "part": "眼飾",
+      "base": {
+        "str": 15,
+        "dex": 15,
+        "int": 15,
+        "luk": 15,
+        "attackPower": 3,
+        "magicPower": 3,
+        "armor": 300
+      },
+      "starforce": {
+        "str": 131,
+        "dex": 131,
+        "int": 131,
+        "luk": 131,
+        "attackPower": 92,
+        "magicPower": 92,
+        "armor": 598
+      },
+      "etc": {
+        "magicPower": 65
+      },
+      "add": {
+        "str": 5,
+        "dex": 15,
+        "int": 53,
+        "luk": 15
+      },
+      "potentials": ["INT +10%", "INT +13%", "INT +13%"],
+      "additionalPotentials": ["全屬性 +6%", "INT +18", "全屬性 +5%"]
+    },
+    {
+      "name": "頂級培羅德耳環",
+      "part": "耳環",
+      "base": {
+        "str": 15,
+        "dex": 15,
+        "int": 15,
+        "luk": 15,
+        "maxHp": 150,
+        "maxMp": 150,
+        "attackPower": 10,
+        "magicPower": 10,
+        "armor": 100
+      },
+      "starforce": {
+        "str": 84,
+        "dex": 84,
+        "int": 84,
+        "luk": 84,
+        "attackPower": 42,
+        "magicPower": 42,
+        "armor": 168
+      },
+      "etc": {
+        "magicPower": 72
+      },
+      "add": {
+        "allStat": 3
+      },
+      "potentials": ["全屬性 +9%", "INT +12%", "INT +12%"],
+      "additionalPotentials": ["INT +4%", "INT +2%", "全屬性 +3"]
+    },
+    {
+      "name": "永恆法師長袍",
+      "part": "上衣",
+      "base": {
+        "int": 50,
+        "luk": 50,
+        "magicPower": 6,
+        "armor": 325,
+        "ignoreDefense": 5
+      },
+      "starforce": {
+        "str": 119,
+        "dex": 119,
+        "int": 159,
+        "luk": 159,
+        "maxHp": 255,
+        "attackPower": 120,
+        "magicPower": 120,
+        "armor": 645
+      },
+      "etc": {
+        "str": 6,
+        "dex": 6,
+        "int": 6,
+        "luk": 6,
+        "magicPower": 91
+      },
+      "add": {
+        "dex": 21,
+        "int": 21,
+        "maxHp": 700,
+        "maxMp": 1400,
+        "allStat": 3
+      },
+      "potentials": ["全屬性 +10%", "INT +10%", "INT +13%"],
+      "additionalPotentials": [
+        "HP恢復道具及恢復技能效率 +30%",
+        "INT +7%",
+        "以角色等級為準每9級 INT +1"
+      ]
+    },
+    {
+      "name": "永恆法師褲",
+      "part": "褲/裙",
+      "base": {
+        "int": 50,
+        "luk": 50,
+        "magicPower": 6,
+        "armor": 325,
+        "ignoreDefense": 5
+      },
+      "starforce": {
+        "str": 119,
+        "dex": 119,
+        "int": 159,
+        "luk": 159,
+        "maxHp": 255,
+        "attackPower": 120,
+        "magicPower": 120,
+        "armor": 645
+      },
+      "etc": {
+        "str": 6,
+        "dex": 6,
+        "int": 6,
+        "luk": 6,
+        "magicPower": 91
+      },
+      "add": {
+        "str": 21,
+        "dex": 26,
+        "int": 71
+      },
+      "potentials": ["INT +10%", "INT +13%", "INT +13%"],
+      "additionalPotentials": ["MaxHP +12%", "全屬性 +6%", "INT +7%"]
+    },
+    {
+      "name": "航海師法師鞋",
+      "part": "鞋子",
+      "base": {
+        "int": 20,
+        "luk": 20,
+        "magicPower": 5,
+        "armor": 150
+      },
+      "starforce": {
+        "int": 79,
+        "luk": 79,
+        "attackPower": 33,
+        "magicPower": 33,
+        "armor": 376
+      },
+      "etc": {
+        "int": 70,
+        "maxHp": 1190,
+        "magicPower": 1,
+        "armor": 105
+      },
+      "add": {
+        "int": 37,
+        "luk": 10,
+        "magicPower": 2,
+        "allStat": 2
+      },
+      "potentials": ["INT +10%", "INT +7%", "被擊中時有20% 機率無視39 傷害"],
+      "additionalPotentials": ["INT +5%", "魔法攻擊力 +11", "防禦力 +100"]
+    },
+    {
+      "name": "神祕冥界幽靈魔導士手套",
+      "part": "手套",
+      "base": {
+        "int": 40,
+        "luk": 40,
+        "magicPower": 9,
+        "armor": 250
+      },
+      "starforce": {
+        "int": 70,
+        "luk": 70,
+        "attackPower": 25,
+        "magicPower": 32,
+        "armor": 334
+      },
+      "etc": {
+        "magicPower": 32
+      },
+      "add": {
+        "str": 22,
+        "dex": 6,
+        "int": 6,
+        "attackPower": 1,
+        "allStat": 3
+      },
+      "potentials": ["INT +10%", "INT +13%", "爆擊傷害 +8%"],
+      "additionalPotentials": ["魔法攻擊力 +12", "跳躍力 +6", "MaxHP +125"]
+    },
+    {
+      "name": "航海師法師斗篷",
+      "part": "披風",
+      "base": {
+        "str": 15,
+        "dex": 15,
+        "int": 15,
+        "luk": 15,
+        "attackPower": 2,
+        "magicPower": 2,
+        "armor": 250
+      },
+      "starforce": {
+        "str": 39,
+        "dex": 39,
+        "int": 79,
+        "luk": 79,
+        "maxHp": 255,
+        "attackPower": 33,
+        "magicPower": 33,
+        "armor": 512
+      },
+      "etc": {
+        "int": 70,
+        "maxHp": 1190,
+        "magicPower": 1,
+        "armor": 105
+      },
+      "add": {
+        "int": 37,
+        "luk": 10,
+        "magicPower": 2,
+        "allStat": 2
+      },
+      "potentials": ["INT +10%", "INT +7%", "MaxHP +7%"],
+      "additionalPotentials": ["INT +5%", "魔法攻擊力 +11", "MaxHP +3%"]
+    },
+    {
+      "name": "惡魔賢者盾",
+      "part": "盾牌",
+      "base": {
+        "int": 10,
+        "armor": 71
+      },
+      "starforce": {
+        "int": 75,
+        "luk": 75,
+        "maxHp": 255,
+        "attackPower": 45,
+        "magicPower": 45,
+        "armor": 133
+      },
+      "etc": {
+        "magicPower": 40
+      },
+      "add": {},
+      "potentials": [
+        "攻擊Boss怪物時傷害 +30%",
+        "攻擊Boss怪物時傷害 +30%",
+        "攻擊Boss怪物時傷害 +40%"
+      ],
+      "additionalPotentials": ["攻擊Boss怪物時傷害 +18%", "LUK +9%", "魔法攻擊力 +9%"]
+    },
+    {
+      "name": "創世長杖",
+      "part": "長杖",
+      "base": {
+        "int": 150,
+        "luk": 150,
+        "attackPower": 251,
+        "magicPower": 406,
+        "bossDamage": 30,
+        "ignoreDefense": 20
+      },
+      "starforce": {
+        "int": 145,
+        "luk": 145,
+        "maxHp": 255,
+        "maxMp": 255,
+        "attackPower": 198,
+        "magicPower": 276
+      },
+      "etc": {
+        "int": 32,
+        "magicPower": 72
+      },
+      "add": {
+        "str": 18,
+        "luk": 18,
+        "magicPower": 74,
+        "allStat": 3,
+        "damage": 4
+      },
+      "potentials": ["INT +13%", "魔法攻擊力 +13%", "魔法攻擊力 +10%"],
+      "additionalPotentials": ["魔法攻擊力 +7%", "魔法攻擊力 +4%", "跳躍力 +6"]
+    },
+    {
+      "name": "永續戒指",
+      "part": "戒指",
+      "base": {
+        "str": 4,
+        "dex": 4,
+        "int": 4,
+        "luk": 4,
+        "attackPower": 4,
+        "magicPower": 4
+      },
+      "starforce": {},
+      "etc": {},
+      "add": {},
+      "potentials": [],
+      "additionalPotentials": []
+    },
+    {
+      "name": "巨大的恐怖",
+      "part": "戒指",
+      "base": {
+        "str": 5,
+        "dex": 5,
+        "int": 5,
+        "luk": 5,
+        "maxHp": 250,
+        "maxMp": 250,
+        "attackPower": 4,
+        "magicPower": 4
+      },
+      "starforce": {
+        "str": 145,
+        "dex": 145,
+        "int": 145,
+        "luk": 145,
+        "maxHp": 255,
+        "attackPower": 106,
+        "magicPower": 106,
+        "armor": 26
+      },
+      "etc": {
+        "magicPower": 50
+      },
+      "add": {},
+      "potentials": ["INT +10%", "INT +13%", "INT +13%"],
+      "additionalPotentials": ["以角色等級為準每9級 INT +2", "全屬性 +5%", "MaxHP +8%"]
+    },
+    {
+      "name": "天上的氣息",
+      "part": "戒指",
+      "base": {
+        "str": 25,
+        "dex": 25,
+        "int": 25,
+        "luk": 25,
+        "maxHp": 200,
+        "maxMp": 200,
+        "attackPower": 25,
+        "magicPower": 25
+      },
+      "starforce": {
+        "str": 117,
+        "dex": 117,
+        "int": 117,
+        "luk": 117,
+        "maxHp": 255,
+        "attackPower": 145,
+        "magicPower": 145,
+        "armor": 32
+      },
+      "etc": {
+        "magicPower": 34
+      },
+      "add": {},
+      "potentials": ["INT +9%", "INT +12%", "INT +12%"],
+      "additionalPotentials": ["INT +8%", "DEX +6%", "以角色等級為準每9級 INT +1"]
+    },
+    {
+      "name": "頂級培羅德戒指",
+      "part": "戒指",
+      "base": {
+        "str": 10,
+        "dex": 10,
+        "int": 10,
+        "luk": 10,
+        "maxHp": 250,
+        "maxMp": 250,
+        "attackPower": 8,
+        "magicPower": 8,
+        "armor": 150
+      },
+      "starforce": {
+        "str": 84,
+        "dex": 84,
+        "int": 84,
+        "luk": 84,
+        "maxHp": 255,
+        "attackPower": 42,
+        "magicPower": 42,
+        "armor": 243
+      },
+      "etc": {
+        "magicPower": 28
+      },
+      "add": {},
+      "potentials": ["INT +9%", "INT +12%", "INT +12%"],
+      "additionalPotentials": ["INT +4%", "INT +10", "INT +10"]
+    },
+    {
+      "name": "頂級培羅德烙印墜飾",
+      "part": "墜飾",
+      "base": {
+        "str": 28,
+        "dex": 28,
+        "int": 28,
+        "luk": 28,
+        "maxHp": 300,
+        "maxMp": 300,
+        "attackPower": 5,
+        "magicPower": 5,
+        "armor": 100
+      },
+      "starforce": {
+        "str": 62,
+        "dex": 62,
+        "int": 62,
+        "luk": 62,
+        "maxHp": 255,
+        "attackPower": 19,
+        "magicPower": 19,
+        "armor": 142
+      },
+      "etc": {
+        "str": 21,
+        "dex": 21,
+        "int": 21,
+        "luk": 21,
+        "attackPower": 28,
+        "magicPower": 28
+      },
+      "add": {
+        "allStat": 3
+      },
+      "potentials": ["INT +9%", "全屬性 +9%", "楓幣獲得量 +20%"],
+      "additionalPotentials": ["INT +2%", "MaxHP +60", "MaxMP +60"]
+    },
+    {
+      "name": "混沌貝倫殺手",
+      "part": "勳章",
+      "base": {
+        "bossDamage": 5
+      },
+      "starforce": {},
+      "etc": {},
+      "add": {},
+      "potentials": [],
+      "additionalPotentials": []
+    },
+    {
+      "name": "頂級培羅德烙印腰帶",
+      "part": "腰帶",
+      "base": {
+        "str": 60,
+        "dex": 60,
+        "int": 60,
+        "luk": 60,
+        "maxHp": 200,
+        "maxMp": 200,
+        "attackPower": 35,
+        "magicPower": 35,
+        "armor": 100
+      },
+      "starforce": {
+        "str": 73,
+        "dex": 73,
+        "int": 73,
+        "luk": 73,
+        "maxHp": 255,
+        "attackPower": 30,
+        "magicPower": 30,
+        "armor": 155
+      },
+      "etc": {
+        "str": 12,
+        "dex": 12,
+        "int": 12,
+        "luk": 12,
+        "attackPower": 16,
+        "magicPower": 16
+      },
+      "add": {
+        "int": 24,
+        "magicPower": 3
+      },
+      "potentials": ["全屬性 +6%", "INT +9%", "INT +12%"],
+      "additionalPotentials": ["全屬性 +2%", "魔法攻擊力 +10", "跳躍力 +6"]
+    },
+    {
+      "name": "航海師法師護肩",
+      "part": "肩膀裝飾",
+      "base": {
+        "str": 14,
+        "dex": 14,
+        "int": 14,
+        "luk": 14,
+        "attackPower": 10,
+        "magicPower": 10,
+        "armor": 100
+      },
+      "starforce": {
+        "str": 39,
+        "dex": 39,
+        "int": 79,
+        "luk": 79,
+        "maxHp": 255,
+        "attackPower": 33,
+        "magicPower": 33,
+        "armor": 176
+      },
+      "etc": {
+        "int": 10,
+        "maxHp": 170,
+        "armor": 15
+      },
+      "add": {},
+      "potentials": ["INT +10%", "INT +7%", "全屬性 +7%"],
+      "additionalPotentials": ["INT +5%", "魔法攻擊力 +11", "DEX +11"]
+    },
+    {
+      "name": "受詛咒的青魔導書",
+      "part": "口袋道具",
+      "base": {
+        "str": 10,
+        "dex": 10,
+        "int": 20,
+        "luk": 10,
+        "maxHp": 100,
+        "maxMp": 100,
+        "attackPower": 10,
+        "magicPower": 10
+      },
+      "starforce": {},
+      "etc": {},
+      "add": {
+        "str": 15,
+        "int": 30,
+        "luk": 15,
+        "maxHp": 960,
+        "allStat": 3
+      },
+      "potentials": [],
+      "additionalPotentials": []
+    },
+    {
+      "name": "菇菇機器人專用心臟",
+      "part": "機器心臟",
+      "base": {
+        "maxHp": 100
+      },
+      "starforce": {
+        "str": 19,
+        "dex": 19,
+        "int": 19,
+        "luk": 19
+      },
+      "etc": {
+        "str": 88,
+        "dex": 88,
+        "int": 88,
+        "luk": 88,
+        "magicPower": 110
+      },
+      "add": {},
+      "potentials": ["全屬性 +3%", "全屬性 +3%", "INT +9%"],
+      "additionalPotentials": ["移動速度 +6", "跳躍力 +5", "魔法攻擊力 +10"]
+    },
+    {
+      "name": "Sunday胸章",
+      "part": "胸章",
+      "base": {
+        "str": 7,
+        "dex": 7,
+        "int": 7,
+        "luk": 7,
+        "attackPower": 7,
+        "magicPower": 7
+      },
+      "starforce": {},
+      "etc": {},
+      "add": {},
+      "potentials": [],
+      "additionalPotentials": []
+    },
+    {
+      "name": "黃金楓葉徽章",
+      "part": "徽章",
+      "base": {
+        "str": 10,
+        "dex": 10,
+        "int": 10,
+        "luk": 10,
+        "attackPower": 2,
+        "magicPower": 2
+      },
+      "starforce": {},
+      "etc": {},
+      "add": {},
+      "potentials": ["無視怪物防禦率 +30%", "魔法攻擊力 +12%", "魔法攻擊力 +12%"],
+      "additionalPotentials": ["魔法攻擊力 +6%", "INT +12", "魔法攻擊力 +3%"]
+    },
+    {
+      "name": "苦痛的根源",
+      "part": "墜飾",
+      "base": {
+        "str": 10,
+        "dex": 10,
+        "int": 10,
+        "luk": 10,
+        "attackPower": 3,
+        "magicPower": 3,
+        "armor": 200
+      },
+      "starforce": {
+        "str": 131,
+        "dex": 131,
+        "int": 131,
+        "luk": 131,
+        "maxHp": 255,
+        "attackPower": 92,
+        "magicPower": 92,
+        "armor": 406
+      },
+      "etc": {
+        "magicPower": 54
+      },
+      "add": {
+        "str": 20,
+        "dex": 10,
+        "int": 47,
+        "luk": 10
+      },
+      "potentials": ["INT +10%", "INT +13%", "INT +13%"],
+      "additionalPotentials": ["INT +8%", "INT +6%", "MaxHP +8%"]
+    },
+    {
+      "name": "規範戒指",
+      "part": "輔助特殊技能戒指",
+      "base": {
+        "str": 4,
+        "dex": 4,
+        "int": 4,
+        "luk": 4,
+        "attackPower": 4,
+        "magicPower": 4
+      },
+      "starforce": {},
+      "etc": {},
+      "add": {},
+      "potentials": [],
+      "additionalPotentials": []
+    },
+    {
+      "name": "輪迴碑石",
+      "part": "圖騰",
+      "base": {
+        "str": 40,
+        "dex": 40,
+        "int": 40,
+        "luk": 40,
+        "attackPower": 15,
+        "magicPower": 15
+      },
+      "starforce": {},
+      "etc": {},
+      "add": {},
+      "potentials": [],
+      "additionalPotentials": []
+    },
+    {
+      "name": "萬事的痕跡",
+      "part": "圖騰",
+      "base": {
+        "luk": 20,
+        "attackPower": 7,
+        "magicPower": 7
+      },
+      "starforce": {},
+      "etc": {},
+      "add": {},
+      "potentials": [],
+      "additionalPotentials": []
+    },
+    {
+      "name": "阿德勒的痕跡",
+      "part": "圖騰",
+      "base": {
+        "int": 20,
+        "attackPower": 7,
+        "magicPower": 7
+      },
+      "starforce": {},
+      "etc": {},
+      "add": {},
+      "potentials": [],
+      "additionalPotentials": []
+    },
+    {
+      "name": "伊妮絲的寶玉",
+      "part": "寶石",
+      "base": {},
+      "starforce": {},
+      "etc": {},
+      "add": {},
+      "potentials": [],
+      "additionalPotentials": []
+    }
+  ],
+  "setEffects": [
+    {
+      "set_name": "頂級培羅德套裝",
+      "total_set_count": 4,
+      "set_effect_info": [
+        {
+          "set_count": 2,
+          "set_option": "全屬性 +20, 最大HP +1500, 最大MP +1500"
+        },
+        {
+          "set_count": 3,
+          "set_option": "最大HP +13%, 最大MP +13%, 攻擊力 +35, 魔法攻擊力 +35"
+        },
+        {
+          "set_count": 4,
+          "set_option": "攻擊Boss怪物時傷害 +30%, 無視怪物防禦率 +30%"
+        }
+      ]
+    },
+    {
+      "set_name": "航海師套裝(法師)",
+      "total_set_count": 3,
+      "set_effect_info": [
+        {
+          "set_count": 2,
+          "set_option": "最大HP +1500, 最大MP +1500, 攻擊力 +20, 魔法攻擊力 +20, 攻擊Boss怪物時傷害 +10%"
+        },
+        {
+          "set_count": 3,
+          "set_option": "全屬性 +30, 攻擊力 +20, 魔法攻擊力 +20, 攻擊Boss怪物時傷害 +10%"
+        }
+      ]
+    },
+    {
+      "set_name": "死後世界的的痕跡",
+      "total_set_count": 2,
+      "set_effect_info": []
+    },
+    {
+      "set_name": "永恆套裝(法師)",
+      "total_set_count": 2,
+      "set_effect_info": [
+        {
+          "set_count": 2,
+          "set_option": "最大HP +2500, 最大MP +2500, 攻擊力 +40, 魔法攻擊力 +40, 攻擊Boss怪物時傷害 +10%"
+        }
+      ]
+    },
+    {
+      "set_name": "漆黑BOSS套裝",
+      "total_set_count": 5,
+      "set_effect_info": [
+        {
+          "set_count": 2,
+          "set_option": "全屬性 +10, 最大HP +250, 攻擊力 +10, 魔法攻擊力 +10, 攻擊Boss怪物時傷害 +10%"
+        },
+        {
+          "set_count": 3,
+          "set_option": "全屬性 +10, 最大HP +250, 攻擊力 +10, 魔法攻擊力 +10, 防禦力 +250, 無視怪物防禦率 +10%"
+        },
+        {
+          "set_count": 4,
+          "set_option": "全屬性 +15, 最大HP +375, 攻擊力 +15, 魔法攻擊力 +15, 爆擊傷害 +5%"
+        },
+        {
+          "set_count": 5,
+          "set_option": "全屬性 +15, 最大HP +375, 攻擊力 +15, 魔法攻擊力 +15, 攻擊Boss怪物時傷害 +10%"
+        }
+      ]
+    },
+    {
+      "set_name": "神祕冥界套裝(法師)",
+      "total_set_count": 3,
+      "set_effect_info": [
+        {
+          "set_count": 2,
+          "set_option": "攻擊力 +30, 魔法攻擊力 +30, 攻擊Boss怪物時傷害 +10%"
+        },
+        {
+          "set_count": 3,
+          "set_option": "攻擊力 +30, 魔法攻擊力 +30, 防禦力 +400, 無視怪物防禦率 +10%"
+        }
+      ]
+    },
+    {
+      "set_name": "小小時光音樂會套組",
+      "total_set_count": 3,
+      "set_effect_info": [
+        {
+          "set_count": 1,
+          "set_option": "[滴答滴答童話時間Lv.1]技能可使用"
+        },
+        {
+          "set_count": 2,
+          "set_option": "[滴答滴答童話時間Lv.2]技能可使用"
+        },
+        {
+          "set_count": 3,
+          "set_option": "[滴答滴答童話時間Lv.3]技能可使用"
+        }
+      ]
+    }
+  ],
+  "characterLevel": 283
+}

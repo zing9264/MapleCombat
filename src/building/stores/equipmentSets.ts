@@ -10,6 +10,7 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import type {
   EquipmentItem,
+  SetEffectEntry,
   HexaStatCore,
   HyperStatEntry,
   RawCharacterData,
@@ -32,6 +33,8 @@ export interface SetData {
   level: number
   stat: StatEntry[]
   equipment: EquipmentItem[]
+  /** 套裝效果。件數不可信（見 data/equipmentSets.ts），但各階效果內容是對的 */
+  setEffects: SetEffectEntry[]
   symbols: SymbolItem[]
   hyperStat: HyperStatEntry[]
   hexaStat: HexaStatCore[]
@@ -76,6 +79,7 @@ function toSetData(raw: RawCharacterData): SetData {
     level: raw.basic.character_level,
     stat: raw.stat.final_stat,
     equipment: slimEquipment(raw.equipment),
+    setEffects: raw.setEffects,
     symbols: raw.symbols,
     hyperStat: raw.hyperStat,
     hexaStat: raw.hexaStat,

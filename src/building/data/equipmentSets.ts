@@ -109,3 +109,96 @@ export function countSetPieces(itemNames: readonly string[]): SetCountResult {
 
   return { counts, unknownItems }
 }
+
+// ── 套裝各階效果 ────────────────────────────────────
+//
+// 為什麼不能只用 API：`set-effect` 端點只回傳「已達成」的階層，而它的
+// total_set_count 是錯的。實測永恆套裝實際 3 件，API 說 2 件，於是第 3 階的
+// 效果內容也一併沒回傳 —— 件數與效果內容一起遺失。
+//
+// 因此改為自建表，資料取自遊戲內套裝效果視窗。未收錄的套裝會退回使用 API 資料。
+//
+// 刻意用結構化欄位而非原始字串：遊戲寫「攻擊力/魔力 +20」是一條顯示兩種數值，
+// 交給文字解析器會誤判。
+
+import type { StatKey } from '../core/optionParser'
+
+export interface SetTier {
+  count: number
+  flat?: Partial<Record<StatKey, number>>
+  percent?: Partial<Record<StatKey, number>>
+}
+
+/** 「攻擊力/魔力 +n」是一條給兩種數值 */
+const power = (n: number) => ({ attackPower: n, magicPower: n })
+
+export const SET_TIERS: Record<string, readonly SetTier[]> = {
+  '永恆套裝(法師)': [
+    { count: 2, flat: { maxHp: 2500, maxMp: 2500, ...power(40) }, percent: { bossDamage: 10 } },
+    {
+      count: 3,
+      flat: { allStat: 50, defense: 600, ...power(40) },
+      percent: { bossDamage: 10 },
+    },
+    { count: 4, flat: power(40), percent: { maxHp: 15, maxMp: 15, bossDamage: 10 } },
+    { count: 5, flat: power(40), percent: { ignoreDefense: 20 } },
+    { count: 6, flat: power(40), percent: { bossDamage: 15 } },
+    {
+      count: 7,
+      flat: { allStat: 50, maxHp: 2500, maxMp: 2500, ...power(40) },
+      percent: { bossDamage: 15 },
+    },
+    { count: 8, flat: power(40), percent: { bossDamage: 15 } },
+  ],
+  '航海師套裝(法師)': [
+    { count: 2, flat: { maxHp: 1500, maxMp: 1500, ...power(20) }, percent: { bossDamage: 10 } },
+    { count: 3, flat: { allStat: 30, ...power(20) }, percent: { bossDamage: 10 } },
+    { count: 4, flat: { defense: 200, ...power(25) }, percent: { ignoreDefense: 10 } },
+    { count: 5, flat: power(30), percent: { bossDamage: 10 } },
+    { count: 6, flat: power(20), percent: { maxHp: 20, maxMp: 20 } },
+    { count: 7, flat: power(20), percent: { ignoreDefense: 10 } },
+  ],
+  '神祕冥界套裝(法師)': [
+    { count: 2, flat: power(30), percent: { bossDamage: 10 } },
+    { count: 3, flat: { defense: 400, ...power(30) }, percent: { ignoreDefense: 10 } },
+    { count: 4, flat: { allStat: 50, ...power(35) }, percent: { bossDamage: 10 } },
+    { count: 5, flat: { maxHp: 2000, maxMp: 2000, ...power(40) }, percent: { bossDamage: 10 } },
+    { count: 6, flat: power(30), percent: { maxHp: 30, maxMp: 30 } },
+    { count: 7, flat: power(30), percent: { ignoreDefense: 10 } },
+  ],
+  頂級培羅德套裝: [
+    { count: 2, flat: { allStat: 20, maxHp: 1500, maxMp: 1500 } },
+    { count: 3, flat: power(35), percent: { maxHp: 13, maxMp: 13 } },
+    { count: 4, percent: { bossDamage: 30, ignoreDefense: 30 } },
+  ],
+  漆黑BOSS套裝: [
+    { count: 2, flat: { allStat: 10, maxHp: 250, ...power(10) }, percent: { bossDamage: 10 } },
+    {
+      count: 3,
+      flat: { allStat: 10, maxHp: 250, defense: 250, ...power(10) },
+      percent: { ignoreDefense: 10 },
+    },
+    { count: 4, flat: { allStat: 15, maxHp: 375, ...power(15) }, percent: { critDamage: 5 } },
+    { count: 5, flat: { allStat: 15, maxHp: 375, ...power(15) }, percent: { bossDamage: 10 } },
+    { count: 6, flat: { allStat: 15, maxHp: 375, ...power(15) }, percent: { ignoreDefense: 10 } },
+    { count: 7, flat: { allStat: 15, maxHp: 375, ...power(15) }, percent: { critDamage: 5 } },
+    { count: 8, flat: { allStat: 15, maxHp: 375, ...power(15) }, percent: { bossDamage: 10 } },
+    { count: 9, flat: { allStat: 15, maxHp: 375, ...power(15) }, percent: { critDamage: 5 } },
+    { count: 10, flat: { allStat: 20, maxHp: 500, ...power(20) }, percent: { bossDamage: 10 } },
+  ],
+  死後世界的的痕跡: [{ count: 3, flat: power(10) }],
+  // 小小時光音樂會套組只給技能，不進裝備道具的能力值加總
+  小小時光音樂會套組: [],
+}
+
+/** 取某組套裝在指定件數下生效的所有階層 */
+export function activeTiers(setName: string, count: number): readonly SetTier[] {
+  const tiers = SET_TIERS[setName]
+  if (!tiers) return []
+  return tiers.filter((tier) => tier.count <= count)
+}
+
+/** 這組套裝是否已收錄在自建表中；未收錄者需退回使用 API 資料 */
+export function hasSetTiers(setName: string): boolean {
+  return setName in SET_TIERS
+}
