@@ -160,6 +160,18 @@ export interface SetEffectEntry {
   set_effect_info: SetEffectTier[]
 }
 
+export interface PetOption {
+  type: string
+  value: string
+}
+
+/** 寵物與牠身上的寵物裝備。寵物裝備的數值會計入遊戲的「裝備道具」 */
+export interface PetInfo {
+  name: string
+  itemName: string
+  options: PetOption[]
+}
+
 export interface SymbolItem {
   symbol_name: string
   symbol_level: number
@@ -195,6 +207,7 @@ export interface RawCharacterData {
   stat: CharacterStat
   equipment: EquipmentItem[]
   setEffects: SetEffectEntry[]
+  pets: PetInfo[]
   symbols: SymbolItem[]
   hyperStat: HyperStatEntry[]
   hexaStat: HexaStatCore[]
@@ -227,6 +240,7 @@ export async function fetchCharacter(
     '綜合能力值',
     '裝備',
     '套裝效果',
+    '寵物',
     '符文',
     '極限屬性',
     'HEXA 屬性',
@@ -259,6 +273,10 @@ export async function fetchCharacter(
   await sleep(THROTTLE_MS)
 
   advance()
+  const petRes = await request<Record<string, unknown>>('/character/pet-equipment', q)
+  await sleep(THROTTLE_MS)
+
+  advance()
   const symbolRes = await request<{ symbol: SymbolItem[] }>('/character/symbol-equipment', q)
   await sleep(THROTTLE_MS)
 
@@ -275,10 +293,36 @@ export async function fetchCharacter(
     stat,
     equipment: equipmentRes.item_equipment ?? [],
     setEffects: setRes.set_effect ?? [],
+    pets: normalizePets(petRes),
     symbols: symbolRes.symbol ?? [],
     hyperStat: pickActiveHyperStat(hyperRes),
     hexaStat: collectHexaCores(hexaRes),
   }
+}
+
+/**
+ * 三隻寵物散在 pet_1_*、pet_2_*、pet_3_* 三組欄位，攤平成陣列。
+ * 只留名稱與寵物裝備的數值 —— 寵物裝備計入「裝備道具」，是實測確認過的。
+ */
+function normalizePets(res: Record<string, unknown>): PetInfo[] {
+  const pets: PetInfo[] = []
+  for (const index of [1, 2, 3]) {
+    const name = res[`pet_${index}_name`]
+    if (typeof name !== 'string' || !name) continue
+    const equipment = res[`pet_${index}_equipment`] as {
+      item_name?: string
+      item_option?: { option_type?: string; option_value?: string }[]
+    } | null
+    pets.push({
+      name,
+      itemName: equipment?.item_name ?? '',
+      options: (equipment?.item_option ?? []).map((option) => ({
+        type: String(option.option_type ?? ''),
+        value: String(option.option_value ?? ''),
+      })),
+    })
+  }
+  return pets
 }
 
 /** hyper-stat 回傳三組 preset，取目前套用的那一組 */

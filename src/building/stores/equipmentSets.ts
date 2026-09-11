@@ -11,6 +11,7 @@ import { computed, ref } from 'vue'
 import type {
   EquipmentItem,
   SetEffectEntry,
+  PetInfo,
   HexaStatCore,
   HyperStatEntry,
   RawCharacterData,
@@ -35,6 +36,8 @@ export interface SetData {
   equipment: EquipmentItem[]
   /** 套裝效果。件數不可信（見 data/equipmentSets.ts），但各階效果內容是對的 */
   setEffects: SetEffectEntry[]
+  /** 寵物與寵物裝備。寵物裝備的數值計入「裝備道具」 */
+  pets: PetInfo[]
   symbols: SymbolItem[]
   hyperStat: HyperStatEntry[]
   hexaStat: HexaStatCore[]
@@ -80,6 +83,7 @@ function toSetData(raw: RawCharacterData): SetData {
     stat: raw.stat.final_stat,
     equipment: slimEquipment(raw.equipment),
     setEffects: raw.setEffects,
+    pets: raw.pets ?? [],
     symbols: raw.symbols,
     hyperStat: raw.hyperStat,
     hexaStat: raw.hexaStat,
