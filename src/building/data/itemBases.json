@@ -11,6 +11,19 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
+    "seen": 9
+  },
+  {
+    "name": "極限的力量之盾",
+    "part": "力量之盾",
+    "level": 100,
+    "base": {
+      "str": "12",
+      "max_hp": "700",
+      "max_mp": "110",
+      "armor": "85"
+    },
+    "scrollSlots": 0,
     "seen": 1
   },
   {
@@ -25,7 +38,7 @@
       "armor": "81"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 14
   },
   {
     "name": "永恆弓箭手連帽衫",
@@ -39,7 +52,7 @@
       "ignore_monster_armor": "5"
     },
     "scrollSlots": 8,
-    "seen": 4
+    "seen": 46
   },
   {
     "name": "永恆法師長袍",
@@ -53,7 +66,7 @@
       "ignore_monster_armor": "5"
     },
     "scrollSlots": 11,
-    "seen": 12
+    "seen": 84
   },
   {
     "name": "永恆海盜大衣",
@@ -67,7 +80,7 @@
       "ignore_monster_armor": "5"
     },
     "scrollSlots": 13,
-    "seen": 2
+    "seen": 15
   },
   {
     "name": "永恆盜賊上衣",
@@ -81,7 +94,7 @@
       "ignore_monster_armor": "5"
     },
     "scrollSlots": 13,
-    "seen": 14
+    "seen": 113
   },
   {
     "name": "永恆劍士鎧甲",
@@ -95,7 +108,77 @@
       "ignore_monster_armor": "5"
     },
     "scrollSlots": 11,
-    "seen": 6
+    "seen": 84
+  },
+  {
+    "name": "菇菇敦威治長袍",
+    "part": "上衣",
+    "level": 150,
+    "base": {
+      "int": "30",
+      "luk": "30",
+      "magic_power": "2",
+      "armor": "120",
+      "ignore_monster_armor": "5"
+    },
+    "scrollSlots": 7,
+    "seen": 1
+  },
+  {
+    "name": "鷹眼守護者頭巾",
+    "part": "上衣",
+    "level": 150,
+    "base": {
+      "str": "30",
+      "dex": "30",
+      "attack_power": "2",
+      "armor": "135",
+      "ignore_monster_armor": "5"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "鷹眼敦威治長袍",
+    "part": "上衣",
+    "level": 150,
+    "base": {
+      "int": "30",
+      "luk": "30",
+      "magic_power": "2",
+      "armor": "120",
+      "ignore_monster_armor": "5"
+    },
+    "scrollSlots": 7,
+    "seen": 4
+  },
+  {
+    "name": "鷹眼漫遊者大衣",
+    "part": "上衣",
+    "level": 150,
+    "base": {
+      "str": "30",
+      "dex": "30",
+      "attack_power": "2",
+      "armor": "135",
+      "ignore_monster_armor": "5"
+    },
+    "scrollSlots": 8,
+    "seen": 2
+  },
+  {
+    "name": "鷹眼戰士盔甲",
+    "part": "上衣",
+    "level": 150,
+    "base": {
+      "str": "30",
+      "dex": "30",
+      "attack_power": "2",
+      "armor": "210",
+      "ignore_monster_armor": "5"
+    },
+    "scrollSlots": 8,
+    "seen": 7
   },
   {
     "name": "受詛咒的赤魔導書",
@@ -112,7 +195,7 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 9
+    "seen": 105
   },
   {
     "name": "受詛咒的青魔導書",
@@ -129,7 +212,7 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 15
+    "seen": 106
   },
   {
     "name": "受詛咒的黃魔導書",
@@ -146,7 +229,7 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 14
+    "seen": 131
   },
   {
     "name": "受詛咒的綠魔導書",
@@ -163,7 +246,118 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 8
+    "seen": 64
+  },
+  {
+    "name": "查‧克羅斯",
+    "part": "口袋道具",
+    "level": 160,
+    "base": {
+      "str": "9",
+      "dex": "9",
+      "int": "9",
+      "luk": "9",
+      "max_mp": "300",
+      "attack_power": "9",
+      "magic_power": "9",
+      "speed": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 17
+  },
+  {
+    "name": "粉紅聖杯",
+    "part": "口袋道具",
+    "level": 140,
+    "base": {
+      "str": "5",
+      "dex": "5",
+      "int": "5",
+      "luk": "5",
+      "max_hp": "50",
+      "max_mp": "50",
+      "attack_power": "5",
+      "magic_power": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 18
+  },
+  {
+    "name": "永生之石",
+    "part": "口袋道具",
+    "level": 0,
+    "base": {
+      "str": "3",
+      "dex": "3",
+      "int": "3",
+      "luk": "3",
+      "attack_power": "3",
+      "magic_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "時間逆行",
+    "part": "口袋道具",
+    "level": 0,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "int": "20",
+      "luk": "20",
+      "attack_power": "12",
+      "magic_power": "12"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "阿斯特拉刀鞘",
+    "part": "小太刀",
+    "level": 200,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 6
+  },
+  {
+    "name": "妖蝶姬之小太刀",
+    "part": "小太刀",
+    "level": 140,
+    "base": {
+      "str": "17",
+      "dex": "17",
+      "attack_power": "9"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "朱雀刀",
+    "part": "小太刀",
+    "level": 120,
+    "base": {
+      "str": "4",
+      "attack_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "青銅小太刀",
+    "part": "小太刀",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 9
   },
   {
     "name": "命運弓箭",
@@ -178,6 +372,21 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
+    "seen": 16
+  },
+  {
+    "name": "神祕冥界幽靈之弓",
+    "part": "弓",
+    "level": 200,
+    "base": {
+      "str": "100",
+      "dex": "100",
+      "attack_power": "276",
+      "speed": "19",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 14,
     "seen": 2
   },
   {
@@ -189,6 +398,100 @@
       "dex": "150",
       "attack_power": "318",
       "speed": "19",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 13
+  },
+  {
+    "name": "阿斯特拉靶心",
+    "part": "弓箭指套",
+    "level": 200,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "妖蝶姬之花戒",
+    "part": "弓箭指套",
+    "level": 140,
+    "base": {
+      "str": "14",
+      "dex": "14",
+      "attack_power": "9"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "命運太刀",
+    "part": "太刀",
+    "level": 250,
+    "base": {
+      "str": "190",
+      "dex": "190",
+      "attack_power": "358",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 10
+  },
+  {
+    "name": "神祕冥界幽靈刀",
+    "part": "太刀",
+    "level": 200,
+    "base": {
+      "str": "100",
+      "dex": "100",
+      "attack_power": "283",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 9,
+    "seen": 2
+  },
+  {
+    "name": "創世太刀",
+    "part": "太刀",
+    "level": 200,
+    "base": {
+      "str": "150",
+      "dex": "150",
+      "attack_power": "326",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 6
+  },
+  {
+    "name": "命運手杖",
+    "part": "手杖",
+    "level": 250,
+    "base": {
+      "dex": "190",
+      "luk": "190",
+      "attack_power": "358",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 5
+  },
+  {
+    "name": "創世手杖",
+    "part": "手杖",
+    "level": 200,
+    "base": {
+      "dex": "150",
+      "luk": "150",
+      "attack_power": "326",
       "boss_damage": "30",
       "ignore_monster_armor": "20"
     },
@@ -206,7 +509,7 @@
       "armor": "325"
     },
     "scrollSlots": 8,
-    "seen": 1
+    "seen": 18
   },
   {
     "name": "永恆法師手套",
@@ -219,7 +522,20 @@
       "armor": "325"
     },
     "scrollSlots": 12,
-    "seen": 6
+    "seen": 44
+  },
+  {
+    "name": "永恆海盜手套",
+    "part": "手套",
+    "level": 250,
+    "base": {
+      "str": "55",
+      "dex": "55",
+      "attack_power": "12",
+      "armor": "325"
+    },
+    "scrollSlots": 13,
+    "seen": 7
   },
   {
     "name": "永恆盜賊手套",
@@ -232,7 +548,20 @@
       "armor": "325"
     },
     "scrollSlots": 13,
-    "seen": 5
+    "seen": 39
+  },
+  {
+    "name": "永恆劍士手套",
+    "part": "手套",
+    "level": 250,
+    "base": {
+      "str": "55",
+      "dex": "55",
+      "attack_power": "12",
+      "armor": "325"
+    },
+    "scrollSlots": 11,
+    "seen": 36
   },
   {
     "name": "神祕冥界幽靈小偷手套",
@@ -245,7 +574,7 @@
       "armor": "250"
     },
     "scrollSlots": 8,
-    "seen": 8
+    "seen": 86
   },
   {
     "name": "神祕冥界幽靈弓手手套",
@@ -258,7 +587,7 @@
       "armor": "250"
     },
     "scrollSlots": 8,
-    "seen": 4
+    "seen": 36
   },
   {
     "name": "神祕冥界幽靈海盜手套",
@@ -271,7 +600,7 @@
       "armor": "250"
     },
     "scrollSlots": 8,
-    "seen": 2
+    "seen": 9
   },
   {
     "name": "神祕冥界幽靈騎士手套",
@@ -284,7 +613,7 @@
       "armor": "250"
     },
     "scrollSlots": 11,
-    "seen": 8
+    "seen": 72
   },
   {
     "name": "神祕冥界幽靈魔導士手套",
@@ -297,7 +626,46 @@
       "armor": "250"
     },
     "scrollSlots": 8,
-    "seen": 8
+    "seen": 59
+  },
+  {
+    "name": "航海師弓箭手手套",
+    "part": "手套",
+    "level": 160,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "attack_power": "5",
+      "armor": "150"
+    },
+    "scrollSlots": 12,
+    "seen": 2
+  },
+  {
+    "name": "航海師法師手套",
+    "part": "手套",
+    "level": 160,
+    "base": {
+      "int": "20",
+      "luk": "20",
+      "magic_power": "5",
+      "armor": "150"
+    },
+    "scrollSlots": 11,
+    "seen": 3
+  },
+  {
+    "name": "航海師海盜手套",
+    "part": "手套",
+    "level": 160,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "attack_power": "5",
+      "armor": "150"
+    },
+    "scrollSlots": 7,
+    "seen": 2
   },
   {
     "name": "航海師盜賊手套",
@@ -310,6 +678,63 @@
       "armor": "150"
     },
     "scrollSlots": 8,
+    "seen": 7
+  },
+  {
+    "name": "航海師劍士手套",
+    "part": "手套",
+    "level": 160,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "attack_power": "5",
+      "armor": "150"
+    },
+    "scrollSlots": 8,
+    "seen": 3
+  },
+  {
+    "name": "佩沙里洛戰鬥手套",
+    "part": "手套",
+    "level": 140,
+    "base": {
+      "str": "11",
+      "dex": "10",
+      "max_hp": "200",
+      "attack_power": "2",
+      "armor": "65"
+    },
+    "scrollSlots": 6,
+    "seen": 1
+  },
+  {
+    "name": "佩沙里洛魔導士手套",
+    "part": "手套",
+    "level": 140,
+    "base": {
+      "int": "11",
+      "luk": "11",
+      "max_hp": "200",
+      "magic_power": "2",
+      "armor": "40"
+    },
+    "scrollSlots": 7,
+    "seen": 1
+  },
+  {
+    "name": "武公的手套",
+    "part": "手套",
+    "level": 120,
+    "base": {
+      "str": "25",
+      "dex": "25",
+      "int": "25",
+      "luk": "25",
+      "attack_power": "15",
+      "magic_power": "15",
+      "armor": "200"
+    },
+    "scrollSlots": 0,
     "seen": 1
   },
   {
@@ -320,7 +745,17 @@
       "armor": "30"
     },
     "scrollSlots": 6,
-    "seen": 2
+    "seen": 4
+  },
+  {
+    "name": "楓葉手套",
+    "part": "手套",
+    "level": 13,
+    "base": {
+      "armor": "10"
+    },
+    "scrollSlots": 6,
+    "seen": 1
   },
   {
     "name": "阿斯特拉腕帶",
@@ -330,6 +765,18 @@
       "str": "20",
       "dex": "20",
       "attack_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "盾牌防禦",
+    "part": "手環",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "3"
     },
     "scrollSlots": 0,
     "seen": 1
@@ -344,7 +791,7 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 3
   },
   {
     "name": "不滅的手鐲",
@@ -356,7 +803,7 @@
       "attack_power": "9"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 7
   },
   {
     "name": "高貴手鐲",
@@ -367,6 +814,121 @@
       "dex": "10",
       "attack_power": "3"
     },
+    "scrollSlots": 0,
+    "seen": 8
+  },
+  {
+    "name": "進化貴族手鐲",
+    "part": "手鐲",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "命運火槍",
+    "part": "火槍",
+    "level": 250,
+    "base": {
+      "str": "190",
+      "dex": "190",
+      "attack_power": "273",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "創世火槍",
+    "part": "火槍",
+    "level": 200,
+    "base": {
+      "str": "150",
+      "dex": "150",
+      "attack_power": "249",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "轟擊中心火",
+    "part": "火藥桶",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "命運仙扇",
+    "part": "仙扇",
+    "level": 250,
+    "base": {
+      "dex": "190",
+      "luk": "190",
+      "attack_power": "349",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 5
+  },
+  {
+    "name": "創世仙扇",
+    "part": "仙扇",
+    "level": 200,
+    "base": {
+      "dex": "150",
+      "luk": "150",
+      "attack_power": "318",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 6
+  },
+  {
+    "name": "創世加農砲",
+    "part": "加農砲",
+    "level": 200,
+    "base": {
+      "str": "150",
+      "dex": "150",
+      "attack_power": "348",
+      "armor": "250",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "阿斯特拉卡牌",
+    "part": "卡牌",
+    "level": 200,
+    "base": {
+      "dex": "15",
+      "luk": "15",
+      "attack_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 5
+  },
+  {
+    "name": "新者卡牌",
+    "part": "卡牌",
+    "level": 100,
+    "base": {},
     "scrollSlots": 0,
     "seen": 1
   },
@@ -383,7 +945,37 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 1
+    "seen": 3
+  },
+  {
+    "name": "神祕冥界幽靈古代之弓",
+    "part": "古代之弓",
+    "level": 200,
+    "base": {
+      "str": "100",
+      "dex": "100",
+      "attack_power": "276",
+      "speed": "19",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 12,
+    "seen": 2
+  },
+  {
+    "name": "創世古代之弓",
+    "part": "古代之弓",
+    "level": 200,
+    "base": {
+      "str": "150",
+      "dex": "150",
+      "attack_power": "318",
+      "speed": "19",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 5
   },
   {
     "name": "命運鐵戟",
@@ -398,6 +990,68 @@
     },
     "scrollSlots": 8,
     "seen": 1
+  },
+  {
+    "name": "創世矛",
+    "part": "矛",
+    "level": 200,
+    "base": {
+      "str": "150",
+      "dex": "150",
+      "attack_power": "304",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "阿斯特拉如意寶珠",
+    "part": "如意寶珠",
+    "level": 200,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "attack_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 11
+  },
+  {
+    "name": "不滅的如意珠",
+    "part": "如意寶珠",
+    "level": 140,
+    "base": {
+      "str": "14",
+      "dex": "14",
+      "attack_power": "9"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "紫色如意寶珠",
+    "part": "如意寶珠",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 7
+  },
+  {
+    "name": "黑色如意寶珠",
+    "part": "如意寶珠",
+    "level": 100,
+    "base": {
+      "str": "8",
+      "dex": "8",
+      "attack_power": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 2
   },
   {
     "name": "指揮官力量耳環",
@@ -415,7 +1069,7 @@
       "armor": "100"
     },
     "scrollSlots": 7,
-    "seen": 5
+    "seen": 62
   },
   {
     "name": "星耀耳環",
@@ -433,7 +1087,7 @@
       "armor": "100"
     },
     "scrollSlots": 7,
-    "seen": 1
+    "seen": 4
   },
   {
     "name": "頂級培羅德耳環",
@@ -451,7 +1105,25 @@
       "armor": "100"
     },
     "scrollSlots": 8,
-    "seen": 38
+    "seen": 336
+  },
+  {
+    "name": "高級培羅德耳環",
+    "part": "耳環",
+    "level": 140,
+    "base": {
+      "str": "12",
+      "dex": "12",
+      "int": "12",
+      "luk": "12",
+      "max_hp": "150",
+      "max_mp": "150",
+      "attack_power": "6",
+      "magic_power": "6",
+      "armor": "100"
+    },
+    "scrollSlots": 8,
+    "seen": 2
   },
   {
     "name": "紫翼耳環",
@@ -469,7 +1141,76 @@
       "armor": "100"
     },
     "scrollSlots": 7,
+    "seen": 4
+  },
+  {
+    "name": "中級培羅德耳環",
+    "part": "耳環",
+    "level": 130,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "max_hp": "100",
+      "max_mp": "100",
+      "attack_power": "5",
+      "magic_power": "5",
+      "armor": "100"
+    },
+    "scrollSlots": 7,
     "seen": 1
+  },
+  {
+    "name": "戴雅希杜斯耳環",
+    "part": "耳環",
+    "level": 130,
+    "base": {
+      "str": "5",
+      "dex": "5",
+      "int": "5",
+      "luk": "5",
+      "attack_power": "2",
+      "magic_power": "2",
+      "armor": "50"
+    },
+    "scrollSlots": 7,
+    "seen": 3
+  },
+  {
+    "name": "初級培羅德耳環",
+    "part": "耳環",
+    "level": 120,
+    "base": {
+      "str": "9",
+      "dex": "9",
+      "int": "9",
+      "luk": "9",
+      "max_hp": "80",
+      "max_mp": "80",
+      "attack_power": "4",
+      "magic_power": "4",
+      "armor": "100"
+    },
+    "scrollSlots": 5,
+    "seen": 1
+  },
+  {
+    "name": "華麗機器人耳機",
+    "part": "耳環",
+    "level": 101,
+    "base": {
+      "str": "5",
+      "dex": "5",
+      "int": "5",
+      "luk": "5",
+      "max_hp": "200",
+      "max_mp": "200",
+      "attack_power": "2",
+      "magic_power": "2"
+    },
+    "scrollSlots": 3,
+    "seen": 2
   },
   {
     "name": "刀劍耳環",
@@ -479,6 +1220,52 @@
       "max_hp": "30"
     },
     "scrollSlots": 7,
+    "seen": 5
+  },
+  {
+    "name": "被遺忘的神話耳環",
+    "part": "耳環",
+    "level": 100,
+    "base": {
+      "str": "50",
+      "dex": "50",
+      "int": "50",
+      "luk": "50",
+      "attack_power": "100",
+      "magic_power": "100"
+    },
+    "scrollSlots": 4,
+    "seen": 11
+  },
+  {
+    "name": "玫瑰耳環",
+    "part": "耳環",
+    "level": 90,
+    "base": {},
+    "scrollSlots": 6,
+    "seen": 1
+  },
+  {
+    "name": "楓葉赤光耳環",
+    "part": "耳環",
+    "level": 40,
+    "base": {
+      "max_hp": "15",
+      "max_mp": "15"
+    },
+    "scrollSlots": 6,
+    "seen": 1
+  },
+  {
+    "name": "西洋棋騎士",
+    "part": "西洋棋",
+    "level": 30,
+    "base": {
+      "int": "4",
+      "luk": "4",
+      "magic_power": "1"
+    },
+    "scrollSlots": 0,
     "seen": 1
   },
   {
@@ -496,7 +1283,7 @@
       "magic_power": "5"
     },
     "scrollSlots": 9,
-    "seen": 3
+    "seen": 7
   },
   {
     "name": "根源的耳語",
@@ -513,7 +1300,7 @@
       "magic_power": "5"
     },
     "scrollSlots": 9,
-    "seen": 4
+    "seen": 23
   },
   {
     "name": "巨大的恐怖",
@@ -530,7 +1317,7 @@
       "magic_power": "4"
     },
     "scrollSlots": 3,
-    "seen": 21
+    "seen": 209
   },
   {
     "name": "守護者天使戒指",
@@ -547,7 +1334,7 @@
       "magic_power": "2"
     },
     "scrollSlots": 3,
-    "seen": 1
+    "seen": 28
   },
   {
     "name": "強力的魔性戒指",
@@ -564,7 +1351,7 @@
       "magic_power": "3"
     },
     "scrollSlots": 4,
-    "seen": 12
+    "seen": 128
   },
   {
     "name": "黎明守護者天使戒指",
@@ -581,7 +1368,7 @@
       "magic_power": "2"
     },
     "scrollSlots": 3,
-    "seen": 9
+    "seen": 77
   },
   {
     "name": "魔性的戒指",
@@ -596,7 +1383,7 @@
       "magic_power": "2"
     },
     "scrollSlots": 4,
-    "seen": 12
+    "seen": 67
   },
   {
     "name": "天上的氣息",
@@ -615,7 +1402,7 @@
       "jump": "10"
     },
     "scrollSlots": 5,
-    "seen": 21
+    "seen": 190
   },
   {
     "name": "頂級培羅德戒指",
@@ -634,7 +1421,7 @@
       "speed": "10"
     },
     "scrollSlots": 7,
-    "seen": 34
+    "seen": 322
   },
   {
     "name": "梅斯特戒指",
@@ -655,6 +1442,41 @@
     "seen": 1
   },
   {
+    "name": "紫翼戒指",
+    "part": "戒指",
+    "level": 135,
+    "base": {
+      "str": "4",
+      "dex": "4",
+      "int": "4",
+      "luk": "4",
+      "max_hp": "150",
+      "max_mp": "150",
+      "attack_power": "1",
+      "magic_power": "1",
+      "armor": "100"
+    },
+    "scrollSlots": 1,
+    "seen": 3
+  },
+  {
+    "name": "冒險深黑爆擊戒",
+    "part": "戒指",
+    "level": 130,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "int": "20",
+      "luk": "20",
+      "max_hp": "1000",
+      "max_mp": "1000",
+      "attack_power": "20",
+      "magic_power": "20"
+    },
+    "scrollSlots": 0,
+    "seen": 6
+  },
+  {
     "name": "深淵獵人戒指",
     "part": "戒指",
     "level": 130,
@@ -669,7 +1491,7 @@
       "magic_power": "20"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 12
   },
   {
     "name": "永恆火焰戒指",
@@ -686,7 +1508,7 @@
       "magic_power": "25"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 35
   },
   {
     "name": "宇宙戒指",
@@ -694,6 +1516,21 @@
     "level": 120,
     "base": {},
     "scrollSlots": 20,
+    "seen": 6
+  },
+  {
+    "name": "非常堅固的烏龜戒指",
+    "part": "戒指",
+    "level": 120,
+    "base": {
+      "str": "4",
+      "dex": "4",
+      "int": "4",
+      "luk": "4",
+      "max_hp": "40",
+      "max_mp": "40"
+    },
+    "scrollSlots": 10,
     "seen": 1
   },
   {
@@ -711,7 +1548,41 @@
       "magic_power": "10"
     },
     "scrollSlots": 3,
-    "seen": 5
+    "seen": 77
+  },
+  {
+    "name": "高貴的伊菲亞的戒指",
+    "part": "戒指",
+    "level": 120,
+    "base": {
+      "str": "5",
+      "dex": "5",
+      "int": "5",
+      "luk": "5",
+      "max_hp": "200",
+      "max_mp": "200",
+      "attack_power": "2",
+      "magic_power": "2"
+    },
+    "scrollSlots": 2,
+    "seen": 1
+  },
+  {
+    "name": "混沌戒指",
+    "part": "戒指",
+    "level": 120,
+    "base": {
+      "str": "30",
+      "dex": "30",
+      "int": "30",
+      "luk": "30",
+      "max_hp": "3000",
+      "max_mp": "3000",
+      "attack_power": "20",
+      "magic_power": "20"
+    },
+    "scrollSlots": 0,
+    "seen": 3
   },
   {
     "name": "復仇戒指",
@@ -719,7 +1590,41 @@
     "level": 120,
     "base": {},
     "scrollSlots": 20,
-    "seen": 1
+    "seen": 13
+  },
+  {
+    "name": "黃金菇菇戒指",
+    "part": "戒指",
+    "level": 120,
+    "base": {
+      "str": "40",
+      "dex": "40",
+      "int": "40",
+      "luk": "40",
+      "max_hp": "4000",
+      "max_mp": "4000",
+      "attack_power": "25",
+      "magic_power": "25"
+    },
+    "scrollSlots": 0,
+    "seen": 4
+  },
+  {
+    "name": "聯盟誓約之戒",
+    "part": "戒指",
+    "level": 120,
+    "base": {
+      "str": "5",
+      "dex": "5",
+      "int": "5",
+      "luk": "5",
+      "max_hp": "500",
+      "max_mp": "500",
+      "attack_power": "10",
+      "magic_power": "10"
+    },
+    "scrollSlots": 0,
+    "seen": 5
   },
   {
     "name": "覺醒戒指",
@@ -736,7 +1641,7 @@
       "magic_power": "10"
     },
     "scrollSlots": 3,
-    "seen": 7
+    "seen": 84
   },
   {
     "name": "GLORY小隊戒指：總司令",
@@ -753,7 +1658,7 @@
       "magic_power": "25"
     },
     "scrollSlots": 0,
-    "seen": 5
+    "seen": 79
   },
   {
     "name": "SS級大師珠寶戒指",
@@ -770,7 +1675,7 @@
       "magic_power": "20"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 17
   },
   {
     "name": "永續戒指",
@@ -785,7 +1690,22 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
-    "seen": 19
+    "seen": 202
+  },
+  {
+    "name": "武器泡泡 - L環",
+    "part": "戒指",
+    "level": 110,
+    "base": {
+      "str": "4",
+      "dex": "4",
+      "int": "4",
+      "luk": "4",
+      "attack_power": "4",
+      "magic_power": "4"
+    },
+    "scrollSlots": 0,
+    "seen": 3
   },
   {
     "name": "真˙降魔的十字旅團的戒指",
@@ -801,7 +1721,22 @@
       "armor": "65"
     },
     "scrollSlots": 4,
-    "seen": 9
+    "seen": 45
+  },
+  {
+    "name": "銀花戒指",
+    "part": "戒指",
+    "level": 110,
+    "base": {
+      "str": "5",
+      "dex": "5",
+      "int": "5",
+      "luk": "5",
+      "attack_power": "2",
+      "magic_power": "2"
+    },
+    "scrollSlots": 3,
+    "seen": 5
   },
   {
     "name": "希拉的憤怒",
@@ -817,6 +1752,54 @@
       "attack_power": "25",
       "speed": "18",
       "jump": "10"
+    },
+    "scrollSlots": 2,
+    "seen": 3
+  },
+  {
+    "name": "風暴戒指",
+    "part": "戒指",
+    "level": 100,
+    "base": {
+      "str": "6",
+      "dex": "6",
+      "int": "6",
+      "luk": "6",
+      "attack_power": "2",
+      "magic_power": "2"
+    },
+    "scrollSlots": 2,
+    "seen": 4
+  },
+  {
+    "name": "梅格耐斯的憤怒",
+    "part": "戒指",
+    "level": 100,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "int": "15",
+      "luk": "15",
+      "max_hp": "150",
+      "max_mp": "150",
+      "magic_power": "25",
+      "speed": "18",
+      "jump": "10"
+    },
+    "scrollSlots": 2,
+    "seen": 6
+  },
+  {
+    "name": "終極戒指",
+    "part": "戒指",
+    "level": 100,
+    "base": {
+      "str": "6",
+      "dex": "6",
+      "int": "6",
+      "luk": "6",
+      "attack_power": "2",
+      "magic_power": "2"
     },
     "scrollSlots": 2,
     "seen": 1
@@ -838,7 +1821,7 @@
       "jump": "10"
     },
     "scrollSlots": 2,
-    "seen": 2
+    "seen": 11
   },
   {
     "name": "新星戒指",
@@ -857,7 +1840,7 @@
       "jump": "10"
     },
     "scrollSlots": 2,
-    "seen": 2
+    "seen": 15
   },
   {
     "name": "骷顱頭戒指",
@@ -876,7 +1859,22 @@
       "jump": "10"
     },
     "scrollSlots": 2,
-    "seen": 7
+    "seen": 17
+  },
+  {
+    "name": "阿克魯德永恆之戒",
+    "part": "戒指",
+    "level": 90,
+    "base": {
+      "str": "5",
+      "dex": "5",
+      "int": "5",
+      "luk": "5",
+      "magic_power": "3",
+      "armor": "30"
+    },
+    "scrollSlots": 2,
+    "seen": 1
   },
   {
     "name": "降魔的十字旅團的戒指",
@@ -892,7 +1890,23 @@
       "armor": "30"
     },
     "scrollSlots": 3,
-    "seen": 1
+    "seen": 5
+  },
+  {
+    "name": "瑪瑙戒指 \"完成\"",
+    "part": "戒指",
+    "level": 30,
+    "base": {
+      "str": "3",
+      "dex": "3",
+      "int": "3",
+      "luk": "3",
+      "max_hp": "30",
+      "max_mp": "30",
+      "armor": "50"
+    },
+    "scrollSlots": 10,
+    "seen": 2
   },
   {
     "name": "歡樂指環",
@@ -900,6 +1914,68 @@
     "level": 0,
     "base": {},
     "scrollSlots": 8,
+    "seen": 2
+  },
+  {
+    "name": "卡勒馬彈",
+    "part": "夜光彈",
+    "level": 100,
+    "base": {},
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "命運十字弓",
+    "part": "弩",
+    "level": 250,
+    "base": {
+      "str": "190",
+      "dex": "190",
+      "attack_power": "358",
+      "speed": "19",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 3
+  },
+  {
+    "name": "創世十字弓",
+    "part": "弩",
+    "level": 200,
+    "base": {
+      "str": "150",
+      "dex": "150",
+      "attack_power": "326",
+      "speed": "19",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 3
+  },
+  {
+    "name": "莊嚴念珠",
+    "part": "念珠",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "漆黑念珠",
+    "part": "念珠",
+    "level": 100,
+    "base": {
+      "str": "8",
+      "dex": "8",
+      "attack_power": "5"
+    },
+    "scrollSlots": 0,
     "seen": 1
   },
   {
@@ -916,7 +1992,7 @@
       "armor": "600"
     },
     "scrollSlots": 12,
-    "seen": 1
+    "seen": 16
   },
   {
     "name": "永恆法師斗篷",
@@ -932,7 +2008,7 @@
       "armor": "600"
     },
     "scrollSlots": 11,
-    "seen": 5
+    "seen": 43
   },
   {
     "name": "永恆海盜斗篷",
@@ -948,7 +2024,7 @@
       "armor": "600"
     },
     "scrollSlots": 13,
-    "seen": 1
+    "seen": 8
   },
   {
     "name": "永恆盜賊斗篷",
@@ -964,7 +2040,7 @@
       "armor": "600"
     },
     "scrollSlots": 12,
-    "seen": 6
+    "seen": 38
   },
   {
     "name": "永恆劍士斗篷",
@@ -980,7 +2056,7 @@
       "armor": "600"
     },
     "scrollSlots": 11,
-    "seen": 2
+    "seen": 36
   },
   {
     "name": "神祕冥界幽靈小偷斗篷",
@@ -996,7 +2072,7 @@
       "armor": "450"
     },
     "scrollSlots": 12,
-    "seen": 10
+    "seen": 89
   },
   {
     "name": "神祕冥界幽靈弓手斗篷",
@@ -1012,7 +2088,7 @@
       "armor": "450"
     },
     "scrollSlots": 11,
-    "seen": 4
+    "seen": 36
   },
   {
     "name": "神祕冥界幽靈法師斗篷",
@@ -1028,7 +2104,7 @@
       "armor": "450"
     },
     "scrollSlots": 11,
-    "seen": 9
+    "seen": 63
   },
   {
     "name": "神祕冥界幽靈海盜斗篷",
@@ -1044,7 +2120,7 @@
       "armor": "450"
     },
     "scrollSlots": 12,
-    "seen": 1
+    "seen": 7
   },
   {
     "name": "神祕冥界幽靈騎士斗篷",
@@ -1060,7 +2136,23 @@
       "armor": "450"
     },
     "scrollSlots": 9,
-    "seen": 6
+    "seen": 70
+  },
+  {
+    "name": "航海師弓箭手斗篷",
+    "part": "披風",
+    "level": 160,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "int": "15",
+      "luk": "15",
+      "attack_power": "2",
+      "magic_power": "2",
+      "armor": "250"
+    },
+    "scrollSlots": 9,
+    "seen": 2
   },
   {
     "name": "航海師法師斗篷",
@@ -1076,7 +2168,140 @@
       "armor": "250"
     },
     "scrollSlots": 8,
+    "seen": 4
+  },
+  {
+    "name": "航海師海盜斗篷",
+    "part": "披風",
+    "level": 160,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "int": "15",
+      "luk": "15",
+      "attack_power": "2",
+      "magic_power": "2",
+      "armor": "250"
+    },
+    "scrollSlots": 8,
+    "seen": 2
+  },
+  {
+    "name": "航海師盜賊斗篷",
+    "part": "披風",
+    "level": 160,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "int": "15",
+      "luk": "15",
+      "attack_power": "2",
+      "magic_power": "2",
+      "armor": "250"
+    },
+    "scrollSlots": 11,
+    "seen": 3
+  },
+  {
+    "name": "航海師劍士斗篷",
+    "part": "披風",
+    "level": 160,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "int": "15",
+      "luk": "15",
+      "attack_power": "2",
+      "magic_power": "2",
+      "armor": "250"
+    },
+    "scrollSlots": 8,
+    "seen": 5
+  },
+  {
+    "name": "塔蘭特喀戎星斗篷",
+    "part": "披風",
+    "level": 150,
+    "base": {
+      "str": "50",
+      "dex": "50",
+      "int": "50",
+      "luk": "50",
+      "attack_power": "30",
+      "magic_power": "30",
+      "armor": "150"
+    },
+    "scrollSlots": 5,
+    "seen": 2
+  },
+  {
+    "name": "羈絆的翅膀",
+    "part": "披風",
+    "level": 150,
+    "base": {
+      "str": "25",
+      "dex": "25",
+      "int": "25",
+      "luk": "25",
+      "attack_power": "8",
+      "magic_power": "8",
+      "armor": "190",
+      "speed": "10",
+      "jump": "6"
+    },
+    "scrollSlots": 8,
+    "seen": 5
+  },
+  {
+    "name": "佩沙里洛戰鬥斗篷",
+    "part": "披風",
+    "level": 140,
+    "base": {
+      "str": "4",
+      "dex": "4",
+      "int": "4",
+      "luk": "4",
+      "armor": "150",
+      "jump": "4"
+    },
+    "scrollSlots": 8,
     "seen": 1
+  },
+  {
+    "name": "楓葉披風",
+    "part": "披風",
+    "level": 20,
+    "base": {
+      "armor": "5"
+    },
+    "scrollSlots": 6,
+    "seen": 1
+  },
+  {
+    "name": "命運武拳",
+    "part": "武拳",
+    "level": 250,
+    "base": {
+      "str": "190",
+      "dex": "190",
+      "attack_power": "280",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "阿斯特拉狐狸寶珠",
+    "part": "狐狸寶珠",
+    "level": 200,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "attack_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 2
   },
   {
     "name": "永恆弓箭手肩膀",
@@ -1092,7 +2317,7 @@
       "armor": "450"
     },
     "scrollSlots": 2,
-    "seen": 4
+    "seen": 39
   },
   {
     "name": "永恆法師肩膀",
@@ -1108,7 +2333,7 @@
       "armor": "450"
     },
     "scrollSlots": 5,
-    "seen": 9
+    "seen": 74
   },
   {
     "name": "永恆海盜肩膀",
@@ -1124,7 +2349,7 @@
       "armor": "450"
     },
     "scrollSlots": 7,
-    "seen": 1
+    "seen": 13
   },
   {
     "name": "永恆盜賊肩膀",
@@ -1140,7 +2365,7 @@
       "armor": "450"
     },
     "scrollSlots": 6,
-    "seen": 13
+    "seen": 93
   },
   {
     "name": "永恆劍士肩膀",
@@ -1156,7 +2381,7 @@
       "armor": "450"
     },
     "scrollSlots": 5,
-    "seen": 3
+    "seen": 71
   },
   {
     "name": "神祕冥界幽靈小偷護肩",
@@ -1172,7 +2397,7 @@
       "armor": "300"
     },
     "scrollSlots": 6,
-    "seen": 2
+    "seen": 37
   },
   {
     "name": "神祕冥界幽靈弓手護肩",
@@ -1188,7 +2413,7 @@
       "armor": "300"
     },
     "scrollSlots": 6,
-    "seen": 1
+    "seen": 15
   },
   {
     "name": "神祕冥界幽靈海盜護肩",
@@ -1204,7 +2429,7 @@
       "armor": "300"
     },
     "scrollSlots": 7,
-    "seen": 1
+    "seen": 4
   },
   {
     "name": "神祕冥界幽靈騎士護肩",
@@ -1220,7 +2445,7 @@
       "armor": "300"
     },
     "scrollSlots": 5,
-    "seen": 5
+    "seen": 38
   },
   {
     "name": "神祕冥界幽靈魔法護肩",
@@ -1236,7 +2461,23 @@
       "armor": "300"
     },
     "scrollSlots": 6,
-    "seen": 5
+    "seen": 28
+  },
+  {
+    "name": "航海師弓箭手護肩",
+    "part": "肩膀裝飾",
+    "level": 160,
+    "base": {
+      "str": "14",
+      "dex": "14",
+      "int": "14",
+      "luk": "14",
+      "attack_power": "10",
+      "magic_power": "10",
+      "armor": "100"
+    },
+    "scrollSlots": 5,
+    "seen": 2
   },
   {
     "name": "航海師法師護肩",
@@ -1249,6 +2490,119 @@
       "luk": "14",
       "attack_power": "10",
       "magic_power": "10",
+      "armor": "100"
+    },
+    "scrollSlots": 2,
+    "seen": 4
+  },
+  {
+    "name": "航海師海盜護肩",
+    "part": "肩膀裝飾",
+    "level": 160,
+    "base": {
+      "str": "14",
+      "dex": "14",
+      "int": "14",
+      "luk": "14",
+      "attack_power": "10",
+      "magic_power": "10",
+      "armor": "100"
+    },
+    "scrollSlots": 2,
+    "seen": 1
+  },
+  {
+    "name": "航海師盜賊護肩",
+    "part": "肩膀裝飾",
+    "level": 160,
+    "base": {
+      "str": "14",
+      "dex": "14",
+      "int": "14",
+      "luk": "14",
+      "attack_power": "10",
+      "magic_power": "10",
+      "armor": "100"
+    },
+    "scrollSlots": 5,
+    "seen": 3
+  },
+  {
+    "name": "航海師劍士護肩",
+    "part": "肩膀裝飾",
+    "level": 160,
+    "base": {
+      "str": "14",
+      "dex": "14",
+      "int": "14",
+      "luk": "14",
+      "attack_power": "10",
+      "magic_power": "10",
+      "armor": "100"
+    },
+    "scrollSlots": 2,
+    "seen": 3
+  },
+  {
+    "name": "菇菇法師肩膀",
+    "part": "肩膀裝飾",
+    "level": 150,
+    "base": {
+      "str": "14",
+      "dex": "14",
+      "int": "14",
+      "luk": "14",
+      "attack_power": "10",
+      "magic_power": "10",
+      "armor": "100"
+    },
+    "scrollSlots": 1,
+    "seen": 1
+  },
+  {
+    "name": "獅子心形戰鬥護肩",
+    "part": "肩膀裝飾",
+    "level": 140,
+    "base": {
+      "str": "11",
+      "dex": "11",
+      "int": "11",
+      "luk": "11",
+      "attack_power": "7",
+      "magic_power": "7",
+      "armor": "100"
+    },
+    "scrollSlots": 2,
+    "seen": 1
+  },
+  {
+    "name": "紫翼護肩",
+    "part": "肩膀裝飾",
+    "level": 135,
+    "base": {
+      "str": "12",
+      "dex": "12",
+      "int": "12",
+      "luk": "12",
+      "max_hp": "400",
+      "attack_power": "7",
+      "magic_power": "7",
+      "armor": "125"
+    },
+    "scrollSlots": 2,
+    "seen": 2
+  },
+  {
+    "name": "皇家暗黑合金護肩",
+    "part": "肩膀裝飾",
+    "level": 120,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "attack_power": "6",
+      "magic_power": "6",
       "armor": "100"
     },
     "scrollSlots": 2,
@@ -1267,7 +2621,22 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 4
+    "seen": 24
+  },
+  {
+    "name": "神祕冥界幽靈長杖",
+    "part": "長杖",
+    "level": 200,
+    "base": {
+      "int": "100",
+      "luk": "100",
+      "attack_power": "218",
+      "magic_power": "353",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 12,
+    "seen": 5
   },
   {
     "name": "創世長杖",
@@ -1282,7 +2651,49 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 1
+    "seen": 18
+  },
+  {
+    "name": "命運之劍",
+    "part": "長劍",
+    "level": 250,
+    "base": {
+      "str": "190",
+      "dex": "190",
+      "attack_power": "373",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 14
+  },
+  {
+    "name": "創世長劍",
+    "part": "長劍",
+    "level": 200,
+    "base": {
+      "str": "150",
+      "dex": "150",
+      "attack_power": "340",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 7
+  },
+  {
+    "name": "阿斯特拉沙漏",
+    "part": "阿斯特拉輔助武器神之子",
+    "level": 200,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "7",
+      "boss_damage": "45",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 0,
+    "seen": 2
   },
   {
     "name": "水槍大作戰！拼圖1",
@@ -1293,7 +2704,7 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 8
   },
   {
     "name": "水槍大作戰！拼圖10",
@@ -1304,7 +2715,7 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 8
   },
   {
     "name": "水槍大作戰！拼圖11",
@@ -1315,7 +2726,7 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 8
   },
   {
     "name": "水槍大作戰！拼圖12",
@@ -1326,7 +2737,7 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 8
   },
   {
     "name": "水槍大作戰！拼圖2",
@@ -1337,7 +2748,7 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 8
   },
   {
     "name": "水槍大作戰！拼圖3",
@@ -1348,7 +2759,7 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 8
   },
   {
     "name": "水槍大作戰！拼圖4",
@@ -1359,7 +2770,7 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 8
   },
   {
     "name": "水槍大作戰！拼圖5",
@@ -1370,7 +2781,7 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 8
   },
   {
     "name": "水槍大作戰！拼圖6",
@@ -1381,7 +2792,7 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 8
   },
   {
     "name": "水槍大作戰！拼圖7",
@@ -1392,7 +2803,7 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 8
   },
   {
     "name": "水槍大作戰！拼圖8",
@@ -1403,7 +2814,7 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 8
   },
   {
     "name": "水槍大作戰！拼圖9",
@@ -1414,7 +2825,282 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
+    "seen": 8
+  },
+  {
+    "name": "伊卡勒特拼圖1",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "luk": "2",
+      "max_hp": "700"
+    },
+    "scrollSlots": 0,
+    "seen": 17
+  },
+  {
+    "name": "伊卡勒特拼圖10",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "luk": "2",
+      "max_mp": "500",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 8
+  },
+  {
+    "name": "伊卡勒特拼圖11",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "luk": "2",
+      "attack_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 9
+  },
+  {
+    "name": "伊卡勒特拼圖12",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "1",
+      "luk": "2",
+      "speed": "5",
+      "jump": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 14
+  },
+  {
+    "name": "伊卡勒特拼圖2",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "luk": "2",
+      "max_mp": "500",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 8
+  },
+  {
+    "name": "伊卡勒特拼圖3",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "luk": "2",
+      "attack_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 16
+  },
+  {
+    "name": "伊卡勒特拼圖4",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "1",
+      "luk": "2",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 11
+  },
+  {
+    "name": "伊卡勒特拼圖5",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "luk": "2",
+      "max_hp": "700"
+    },
+    "scrollSlots": 0,
+    "seen": 14
+  },
+  {
+    "name": "伊卡勒特拼圖6",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "luk": "2",
+      "max_mp": "500",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 9
+  },
+  {
+    "name": "伊卡勒特拼圖7",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "luk": "2",
+      "attack_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 11
+  },
+  {
+    "name": "伊卡勒特拼圖8",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "1",
+      "luk": "2",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 12
+  },
+  {
+    "name": "伊卡勒特拼圖9",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "luk": "2",
+      "max_hp": "700"
+    },
+    "scrollSlots": 0,
+    "seen": 11
+  },
+  {
+    "name": "伊麗娜拼圖1",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "2",
+      "max_hp": "700"
+    },
+    "scrollSlots": 0,
+    "seen": 8
+  },
+  {
+    "name": "伊麗娜拼圖10",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "2",
+      "max_mp": "500",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 4
+  },
+  {
+    "name": "伊麗娜拼圖11",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "2",
+      "attack_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 4
+  },
+  {
+    "name": "伊麗娜拼圖12",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "2",
+      "speed": "5",
+      "jump": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 6
+  },
+  {
+    "name": "伊麗娜拼圖2",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "2",
+      "max_mp": "500",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
     "seen": 2
+  },
+  {
+    "name": "伊麗娜拼圖3",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "2",
+      "attack_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 6
+  },
+  {
+    "name": "伊麗娜拼圖4",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "3",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 4
+  },
+  {
+    "name": "伊麗娜拼圖5",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "2",
+      "max_hp": "700"
+    },
+    "scrollSlots": 0,
+    "seen": 8
+  },
+  {
+    "name": "伊麗娜拼圖6",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "2",
+      "max_mp": "500",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 4
+  },
+  {
+    "name": "伊麗娜拼圖7",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "2",
+      "attack_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 4
+  },
+  {
+    "name": "伊麗娜拼圖8",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "3",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 6
+  },
+  {
+    "name": "伊麗娜拼圖9",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "2",
+      "max_hp": "700"
+    },
+    "scrollSlots": 0,
+    "seen": 5
   },
   {
     "name": "西格諾斯拼圖1",
@@ -1425,7 +3111,19 @@
       "attack_power": "1"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 8
+  },
+  {
+    "name": "西格諾斯拼圖10",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_mp": "500",
+      "attack_power": "1",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 5
   },
   {
     "name": "西格諾斯拼圖11",
@@ -1435,7 +3133,7 @@
       "attack_power": "2"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 7
   },
   {
     "name": "西格諾斯拼圖12",
@@ -1447,7 +3145,41 @@
       "jump": "5"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 12
+  },
+  {
+    "name": "西格諾斯拼圖2",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_mp": "500",
+      "attack_power": "1",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 6
+  },
+  {
+    "name": "西格諾斯拼圖3",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 8
+  },
+  {
+    "name": "西格諾斯拼圖4",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "1",
+      "attack_power": "1",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 9
   },
   {
     "name": "西格諾斯拼圖5",
@@ -1458,7 +3190,7 @@
       "attack_power": "1"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 13
   },
   {
     "name": "西格諾斯拼圖6",
@@ -1470,7 +3202,17 @@
       "armor": "50"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 9
+  },
+  {
+    "name": "西格諾斯拼圖7",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 6
   },
   {
     "name": "西格諾斯拼圖8",
@@ -1482,7 +3224,18 @@
       "armor": "50"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 7
+  },
+  {
+    "name": "西格諾斯拼圖9",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_hp": "700",
+      "attack_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 6
   },
   {
     "name": "那因哈特拼圖1",
@@ -1518,6 +3271,28 @@
     "seen": 1
   },
   {
+    "name": "那因哈特拼圖2",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_mp": "500",
+      "magic_power": "1",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "那因哈特拼圖3",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "magic_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
     "name": "那因哈特拼圖5",
     "part": "拼圖",
     "level": 0,
@@ -1526,7 +3301,7 @@
       "magic_power": "1"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2
   },
   {
     "name": "那因哈特拼圖6",
@@ -1548,7 +3323,7 @@
       "magic_power": "2"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2
   },
   {
     "name": "那因哈特拼圖8",
@@ -1560,7 +3335,40 @@
       "armor": "50"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2
+  },
+  {
+    "name": "真‧粉豆拼圖(攻擊力)1",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_hp": "700",
+      "attack_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 9
+  },
+  {
+    "name": "真‧粉豆拼圖(攻擊力)10",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_mp": "500",
+      "attack_power": "1",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "真‧粉豆拼圖(攻擊力)11",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 3
   },
   {
     "name": "真‧粉豆拼圖(攻擊力)12",
@@ -1570,6 +3378,107 @@
       "attack_power": "2",
       "speed": "5",
       "jump": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 8
+  },
+  {
+    "name": "真‧粉豆拼圖(攻擊力)2",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_mp": "500",
+      "attack_power": "1",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "真‧粉豆拼圖(攻擊力)3",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 6
+  },
+  {
+    "name": "真‧粉豆拼圖(攻擊力)4",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "1",
+      "attack_power": "1",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 6
+  },
+  {
+    "name": "真‧粉豆拼圖(攻擊力)5",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_hp": "700",
+      "attack_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 5
+  },
+  {
+    "name": "真‧粉豆拼圖(攻擊力)6",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_mp": "500",
+      "attack_power": "1",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "真‧粉豆拼圖(攻擊力)7",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "真‧粉豆拼圖(攻擊力)8",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "1",
+      "attack_power": "2",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "真‧粉豆拼圖(攻擊力)9",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_hp": "700",
+      "attack_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 6
+  },
+  {
+    "name": "真‧粉豆拼圖(魔力)1",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_hp": "700",
+      "magic_power": "1"
     },
     "scrollSlots": 0,
     "seen": 1
@@ -1582,7 +3491,7 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 9
+    "seen": 61
   },
   {
     "name": "真殺人鯨拼圖(攻擊力)10",
@@ -1593,7 +3502,7 @@
       "armor": "70"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 28
   },
   {
     "name": "真殺人鯨拼圖(攻擊力)11",
@@ -1603,7 +3512,7 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 37
   },
   {
     "name": "真殺人鯨拼圖(攻擊力)12",
@@ -1615,7 +3524,7 @@
       "jump": "5"
     },
     "scrollSlots": 0,
-    "seen": 7
+    "seen": 54
   },
   {
     "name": "真殺人鯨拼圖(攻擊力)2",
@@ -1626,7 +3535,7 @@
       "armor": "70"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 20
   },
   {
     "name": "真殺人鯨拼圖(攻擊力)3",
@@ -1636,7 +3545,7 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 6
+    "seen": 50
   },
   {
     "name": "真殺人鯨拼圖(攻擊力)4",
@@ -1647,7 +3556,7 @@
       "armor": "70"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 39
   },
   {
     "name": "真殺人鯨拼圖(攻擊力)5",
@@ -1657,7 +3566,7 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 9
+    "seen": 56
   },
   {
     "name": "真殺人鯨拼圖(攻擊力)6",
@@ -1668,7 +3577,7 @@
       "armor": "70"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 25
   },
   {
     "name": "真殺人鯨拼圖(攻擊力)7",
@@ -1678,7 +3587,7 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 5
+    "seen": 35
   },
   {
     "name": "真殺人鯨拼圖(攻擊力)8",
@@ -1689,7 +3598,7 @@
       "armor": "70"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 35
   },
   {
     "name": "真殺人鯨拼圖(攻擊力)9",
@@ -1699,7 +3608,7 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 5
+    "seen": 29
   },
   {
     "name": "真殺人鯨拼圖(魔力)1",
@@ -1709,7 +3618,7 @@
       "magic_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 4
+    "seen": 19
   },
   {
     "name": "真殺人鯨拼圖(魔力)10",
@@ -1720,7 +3629,7 @@
       "armor": "70"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 8
   },
   {
     "name": "真殺人鯨拼圖(魔力)11",
@@ -1730,7 +3639,7 @@
       "magic_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 12
   },
   {
     "name": "真殺人鯨拼圖(魔力)12",
@@ -1742,7 +3651,18 @@
       "jump": "5"
     },
     "scrollSlots": 0,
-    "seen": 4
+    "seen": 23
+  },
+  {
+    "name": "真殺人鯨拼圖(魔力)2",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "magic_power": "2",
+      "armor": "70"
+    },
+    "scrollSlots": 0,
+    "seen": 6
   },
   {
     "name": "真殺人鯨拼圖(魔力)3",
@@ -1752,7 +3672,18 @@
       "magic_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 23
+  },
+  {
+    "name": "真殺人鯨拼圖(魔力)4",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "magic_power": "2",
+      "armor": "70"
+    },
+    "scrollSlots": 0,
+    "seen": 14
   },
   {
     "name": "真殺人鯨拼圖(魔力)5",
@@ -1762,7 +3693,7 @@
       "magic_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 22
   },
   {
     "name": "真殺人鯨拼圖(魔力)6",
@@ -1773,7 +3704,7 @@
       "armor": "70"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 5
   },
   {
     "name": "真殺人鯨拼圖(魔力)7",
@@ -1783,7 +3714,28 @@
       "magic_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 14
+  },
+  {
+    "name": "真殺人鯨拼圖(魔力)8",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "magic_power": "2",
+      "armor": "70"
+    },
+    "scrollSlots": 0,
+    "seen": 9
+  },
+  {
+    "name": "真殺人鯨拼圖(魔力)9",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "magic_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 12
   },
   {
     "name": "真覺醒殺人鯨拼圖(攻擊力)1",
@@ -1793,7 +3745,7 @@
       "attack_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 12
+    "seen": 118
   },
   {
     "name": "真覺醒殺人鯨拼圖(攻擊力)10",
@@ -1804,7 +3756,7 @@
       "armor": "170"
     },
     "scrollSlots": 0,
-    "seen": 20
+    "seen": 151
   },
   {
     "name": "真覺醒殺人鯨拼圖(攻擊力)11",
@@ -1814,7 +3766,7 @@
       "attack_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 18
+    "seen": 142
   },
   {
     "name": "真覺醒殺人鯨拼圖(攻擊力)12",
@@ -1826,7 +3778,7 @@
       "jump": "5"
     },
     "scrollSlots": 0,
-    "seen": 14
+    "seen": 125
   },
   {
     "name": "真覺醒殺人鯨拼圖(攻擊力)2",
@@ -1837,7 +3789,7 @@
       "armor": "170"
     },
     "scrollSlots": 0,
-    "seen": 20
+    "seen": 159
   },
   {
     "name": "真覺醒殺人鯨拼圖(攻擊力)3",
@@ -1847,7 +3799,7 @@
       "attack_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 15
+    "seen": 129
   },
   {
     "name": "真覺醒殺人鯨拼圖(攻擊力)4",
@@ -1858,7 +3810,7 @@
       "armor": "170"
     },
     "scrollSlots": 0,
-    "seen": 19
+    "seen": 140
   },
   {
     "name": "真覺醒殺人鯨拼圖(攻擊力)5",
@@ -1868,7 +3820,7 @@
       "attack_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 12
+    "seen": 123
   },
   {
     "name": "真覺醒殺人鯨拼圖(攻擊力)6",
@@ -1879,7 +3831,7 @@
       "armor": "170"
     },
     "scrollSlots": 0,
-    "seen": 20
+    "seen": 154
   },
   {
     "name": "真覺醒殺人鯨拼圖(攻擊力)7",
@@ -1889,7 +3841,7 @@
       "attack_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 16
+    "seen": 144
   },
   {
     "name": "真覺醒殺人鯨拼圖(攻擊力)8",
@@ -1900,7 +3852,7 @@
       "armor": "170"
     },
     "scrollSlots": 0,
-    "seen": 18
+    "seen": 144
   },
   {
     "name": "真覺醒殺人鯨拼圖(攻擊力)9",
@@ -1910,7 +3862,7 @@
       "attack_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 16
+    "seen": 150
   },
   {
     "name": "真覺醒殺人鯨拼圖(魔力)1",
@@ -1920,7 +3872,7 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 5
+    "seen": 41
   },
   {
     "name": "真覺醒殺人鯨拼圖(魔力)10",
@@ -1931,7 +3883,7 @@
       "armor": "170"
     },
     "scrollSlots": 0,
-    "seen": 8
+    "seen": 52
   },
   {
     "name": "真覺醒殺人鯨拼圖(魔力)11",
@@ -1941,7 +3893,7 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 6
+    "seen": 48
   },
   {
     "name": "真覺醒殺人鯨拼圖(魔力)12",
@@ -1953,7 +3905,7 @@
       "jump": "5"
     },
     "scrollSlots": 0,
-    "seen": 5
+    "seen": 37
   },
   {
     "name": "真覺醒殺人鯨拼圖(魔力)2",
@@ -1964,7 +3916,7 @@
       "armor": "170"
     },
     "scrollSlots": 0,
-    "seen": 9
+    "seen": 54
   },
   {
     "name": "真覺醒殺人鯨拼圖(魔力)3",
@@ -1974,7 +3926,7 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 6
+    "seen": 37
   },
   {
     "name": "真覺醒殺人鯨拼圖(魔力)4",
@@ -1985,7 +3937,7 @@
       "armor": "170"
     },
     "scrollSlots": 0,
-    "seen": 9
+    "seen": 46
   },
   {
     "name": "真覺醒殺人鯨拼圖(魔力)5",
@@ -1995,7 +3947,7 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 6
+    "seen": 38
   },
   {
     "name": "真覺醒殺人鯨拼圖(魔力)6",
@@ -2006,7 +3958,7 @@
       "armor": "170"
     },
     "scrollSlots": 0,
-    "seen": 7
+    "seen": 55
   },
   {
     "name": "真覺醒殺人鯨拼圖(魔力)7",
@@ -2016,7 +3968,7 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 8
+    "seen": 46
   },
   {
     "name": "真覺醒殺人鯨拼圖(魔力)8",
@@ -2027,7 +3979,7 @@
       "armor": "170"
     },
     "scrollSlots": 0,
-    "seen": 9
+    "seen": 51
   },
   {
     "name": "真覺醒殺人鯨拼圖(魔力)9",
@@ -2037,7 +3989,71 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 9
+    "seen": 48
+  },
+  {
+    "name": "粉豆拼圖(攻擊力)1",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_hp": "700"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "粉豆拼圖(攻擊力)10",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_mp": "500",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "粉豆拼圖(攻擊力)11",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "粉豆拼圖(攻擊力)12",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "speed": "5",
+      "jump": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "粉豆拼圖(攻擊力)4",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "1",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "粉豆拼圖(攻擊力)6",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_mp": "500",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 2
   },
   {
     "name": "閃雷悍將拼圖1",
@@ -2048,7 +4064,19 @@
       "max_hp": "700"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 9
+  },
+  {
+    "name": "閃雷悍將拼圖10",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "str": "2",
+      "max_mp": "500",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 6
   },
   {
     "name": "閃雷悍將拼圖11",
@@ -2059,7 +4087,7 @@
       "attack_power": "1"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 6
   },
   {
     "name": "閃雷悍將拼圖12",
@@ -2071,7 +4099,19 @@
       "jump": "5"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 12
+  },
+  {
+    "name": "閃雷悍將拼圖2",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "str": "2",
+      "max_mp": "500",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 3
   },
   {
     "name": "閃雷悍將拼圖3",
@@ -2082,7 +4122,7 @@
       "attack_power": "1"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 8
   },
   {
     "name": "閃雷悍將拼圖4",
@@ -2094,7 +4134,7 @@
       "armor": "50"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 6
   },
   {
     "name": "閃雷悍將拼圖5",
@@ -2105,7 +4145,19 @@
       "max_hp": "700"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 10
+  },
+  {
+    "name": "閃雷悍將拼圖6",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "str": "2",
+      "max_mp": "500",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 6
   },
   {
     "name": "閃雷悍將拼圖7",
@@ -2116,7 +4168,19 @@
       "attack_power": "1"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 7
+  },
+  {
+    "name": "閃雷悍將拼圖8",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "str": "2",
+      "dex": "1",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 6
   },
   {
     "name": "閃雷悍將拼圖9",
@@ -2127,7 +4191,159 @@
       "max_hp": "700"
     },
     "scrollSlots": 0,
+    "seen": 10
+  },
+  {
+    "name": "殺人鯨拼圖(攻擊力)1",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "殺人鯨拼圖(攻擊力)10",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "armor": "70"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "殺人鯨拼圖(攻擊力)11",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "殺人鯨拼圖(攻擊力)12",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "speed": "5",
+      "jump": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "殺人鯨拼圖(攻擊力)2",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "armor": "70"
+    },
+    "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "殺人鯨拼圖(攻擊力)3",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "1"
+    },
+    "scrollSlots": 0,
     "seen": 2
+  },
+  {
+    "name": "殺人鯨拼圖(攻擊力)4",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "armor": "70"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "殺人鯨拼圖(攻擊力)5",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 4
+  },
+  {
+    "name": "殺人鯨拼圖(攻擊力)6",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "armor": "70"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "殺人鯨拼圖(攻擊力)7",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "殺人鯨拼圖(攻擊力)8",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "armor": "70"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "殺人鯨拼圖(攻擊力)9",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "殺人鯨拼圖(魔力)12",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "speed": "5",
+      "jump": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "殺人鯨拼圖(魔力)4",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "armor": "70"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "殺人鯨拼圖(魔力)7",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "magic_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 1
   },
   {
     "name": "奧茲拼圖1",
@@ -2138,7 +4354,77 @@
       "max_hp": "700"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 20
+  },
+  {
+    "name": "奧茲拼圖10",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "int": "2",
+      "max_mp": "500",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 7
+  },
+  {
+    "name": "奧茲拼圖11",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "int": "2",
+      "magic_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 6
+  },
+  {
+    "name": "奧茲拼圖12",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "int": "2",
+      "speed": "5",
+      "jump": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 16
+  },
+  {
+    "name": "奧茲拼圖2",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "int": "2",
+      "max_mp": "500",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 7
+  },
+  {
+    "name": "奧茲拼圖3",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "int": "2",
+      "magic_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 15
+  },
+  {
+    "name": "奧茲拼圖4",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "1",
+      "int": "2",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 8
   },
   {
     "name": "奧茲拼圖5",
@@ -2149,7 +4435,19 @@
       "max_hp": "700"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 13
+  },
+  {
+    "name": "奧茲拼圖6",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "int": "2",
+      "max_mp": "500",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 5
   },
   {
     "name": "奧茲拼圖7",
@@ -2160,7 +4458,30 @@
       "magic_power": "1"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 10
+  },
+  {
+    "name": "奧茲拼圖8",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "1",
+      "int": "2",
+      "armor": "50"
+    },
+    "scrollSlots": 0,
+    "seen": 12
+  },
+  {
+    "name": "奧茲拼圖9",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "int": "2",
+      "max_hp": "700"
+    },
+    "scrollSlots": 0,
+    "seen": 11
   },
   {
     "name": "覺醒伊卡勒特拼圖1",
@@ -2171,7 +4492,7 @@
       "max_hp": "2000"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 14
   },
   {
     "name": "覺醒伊卡勒特拼圖10",
@@ -2183,7 +4504,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 23
   },
   {
     "name": "覺醒伊卡勒特拼圖11",
@@ -2194,7 +4515,7 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 22
   },
   {
     "name": "覺醒伊卡勒特拼圖12",
@@ -2207,7 +4528,7 @@
       "jump": "5"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 17
   },
   {
     "name": "覺醒伊卡勒特拼圖2",
@@ -2219,7 +4540,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 23
   },
   {
     "name": "覺醒伊卡勒特拼圖3",
@@ -2230,7 +4551,7 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 15
   },
   {
     "name": "覺醒伊卡勒特拼圖4",
@@ -2242,7 +4563,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 20
   },
   {
     "name": "覺醒伊卡勒特拼圖5",
@@ -2253,7 +4574,7 @@
       "max_hp": "2000"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 16
   },
   {
     "name": "覺醒伊卡勒特拼圖6",
@@ -2265,7 +4586,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 21
   },
   {
     "name": "覺醒伊卡勒特拼圖7",
@@ -2276,7 +4597,7 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 19
   },
   {
     "name": "覺醒伊卡勒特拼圖8",
@@ -2288,7 +4609,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 19
   },
   {
     "name": "覺醒伊卡勒特拼圖9",
@@ -2299,7 +4620,144 @@
       "max_hp": "2000"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 19
+  },
+  {
+    "name": "覺醒伊麗娜拼圖1",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "2",
+      "max_hp": "2000"
+    },
+    "scrollSlots": 0,
+    "seen": 6
+  },
+  {
+    "name": "覺醒伊麗娜拼圖10",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "3",
+      "max_mp": "1500",
+      "armor": "150"
+    },
+    "scrollSlots": 0,
+    "seen": 10
+  },
+  {
+    "name": "覺醒伊麗娜拼圖11",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "2",
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 10
+  },
+  {
+    "name": "覺醒伊麗娜拼圖12",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "7",
+      "attack_power": "1",
+      "speed": "5",
+      "jump": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 8
+  },
+  {
+    "name": "覺醒伊麗娜拼圖2",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "3",
+      "max_mp": "1500",
+      "armor": "150"
+    },
+    "scrollSlots": 0,
+    "seen": 12
+  },
+  {
+    "name": "覺醒伊麗娜拼圖3",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "2",
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 8
+  },
+  {
+    "name": "覺醒伊麗娜拼圖4",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "3",
+      "armor": "150"
+    },
+    "scrollSlots": 0,
+    "seen": 10
+  },
+  {
+    "name": "覺醒伊麗娜拼圖5",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "2",
+      "max_hp": "2000"
+    },
+    "scrollSlots": 0,
+    "seen": 6
+  },
+  {
+    "name": "覺醒伊麗娜拼圖6",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "3",
+      "max_mp": "1500",
+      "armor": "150"
+    },
+    "scrollSlots": 0,
+    "seen": 10
+  },
+  {
+    "name": "覺醒伊麗娜拼圖7",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "2",
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 10
+  },
+  {
+    "name": "覺醒伊麗娜拼圖8",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "3",
+      "armor": "150"
+    },
+    "scrollSlots": 0,
+    "seen": 8
+  },
+  {
+    "name": "覺醒伊麗娜拼圖9",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "2",
+      "max_hp": "2000"
+    },
+    "scrollSlots": 0,
+    "seen": 9
   },
   {
     "name": "覺醒西格諾斯拼圖1",
@@ -2310,7 +4768,7 @@
       "attack_power": "1"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 10
   },
   {
     "name": "覺醒西格諾斯拼圖10",
@@ -2322,7 +4780,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 13
   },
   {
     "name": "覺醒西格諾斯拼圖11",
@@ -2332,7 +4790,7 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 11
   },
   {
     "name": "覺醒西格諾斯拼圖12",
@@ -2344,7 +4802,7 @@
       "jump": "5"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 6
   },
   {
     "name": "覺醒西格諾斯拼圖2",
@@ -2356,7 +4814,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 12
   },
   {
     "name": "覺醒西格諾斯拼圖3",
@@ -2366,7 +4824,7 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 10
   },
   {
     "name": "覺醒西格諾斯拼圖4",
@@ -2378,7 +4836,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 9
   },
   {
     "name": "覺醒西格諾斯拼圖5",
@@ -2389,7 +4847,7 @@
       "attack_power": "1"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 6
   },
   {
     "name": "覺醒西格諾斯拼圖6",
@@ -2401,7 +4859,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 10
   },
   {
     "name": "覺醒西格諾斯拼圖7",
@@ -2411,7 +4869,7 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 12
   },
   {
     "name": "覺醒西格諾斯拼圖8",
@@ -2423,7 +4881,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 11
   },
   {
     "name": "覺醒西格諾斯拼圖9",
@@ -2432,6 +4890,17 @@
     "base": {
       "max_hp": "2000",
       "attack_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 12
+  },
+  {
+    "name": "覺醒那因哈特拼圖1",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_hp": "2000",
+      "magic_power": "1"
     },
     "scrollSlots": 0,
     "seen": 2
@@ -2446,7 +4915,29 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 3
+  },
+  {
+    "name": "覺醒那因哈特拼圖11",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "magic_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "覺醒那因哈特拼圖12",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "magic_power": "2",
+      "speed": "5",
+      "jump": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 2
   },
   {
     "name": "覺醒那因哈特拼圖2",
@@ -2458,7 +4949,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2
   },
   {
     "name": "覺醒那因哈特拼圖3",
@@ -2468,7 +4959,7 @@
       "magic_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2
   },
   {
     "name": "覺醒那因哈特拼圖4",
@@ -2477,6 +4968,51 @@
     "base": {
       "dex": "1",
       "magic_power": "1",
+      "armor": "150"
+    },
+    "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "覺醒那因哈特拼圖5",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_hp": "2000",
+      "magic_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒那因哈特拼圖6",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_mp": "1500",
+      "magic_power": "1",
+      "armor": "150"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "覺醒那因哈特拼圖7",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "magic_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒那因哈特拼圖8",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "1",
+      "magic_power": "2",
       "armor": "150"
     },
     "scrollSlots": 0,
@@ -2491,7 +5027,7 @@
       "magic_power": "1"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 3
   },
   {
     "name": "覺醒真‧粉豆拼圖(攻擊力)1",
@@ -2502,7 +5038,7 @@
       "attack_power": "1"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 10
   },
   {
     "name": "覺醒真‧粉豆拼圖(攻擊力)10",
@@ -2514,7 +5050,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 16
   },
   {
     "name": "覺醒真‧粉豆拼圖(攻擊力)11",
@@ -2524,7 +5060,7 @@
       "attack_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 16
   },
   {
     "name": "覺醒真‧粉豆拼圖(攻擊力)12",
@@ -2536,7 +5072,7 @@
       "jump": "5"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 11
   },
   {
     "name": "覺醒真‧粉豆拼圖(攻擊力)2",
@@ -2548,7 +5084,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 16
   },
   {
     "name": "覺醒真‧粉豆拼圖(攻擊力)3",
@@ -2558,7 +5094,7 @@
       "attack_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 13
   },
   {
     "name": "覺醒真‧粉豆拼圖(攻擊力)4",
@@ -2570,7 +5106,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 12
   },
   {
     "name": "覺醒真‧粉豆拼圖(攻擊力)5",
@@ -2581,7 +5117,7 @@
       "attack_power": "1"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 14
   },
   {
     "name": "覺醒真‧粉豆拼圖(攻擊力)6",
@@ -2593,7 +5129,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 15
   },
   {
     "name": "覺醒真‧粉豆拼圖(攻擊力)7",
@@ -2603,7 +5139,7 @@
       "attack_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 16
   },
   {
     "name": "覺醒真‧粉豆拼圖(攻擊力)8",
@@ -2615,7 +5151,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 16
   },
   {
     "name": "覺醒真‧粉豆拼圖(攻擊力)9",
@@ -2624,6 +5160,245 @@
     "base": {
       "max_hp": "2000",
       "attack_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 13
+  },
+  {
+    "name": "覺醒真‧粉豆拼圖(魔力)10",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_mp": "1500",
+      "magic_power": "1",
+      "armor": "150"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒真‧粉豆拼圖(魔力)11",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "magic_power": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒真‧粉豆拼圖(魔力)12",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "magic_power": "4",
+      "speed": "5",
+      "jump": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒真‧粉豆拼圖(魔力)2",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_mp": "1500",
+      "magic_power": "1",
+      "armor": "150"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒真‧粉豆拼圖(魔力)3",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "magic_power": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒真‧粉豆拼圖(魔力)4",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "1",
+      "magic_power": "1",
+      "armor": "150"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒真‧粉豆拼圖(魔力)5",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_hp": "2000",
+      "magic_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒真‧粉豆拼圖(魔力)6",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_mp": "1500",
+      "magic_power": "1",
+      "armor": "150"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒真‧粉豆拼圖(魔力)7",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "magic_power": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒真‧粉豆拼圖(魔力)8",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "1",
+      "magic_power": "4",
+      "armor": "150"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒真‧粉豆拼圖(魔力)9",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_hp": "2000",
+      "magic_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒粉豆拼圖(攻擊力)1",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_hp": "2000"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒粉豆拼圖(攻擊力)10",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_mp": "1500",
+      "armor": "150"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒粉豆拼圖(攻擊力)11",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "4"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒粉豆拼圖(攻擊力)2",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_mp": "1500",
+      "armor": "150"
+    },
+    "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "覺醒粉豆拼圖(攻擊力)3",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "覺醒粉豆拼圖(攻擊力)4",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "1",
+      "armor": "150"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "覺醒粉豆拼圖(攻擊力)5",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_hp": "2000"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒粉豆拼圖(攻擊力)6",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_mp": "1500",
+      "armor": "150"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒粉豆拼圖(攻擊力)7",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "4"
+    },
+    "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "覺醒粉豆拼圖(攻擊力)8",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "dex": "1",
+      "armor": "150"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "覺醒粉豆拼圖(攻擊力)9",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "max_hp": "2000"
     },
     "scrollSlots": 0,
     "seen": 2
@@ -2637,7 +5412,7 @@
       "max_hp": "2000"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 14
   },
   {
     "name": "覺醒閃雷悍將拼圖10",
@@ -2649,7 +5424,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 17
   },
   {
     "name": "覺醒閃雷悍將拼圖11",
@@ -2660,7 +5435,7 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 17
   },
   {
     "name": "覺醒閃雷悍將拼圖12",
@@ -2673,7 +5448,7 @@
       "jump": "5"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 11
   },
   {
     "name": "覺醒閃雷悍將拼圖2",
@@ -2685,7 +5460,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 20
   },
   {
     "name": "覺醒閃雷悍將拼圖3",
@@ -2696,7 +5471,7 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 15
   },
   {
     "name": "覺醒閃雷悍將拼圖4",
@@ -2708,7 +5483,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 17
   },
   {
     "name": "覺醒閃雷悍將拼圖5",
@@ -2719,7 +5494,7 @@
       "max_hp": "2000"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 13
   },
   {
     "name": "覺醒閃雷悍將拼圖6",
@@ -2731,7 +5506,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 17
   },
   {
     "name": "覺醒閃雷悍將拼圖7",
@@ -2742,7 +5517,7 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 16
   },
   {
     "name": "覺醒閃雷悍將拼圖8",
@@ -2754,7 +5529,229 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 17
+  },
+  {
+    "name": "覺醒閃雷悍將拼圖9",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "str": "2",
+      "max_hp": "2000"
+    },
+    "scrollSlots": 0,
+    "seen": 13
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(攻擊力)1",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 5
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(攻擊力)10",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "armor": "170"
+    },
+    "scrollSlots": 0,
+    "seen": 7
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(攻擊力)11",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 7
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(攻擊力)12",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "speed": "5",
+      "jump": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 5
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(攻擊力)2",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "armor": "170"
+    },
+    "scrollSlots": 0,
+    "seen": 5
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(攻擊力)3",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 6
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(攻擊力)4",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "armor": "170"
+    },
+    "scrollSlots": 0,
+    "seen": 7
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(攻擊力)5",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 4
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(攻擊力)6",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "armor": "170"
+    },
+    "scrollSlots": 0,
+    "seen": 7
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(攻擊力)7",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 6
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(攻擊力)8",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "armor": "170"
+    },
+    "scrollSlots": 0,
+    "seen": 7
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(攻擊力)9",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "attack_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 7
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(魔力)1",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "magic_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(魔力)10",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "armor": "170"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(魔力)11",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "magic_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(魔力)2",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "armor": "170"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(魔力)3",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "magic_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(魔力)5",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "magic_power": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(魔力)6",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "armor": "170"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(魔力)8",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "armor": "170"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒殺人鯨拼圖(魔力)9",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "magic_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 1
   },
   {
     "name": "覺醒奧茲拼圖1",
@@ -2765,7 +5762,7 @@
       "max_hp": "2000"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 11
   },
   {
     "name": "覺醒奧茲拼圖10",
@@ -2777,7 +5774,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 24
   },
   {
     "name": "覺醒奧茲拼圖11",
@@ -2788,7 +5785,7 @@
       "magic_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 25
   },
   {
     "name": "覺醒奧茲拼圖12",
@@ -2801,7 +5798,7 @@
       "jump": "5"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 15
   },
   {
     "name": "覺醒奧茲拼圖2",
@@ -2813,7 +5810,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 24
   },
   {
     "name": "覺醒奧茲拼圖3",
@@ -2824,7 +5821,7 @@
       "magic_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 16
   },
   {
     "name": "覺醒奧茲拼圖4",
@@ -2836,7 +5833,18 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 23
+  },
+  {
+    "name": "覺醒奧茲拼圖5",
+    "part": "拼圖",
+    "level": 0,
+    "base": {
+      "int": "2",
+      "max_hp": "2000"
+    },
+    "scrollSlots": 0,
+    "seen": 18
   },
   {
     "name": "覺醒奧茲拼圖6",
@@ -2848,7 +5856,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 26
   },
   {
     "name": "覺醒奧茲拼圖7",
@@ -2859,7 +5867,7 @@
       "magic_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 21
   },
   {
     "name": "覺醒奧茲拼圖8",
@@ -2871,7 +5879,7 @@
       "armor": "150"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 19
   },
   {
     "name": "覺醒奧茲拼圖9",
@@ -2882,7 +5890,7 @@
       "max_hp": "2000"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 20
   },
   {
     "name": "命運爪子",
@@ -2896,7 +5904,45 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
+    "seen": 7
+  },
+  {
+    "name": "創世之爪",
+    "part": "指虎",
+    "level": 200,
+    "base": {
+      "str": "150",
+      "dex": "150",
+      "attack_power": "255",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
     "seen": 2
+  },
+  {
+    "name": "阿斯特拉幻葉盾牌",
+    "part": "盾牌",
+    "level": 200,
+    "base": {
+      "int": "50",
+      "luk": "20",
+      "magic_power": "47"
+    },
+    "scrollSlots": 15,
+    "seen": 2
+  },
+  {
+    "name": "阿斯特拉災厄之盾",
+    "part": "盾牌",
+    "level": 200,
+    "base": {
+      "dex": "20",
+      "luk": "50",
+      "attack_power": "47"
+    },
+    "scrollSlots": 15,
+    "seen": 3
   },
   {
     "name": "阿斯特拉卓越盾",
@@ -2908,7 +5954,19 @@
       "magic_power": "47"
     },
     "scrollSlots": 12,
-    "seen": 2
+    "seen": 3
+  },
+  {
+    "name": "阿斯特拉幽影盾",
+    "part": "盾牌",
+    "level": 200,
+    "base": {
+      "int": "45",
+      "luk": "15",
+      "magic_power": "47"
+    },
+    "scrollSlots": 13,
+    "seen": 1
   },
   {
     "name": "阿斯特拉祕法盾",
@@ -2920,7 +5978,18 @@
       "magic_power": "47"
     },
     "scrollSlots": 13,
-    "seen": 1
+    "seen": 12
+  },
+  {
+    "name": "惡魔黑暗盾",
+    "part": "盾牌",
+    "level": 130,
+    "base": {
+      "luk": "10",
+      "armor": "99"
+    },
+    "scrollSlots": 8,
+    "seen": 2
   },
   {
     "name": "惡魔賢者盾",
@@ -2931,7 +6000,33 @@
       "armor": "71"
     },
     "scrollSlots": 8,
+    "seen": 43
+  },
+  {
+    "name": "致命劍盾",
+    "part": "盾牌",
+    "level": 120,
+    "base": {
+      "luk": "2",
+      "attack_power": "15",
+      "armor": "5"
+    },
+    "scrollSlots": 13,
     "seen": 4
+  },
+  {
+    "name": "創世重拳槍",
+    "part": "重拳槍",
+    "level": 200,
+    "base": {
+      "str": "150",
+      "dex": "150",
+      "attack_power": "255",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 1
   },
   {
     "name": "阿斯特拉白虎錘",
@@ -2944,6 +6039,46 @@
     },
     "scrollSlots": 0,
     "seen": 1
+  },
+  {
+    "name": "天龍錘",
+    "part": "重錘",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "神祕冥界幽靈海盜套裝",
+    "part": "套服",
+    "level": 200,
+    "base": {
+      "str": "85",
+      "dex": "85",
+      "attack_power": "9",
+      "armor": "500",
+      "ignore_monster_armor": "10"
+    },
+    "scrollSlots": 13,
+    "seen": 1
+  },
+  {
+    "name": "神祕冥界幽靈騎士套裝",
+    "part": "套服",
+    "level": 200,
+    "base": {
+      "str": "85",
+      "dex": "85",
+      "attack_power": "9",
+      "armor": "500",
+      "ignore_monster_armor": "10"
+    },
+    "scrollSlots": 13,
+    "seen": 3
   },
   {
     "name": "滅龍騎士盔甲",
@@ -2961,7 +6096,7 @@
       "ignore_monster_armor": "30"
     },
     "scrollSlots": 16,
-    "seen": 6
+    "seen": 61
   },
   {
     "name": "航海師法師套裝",
@@ -2974,7 +6109,69 @@
       "armor": "300"
     },
     "scrollSlots": 13,
+    "seen": 3
+  },
+  {
+    "name": "航海師盜賊套裝",
+    "part": "套服",
+    "level": 160,
+    "base": {
+      "dex": "65",
+      "luk": "65",
+      "attack_power": "5",
+      "armor": "300"
+    },
+    "scrollSlots": 13,
     "seen": 1
+  },
+  {
+    "name": "佩沙里洛煉獄鎧甲",
+    "part": "套服",
+    "level": 140,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "attack_power": "1",
+      "armor": "325"
+    },
+    "scrollSlots": 11,
+    "seen": 1
+  },
+  {
+    "name": "阿斯特拉金剛石扇墜",
+    "part": "扇墜",
+    "level": 200,
+    "base": {
+      "dex": "10",
+      "luk": "10",
+      "attack_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 5
+  },
+  {
+    "name": "不滅的扇墜",
+    "part": "扇墜",
+    "level": 140,
+    "base": {
+      "dex": "14",
+      "luk": "14",
+      "attack_power": "9"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "月長石扇墜",
+    "part": "扇墜",
+    "level": 100,
+    "base": {
+      "dex": "10",
+      "luk": "10",
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 5
   },
   {
     "name": "命運鬥拳",
@@ -2988,7 +6185,63 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 7
+    "seen": 35
+  },
+  {
+    "name": "創世鬥拳",
+    "part": "拳套",
+    "level": 200,
+    "base": {
+      "dex": "150",
+      "luk": "150",
+      "attack_power": "172",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 19
+  },
+  {
+    "name": "阿斯特拉拳環",
+    "part": "拳環",
+    "level": 200,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "attack_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "命運琉",
+    "part": "琉",
+    "level": 250,
+    "base": {
+      "str": "190",
+      "dex": "190",
+      "attack_power": "375",
+      "armor": "290",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 4
+  },
+  {
+    "name": "創世琉",
+    "part": "琉",
+    "level": 200,
+    "base": {
+      "str": "150",
+      "dex": "150",
+      "attack_power": "342",
+      "armor": "250",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 5
   },
   {
     "name": "創世的胸章",
@@ -3005,7 +6258,24 @@
       "jump": "10"
     },
     "scrollSlots": 0,
-    "seen": 22
+    "seen": 181
+  },
+  {
+    "name": "水晶溫杜斯胸章",
+    "part": "胸章",
+    "level": 130,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "attack_power": "5",
+      "magic_power": "5",
+      "speed": "10",
+      "jump": "10"
+    },
+    "scrollSlots": 0,
+    "seen": 76
   },
   {
     "name": "七日的胸章",
@@ -3019,6 +6289,36 @@
       "attack_power": "7",
       "magic_power": "7",
       "ignore_monster_armor": "10"
+    },
+    "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "Monday胸章",
+    "part": "胸章",
+    "level": 100,
+    "base": {
+      "str": "7",
+      "dex": "7",
+      "int": "7",
+      "luk": "7",
+      "attack_power": "7",
+      "magic_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "Saturday胸章",
+    "part": "胸章",
+    "level": 100,
+    "base": {
+      "str": "7",
+      "dex": "7",
+      "int": "7",
+      "luk": "7",
+      "attack_power": "7",
+      "magic_power": "7"
     },
     "scrollSlots": 0,
     "seen": 1
@@ -3036,7 +6336,54 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "Tuesday胸章",
+    "part": "胸章",
+    "level": 100,
+    "base": {
+      "str": "7",
+      "dex": "7",
+      "int": "7",
+      "luk": "7",
+      "attack_power": "7",
+      "magic_power": "7"
+    },
+    "scrollSlots": 0,
     "seen": 1
+  },
+  {
+    "name": "Wednesday胸章",
+    "part": "胸章",
+    "level": 100,
+    "base": {
+      "str": "7",
+      "dex": "7",
+      "int": "7",
+      "luk": "7",
+      "attack_power": "7",
+      "magic_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "皇家神獸學院胸章",
+    "part": "胸章",
+    "level": 30,
+    "base": {
+      "str": "1",
+      "dex": "1",
+      "int": "1",
+      "luk": "1",
+      "max_hp": "30",
+      "max_mp": "30",
+      "speed": "1",
+      "jump": "1"
+    },
+    "scrollSlots": 0,
+    "seen": 2
   },
   {
     "name": "黑翼胸章",
@@ -3053,7 +6400,7 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 7
+    "seen": 81
   },
   {
     "name": "MX-131",
@@ -3072,7 +6419,7 @@
       "jump": "20"
     },
     "scrollSlots": 0,
-    "seen": 8
+    "seen": 45
   },
   {
     "name": "VIP休菲凱曼的黃金胸章道具",
@@ -3090,7 +6437,7 @@
       "speed": "10"
     },
     "scrollSlots": 7,
-    "seen": 6
+    "seen": 37
   },
   {
     "name": "VIP休菲凱曼黃金胸章道具",
@@ -3108,6 +6455,89 @@
       "speed": "5"
     },
     "scrollSlots": 7,
+    "seen": 3
+  },
+  {
+    "name": "無限能量手環",
+    "part": "能量手環",
+    "level": 100,
+    "base": {
+      "dex": "10",
+      "luk": "10",
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "命運能量劍",
+    "part": "能量劍",
+    "level": 250,
+    "base": {
+      "dex": "190",
+      "luk": "190",
+      "attack_power": "280",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 2
+  },
+  {
+    "name": "命運記憶長杖",
+    "part": "記憶長杖",
+    "level": 250,
+    "base": {
+      "int": "190",
+      "luk": "190",
+      "attack_power": "260",
+      "magic_power": "439",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 3
+  },
+  {
+    "name": "創世記憶長杖",
+    "part": "記憶長杖",
+    "level": 200,
+    "base": {
+      "int": "150",
+      "luk": "150",
+      "attack_power": "237",
+      "magic_power": "400",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 3
+  },
+  {
+    "name": "創世閃耀之杖",
+    "part": "閃亮克魯",
+    "level": 200,
+    "base": {
+      "int": "150",
+      "luk": "150",
+      "attack_power": "237",
+      "magic_power": "400",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "阿斯特拉四玉飾品",
+    "part": "掛飾",
+    "level": 200,
+    "base": {
+      "int": "10",
+      "luk": "10",
+      "magic_power": "7"
+    },
+    "scrollSlots": 0,
     "seen": 1
   },
   {
@@ -3118,6 +6548,18 @@
       "str": "15",
       "dex": "15",
       "attack_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "終極通行券",
+    "part": "深淵通行",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "3"
     },
     "scrollSlots": 0,
     "seen": 1
@@ -3136,7 +6578,7 @@
       "armor": "120"
     },
     "scrollSlots": 6,
-    "seen": 10
+    "seen": 74
   },
   {
     "name": "附有魔力的眼罩",
@@ -3152,7 +6594,7 @@
       "armor": "300"
     },
     "scrollSlots": 4,
-    "seen": 29
+    "seen": 255
   },
   {
     "name": "拉圖斯標誌",
@@ -3168,7 +6610,23 @@
       "armor": "150"
     },
     "scrollSlots": 6,
-    "seen": 2
+    "seen": 33
+  },
+  {
+    "name": "混沌粉豆標誌",
+    "part": "眼飾",
+    "level": 135,
+    "base": {
+      "str": "7",
+      "dex": "7",
+      "int": "7",
+      "luk": "7",
+      "attack_power": "1",
+      "magic_power": "1",
+      "armor": "120"
+    },
+    "scrollSlots": 6,
+    "seen": 8
   },
   {
     "name": "黑豆標記",
@@ -3184,7 +6642,31 @@
       "armor": "120"
     },
     "scrollSlots": 6,
-    "seen": 1
+    "seen": 26
+  },
+  {
+    "name": "神祕面具",
+    "part": "眼飾",
+    "level": 120,
+    "base": {
+      "attack_power": "2",
+      "magic_power": "2",
+      "armor": "120"
+    },
+    "scrollSlots": 4,
+    "seen": 5
+  },
+  {
+    "name": "神祕眼部裝飾",
+    "part": "眼飾",
+    "level": 115,
+    "base": {
+      "attack_power": "1",
+      "magic_power": "1",
+      "armor": "120"
+    },
+    "scrollSlots": 2,
+    "seen": 2
   },
   {
     "name": "水中信紙眼飾",
@@ -3200,7 +6682,7 @@
       "armor": "100"
     },
     "scrollSlots": 4,
-    "seen": 2
+    "seen": 23
   },
   {
     "name": "黑狐狸猴",
@@ -3214,6 +6696,14 @@
     "seen": 1
   },
   {
+    "name": "狐猴眼部裝飾",
+    "part": "眼飾",
+    "level": 45,
+    "base": {},
+    "scrollSlots": 10,
+    "seen": 1
+  },
+  {
     "name": "阿斯特拉護符",
     "part": "符咒",
     "level": 200,
@@ -3223,7 +6713,19 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 14
+  },
+  {
+    "name": "妖蝶姬之咒符",
+    "part": "符咒",
+    "level": 140,
+    "base": {
+      "dex": "14",
+      "luk": "14",
+      "attack_power": "9"
+    },
+    "scrollSlots": 0,
+    "seen": 4
   },
   {
     "name": "破斜部",
@@ -3235,7 +6737,7 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 26
   },
   {
     "name": "命運陰陽扇",
@@ -3250,7 +6752,51 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 8
+    "seen": 31
+  },
+  {
+    "name": "神祕冥界幽靈陰陽扇",
+    "part": "陰陽扇",
+    "level": 200,
+    "base": {
+      "int": "100",
+      "luk": "100",
+      "attack_power": "206",
+      "magic_power": "347",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "創世陰陽扇",
+    "part": "陰陽扇",
+    "level": 200,
+    "base": {
+      "int": "150",
+      "luk": "150",
+      "attack_power": "237",
+      "magic_power": "400",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 12
+  },
+  {
+    "name": "命運斧頭",
+    "part": "單手斧",
+    "level": 250,
+    "base": {
+      "str": "190",
+      "dex": "190",
+      "attack_power": "358",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 3
   },
   {
     "name": "創世之斧",
@@ -3278,7 +6824,7 @@
       "ignore_monster_armor": "15"
     },
     "scrollSlots": 15,
-    "seen": 3
+    "seen": 41
   },
   {
     "name": "永恆法師帽",
@@ -3292,7 +6838,7 @@
       "ignore_monster_armor": "15"
     },
     "scrollSlots": 15,
-    "seen": 9
+    "seen": 66
   },
   {
     "name": "永恆海盜帽",
@@ -3306,7 +6852,7 @@
       "ignore_monster_armor": "15"
     },
     "scrollSlots": 17,
-    "seen": 2
+    "seen": 13
   },
   {
     "name": "永恆盜賊頭巾",
@@ -3320,7 +6866,7 @@
       "ignore_monster_armor": "15"
     },
     "scrollSlots": 17,
-    "seen": 11
+    "seen": 82
   },
   {
     "name": "永恆劍士頭盔",
@@ -3334,7 +6880,7 @@
       "ignore_monster_armor": "15"
     },
     "scrollSlots": 15,
-    "seen": 4
+    "seen": 63
   },
   {
     "name": "神祕冥界幽靈小偷帽",
@@ -3348,7 +6894,7 @@
       "ignore_monster_armor": "15"
     },
     "scrollSlots": 17,
-    "seen": 4
+    "seen": 48
   },
   {
     "name": "神祕冥界幽靈弓手帽",
@@ -3362,7 +6908,21 @@
       "ignore_monster_armor": "15"
     },
     "scrollSlots": 17,
-    "seen": 2
+    "seen": 15
+  },
+  {
+    "name": "神祕冥界幽靈海盜帽",
+    "part": "帽子",
+    "level": 200,
+    "base": {
+      "str": "65",
+      "dex": "65",
+      "attack_power": "7",
+      "armor": "600",
+      "ignore_monster_armor": "15"
+    },
+    "scrollSlots": 17,
+    "seen": 3
   },
   {
     "name": "神祕冥界幽靈騎士帽",
@@ -3376,7 +6936,7 @@
       "ignore_monster_armor": "15"
     },
     "scrollSlots": 13,
-    "seen": 4
+    "seen": 46
   },
   {
     "name": "神祕冥界幽靈魔法帽",
@@ -3390,7 +6950,167 @@
       "ignore_monster_armor": "15"
     },
     "scrollSlots": 15,
-    "seen": 5
+    "seen": 36
+  },
+  {
+    "name": "航海師法師帽",
+    "part": "帽子",
+    "level": 160,
+    "base": {
+      "int": "45",
+      "luk": "45",
+      "magic_power": "3",
+      "armor": "400",
+      "ignore_monster_armor": "10"
+    },
+    "scrollSlots": 12,
+    "seen": 1
+  },
+  {
+    "name": "航海師海盜帽",
+    "part": "帽子",
+    "level": 160,
+    "base": {
+      "str": "45",
+      "dex": "45",
+      "attack_power": "3",
+      "armor": "400",
+      "ignore_monster_armor": "10"
+    },
+    "scrollSlots": 12,
+    "seen": 1
+  },
+  {
+    "name": "航海師盜賊帽",
+    "part": "帽子",
+    "level": 160,
+    "base": {
+      "dex": "45",
+      "luk": "45",
+      "attack_power": "3",
+      "armor": "400",
+      "ignore_monster_armor": "10"
+    },
+    "scrollSlots": 12,
+    "seen": 3
+  },
+  {
+    "name": "航海師劍士頭盔",
+    "part": "帽子",
+    "level": 160,
+    "base": {
+      "str": "45",
+      "dex": "45",
+      "attack_power": "3",
+      "armor": "400",
+      "ignore_monster_armor": "10"
+    },
+    "scrollSlots": 9,
+    "seen": 3
+  },
+  {
+    "name": "高貴的敦威治帽",
+    "part": "帽子",
+    "level": 150,
+    "base": {
+      "int": "40",
+      "luk": "40",
+      "max_hp": "360",
+      "max_mp": "360",
+      "magic_power": "2",
+      "armor": "180",
+      "ignore_monster_armor": "10"
+    },
+    "scrollSlots": 11,
+    "seen": 2
+  },
+  {
+    "name": "高貴的漫遊者帽",
+    "part": "帽子",
+    "level": 150,
+    "base": {
+      "str": "40",
+      "dex": "40",
+      "max_hp": "360",
+      "max_mp": "360",
+      "attack_power": "2",
+      "armor": "300",
+      "ignore_monster_armor": "10"
+    },
+    "scrollSlots": 12,
+    "seen": 1
+  },
+  {
+    "name": "高貴的戰士頭盔",
+    "part": "帽子",
+    "level": 150,
+    "base": {
+      "str": "40",
+      "dex": "40",
+      "max_hp": "360",
+      "max_mp": "360",
+      "attack_power": "2",
+      "armor": "390",
+      "ignore_monster_armor": "10"
+    },
+    "scrollSlots": 12,
+    "seen": 2
+  },
+  {
+    "name": "菇菇敦威治帽",
+    "part": "帽子",
+    "level": 150,
+    "base": {
+      "int": "40",
+      "luk": "40",
+      "max_hp": "360",
+      "max_mp": "360",
+      "magic_power": "2",
+      "armor": "180",
+      "ignore_monster_armor": "10"
+    },
+    "scrollSlots": 11,
+    "seen": 1
+  },
+  {
+    "name": "佩沙里洛戰鬥頭盔",
+    "part": "帽子",
+    "level": 140,
+    "base": {
+      "str": "16",
+      "dex": "10",
+      "max_hp": "150",
+      "max_mp": "150",
+      "armor": "225"
+    },
+    "scrollSlots": 10,
+    "seen": 1
+  },
+  {
+    "name": "真‧楓葉頭盔",
+    "part": "帽子",
+    "level": 70,
+    "base": {
+      "str": "3",
+      "dex": "3",
+      "int": "3",
+      "luk": "3",
+      "max_hp": "15",
+      "max_mp": "15",
+      "armor": "50"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "黑色翅膀的帽子",
+    "part": "帽子",
+    "level": 0,
+    "base": {
+      "armor": "30"
+    },
+    "scrollSlots": 6,
+    "seen": 1
   },
   {
     "name": "阿斯特拉發信器",
@@ -3402,7 +7122,31 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "發信器 type:N",
+    "part": "發信器",
+    "level": 140,
+    "base": {
+      "dex": "14",
+      "luk": "14",
+      "attack_power": "9"
+    },
+    "scrollSlots": 0,
     "seen": 1
+  },
+  {
+    "name": "發信器 type:A",
+    "part": "發信器",
+    "level": 100,
+    "base": {
+      "dex": "10",
+      "luk": "10",
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 3
   },
   {
     "name": "命運短杖",
@@ -3417,7 +7161,48 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 2
+    "seen": 8
+  },
+  {
+    "name": "神祕冥界幽靈短杖",
+    "part": "短杖",
+    "level": 200,
+    "base": {
+      "int": "100",
+      "luk": "100",
+      "attack_power": "206",
+      "magic_power": "347",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 9,
+    "seen": 1
+  },
+  {
+    "name": "創世短杖",
+    "part": "短杖",
+    "level": 200,
+    "base": {
+      "int": "150",
+      "luk": "150",
+      "attack_power": "237",
+      "magic_power": "400",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "混沌殘暴炎魔的樹枝",
+    "part": "短杖",
+    "level": 50,
+    "base": {
+      "attack_power": "60",
+      "magic_power": "90"
+    },
+    "scrollSlots": 8,
+    "seen": 1
   },
   {
     "name": "命運匕首",
@@ -3431,7 +7216,21 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 7
+    "seen": 33
+  },
+  {
+    "name": "神祕冥界幽靈短刀",
+    "part": "短劍",
+    "level": 200,
+    "base": {
+      "dex": "100",
+      "luk": "100",
+      "attack_power": "276",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 14,
+    "seen": 3
   },
   {
     "name": "創世短刀",
@@ -3445,6 +7244,29 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
+    "seen": 24
+  },
+  {
+    "name": "楓葉修羅短刃",
+    "part": "短劍",
+    "level": 64,
+    "base": {
+      "str": "2",
+      "attack_power": "77"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "阿斯特拉萬能彈藥",
+    "part": "萬能彈藥",
+    "level": 200,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "attack_power": "7"
+    },
+    "scrollSlots": 0,
     "seen": 1
   },
   {
@@ -3463,7 +7285,7 @@
       "armor": "150"
     },
     "scrollSlots": 7,
-    "seen": 13
+    "seen": 108
   },
   {
     "name": "頂級培羅德烙印腰帶",
@@ -3481,7 +7303,89 @@
       "armor": "100"
     },
     "scrollSlots": 4,
-    "seen": 33
+    "seen": 314
+  },
+  {
+    "name": "金花草腰帶",
+    "part": "腰帶",
+    "level": 140,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "int": "15",
+      "luk": "15",
+      "max_hp": "150",
+      "max_mp": "150",
+      "attack_power": "1",
+      "magic_power": "1",
+      "armor": "150"
+    },
+    "scrollSlots": 4,
+    "seen": 2
+  },
+  {
+    "name": "高級培羅德烙印腰帶",
+    "part": "腰帶",
+    "level": 140,
+    "base": {
+      "str": "30",
+      "dex": "30",
+      "int": "30",
+      "luk": "30",
+      "max_hp": "200",
+      "max_mp": "200",
+      "attack_power": "20",
+      "magic_power": "20",
+      "armor": "100"
+    },
+    "scrollSlots": 4,
+    "seen": 3
+  },
+  {
+    "name": "中級培羅德烙印腰帶",
+    "part": "腰帶",
+    "level": 130,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "max_hp": "200",
+      "max_mp": "200",
+      "attack_power": "10",
+      "magic_power": "10",
+      "armor": "100"
+    },
+    "scrollSlots": 4,
+    "seen": 1
+  },
+  {
+    "name": "楓之谷強韌意志黑色腰帶",
+    "part": "腰帶",
+    "level": 100,
+    "base": {
+      "str": "100",
+      "dex": "100",
+      "int": "100",
+      "luk": "100",
+      "attack_power": "50",
+      "magic_power": "50",
+      "armor": "100"
+    },
+    "scrollSlots": 2,
+    "seen": 1
+  },
+  {
+    "name": "爆發能力<3號>",
+    "part": "裝填",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 1
   },
   {
     "name": "古代石板複製品",
@@ -3496,7 +7400,7 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 29
+    "seen": 237
   },
   {
     "name": "姆嗚圖騰",
@@ -3511,7 +7415,37 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 7
+    "seen": 36
+  },
+  {
+    "name": "公會城紅胸章",
+    "part": "圖騰",
+    "level": 100,
+    "base": {
+      "str": "7",
+      "dex": "7",
+      "int": "7",
+      "luk": "7",
+      "attack_power": "7",
+      "magic_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 12
+  },
+  {
+    "name": "公會城綠胸章",
+    "part": "圖騰",
+    "level": 100,
+    "base": {
+      "str": "7",
+      "dex": "7",
+      "int": "7",
+      "luk": "7",
+      "attack_power": "7",
+      "magic_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 9
   },
   {
     "name": "公會城藍胸章",
@@ -3526,7 +7460,7 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 9
   },
   {
     "name": "貝奧武夫的痕跡",
@@ -3538,7 +7472,7 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 41
   },
   {
     "name": "阿德勒的痕跡",
@@ -3550,7 +7484,46 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 23
+  },
+  {
+    "name": "柏林的痕跡",
+    "part": "圖騰",
+    "level": 90,
+    "base": {
+      "dex": "20",
+      "attack_power": "7",
+      "magic_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 36
+  },
+  {
+    "name": "萬事的痕跡",
+    "part": "圖騰",
+    "level": 90,
+    "base": {
+      "luk": "20",
+      "attack_power": "7",
+      "magic_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 38
+  },
+  {
+    "name": "五個碎片的橘子樂園圖騰",
+    "part": "圖騰",
+    "level": 60,
+    "base": {
+      "str": "22",
+      "dex": "22",
+      "int": "22",
+      "luk": "22",
+      "attack_power": "9",
+      "magic_power": "9"
+    },
+    "scrollSlots": 0,
+    "seen": 1
   },
   {
     "name": "芙莉蓮圖騰",
@@ -3558,7 +7531,7 @@
     "level": 10,
     "base": {},
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 15
   },
   {
     "name": "修塔爾克圖騰",
@@ -3573,7 +7546,19 @@
       "magic_power": "15"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 3
+  },
+  {
+    "name": "真安茲圖騰",
+    "part": "圖騰",
+    "level": 10,
+    "base": {
+      "int": "40",
+      "attack_power": "20",
+      "magic_power": "20"
+    },
+    "scrollSlots": 0,
+    "seen": 3
   },
   {
     "name": "真和真圖騰",
@@ -3585,7 +7570,7 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 17
   },
   {
     "name": "真阿克婭圖騰",
@@ -3597,7 +7582,7 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 8
   },
   {
     "name": "真昴圖騰",
@@ -3609,7 +7594,7 @@
       "magic_power": "20"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 4
   },
   {
     "name": "真惠惠圖騰",
@@ -3621,7 +7606,7 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 9
   },
   {
     "name": "真達克妮絲圖騰",
@@ -3633,13 +7618,40 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 8
+  },
+  {
+    "name": "真譚雅圖騰",
+    "part": "圖騰",
+    "level": 10,
+    "base": {
+      "str": "40",
+      "attack_power": "20",
+      "magic_power": "20"
+    },
+    "scrollSlots": 0,
+    "seen": 2
   },
   {
     "name": "費倫圖騰",
     "part": "圖騰",
     "level": 10,
     "base": {},
+    "scrollSlots": 0,
+    "seen": 6
+  },
+  {
+    "name": "上杉謙信圖騰",
+    "part": "圖騰",
+    "level": 0,
+    "base": {
+      "str": "24",
+      "dex": "24",
+      "int": "24",
+      "luk": "24",
+      "attack_power": "8",
+      "magic_power": "8"
+    },
     "scrollSlots": 0,
     "seen": 1
   },
@@ -3656,7 +7668,7 @@
       "magic_power": "15"
     },
     "scrollSlots": 0,
-    "seen": 5
+    "seen": 30
   },
   {
     "name": "水之精靈圖騰",
@@ -3667,7 +7679,81 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
+    "seen": 4
+  },
+  {
+    "name": "火之精靈圖騰",
+    "part": "圖騰",
+    "level": 0,
+    "base": {
+      "str": "40",
+      "attack_power": "10"
+    },
+    "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "本多忠勝圖騰",
+    "part": "圖騰",
+    "level": 0,
+    "base": {
+      "str": "24",
+      "dex": "24",
+      "int": "24",
+      "luk": "24",
+      "attack_power": "8",
+      "magic_power": "8"
+    },
+    "scrollSlots": 0,
     "seen": 1
+  },
+  {
+    "name": "地之精靈圖騰",
+    "part": "圖騰",
+    "level": 0,
+    "base": {
+      "luk": "40",
+      "attack_power": "10"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "赤之寶石圖騰",
+    "part": "圖騰",
+    "level": 0,
+    "base": {
+      "str": "45",
+      "attack_power": "12"
+    },
+    "scrollSlots": 0,
+    "seen": 7
+  },
+  {
+    "name": "來自戰場的邀請",
+    "part": "圖騰",
+    "level": 0,
+    "base": {
+      "str": "12",
+      "dex": "12",
+      "int": "12",
+      "luk": "12",
+      "attack_power": "4",
+      "magic_power": "4"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "青之寶石圖騰",
+    "part": "圖騰",
+    "level": 0,
+    "base": {
+      "int": "45",
+      "magic_power": "12"
+    },
+    "scrollSlots": 0,
+    "seen": 9
   },
   {
     "name": "勇敢挑戰者的圖騰",
@@ -3680,7 +7766,46 @@
       "luk": "25"
     },
     "scrollSlots": 3,
+    "seen": 69
+  },
+  {
+    "name": "風之精靈圖騰",
+    "part": "圖騰",
+    "level": 0,
+    "base": {
+      "dex": "40",
+      "attack_power": "10"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "時空挑戰者的圖騰",
+    "part": "圖騰",
+    "level": 0,
+    "base": {
+      "str": "25",
+      "dex": "25",
+      "int": "25",
+      "luk": "25"
+    },
+    "scrollSlots": 3,
     "seen": 5
+  },
+  {
+    "name": "真田幸村圖騰",
+    "part": "圖騰",
+    "level": 0,
+    "base": {
+      "str": "24",
+      "dex": "24",
+      "int": "24",
+      "luk": "24",
+      "attack_power": "8",
+      "magic_power": "8"
+    },
+    "scrollSlots": 0,
+    "seen": 1
   },
   {
     "name": "彩虹月石寶石圖騰",
@@ -3695,7 +7820,52 @@
       "magic_power": "17"
     },
     "scrollSlots": 0,
-    "seen": 32
+    "seen": 256
+  },
+  {
+    "name": "異界的西格諾斯圖騰",
+    "part": "圖騰",
+    "level": 0,
+    "base": {
+      "str": "28",
+      "dex": "28",
+      "int": "28",
+      "luk": "28",
+      "attack_power": "13",
+      "magic_power": "13"
+    },
+    "scrollSlots": 0,
+    "seen": 4
+  },
+  {
+    "name": "斑斑圖騰",
+    "part": "圖騰",
+    "level": 0,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "int": "20",
+      "luk": "20",
+      "attack_power": "8",
+      "magic_power": "8"
+    },
+    "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "超越的圖騰",
+    "part": "圖騰",
+    "level": 0,
+    "base": {
+      "str": "40",
+      "dex": "40",
+      "int": "40",
+      "luk": "40",
+      "attack_power": "20",
+      "magic_power": "20"
+    },
+    "scrollSlots": 0,
+    "seen": 1
   },
   {
     "name": "黃之寶石圖騰",
@@ -3706,7 +7876,7 @@
       "attack_power": "12"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 12
   },
   {
     "name": "綠之寶石圖騰",
@@ -3717,7 +7887,7 @@
       "attack_power": "12"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 7
   },
   {
     "name": "輪迴碑石",
@@ -3732,7 +7902,62 @@
       "magic_power": "15"
     },
     "scrollSlots": 0,
-    "seen": 39
+    "seen": 290
+  },
+  {
+    "name": "命運長槍",
+    "part": "槍",
+    "level": 250,
+    "base": {
+      "str": "190",
+      "dex": "190",
+      "attack_power": "373",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "創世長槍",
+    "part": "槍",
+    "level": 200,
+    "base": {
+      "str": "150",
+      "dex": "150",
+      "attack_power": "340",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 2
+  },
+  {
+    "name": "獵鷹眼",
+    "part": "瞄準器",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "武器泡泡 - I環",
+    "part": "輔助特殊技能戒指",
+    "level": 110,
+    "base": {
+      "str": "4",
+      "dex": "4",
+      "int": "4",
+      "luk": "4",
+      "attack_power": "4",
+      "magic_power": "4"
+    },
+    "scrollSlots": 0,
+    "seen": 5
   },
   {
     "name": "武器泡泡 - S環",
@@ -3747,7 +7972,7 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 4
   },
   {
     "name": "規範戒指",
@@ -3762,7 +7987,22 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
-    "seen": 18
+    "seen": 194
+  },
+  {
+    "name": "等級泡泡 - D環",
+    "part": "輔助特殊技能戒指",
+    "level": 110,
+    "base": {
+      "str": "4",
+      "dex": "4",
+      "int": "4",
+      "luk": "4",
+      "attack_power": "4",
+      "magic_power": "4"
+    },
+    "scrollSlots": 0,
+    "seen": 1
   },
   {
     "name": "死亡之誓",
@@ -3778,7 +8018,7 @@
       "armor": "300"
     },
     "scrollSlots": 12,
-    "seen": 3
+    "seen": 23
   },
   {
     "name": "苦痛的根源",
@@ -3794,7 +8034,7 @@
       "armor": "200"
     },
     "scrollSlots": 9,
-    "seen": 15
+    "seen": 184
   },
   {
     "name": "頂級培羅德烙印墜飾",
@@ -3812,7 +8052,7 @@
       "armor": "100"
     },
     "scrollSlots": 7,
-    "seen": 32
+    "seen": 331
   },
   {
     "name": "死神的項鍊",
@@ -3827,7 +8067,23 @@
       "magic_power": "4"
     },
     "scrollSlots": 12,
-    "seen": 1
+    "seen": 7
+  },
+  {
+    "name": "支配者墜飾",
+    "part": "墜飾",
+    "level": 140,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "int": "20",
+      "luk": "20",
+      "attack_power": "3",
+      "magic_power": "3",
+      "armor": "100"
+    },
+    "scrollSlots": 6,
+    "seen": 19
   },
   {
     "name": "破曉墜飾",
@@ -3843,7 +8099,77 @@
       "armor": "100"
     },
     "scrollSlots": 6,
-    "seen": 5
+    "seen": 62
+  },
+  {
+    "name": "高級培羅德烙印墜飾",
+    "part": "墜飾",
+    "level": 140,
+    "base": {
+      "str": "23",
+      "dex": "23",
+      "int": "23",
+      "luk": "23",
+      "max_hp": "300",
+      "max_mp": "300",
+      "attack_power": "3",
+      "magic_power": "3",
+      "armor": "100"
+    },
+    "scrollSlots": 6,
+    "seen": 2
+  },
+  {
+    "name": "中級培羅德烙印墜飾",
+    "part": "墜飾",
+    "level": 130,
+    "base": {
+      "str": "19",
+      "dex": "19",
+      "int": "19",
+      "luk": "19",
+      "max_hp": "250",
+      "max_mp": "250",
+      "attack_power": "3",
+      "magic_power": "3",
+      "armor": "100"
+    },
+    "scrollSlots": 5,
+    "seen": 2
+  },
+  {
+    "name": "神祕項墜",
+    "part": "墜飾",
+    "level": 115,
+    "base": {
+      "str": "5",
+      "dex": "5",
+      "int": "5",
+      "luk": "5",
+      "attack_power": "1",
+      "magic_power": "1",
+      "armor": "50"
+    },
+    "scrollSlots": 5,
+    "seen": 1
+  },
+  {
+    "name": "伊菲亞的項鍊",
+    "part": "墜飾",
+    "level": 110,
+    "base": {
+      "str": "5",
+      "dex": "5",
+      "int": "5",
+      "luk": "5",
+      "max_hp": "150",
+      "max_mp": "150",
+      "attack_power": "1",
+      "magic_power": "1",
+      "armor": "108"
+    },
+    "scrollSlots": 4,
+    "seen": 1
   },
   {
     "name": "孔雀綠色墜飾",
@@ -3856,7 +8182,46 @@
       "armor": "65"
     },
     "scrollSlots": 4,
+    "seen": 4
+  },
+  {
+    "name": "佩斯綠色墜飾",
+    "part": "墜飾",
+    "level": 100,
+    "base": {
+      "str": "4",
+      "max_hp": "45",
+      "max_mp": "45",
+      "armor": "65"
+    },
+    "scrollSlots": 4,
+    "seen": 1
+  },
+  {
+    "name": "阿武斯綠色墜飾",
+    "part": "墜飾",
+    "level": 100,
+    "base": {
+      "int": "4",
+      "max_hp": "45",
+      "max_mp": "45",
+      "armor": "65"
+    },
+    "scrollSlots": 4,
     "seen": 2
+  },
+  {
+    "name": "狼綠色墜飾",
+    "part": "墜飾",
+    "level": 100,
+    "base": {
+      "dex": "4",
+      "max_hp": "45",
+      "max_mp": "45",
+      "armor": "65"
+    },
+    "scrollSlots": 4,
+    "seen": 1
   },
   {
     "name": "克里特墜飾",
@@ -3870,7 +8235,7 @@
       "armor": "100"
     },
     "scrollSlots": 7,
-    "seen": 10
+    "seen": 77
   },
   {
     "name": "特別版精靈墜飾",
@@ -3883,7 +8248,7 @@
       "luk": "2"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 5
   },
   {
     "name": "準備好的精靈墜飾",
@@ -3891,7 +8256,7 @@
     "level": 0,
     "base": {},
     "scrollSlots": 0,
-    "seen": 9
+    "seen": 66
   },
   {
     "name": "精靈墜飾",
@@ -3899,7 +8264,143 @@
     "level": 0,
     "base": {},
     "scrollSlots": 0,
-    "seen": 11
+    "seen": 65
+  },
+  {
+    "name": "阿斯特拉獎牌",
+    "part": "獎牌",
+    "level": 200,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "attack_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 4
+  },
+  {
+    "name": "妖蝶姬之妖章",
+    "part": "獎牌",
+    "level": 140,
+    "base": {
+      "str": "14",
+      "dex": "14",
+      "attack_power": "9"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "普邱斯獎牌",
+    "part": "獎牌",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 8
+  },
+  {
+    "name": "命運璃",
+    "part": "璃",
+    "level": 250,
+    "base": {
+      "str": "190",
+      "dex": "190",
+      "attack_power": "370",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 4
+  },
+  {
+    "name": "創世璃",
+    "part": "璃",
+    "level": 200,
+    "base": {
+      "str": "150",
+      "dex": "150",
+      "attack_power": "337",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 5
+  },
+  {
+    "name": "阿斯特拉野性獠牙",
+    "part": "箭矢",
+    "level": 200,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "attack_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "狂野棒",
+    "part": "箭矢",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "阿斯特拉羽毛",
+    "part": "箭羽",
+    "level": 200,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "妖蝶姬之魅翅",
+    "part": "箭羽",
+    "level": 140,
+    "base": {
+      "str": "14",
+      "dex": "14",
+      "attack_power": "9"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "楓之祕寶羽毛",
+    "part": "箭羽",
+    "level": 110,
+    "base": {
+      "str": "9",
+      "dex": "9",
+      "attack_power": "6"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "爆發羽毛",
+    "part": "箭羽",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 8
   },
   {
     "name": "命運調節器",
@@ -3913,7 +8414,7 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 2
+    "seen": 8
   },
   {
     "name": "創世調節器",
@@ -3927,6 +8428,20 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
+    "seen": 9
+  },
+  {
+    "name": "航海師調節器",
+    "part": "調節器",
+    "level": 160,
+    "base": {
+      "str": "60",
+      "dex": "60",
+      "attack_power": "205",
+      "boss_damage": "30",
+      "ignore_monster_armor": "10"
+    },
+    "scrollSlots": 9,
     "seen": 2
   },
   {
@@ -3942,7 +8457,7 @@
       "jump": "7"
     },
     "scrollSlots": 12,
-    "seen": 1
+    "seen": 18
   },
   {
     "name": "永恆法師鞋",
@@ -3957,6 +8472,21 @@
       "jump": "7"
     },
     "scrollSlots": 11,
+    "seen": 48
+  },
+  {
+    "name": "永恆海盜鞋",
+    "part": "鞋子",
+    "level": 250,
+    "base": {
+      "str": "55",
+      "dex": "55",
+      "attack_power": "12",
+      "armor": "325",
+      "speed": "10",
+      "jump": "7"
+    },
+    "scrollSlots": 13,
     "seen": 7
   },
   {
@@ -3972,7 +8502,7 @@
       "jump": "7"
     },
     "scrollSlots": 11,
-    "seen": 7
+    "seen": 40
   },
   {
     "name": "永恆劍士鞋",
@@ -3987,7 +8517,7 @@
       "jump": "7"
     },
     "scrollSlots": 11,
-    "seen": 2
+    "seen": 37
   },
   {
     "name": "神祕冥界幽靈小偷鞋子",
@@ -4002,7 +8532,7 @@
       "jump": "7"
     },
     "scrollSlots": 13,
-    "seen": 9
+    "seen": 92
   },
   {
     "name": "神祕冥界幽靈弓手鞋子",
@@ -4017,7 +8547,7 @@
       "jump": "7"
     },
     "scrollSlots": 11,
-    "seen": 4
+    "seen": 35
   },
   {
     "name": "神祕冥界幽靈海盜鞋子",
@@ -4032,7 +8562,7 @@
       "jump": "7"
     },
     "scrollSlots": 12,
-    "seen": 2
+    "seen": 8
   },
   {
     "name": "神祕冥界幽靈騎士鞋子",
@@ -4047,7 +8577,7 @@
       "jump": "7"
     },
     "scrollSlots": 10,
-    "seen": 6
+    "seen": 71
   },
   {
     "name": "神祕冥界幽靈魔導士鞋子",
@@ -4062,7 +8592,22 @@
       "jump": "7"
     },
     "scrollSlots": 10,
-    "seen": 7
+    "seen": 57
+  },
+  {
+    "name": "航海師弓箭手鞋",
+    "part": "鞋子",
+    "level": 160,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "attack_power": "5",
+      "armor": "150",
+      "speed": "10",
+      "jump": "7"
+    },
+    "scrollSlots": 11,
+    "seen": 1
   },
   {
     "name": "航海師法師鞋",
@@ -4077,6 +8622,81 @@
       "jump": "7"
     },
     "scrollSlots": 8,
+    "seen": 4
+  },
+  {
+    "name": "航海師海盜鞋",
+    "part": "鞋子",
+    "level": 160,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "attack_power": "5",
+      "armor": "150",
+      "speed": "10",
+      "jump": "7"
+    },
+    "scrollSlots": 8,
+    "seen": 2
+  },
+  {
+    "name": "航海師盜賊鞋",
+    "part": "鞋子",
+    "level": 160,
+    "base": {
+      "dex": "20",
+      "luk": "20",
+      "attack_power": "5",
+      "armor": "150",
+      "speed": "10",
+      "jump": "7"
+    },
+    "scrollSlots": 12,
+    "seen": 5
+  },
+  {
+    "name": "航海師劍士鞋",
+    "part": "鞋子",
+    "level": 160,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "attack_power": "5",
+      "armor": "150",
+      "speed": "10",
+      "jump": "7"
+    },
+    "scrollSlots": 8,
+    "seen": 4
+  },
+  {
+    "name": "塔蘭特喀戎星靴",
+    "part": "鞋子",
+    "level": 150,
+    "base": {
+      "str": "50",
+      "dex": "50",
+      "int": "50",
+      "luk": "50",
+      "attack_power": "30",
+      "magic_power": "30",
+      "armor": "130"
+    },
+    "scrollSlots": 4,
+    "seen": 2
+  },
+  {
+    "name": "佩沙里洛戰鬥靴",
+    "part": "鞋子",
+    "level": 140,
+    "base": {
+      "str": "15",
+      "dex": "9",
+      "attack_power": "1",
+      "armor": "120",
+      "speed": "5"
+    },
+    "scrollSlots": 7,
     "seen": 1
   },
   {
@@ -4095,7 +8715,58 @@
       "boss_damage": "10"
     },
     "scrollSlots": 0,
-    "seen": 11
+    "seen": 47
+  },
+  {
+    "name": "找回四季之人",
+    "part": "勳章",
+    "level": 200,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "int": "15",
+      "luk": "15",
+      "max_hp": "1000",
+      "max_mp": "1000",
+      "attack_power": "7",
+      "magic_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "知道迷宮深度的人",
+    "part": "勳章",
+    "level": 200,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "int": "15",
+      "luk": "15",
+      "max_hp": "1000",
+      "max_mp": "1000",
+      "attack_power": "5",
+      "magic_power": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 5
+  },
+  {
+    "name": "看穿事實的人",
+    "part": "勳章",
+    "level": 200,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "int": "15",
+      "luk": "15",
+      "max_hp": "1000",
+      "max_mp": "1000",
+      "attack_power": "4",
+      "magic_power": "4"
+    },
+    "scrollSlots": 0,
+    "seen": 1
   },
   {
     "name": "根源的支配者",
@@ -4115,6 +8786,81 @@
     "seen": 1
   },
   {
+    "name": "深掘根源之人",
+    "part": "勳章",
+    "level": 200,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "int": "15",
+      "luk": "15",
+      "max_hp": "1000",
+      "max_mp": "1000",
+      "attack_power": "7",
+      "magic_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "黑暗天堂的敵對者",
+    "part": "勳章",
+    "level": 200,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "int": "15",
+      "luk": "15",
+      "max_hp": "1000",
+      "max_mp": "1000",
+      "attack_power": "3",
+      "magic_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "諸神輓歌者",
+    "part": "勳章",
+    "level": 200,
+    "base": {
+      "attack_power": "3",
+      "magic_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "HYPER BURNING",
+    "part": "勳章",
+    "level": 200,
+    "base": {
+      "str": "6",
+      "dex": "6",
+      "int": "6",
+      "luk": "6",
+      "attack_power": "6",
+      "magic_power": "6"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "HYPER BURNING MAX",
+    "part": "勳章",
+    "level": 200,
+    "base": {
+      "str": "6",
+      "dex": "6",
+      "int": "6",
+      "luk": "6",
+      "attack_power": "6",
+      "magic_power": "6"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
     "name": "七日怪物公園看守者",
     "part": "勳章",
     "level": 100,
@@ -4128,7 +8874,52 @@
       "ignore_monster_armor": "10"
     },
     "scrollSlots": 0,
-    "seen": 5
+    "seen": 78
+  },
+  {
+    "name": "星期二當然就要去怪物公園",
+    "part": "勳章",
+    "level": 100,
+    "base": {
+      "str": "7",
+      "dex": "7",
+      "int": "7",
+      "luk": "7",
+      "attack_power": "7",
+      "magic_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "星期日當然就要去怪物公園",
+    "part": "勳章",
+    "level": 100,
+    "base": {
+      "str": "7",
+      "dex": "7",
+      "int": "7",
+      "luk": "7",
+      "attack_power": "7",
+      "magic_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "烏勒斯的擊倒王",
+    "part": "勳章",
+    "level": 100,
+    "base": {
+      "str": "7",
+      "dex": "7",
+      "int": "7",
+      "luk": "7",
+      "attack_power": "7",
+      "magic_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 1
   },
   {
     "name": "30年的友情",
@@ -4137,6 +8928,23 @@
     "base": {},
     "scrollSlots": 0,
     "seen": 1
+  },
+  {
+    "name": "安提利昂守護者",
+    "part": "勳章",
+    "level": 33,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "int": "15",
+      "luk": "15",
+      "max_hp": "500",
+      "max_mp": "500",
+      "attack_power": "8",
+      "magic_power": "8"
+    },
+    "scrollSlots": 0,
+    "seen": 2
   },
   {
     "name": "微波專家",
@@ -4151,7 +8959,24 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 11
+  },
+  {
+    "name": "異世界生活勳章",
+    "part": "勳章",
+    "level": 1,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "attack_power": "10",
+      "magic_power": "10",
+      "speed": "10",
+      "jump": "10"
+    },
+    "scrollSlots": 0,
+    "seen": 2
   },
   {
     "name": "☆Maple19☆",
@@ -4166,6 +8991,40 @@
       "max_mp": "1000",
       "attack_power": "7",
       "magic_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 22
+  },
+  {
+    "name": "人見人愛的兔兔",
+    "part": "勳章",
+    "level": 0,
+    "base": {
+      "str": "18",
+      "dex": "18",
+      "int": "18",
+      "luk": "18",
+      "max_hp": "300",
+      "max_mp": "300",
+      "attack_power": "9",
+      "magic_power": "9"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "波羅的朋友",
+    "part": "勳章",
+    "level": 0,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "int": "15",
+      "luk": "15",
+      "max_hp": "1000",
+      "max_mp": "1000",
+      "attack_power": "5",
+      "magic_power": "5"
     },
     "scrollSlots": 0,
     "seen": 2
@@ -4185,7 +9044,7 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 3
   },
   {
     "name": "混沌貝倫殺手",
@@ -4195,7 +9054,7 @@
       "boss_damage": "5"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 65
   },
   {
     "name": "新復古英雄",
@@ -4215,6 +9074,23 @@
     "seen": 1
   },
   {
+    "name": "楓之樹",
+    "part": "勳章",
+    "level": 0,
+    "base": {
+      "str": "18",
+      "dex": "18",
+      "int": "18",
+      "luk": "18",
+      "max_hp": "950",
+      "max_mp": "950",
+      "attack_power": "7",
+      "magic_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 4
+  },
+  {
     "name": "維多利亞盃",
     "part": "勳章",
     "level": 0,
@@ -4229,7 +9105,25 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 32
+  },
+  {
+    "name": "BLACK",
+    "part": "勳章",
+    "level": 0,
+    "base": {
+      "str": "6",
+      "dex": "6",
+      "int": "6",
+      "luk": "6",
+      "max_hp": "808",
+      "max_mp": "808",
+      "attack_power": "3",
+      "magic_power": "3",
+      "armor": "808"
+    },
+    "scrollSlots": 0,
+    "seen": 1
   },
   {
     "name": "Hotel Maple VIP會員",
@@ -4254,7 +9148,7 @@
     "level": 0,
     "base": {},
     "scrollSlots": 0,
-    "seen": 7
+    "seen": 78
   },
   {
     "name": "Reboot達人勳章",
@@ -4271,7 +9165,24 @@
       "magic_power": "21"
     },
     "scrollSlots": 0,
-    "seen": 9
+    "seen": 53
+  },
+  {
+    "name": "VIP金牌",
+    "part": "勳章",
+    "level": 0,
+    "base": {
+      "str": "3",
+      "dex": "3",
+      "int": "3",
+      "luk": "3",
+      "max_hp": "300",
+      "max_mp": "300",
+      "attack_power": "3",
+      "magic_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 1
   },
   {
     "name": "VIP皇家",
@@ -4289,7 +9200,39 @@
       "boss_damage": "5"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 16
+  },
+  {
+    "name": "阿斯特拉十核控制器",
+    "part": "操縱桿",
+    "level": 200,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "max_hp": "1000",
+      "max_mp": "1000",
+      "attack_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "八核心操縱桿",
+    "part": "操縱桿",
+    "level": 100,
+    "base": {
+      "str": "2",
+      "dex": "2",
+      "int": "2",
+      "luk": "2",
+      "max_hp": "900",
+      "max_mp": "500",
+      "armor": "380"
+    },
+    "scrollSlots": 0,
+    "seen": 1
   },
   {
     "name": "全面控制核心",
@@ -4306,7 +9249,7 @@
       "ignore_monster_armor": "30"
     },
     "scrollSlots": 13,
-    "seen": 32
+    "seen": 203
   },
   {
     "name": "M-DAY機器心臟",
@@ -4320,7 +9263,7 @@
       "max_hp": "500"
     },
     "scrollSlots": 16,
-    "seen": 2
+    "seen": 26
   },
   {
     "name": "女武神之心",
@@ -4334,7 +9277,49 @@
       "max_hp": "500"
     },
     "scrollSlots": 14,
-    "seen": 11
+    "seen": 132
+  },
+  {
+    "name": "電漿之心",
+    "part": "機器心臟",
+    "level": 130,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "max_hp": "500",
+      "max_mp": "500",
+      "attack_power": "5",
+      "magic_power": "5",
+      "ignore_monster_armor": "15"
+    },
+    "scrollSlots": 10,
+    "seen": 25
+  },
+  {
+    "name": "黑心",
+    "part": "機器心臟",
+    "level": 120,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "max_hp": "100"
+    },
+    "scrollSlots": 11,
+    "seen": 3
+  },
+  {
+    "name": "妖精之心",
+    "part": "機器心臟",
+    "level": 100,
+    "base": {
+      "max_hp": "100"
+    },
+    "scrollSlots": 10,
+    "seen": 13
   },
   {
     "name": "菇菇機器人專用心臟",
@@ -4344,7 +9329,55 @@
       "max_hp": "100"
     },
     "scrollSlots": 11,
+    "seen": 2
+  },
+  {
+    "name": "鈦之心",
+    "part": "機器心臟",
+    "level": 100,
+    "base": {
+      "str": "3",
+      "dex": "3",
+      "int": "3",
+      "luk": "3",
+      "max_hp": "50"
+    },
+    "scrollSlots": 10,
+    "seen": 13
+  },
+  {
+    "name": "金之心",
+    "part": "機器心臟",
+    "level": 30,
+    "base": {
+      "armor": "60"
+    },
+    "scrollSlots": 4,
     "seen": 1
+  },
+  {
+    "name": "青銅之心",
+    "part": "機器心臟",
+    "level": 30,
+    "base": {
+      "armor": "60"
+    },
+    "scrollSlots": 5,
+    "seen": 1
+  },
+  {
+    "name": "鋰之心",
+    "part": "機器心臟",
+    "level": 30,
+    "base": {
+      "str": "3",
+      "dex": "3",
+      "int": "3",
+      "luk": "3",
+      "max_hp": "50"
+    },
+    "scrollSlots": 8,
+    "seen": 8
   },
   {
     "name": "永恆弓箭手褲",
@@ -4358,7 +9391,7 @@
       "ignore_monster_armor": "5"
     },
     "scrollSlots": 8,
-    "seen": 4
+    "seen": 46
   },
   {
     "name": "永恆法師褲",
@@ -4372,7 +9405,7 @@
       "ignore_monster_armor": "5"
     },
     "scrollSlots": 11,
-    "seen": 12
+    "seen": 84
   },
   {
     "name": "永恆海盜褲",
@@ -4386,7 +9419,7 @@
       "ignore_monster_armor": "5"
     },
     "scrollSlots": 13,
-    "seen": 2
+    "seen": 14
   },
   {
     "name": "永恆盜賊褲",
@@ -4400,7 +9433,7 @@
       "ignore_monster_armor": "5"
     },
     "scrollSlots": 13,
-    "seen": 14
+    "seen": 112
   },
   {
     "name": "永恆劍士褲",
@@ -4414,7 +9447,115 @@
       "ignore_monster_armor": "5"
     },
     "scrollSlots": 11,
+    "seen": 85
+  },
+  {
+    "name": "菇菇敦威治褲",
+    "part": "褲/裙",
+    "level": 150,
+    "base": {
+      "int": "30",
+      "luk": "30",
+      "magic_power": "2",
+      "armor": "120",
+      "ignore_monster_armor": "5"
+    },
+    "scrollSlots": 7,
+    "seen": 1
+  },
+  {
+    "name": "黃蜘蛛守護者褲",
+    "part": "褲/裙",
+    "level": 150,
+    "base": {
+      "str": "30",
+      "dex": "30",
+      "attack_power": "2",
+      "armor": "135",
+      "ignore_monster_armor": "5"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "黃蜘蛛敦威治短褲",
+    "part": "褲/裙",
+    "level": 150,
+    "base": {
+      "int": "30",
+      "luk": "30",
+      "magic_power": "2",
+      "armor": "120",
+      "ignore_monster_armor": "5"
+    },
+    "scrollSlots": 7,
+    "seen": 1
+  },
+  {
+    "name": "黃蜘蛛敦威治褲",
+    "part": "褲/裙",
+    "level": 150,
+    "base": {
+      "int": "30",
+      "luk": "30",
+      "magic_power": "2",
+      "armor": "120",
+      "ignore_monster_armor": "5"
+    },
+    "scrollSlots": 8,
+    "seen": 3
+  },
+  {
+    "name": "黃蜘蛛漫遊者褲",
+    "part": "褲/裙",
+    "level": 150,
+    "base": {
+      "str": "30",
+      "dex": "30",
+      "attack_power": "2",
+      "armor": "135",
+      "ignore_monster_armor": "5"
+    },
+    "scrollSlots": 3,
+    "seen": 2
+  },
+  {
+    "name": "黃蜘蛛戰士褲",
+    "part": "褲/裙",
+    "level": 150,
+    "base": {
+      "str": "30",
+      "dex": "30",
+      "attack_power": "2",
+      "armor": "210",
+      "ignore_monster_armor": "5"
+    },
+    "scrollSlots": 8,
     "seen": 6
+  },
+  {
+    "name": "阿斯特拉遺跡",
+    "part": "遺跡",
+    "level": 200,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "attack_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "不滅的遺跡",
+    "part": "遺跡",
+    "level": 140,
+    "base": {
+      "str": "14",
+      "dex": "14",
+      "attack_power": "9"
+    },
+    "scrollSlots": 0,
+    "seen": 2
   },
   {
     "name": "完美遺跡",
@@ -4424,6 +9565,20 @@
       "str": "10",
       "dex": "10",
       "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 7
+  },
+  {
+    "name": "真理超新星的精華",
+    "part": "龍之精華",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "armor": "30"
     },
     "scrollSlots": 0,
     "seen": 1
@@ -4439,7 +9594,7 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 5
+    "seen": 47
   },
   {
     "name": "米特拉的憤怒：法師",
@@ -4452,7 +9607,7 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 15
+    "seen": 90
   },
   {
     "name": "米特拉的憤怒：海盜",
@@ -4465,7 +9620,7 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 17
   },
   {
     "name": "米特拉的憤怒：盜賊",
@@ -4478,7 +9633,7 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 14
+    "seen": 109
   },
   {
     "name": "米特拉的憤怒：劍士",
@@ -4492,7 +9647,127 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 7
+    "seen": 89
+  },
+  {
+    "name": "永恆時間徽章",
+    "part": "徽章",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "attack_power": "2",
+      "magic_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "金古代徽章",
+    "part": "徽章",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "attack_power": "2",
+      "magic_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "金色記憶徽章",
+    "part": "徽章",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "attack_power": "2",
+      "magic_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "黃金月牙戟徽章",
+    "part": "徽章",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "attack_power": "2",
+      "magic_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "黃金末日反抗軍徽章",
+    "part": "徽章",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "attack_power": "2",
+      "magic_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "黃金西格諾斯徽章",
+    "part": "徽章",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "attack_power": "2",
+      "magic_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "黃金花徽章",
+    "part": "徽章",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "attack_power": "2",
+      "magic_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "黃金英雄徽章",
+    "part": "徽章",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "attack_power": "2",
+      "magic_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 2
   },
   {
     "name": "黃金惡魔徽章",
@@ -4508,7 +9783,7 @@
       "magic_power": "2"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 8
   },
   {
     "name": "黃金楓葉徽章",
@@ -4523,6 +9798,52 @@
       "magic_power": "2"
     },
     "scrollSlots": 0,
+    "seen": 49
+  },
+  {
+    "name": "黃金騎士徽章",
+    "part": "徽章",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "attack_power": "2",
+      "magic_power": "2"
+    },
+    "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "覺醒的記憶徽章",
+    "part": "徽章",
+    "level": 100,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "int": "15",
+      "luk": "15",
+      "attack_power": "10",
+      "magic_power": "10",
+      "speed": "15",
+      "jump": "15"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "命運環刃",
+    "part": "環刃",
+    "level": 250,
+    "base": {
+      "dex": "190",
+      "luk": "190",
+      "attack_power": "349",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
     "seen": 1
   },
   {
@@ -4539,7 +9860,7 @@
       "armor": "300"
     },
     "scrollSlots": 12,
-    "seen": 1
+    "seen": 3
   },
   {
     "name": "鬼娃恰吉的傷口",
@@ -4555,7 +9876,7 @@
       "armor": "50"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 5
   },
   {
     "name": "口紅控制器標誌",
@@ -4571,7 +9892,7 @@
       "armor": "200"
     },
     "scrollSlots": 11,
-    "seen": 21
+    "seen": 251
   },
   {
     "name": "波賽頓紋身",
@@ -4587,7 +9908,25 @@
       "armor": "38"
     },
     "scrollSlots": 6,
-    "seen": 12
+    "seen": 57
+  },
+  {
+    "name": "神祕紋身",
+    "part": "臉飾",
+    "level": 150,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "max_hp": "200",
+      "max_mp": "200",
+      "attack_power": "5",
+      "magic_power": "5",
+      "armor": "120"
+    },
+    "scrollSlots": 4,
+    "seen": 3
   },
   {
     "name": "暮光印記",
@@ -4603,7 +9942,56 @@
       "armor": "100"
     },
     "scrollSlots": 4,
-    "seen": 10
+    "seen": 90
+  },
+  {
+    "name": "楓之谷口香糖",
+    "part": "臉飾",
+    "level": 110,
+    "base": {
+      "str": "7",
+      "dex": "7",
+      "int": "7",
+      "luk": "7",
+      "attack_power": "6",
+      "magic_power": "6",
+      "armor": "50"
+    },
+    "scrollSlots": 5,
+    "seen": 1
+  },
+  {
+    "name": "凝聚力量的結晶石",
+    "part": "臉飾",
+    "level": 110,
+    "base": {
+      "str": "5",
+      "dex": "5",
+      "int": "5",
+      "luk": "5",
+      "attack_power": "5",
+      "magic_power": "5",
+      "armor": "100"
+    },
+    "scrollSlots": 6,
+    "seen": 18
+  },
+  {
+    "name": "不滅的傳說楓葉",
+    "part": "臉飾",
+    "level": 100,
+    "base": {
+      "str": "4",
+      "dex": "4",
+      "int": "4",
+      "luk": "4",
+      "attack_power": "4",
+      "magic_power": "4",
+      "armor": "68",
+      "speed": "5"
+    },
+    "scrollSlots": 3,
+    "seen": 1
   },
   {
     "name": "疾風皮諾丘的鼻子",
@@ -4613,7 +10001,7 @@
       "dex": "4"
     },
     "scrollSlots": 13,
-    "seen": 1
+    "seen": 2
   },
   {
     "name": "命運鎖鏈",
@@ -4627,7 +10015,21 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 1
+    "seen": 3
+  },
+  {
+    "name": "創世鎖鏈",
+    "part": "鎖鏈",
+    "level": 200,
+    "base": {
+      "dex": "150",
+      "luk": "150",
+      "attack_power": "318",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 3
   },
   {
     "name": "阿斯特拉雙刀",
@@ -4642,7 +10044,7 @@
       "ignore_monster_armor": "10"
     },
     "scrollSlots": 14,
-    "seen": 5
+    "seen": 14
   },
   {
     "name": "神祕冥界幽靈之刃",
@@ -4653,7 +10055,7 @@
       "attack_power": "140"
     },
     "scrollSlots": 14,
-    "seen": 1
+    "seen": 11
   },
   {
     "name": "波賽頓雙刀",
@@ -4666,7 +10068,88 @@
       "ignore_monster_armor": "10"
     },
     "scrollSlots": 11,
-    "seen": 2
+    "seen": 26
+  },
+  {
+    "name": "無名刀",
+    "part": "雙刀",
+    "level": 20,
+    "base": {
+      "max_hp": "150",
+      "attack_power": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "命運雙手斧",
+    "part": "雙手斧",
+    "level": 250,
+    "base": {
+      "str": "190",
+      "dex": "190",
+      "attack_power": "373",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 5
+  },
+  {
+    "name": "創世雙手斧",
+    "part": "雙手斧",
+    "level": 200,
+    "base": {
+      "str": "150",
+      "dex": "150",
+      "attack_power": "340",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "創世雙手錘",
+    "part": "雙手棍",
+    "level": 200,
+    "base": {
+      "str": "150",
+      "dex": "150",
+      "attack_power": "340",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "命運雙手劍",
+    "part": "雙手劍",
+    "level": 250,
+    "base": {
+      "str": "190",
+      "dex": "190",
+      "attack_power": "373",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 7
+  },
+  {
+    "name": "創世雙手劍",
+    "part": "雙手劍",
+    "level": 200,
+    "base": {
+      "str": "150",
+      "dex": "150",
+      "attack_power": "340",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 7
   },
   {
     "name": "命運雙弩槍",
@@ -4681,7 +10164,22 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 1
+    "seen": 7
+  },
+  {
+    "name": "創世雙弩槍",
+    "part": "雙弩槍",
+    "level": 200,
+    "base": {
+      "str": "150",
+      "dex": "150",
+      "attack_power": "318",
+      "speed": "19",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 2
   },
   {
     "name": "伊妮絲的寶玉",
@@ -4691,7 +10189,7 @@
       "int": "1850"
     },
     "scrollSlots": 0,
-    "seen": 46
+    "seen": 428
   },
   {
     "name": "阿斯特拉祖母綠",
@@ -4703,7 +10201,19 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 9
+  },
+  {
+    "name": "阿斯特拉黃玉",
+    "part": "寶石",
+    "level": 200,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 1
   },
   {
     "name": "阿斯特拉黑曜石",
@@ -4715,7 +10225,34 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "阿斯特拉藍寶石",
+    "part": "寶石",
+    "level": 200,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "attack_power": "7"
+    },
+    "scrollSlots": 0,
     "seen": 1
+  },
+  {
+    "name": "妖蝶姬之花寶石",
+    "part": "寶石",
+    "level": 140,
+    "base": {
+      "str": "14",
+      "dex": "14",
+      "int": "14",
+      "luk": "14",
+      "attack_power": "9",
+      "magic_power": "9"
+    },
+    "scrollSlots": 0,
+    "seen": 3
   },
   {
     "name": "耶雷弗的光輝",
@@ -4730,6 +10267,69 @@
       "magic_power": "3"
     },
     "scrollSlots": 0,
+    "seen": 10
+  },
+  {
+    "name": "漆黑耶雷弗之光",
+    "part": "寶石",
+    "level": 100,
+    "base": {
+      "str": "8",
+      "dex": "8",
+      "int": "8",
+      "luk": "8",
+      "attack_power": "5",
+      "magic_power": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "狂暴鎖鏈",
+    "part": "鐵鍊",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "進化狂暴鎖鏈",
+    "part": "鐵鍊",
+    "level": 100,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "attack_power": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "阿斯特拉魔法之翼",
+    "part": "魔法翅膀",
+    "level": 200,
+    "base": {
+      "int": "15",
+      "luk": "15",
+      "magic_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 2
+  },
+  {
+    "name": "不滅的魔法翅膀",
+    "part": "魔法翅膀",
+    "level": 140,
+    "base": {
+      "int": "14",
+      "luk": "14",
+      "magic_power": "9"
+    },
+    "scrollSlots": 0,
     "seen": 1
   },
   {
@@ -4742,6 +10342,55 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
+    "seen": 4
+  },
+  {
+    "name": "妖蝶姬之咒式矢",
+    "part": "魔法箭",
+    "level": 140,
+    "base": {
+      "str": "14",
+      "dex": "14"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "無限的魔法箭",
+    "part": "魔法箭",
+    "level": 100,
+    "base": {},
+    "scrollSlots": 0,
+    "seen": 4
+  },
+  {
+    "name": "命運魔法護腕",
+    "part": "魔法護腕",
+    "level": 250,
+    "base": {
+      "int": "190",
+      "luk": "190",
+      "attack_power": "260",
+      "magic_power": "439",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 2
+  },
+  {
+    "name": "創世魔法護腕",
+    "part": "魔法護腕",
+    "level": 200,
+    "base": {
+      "int": "150",
+      "luk": "150",
+      "attack_power": "237",
+      "magic_power": "400",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
     "seen": 1
   },
   {
@@ -4756,7 +10405,47 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
+    "seen": 7
+  },
+  {
+    "name": "神祕冥界幽靈魔劍",
+    "part": "魔劍",
+    "level": 200,
+    "base": {
+      "str": "100",
+      "max_hp": "2500",
+      "attack_power": "295",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 9,
     "seen": 2
+  },
+  {
+    "name": "創世魔劍",
+    "part": "魔劍",
+    "level": 200,
+    "base": {
+      "str": "150",
+      "max_hp": "2800",
+      "attack_power": "340",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 11
+  },
+  {
+    "name": "白金之書 <終章>",
+    "part": "魔導書",
+    "level": 100,
+    "base": {
+      "int": "10",
+      "luk": "10",
+      "magic_power": "3"
+    },
+    "scrollSlots": 0,
+    "seen": 1
   },
   {
     "name": "千魂降臨靈符",
@@ -4768,7 +10457,7 @@
       "magic_power": "175"
     },
     "scrollSlots": 14,
-    "seen": 6
+    "seen": 26
   },
   {
     "name": "阿斯特拉靈符",
@@ -4780,6 +10469,90 @@
       "magic_power": "260"
     },
     "scrollSlots": 9,
+    "seen": 16
+  },
+  {
+    "name": "阿斯特拉靈魂戒指",
+    "part": "靈魂戒指",
+    "level": 200,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "attack_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 3
+  },
+  {
+    "name": "妖蝶姬之魂戒",
+    "part": "靈魂戒指",
+    "level": 140,
+    "base": {
+      "str": "14",
+      "dex": "14",
+      "int": "14",
+      "luk": "14",
+      "max_hp": "1382",
+      "armor": "475"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "楓之祕寶靈魂之環",
+    "part": "靈魂戒指",
+    "level": 110,
+    "base": {
+      "str": "9",
+      "dex": "9",
+      "int": "9",
+      "luk": "9",
+      "armor": "280"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "命運靈魂射手",
+    "part": "靈魂射手",
+    "level": 250,
+    "base": {
+      "str": "190",
+      "dex": "190",
+      "attack_power": "280",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 3
+  },
+  {
+    "name": "創世靈魂射手",
+    "part": "靈魂射手",
+    "level": 200,
+    "base": {
+      "str": "150",
+      "dex": "150",
+      "attack_power": "255",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
     "seen": 2
+  },
+  {
+    "name": "特製夫尼爾ESP限制器",
+    "part": "ESP限制器",
+    "level": 150,
+    "base": {
+      "int": "40",
+      "luk": "40",
+      "attack_power": "119",
+      "magic_power": "201",
+      "boss_damage": "30",
+      "ignore_monster_armor": "10"
+    },
+    "scrollSlots": 8,
+    "seen": 1
   }
 ]
