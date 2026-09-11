@@ -12,6 +12,34 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import type { EquipmentItem, ItemOption } from '../services/nexonApi'
 import { countSetPieces } from '../data/equipmentSets'
+import bundledBases from '../data/itemBases.json'
+
+interface BundledBase {
+  name: string
+  part: string
+  level: number
+  base: ItemOption
+  scrollSlots: number
+  seen: number
+}
+
+/** 爬蟲產出的內建基底（tools/building/crawlBases.mjs），只含道具定義、不含角色資訊 */
+function loadBundled(): Record<string, BaseItem> {
+  const result: Record<string, BaseItem> = {}
+  for (const entry of bundledBases as BundledBase[]) {
+    result[entry.name] = {
+      name: entry.name,
+      part: entry.part,
+      level: entry.level,
+      base: entry.base,
+      sets: Object.keys(countSetPieces([entry.name]).counts),
+      scrollSlots: entry.scrollSlots,
+      source: 'bundled',
+      updatedAt: '',
+    }
+  }
+  return result
+}
 
 const STORAGE_KEY = 'mbItemLibraryV1'
 
@@ -27,7 +55,8 @@ export interface BaseItem {
   sets: string[]
   /** 卷軸總格數 = 已升級次數 + 剩餘可升級次數（舊資料沒有此欄位時為 0，重新同步即可補上） */
   scrollSlots: number
-  source: 'sync' | 'manual'
+  /** bundled = 爬蟲收錄、隨程式發佈的內建基底，不寫進 localStorage */
+  source: 'sync' | 'manual' | 'bundled'
   updatedAt: string
 }
 
@@ -60,7 +89,8 @@ function toBaseItem(item: EquipmentItem, source: BaseItem['source']): BaseItem {
 }
 
 export const useItemLibraryStore = defineStore('buildingItemLibrary', () => {
-  const items = ref<Record<string, BaseItem>>(load())
+  // 使用者同步到的基底蓋過內建的（同名時以實際同步資料為準）
+  const items = ref<Record<string, BaseItem>>({ ...loadBundled(), ...load() })
   const selectedName = ref('')
   const lastError = ref('')
 
@@ -75,7 +105,11 @@ export const useItemLibraryStore = defineStore('buildingItemLibrary', () => {
 
   function persist(): void {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(items.value))
+      // 內建基底隨程式發佈，不需要也不應該寫進 localStorage
+      const own = Object.fromEntries(
+        Object.entries(items.value).filter(([, item]) => item.source !== 'bundled'),
+      )
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(own))
       lastError.value = ''
     } catch (error) {
       lastError.value = `裝備庫儲存失敗：${(error as Error).message}`

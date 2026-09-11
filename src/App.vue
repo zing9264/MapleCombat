@@ -6,6 +6,7 @@ import EquipmentChangeView from '@/components/equipment/EquipmentChangeView.vue'
 import ValueConversionView from '@/components/conversion/ValueConversionView.vue'
 import WeightedAnalysisView from '@/components/weighted/WeightedAnalysisView.vue'
 import EquipmentSetView from '@/building/views/EquipmentSetView.vue'
+import GearCompareView from '@/building/views/GearCompareView.vue'
 import ItemLibraryView from '@/building/views/ItemLibraryView.vue'
 import WorkbenchView from '@/building/views/WorkbenchView.vue'
 import InventoryView from '@/building/views/InventoryView.vue'
@@ -23,6 +24,7 @@ const slots = useStateSlotsStore()
       <CharacterInputView v-show="ui.activeView === 'characterInput'" />
       <EquipmentChangeView v-show="ui.activeView === 'equipmentChange'" />
       <ValueConversionView v-show="ui.activeView === 'valueConversion'" />
+      <GearCompareView v-if="ui.activeView === 'gearCompare'" />
       <EquipmentSetView v-if="ui.activeView === 'equipmentSets'" />
       <ItemLibraryView v-if="ui.activeView === 'itemLibrary'" />
       <WorkbenchView v-if="ui.activeView === 'workbench'" />

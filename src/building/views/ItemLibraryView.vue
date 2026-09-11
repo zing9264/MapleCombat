@@ -120,7 +120,13 @@ function summary(item: BaseItem): string {
         </div>
       </div>
       <div class="mb-row mb-actions">
-        <button class="mb-btn" @click="store.remove(store.selected.name)">從庫中移除</button>
+        <button
+          class="mb-btn"
+          v-if="store.selected.source !== 'bundled'"
+          @click="store.remove(store.selected.name)"
+        >
+          從庫中移除
+        </button>
       </div>
     </section>
   </div>

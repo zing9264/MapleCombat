@@ -29,7 +29,8 @@ const stateDialog = ref<StateDialog | null>(null)
 
 const tabs: { view: ViewKey; label: string }[] = [
   { view: 'characterInput', label: '角色資料' },
-  { view: 'equipmentChange', label: '裝備變更' },
+  { view: 'gearCompare', label: '裝備變更' },
+  { view: 'equipmentChange', label: '手動調整' },
   { view: 'valueConversion', label: '數值換算' },
   { view: 'equipmentSets', label: '裝備組' },
   { view: 'itemLibrary', label: '裝備庫' },

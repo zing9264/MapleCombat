@@ -5,6 +5,7 @@ import { getStoredString } from './persist'
 export type ViewKey =
   | 'characterInput'
   | 'equipmentChange'
+  | 'gearCompare'
   | 'valueConversion'
   | 'equipmentSets'
   | 'itemLibrary'
@@ -15,6 +16,7 @@ export type CalculatorMode = 'calculator' | 'effStats'
 const VALID_VIEWS: ViewKey[] = [
   'characterInput',
   'equipmentChange',
+  'gearCompare',
   'valueConversion',
   'equipmentSets',
   'itemLibrary',

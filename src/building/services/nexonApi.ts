@@ -129,6 +129,8 @@ export interface EquipmentItem {
   item_base_option: ItemOption
   item_total_option: ItemOption
   item_add_option: ItemOption
+  /** 紫：卷軸 */
+  item_etc_option: ItemOption
   item_starforce_option: ItemOption
   starforce: string
   scroll_upgrade: string

@@ -1,0 +1,402 @@
+[
+  {
+    "name": "永恆法師長袍",
+    "part": "上衣",
+    "level": 250,
+    "base": {
+      "int": "50",
+      "luk": "50",
+      "magic_power": "6",
+      "armor": "325",
+      "ignore_monster_armor": "5"
+    },
+    "scrollSlots": 11,
+    "seen": 1
+  },
+  {
+    "name": "受詛咒的青魔導書",
+    "part": "口袋道具",
+    "level": 160,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "20",
+      "luk": "10",
+      "max_hp": "100",
+      "max_mp": "100",
+      "attack_power": "10",
+      "magic_power": "10"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "神祕冥界幽靈魔導士手套",
+    "part": "手套",
+    "level": 200,
+    "base": {
+      "int": "40",
+      "luk": "40",
+      "magic_power": "9",
+      "armor": "250"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "頂級培羅德耳環",
+    "part": "耳環",
+    "level": 150,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "int": "15",
+      "luk": "15",
+      "max_hp": "150",
+      "max_mp": "150",
+      "attack_power": "10",
+      "magic_power": "10",
+      "armor": "100"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "巨大的恐怖",
+    "part": "戒指",
+    "level": 200,
+    "base": {
+      "str": "5",
+      "dex": "5",
+      "int": "5",
+      "luk": "5",
+      "max_hp": "250",
+      "max_mp": "250",
+      "attack_power": "4",
+      "magic_power": "4"
+    },
+    "scrollSlots": 3,
+    "seen": 1
+  },
+  {
+    "name": "頂級培羅德戒指",
+    "part": "戒指",
+    "level": 150,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "max_hp": "250",
+      "max_mp": "250",
+      "attack_power": "8",
+      "magic_power": "8",
+      "armor": "150",
+      "speed": "10"
+    },
+    "scrollSlots": 7,
+    "seen": 1
+  },
+  {
+    "name": "永恆火焰戒指",
+    "part": "戒指",
+    "level": 120,
+    "base": {
+      "str": "40",
+      "dex": "40",
+      "int": "40",
+      "luk": "40",
+      "max_hp": "4000",
+      "max_mp": "4000",
+      "attack_power": "25",
+      "magic_power": "25"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "覺醒戒指",
+    "part": "戒指",
+    "level": 120,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "max_hp": "1000",
+      "max_mp": "1000",
+      "attack_power": "10",
+      "magic_power": "10"
+    },
+    "scrollSlots": 3,
+    "seen": 1
+  },
+  {
+    "name": "航海師法師斗篷",
+    "part": "披風",
+    "level": 160,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "int": "15",
+      "luk": "15",
+      "attack_power": "2",
+      "magic_power": "2",
+      "armor": "250"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "航海師法師護肩",
+    "part": "肩膀裝飾",
+    "level": 160,
+    "base": {
+      "str": "14",
+      "dex": "14",
+      "int": "14",
+      "luk": "14",
+      "attack_power": "10",
+      "magic_power": "10",
+      "armor": "100"
+    },
+    "scrollSlots": 2,
+    "seen": 1
+  },
+  {
+    "name": "創世長杖",
+    "part": "長杖",
+    "level": 200,
+    "base": {
+      "int": "150",
+      "luk": "150",
+      "attack_power": "251",
+      "magic_power": "406",
+      "boss_damage": "30",
+      "ignore_monster_armor": "20"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "惡魔賢者盾",
+    "part": "盾牌",
+    "level": 130,
+    "base": {
+      "int": "10",
+      "armor": "71"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "Sunday胸章",
+    "part": "胸章",
+    "level": 100,
+    "base": {
+      "str": "7",
+      "dex": "7",
+      "int": "7",
+      "luk": "7",
+      "attack_power": "7",
+      "magic_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "附有魔力的眼罩",
+    "part": "眼飾",
+    "level": 160,
+    "base": {
+      "str": "15",
+      "dex": "15",
+      "int": "15",
+      "luk": "15",
+      "attack_power": "3",
+      "magic_power": "3",
+      "armor": "300"
+    },
+    "scrollSlots": 4,
+    "seen": 1
+  },
+  {
+    "name": "神祕冥界幽靈魔法帽",
+    "part": "帽子",
+    "level": 200,
+    "base": {
+      "int": "65",
+      "luk": "65",
+      "magic_power": "7",
+      "armor": "600",
+      "ignore_monster_armor": "15"
+    },
+    "scrollSlots": 15,
+    "seen": 1
+  },
+  {
+    "name": "頂級培羅德烙印腰帶",
+    "part": "腰帶",
+    "level": 150,
+    "base": {
+      "str": "60",
+      "dex": "60",
+      "int": "60",
+      "luk": "60",
+      "max_hp": "200",
+      "max_mp": "200",
+      "attack_power": "35",
+      "magic_power": "35",
+      "armor": "100"
+    },
+    "scrollSlots": 4,
+    "seen": 1
+  },
+  {
+    "name": "阿德勒的痕跡",
+    "part": "圖騰",
+    "level": 90,
+    "base": {
+      "int": "20",
+      "attack_power": "7",
+      "magic_power": "7"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "芙莉蓮圖騰",
+    "part": "圖騰",
+    "level": 10,
+    "base": {},
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "輪迴碑石",
+    "part": "圖騰",
+    "level": 0,
+    "base": {
+      "str": "40",
+      "dex": "40",
+      "int": "40",
+      "luk": "40",
+      "attack_power": "15",
+      "magic_power": "15"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "頂級培羅德烙印墜飾",
+    "part": "墜飾",
+    "level": 150,
+    "base": {
+      "str": "28",
+      "dex": "28",
+      "int": "28",
+      "luk": "28",
+      "max_hp": "300",
+      "max_mp": "300",
+      "attack_power": "5",
+      "magic_power": "5",
+      "armor": "100"
+    },
+    "scrollSlots": 7,
+    "seen": 2
+  },
+  {
+    "name": "航海師法師鞋",
+    "part": "鞋子",
+    "level": 160,
+    "base": {
+      "int": "20",
+      "luk": "20",
+      "magic_power": "5",
+      "armor": "150",
+      "speed": "10",
+      "jump": "7"
+    },
+    "scrollSlots": 8,
+    "seen": 1
+  },
+  {
+    "name": "七日怪物公園看守者",
+    "part": "勳章",
+    "level": 100,
+    "base": {
+      "str": "7",
+      "dex": "7",
+      "int": "7",
+      "luk": "7",
+      "attack_power": "7",
+      "magic_power": "7",
+      "ignore_monster_armor": "10"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "菇菇機器人專用心臟",
+    "part": "機器心臟",
+    "level": 100,
+    "base": {
+      "max_hp": "100"
+    },
+    "scrollSlots": 11,
+    "seen": 1
+  },
+  {
+    "name": "永恆法師褲",
+    "part": "褲/裙",
+    "level": 250,
+    "base": {
+      "int": "50",
+      "luk": "50",
+      "magic_power": "6",
+      "armor": "325",
+      "ignore_monster_armor": "5"
+    },
+    "scrollSlots": 11,
+    "seen": 1
+  },
+  {
+    "name": "米特拉的憤怒：法師",
+    "part": "徽章",
+    "level": 200,
+    "base": {
+      "int": "40",
+      "luk": "40",
+      "attack_power": "5",
+      "magic_power": "5"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  },
+  {
+    "name": "暮光印記",
+    "part": "臉飾",
+    "level": 140,
+    "base": {
+      "str": "5",
+      "dex": "5",
+      "int": "5",
+      "luk": "5",
+      "attack_power": "5",
+      "magic_power": "5",
+      "armor": "100"
+    },
+    "scrollSlots": 4,
+    "seen": 1
+  },
+  {
+    "name": "伊妮絲的寶玉",
+    "part": "寶石",
+    "level": 250,
+    "base": {
+      "int": "1850"
+    },
+    "scrollSlots": 0,
+    "seen": 1
+  }
+]

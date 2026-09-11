@@ -284,6 +284,8 @@ function collectDiffs(before: AggregatedStats, after: AggregatedStats): StatDiff
 export interface SwapInput extends AggregateInput {
   /** 要換掉的裝備名稱；找不到時視為「純新增」 */
   replaceName: string
+  /** 以位置指定要換掉的那件。身上可能同時戴兩顆同名戒指，只給名稱會兩顆一起拔掉 */
+  replaceIndex?: number
   /** 換上的裝備；null 代表直接拔掉 */
   replacement: GearForCompare | null
 }
@@ -297,7 +299,10 @@ export interface SwapInput extends AggregateInput {
 export function computeSwapDelta(input: SwapInput): SwapResult {
   const before = aggregateEquipment(input)
 
-  const afterItems = input.items.filter((i) => i.name !== input.replaceName)
+  const afterItems =
+    input.replaceIndex !== undefined
+      ? input.items.filter((_, index) => index !== input.replaceIndex)
+      : input.items.filter((i) => i.name !== input.replaceName)
   if (input.replacement) afterItems.push(input.replacement)
   const after = aggregateEquipment({ ...input, items: afterItems })
 

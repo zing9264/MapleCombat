@@ -146,3 +146,32 @@ describe('computeSwapDelta — 邊界情況', () => {
     expect(result.setChanges).toHaveLength(0)
   })
 })
+
+describe('computeSwapDelta — 同名裝備只換指定的那一件', () => {
+  // 身上可能同時戴兩顆同名戒指；只用名稱指定會兩顆一起拔掉
+  const ring: GearForCompare = { name: '重複的戒指', part: '戒指', base: { int: 30 } }
+  const items = [ring, { ...ring }]
+
+  it('用 replaceIndex 只拔掉其中一顆', () => {
+    const result = computeSwapDelta({
+      items,
+      setEffects: [],
+      characterLevel: LEVEL,
+      replaceName: '重複的戒指',
+      replaceIndex: 0,
+      replacement: null,
+    })
+    expect(result.diffs.find((d) => d.stat === 'int')?.delta).toBe(-30)
+  })
+
+  it('只給名稱時兩顆都會被拔掉（這是改用位置指定的理由）', () => {
+    const result = computeSwapDelta({
+      items,
+      setEffects: [],
+      characterLevel: LEVEL,
+      replaceName: '重複的戒指',
+      replacement: null,
+    })
+    expect(result.diffs.find((d) => d.stat === 'int')?.delta).toBe(-60)
+  })
+})
