@@ -5,7 +5,7 @@
 // 隱私：輸出檔只有道具的基底定義（名稱、部位、等級、白底數值、卷軸格數、出現次數），
 // 不含任何角色名稱或 OCID。續爬用的進度檔只存名稱的雜湊值，而且不進版控。
 //
-// 配額：開發階段金鑰每日 1000 次、每秒 5 次。每位角色耗 2 次（查 OCID + 裝備）。
+// 配額：開發階段金鑰每日 1000 次、每秒 5 次。每位角色耗 3 次（OCID + 裝備 + 套裝效果）。
 // 預設每日預算 950 次，用完就存檔結束；隔天執行同一個指令會從中斷處接續。
 //
 // 角色名單來源有兩種，可以併用：
@@ -18,6 +18,7 @@
 //
 // 選項：
 //   --budget 950     每日請求上限（以台灣時間換日）
+//   --redo           忽略進度紀錄，重跑名單上的角色（用來替既有基底補套裝觀察）
 //   --stop-dry 50    連續 N 位角色都沒帶來新基底就提早結束（基底很快會飽和）
 
 import { createHash } from 'node:crypto'
@@ -27,6 +28,35 @@ const API_BASE = 'https://open.api.nexon.com/maplestorytw/v1'
 const OUT_FILE = 'src/building/data/itemBases.json'
 const STATE_FILE = 'tools/building/.crawl-state.json'
 const THROTTLE_MS = 220
+
+/**
+ * 不收錄的部位。
+ * 拼圖是商城的額外欄位，變體極多（實測 290 件），會把「基底是否已飽和」的判斷
+ * 徹底稀釋掉 —— 一般裝備早就沒有新貨了，拼圖還在一直貢獻「新基底」。
+ */
+const SKIP_PARTS = new Set(['拼圖'])
+
+/**
+ * 飾品類部位。
+ * 這些套裝都是「防具＋武器」組成，飾品不會是成員；而「永恆火焰戒指」這種
+ * 只是名字剛好以系列名開頭的獨立道具，不排除就會被誤記成套裝成員。
+ */
+const ACCESSORY_PARTS = new Set([
+  '戒指',
+  '徽章',
+  '墜飾',
+  '耳環',
+  '腰帶',
+  '胸章',
+  '勳章',
+  '眼飾',
+  '臉飾',
+  '口袋道具',
+  '機器心臟',
+  '圖騰',
+  '寶石',
+  '輔助特殊技能戒指',
+])
 const SAVE_EVERY = 10
 
 /** 只保留這些基底欄位，其餘（total、潛能等）與「基底」無關 */
@@ -49,7 +79,7 @@ const BASE_KEYS = [
 ]
 
 function parseArgs(argv) {
-  const args = { budget: 950, stopDry: 0, names: '', guilds: '' }
+  const args = { budget: 950, stopDry: 0, names: '', guilds: '', redo: false }
   for (let i = 0; i < argv.length; i++) {
     const flag = argv[i]
     const value = argv[i + 1]
@@ -57,6 +87,7 @@ function parseArgs(argv) {
     if (flag === '--guilds') args.guilds = value
     if (flag === '--budget') args.budget = Number(value)
     if (flag === '--stop-dry') args.stopDry = Number(value)
+    if (flag === '--redo') args.redo = true
   }
   return args
 }
@@ -115,7 +146,39 @@ function toBase(item) {
     base,
     scrollSlots: Number(item.scroll_upgrade ?? 0) + Number(item.scroll_upgradeable_count ?? 0),
     seen: 1,
+    /** 實際觀察到這件裝備屬於哪些套裝（取自該角色的 set-effect，名稱帶職業） */
+    sets: [],
   }
+}
+
+/**
+ * 由角色的套裝效果反推裝備歸屬。
+ *
+ * set-effect 回傳的 set_name 本身就帶職業（例如「永恆套裝(劍士)」），而同一個
+ * 角色不可能同時擁有兩個職業版本，因此「該角色有哪個版本」＋「該角色穿了哪些
+ * 同系列裝備」就足以直接觀察到歸屬，不必從道具名稱或部位去猜。
+ */
+function observeSets(items, setEffects) {
+  const byFamily = new Map()
+  for (const entry of setEffects) {
+    const name = entry?.set_name
+    if (!name) continue
+    const withJob = name.match(/^(.*?)[（(][^（()）]*[)）]\s*$/)
+    if (!withJob) continue
+    // 套裝叫「永恆套裝(法師)」，道具卻叫「永恆法師褲」——要去掉結尾的
+    // 「套裝／套組」才對得上道具名稱的前綴
+    const family = withJob[1].replace(/(套裝|套組)$/, '')
+    if (family) byFamily.set(family, name)
+  }
+
+  const result = new Map()
+  for (const item of items) {
+    if (!item?.item_name || ACCESSORY_PARTS.has(item.item_equipment_part)) continue
+    for (const [family, setName] of byFamily) {
+      if (item.item_name.startsWith(family)) result.set(item.item_name, setName)
+    }
+  }
+  return result
 }
 
 async function main() {
@@ -128,7 +191,9 @@ async function main() {
   if (state.day !== todayTST()) Object.assign(state, { day: todayTST(), used: 0 })
   const done = new Set(state.done)
 
-  const bases = new Map(readJson(OUT_FILE, []).map((b) => [b.name, b]))
+  const bases = new Map(
+    readJson(OUT_FILE, []).map((b) => [b.name, { ...b, sets: b.sets ?? [] }]),
+  )
   const startCount = bases.size
 
   async function get(path, params) {
@@ -180,6 +245,7 @@ async function main() {
     }
   }
   const queue = [...new Set(names)]
+  const pending = queue.filter((name) => args.redo || !done.has(hashName(name))).length
 
   let processed = 0
   let skipped = 0
@@ -195,8 +261,8 @@ async function main() {
   try {
     for (const name of queue) {
       const hash = hashName(name)
-      if (done.has(hash)) continue
-      if (state.used + 2 > args.budget) {
+      if (!args.redo && done.has(hash)) continue
+      if (state.used + 3 > args.budget) {
         stopReason = `今日預算 ${args.budget} 次已用完`
         break
       }
@@ -205,15 +271,21 @@ async function main() {
       try {
         const { ocid } = await get('/id', { character_name: name })
         const { item_equipment: items = [] } = await get('/character/item-equipment', { ocid })
+        const { set_effect: setEffects = [] } = await get('/character/set-effect', { ocid })
+        const observed = observeSets(items, setEffects)
+
         for (const item of items) {
-          if (!item?.item_name) continue
-          const existing = bases.get(item.item_name)
-          if (existing) {
-            existing.seen += 1
+          if (!item?.item_name || SKIP_PARTS.has(item.item_equipment_part)) continue
+          let entry = bases.get(item.item_name)
+          if (entry) {
+            entry.seen += 1
           } else {
-            bases.set(item.item_name, toBase(item))
+            entry = toBase(item)
+            bases.set(item.item_name, entry)
             added += 1
           }
+          const setName = observed.get(item.item_name)
+          if (setName && !entry.sets.includes(setName)) entry.sets.push(setName)
         }
         processed += 1
       } catch (error) {
@@ -247,7 +319,7 @@ async function main() {
 結束原因：${stopReason}
 本次處理 ${processed} 位、跳過 ${skipped} 位　今日已用 ${state.used}/${args.budget} 次
 基底 ${startCount} → ${bases.size} 件（新增 ${bases.size - startCount}）
-名單共 ${queue.length} 位（公會展開 ${fromGuilds} 位），剩餘 ${queue.length - done.size} 位`)
+名單共 ${queue.length} 位（公會展開 ${fromGuilds} 位），本次待處理 ${pending} 位`)
 }
 
 main().catch((error) => {
