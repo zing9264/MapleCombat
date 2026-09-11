@@ -13,3 +13,4 @@ tools/building/parser.mjs
 # 裝備基底爬蟲：進度檔與角色名單含個人資訊，不進版控
 tools/building/.crawl-state.json
 tools/building/names*.txt
+tools/building/guilds*.txt

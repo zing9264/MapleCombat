@@ -8,8 +8,13 @@
 // 配額：開發階段金鑰每日 1000 次、每秒 5 次。每位角色耗 2 次（查 OCID + 裝備）。
 // 預設每日預算 950 次，用完就存檔結束；隔天執行同一個指令會從中斷處接續。
 //
+// 角色名單來源有兩種，可以併用：
+//   --names  一行一個角色名稱
+//   --guilds 一行一個「公會名,世界名」。公會端點一次回傳整份成員名單（實測 195 人），
+//            2 次請求就能換到近兩百個名字，比逐一查角色划算得多，也不必去爬第三方網站。
+//
 // 用法：
-//   NEXON_API_KEY=xxxx node tools/building/crawlBases.mjs --names tools/building/names.txt
+//   NEXON_API_KEY=xxxx node tools/building/crawlBases.mjs --guilds tools/building/guilds.txt
 //
 // 選項：
 //   --budget 950     每日請求上限（以台灣時間換日）
@@ -44,15 +49,25 @@ const BASE_KEYS = [
 ]
 
 function parseArgs(argv) {
-  const args = { budget: 950, stopDry: 0, names: '' }
+  const args = { budget: 950, stopDry: 0, names: '', guilds: '' }
   for (let i = 0; i < argv.length; i++) {
     const flag = argv[i]
     const value = argv[i + 1]
     if (flag === '--names') args.names = value
+    if (flag === '--guilds') args.guilds = value
     if (flag === '--budget') args.budget = Number(value)
     if (flag === '--stop-dry') args.stopDry = Number(value)
   }
   return args
+}
+
+/** 讀一份清單檔，去掉空行與 # 註解 */
+function readList(file) {
+  if (!file || !existsSync(file)) return []
+  return readFileSync(file, 'utf8')
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith('#'))
 }
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
@@ -107,16 +122,7 @@ async function main() {
   const args = parseArgs(process.argv.slice(2))
   const key = process.env.NEXON_API_KEY
   if (!key) throw new Error('請用環境變數 NEXON_API_KEY 提供金鑰（不要寫進檔案）')
-  if (!args.names || !existsSync(args.names)) throw new Error('請用 --names 指定角色名稱清單')
-
-  const names = [
-    ...new Set(
-      readFileSync(args.names, 'utf8')
-        .split(/\r?\n/)
-        .map((line) => line.trim())
-        .filter((line) => line && !line.startsWith('#')),
-    ),
-  ]
+  if (!args.names && !args.guilds) throw new Error('請用 --names 或 --guilds 指定名單來源')
 
   const state = readJson(STATE_FILE, { day: '', used: 0, done: [] })
   if (state.day !== todayTST()) Object.assign(state, { day: todayTST(), used: 0 })
@@ -152,6 +158,29 @@ async function main() {
     writeFileSync(OUT_FILE, `${JSON.stringify(list, null, 2)}\n`)
   }
 
+  // 公會名單展開成成員名稱。名單只存在記憶體，不落地。
+  const names = [...readList(args.names)]
+  let fromGuilds = 0
+  for (const line of readList(args.guilds)) {
+    const [guildName, worldName] = line.split(',').map((part) => part.trim())
+    if (!guildName || !worldName) continue
+    try {
+      const { oguild_id: id } = await get('/guild/id', {
+        guild_name: guildName,
+        world_name: worldName,
+      })
+      const guild = await get('/guild/basic', { oguild_id: id })
+      const members = guild.guild_member ?? []
+      names.push(...members)
+      fromGuilds += members.length
+      console.log(`公會 ${guildName}（${worldName}）：${members.length} 位成員`)
+    } catch (error) {
+      if (error instanceof QuotaExhausted || error instanceof InvalidKey) throw error
+      console.log(`公會 ${guildName}（${worldName}）查詢失敗：${error.message}`)
+    }
+  }
+  const queue = [...new Set(names)]
+
   let processed = 0
   let skipped = 0
   let dryStreak = 0
@@ -164,7 +193,7 @@ async function main() {
   })
 
   try {
-    for (const name of names) {
+    for (const name of queue) {
       const hash = hashName(name)
       if (done.has(hash)) continue
       if (state.used + 2 > args.budget) {
@@ -198,7 +227,7 @@ async function main() {
       if ((processed + skipped) % SAVE_EVERY === 0) {
         save()
         console.log(
-          `進度 ${done.size}/${names.length}　今日已用 ${state.used} 次　基底 ${bases.size} 件`,
+          `進度 ${done.size}/${queue.length}　今日已用 ${state.used} 次　基底 ${bases.size} 件`,
         )
       }
       if (args.stopDry && dryStreak >= args.stopDry) {
@@ -218,7 +247,7 @@ async function main() {
 結束原因：${stopReason}
 本次處理 ${processed} 位、跳過 ${skipped} 位　今日已用 ${state.used}/${args.budget} 次
 基底 ${startCount} → ${bases.size} 件（新增 ${bases.size - startCount}）
-清單剩餘 ${names.length - done.size} 位`)
+名單共 ${queue.length} 位（公會展開 ${fromGuilds} 位），剩餘 ${queue.length - done.size} 位`)
 }
 
 main().catch((error) => {
