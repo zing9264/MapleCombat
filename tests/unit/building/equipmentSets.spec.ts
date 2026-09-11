@@ -154,7 +154,7 @@ describe('SET_TIERS — 對照先前完全吻合的對帳結果', () => {
 describe('其他職業的同系列裝備', () => {
   it('劍士穿四件永恆裝也算得出 4 件', () => {
     const { counts } = countSetPieces(['永恆劍士頭盔', '永恆劍士鎧甲', '永恆劍士褲', '永恆劍士鞋'])
-    expect(counts['永恆套裝(法師)']).toBe(4)
+    expect(counts['永恆套裝(劍士)']).toBe(4)
   })
 
   it('同前綴但不屬於套裝的道具不會被誤算', () => {
@@ -166,7 +166,7 @@ describe('其他職業的同系列裝備', () => {
 
   it('套裝的武器欄涵蓋各職業武器', () => {
     expect(countSetPieces(['神祕冥界幽靈長杖']).counts['神祕冥界套裝(法師)']).toBe(1)
-    expect(countSetPieces(['神祕冥界幽靈之弓']).counts['神祕冥界套裝(法師)']).toBe(1)
-    expect(countSetPieces(['航海師調節器']).counts['航海師套裝(法師)']).toBe(1)
+    expect(countSetPieces(['神祕冥界幽靈之弓']).counts['神祕冥界套裝(弓箭手)']).toBe(1)
+    expect(countSetPieces(['航海師調節器']).counts['航海師套裝(海盜)']).toBe(1)
   })
 })
