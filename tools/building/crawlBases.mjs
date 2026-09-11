@@ -104,9 +104,15 @@ function readList(file) {
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
-/** NEXON 以台灣時間 00:00 換日 */
-function todayTST() {
-  return new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10)
+/**
+ * 額度的換日時點。
+ *
+ * 實測台灣時間 09/12 06:49 額度仍未重置，排除了 00:00 台灣時間（UTC+8）與
+ * 00:00 韓國時間（UTC+9）。這裡改以 UTC 換日，但它只是備援 —— 真正的依據是
+ * API 每次回應都會帶的 x-ratelimit-remaining。
+ */
+function today() {
+  return new Date().toISOString().slice(0, 10)
 }
 
 const hashName = (name) => createHash('sha256').update(name).digest('hex').slice(0, 16)
@@ -116,6 +122,9 @@ const readJson = (file, fallback) =>
 
 class QuotaExhausted extends Error {}
 class InvalidKey extends Error {}
+
+/** API 每次回應都會帶剩餘次數，比自己數準 —— 額度是跟 app 的同步共用的 */
+const quota = { limit: null, remaining: null }
 
 function slimOption(option) {
   const result = {}
@@ -187,7 +196,7 @@ async function main() {
   if (!args.names && !args.guilds) throw new Error('請用 --names 或 --guilds 指定名單來源')
 
   const state = readJson(STATE_FILE, { day: '', used: 0, done: [] })
-  if (state.day !== todayTST()) Object.assign(state, { day: todayTST(), used: 0 })
+  if (state.day !== today()) Object.assign(state, { day: today(), used: 0 })
   const done = new Set(state.done)
 
   const bases = new Map(readJson(OUT_FILE, []).map((b) => [b.name, b]))
@@ -201,8 +210,13 @@ async function main() {
       headers: { 'x-nxopen-api-key': key },
     })
     state.used += 1
+    const remaining = Number(response.headers.get('x-ratelimit-remaining'))
+    const limit = Number(response.headers.get('x-ratelimit-limit'))
+    if (Number.isFinite(remaining)) quota.remaining = remaining
+    if (Number.isFinite(limit)) quota.limit = limit
     await sleep(THROTTLE_MS)
     if (response.status === 429) throw new QuotaExhausted()
+    if (quota.remaining !== null && quota.remaining <= 0) throw new QuotaExhausted()
     if (response.status === 401 || response.status === 403) throw new InvalidKey()
     const body = await response.json().catch(() => ({}))
     if (!response.ok) {
@@ -339,7 +353,7 @@ async function main() {
 
   console.log(`
 結束原因：${stopReason}
-本次處理 ${processed} 位、跳過 ${skipped} 位　今日已用 ${state.used}/${args.budget} 次
+本次處理 ${processed} 位、跳過 ${skipped} 位　今日已用 ${state.used}/${args.budget} 次　API 回報剩餘 ${quota.remaining ?? '不明'}/${quota.limit ?? '不明'}
 基底 ${startCount} → ${bases.size} 件（新增 ${bases.size - startCount}）
 名單共 ${queue.length} 位（公會展開 ${fromGuilds} 位），本次待處理 ${pending} 位`)
 }
