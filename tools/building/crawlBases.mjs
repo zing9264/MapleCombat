@@ -26,6 +26,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 
 const API_BASE = 'https://open.api.nexon.com/maplestorytw/v1'
 const OUT_FILE = 'src/building/data/itemBases.json'
+const MEMBERSHIP_FILE = 'src/building/data/setMemberships.json'
 const STATE_FILE = 'tools/building/.crawl-state.json'
 const THROTTLE_MS = 220
 
@@ -146,8 +147,6 @@ function toBase(item) {
     base,
     scrollSlots: Number(item.scroll_upgrade ?? 0) + Number(item.scroll_upgradeable_count ?? 0),
     seen: 1,
-    /** 實際觀察到這件裝備屬於哪些套裝（取自該角色的 set-effect，名稱帶職業） */
-    sets: [],
   }
 }
 
@@ -191,9 +190,9 @@ async function main() {
   if (state.day !== todayTST()) Object.assign(state, { day: todayTST(), used: 0 })
   const done = new Set(state.done)
 
-  const bases = new Map(
-    readJson(OUT_FILE, []).map((b) => [b.name, { ...b, sets: b.sets ?? [] }]),
-  )
+  const bases = new Map(readJson(OUT_FILE, []).map((b) => [b.name, b]))
+  // 道具 → 套裝的對照資料庫。實際觀察到的會蓋掉先前用名稱推論的 inferred 項目。
+  const memberships = new Map(readJson(MEMBERSHIP_FILE, []).map((m) => [m.itemName, m]))
   const startCount = bases.size
 
   async function get(path, params) {
@@ -221,6 +220,15 @@ async function main() {
       (a, b) => a.part.localeCompare(b.part) || b.level - a.level || a.name.localeCompare(b.name),
     )
     writeFileSync(OUT_FILE, `${JSON.stringify(list, null, 2)}\n`)
+
+    const membershipList = [...memberships.values()].sort(
+      (a, b) => a.setNames[0].localeCompare(b.setNames[0]) || a.itemName.localeCompare(b.itemName),
+    )
+    writeFileSync(
+      MEMBERSHIP_FILE,
+      `${JSON.stringify(membershipList, null, 2)}
+`,
+    )
   }
 
   // 公會名單展開成成員名稱。名單只存在記憶體，不落地。
@@ -285,7 +293,21 @@ async function main() {
             added += 1
           }
           const setName = observed.get(item.item_name)
-          if (setName && !entry.sets.includes(setName)) entry.sets.push(setName)
+          if (!setName) continue
+          const membership = memberships.get(item.item_name)
+          if (!membership) {
+            memberships.set(item.item_name, {
+              itemName: item.item_name,
+              setNames: [setName],
+              source: 'observed',
+            })
+          } else if (membership.source === 'observed') {
+            if (!membership.setNames.includes(setName)) membership.setNames.push(setName)
+          } else {
+            // 推論的結果一旦被實際觀察推翻，就整筆換掉
+            membership.setNames = [setName]
+            membership.source = 'observed'
+          }
         }
         processed += 1
       } catch (error) {

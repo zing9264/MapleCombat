@@ -19,6 +19,8 @@ export interface SetMembership {
   /** `item_equipment` 的 `item_name` */
   itemName: string
   setNames: string[]
+  /** 資料來源，見 SET_MEMBERSHIPS 的說明 */
+  source?: 'observed' | 'inferred' | 'manual'
 }
 
 /**
@@ -27,173 +29,16 @@ export interface SetMembership {
  */
 export const LUCKY_ITEM_NAMES: ReadonlySet<string> = new Set(['創世長杖', '命運長杖'])
 
-export const SET_MEMBERSHIPS: readonly SetMembership[] = [
-  // ── 依職業群分開的三組套裝 ──────────────────
-  // 遊戲內「永恆套裝(法師)」與「永恆套裝(劍士)」是不同套裝，階層效果相同但各自計數。
-  // 以下道具名稱由裝備庫爬蟲收錄，職業群由名稱字樣判斷，武器則由部位判斷。
-
-  // 永恆套裝(劍士)
-  { itemName: '永恆劍士鎧甲', setNames: ['永恆套裝(劍士)'] },
-  { itemName: '永恆劍士手套', setNames: ['永恆套裝(劍士)'] },
-  { itemName: '永恆劍士斗篷', setNames: ['永恆套裝(劍士)'] },
-  { itemName: '永恆劍士肩膀', setNames: ['永恆套裝(劍士)'] },
-  { itemName: '永恆劍士頭盔', setNames: ['永恆套裝(劍士)'] },
-  { itemName: '永恆劍士鞋', setNames: ['永恆套裝(劍士)'] },
-  { itemName: '永恆劍士褲', setNames: ['永恆套裝(劍士)'] },
-
-  // 永恆套裝(弓箭手)
-  { itemName: '永恆弓箭手連帽衫', setNames: ['永恆套裝(弓箭手)'] },
-  { itemName: '永恆弓箭手手套', setNames: ['永恆套裝(弓箭手)'] },
-  { itemName: '永恆弓箭手斗篷', setNames: ['永恆套裝(弓箭手)'] },
-  { itemName: '永恆弓箭手肩膀', setNames: ['永恆套裝(弓箭手)'] },
-  { itemName: '永恆弓箭手帽', setNames: ['永恆套裝(弓箭手)'] },
-  { itemName: '永恆弓箭手鞋', setNames: ['永恆套裝(弓箭手)'] },
-  { itemName: '永恆弓箭手褲', setNames: ['永恆套裝(弓箭手)'] },
-
-  // 永恆套裝(法師)
-  { itemName: '永恆法師長袍', setNames: ['永恆套裝(法師)'] },
-  { itemName: '永恆法師手套', setNames: ['永恆套裝(法師)'] },
-  { itemName: '永恆法師斗篷', setNames: ['永恆套裝(法師)'] },
-  { itemName: '永恆法師肩膀', setNames: ['永恆套裝(法師)'] },
-  { itemName: '永恆法師帽', setNames: ['永恆套裝(法師)'] },
-  { itemName: '永恆法師鞋', setNames: ['永恆套裝(法師)'] },
-  { itemName: '永恆法師褲', setNames: ['永恆套裝(法師)'] },
-
-  // 永恆套裝(海盜)
-  { itemName: '永恆海盜大衣', setNames: ['永恆套裝(海盜)'] },
-  { itemName: '永恆海盜手套', setNames: ['永恆套裝(海盜)'] },
-  { itemName: '永恆海盜斗篷', setNames: ['永恆套裝(海盜)'] },
-  { itemName: '永恆海盜肩膀', setNames: ['永恆套裝(海盜)'] },
-  { itemName: '永恆海盜帽', setNames: ['永恆套裝(海盜)'] },
-  { itemName: '永恆海盜鞋', setNames: ['永恆套裝(海盜)'] },
-  { itemName: '永恆海盜褲', setNames: ['永恆套裝(海盜)'] },
-
-  // 永恆套裝(盜賊)
-  { itemName: '永恆盜賊上衣', setNames: ['永恆套裝(盜賊)'] },
-  { itemName: '永恆盜賊手套', setNames: ['永恆套裝(盜賊)'] },
-  { itemName: '永恆盜賊斗篷', setNames: ['永恆套裝(盜賊)'] },
-  { itemName: '永恆盜賊肩膀', setNames: ['永恆套裝(盜賊)'] },
-  { itemName: '永恆盜賊頭巾', setNames: ['永恆套裝(盜賊)'] },
-  { itemName: '永恆盜賊鞋', setNames: ['永恆套裝(盜賊)'] },
-  { itemName: '永恆盜賊褲', setNames: ['永恆套裝(盜賊)'] },
-
-  // 神祕冥界套裝(劍士)
-  { itemName: '神祕冥界幽靈刀', setNames: ['神祕冥界套裝(劍士)'] },
-  { itemName: '神祕冥界幽靈騎士手套', setNames: ['神祕冥界套裝(劍士)'] },
-  { itemName: '神祕冥界幽靈騎士斗篷', setNames: ['神祕冥界套裝(劍士)'] },
-  { itemName: '神祕冥界幽靈騎士護肩', setNames: ['神祕冥界套裝(劍士)'] },
-  { itemName: '神祕冥界幽靈騎士套裝', setNames: ['神祕冥界套裝(劍士)'] },
-  { itemName: '神祕冥界幽靈騎士帽', setNames: ['神祕冥界套裝(劍士)'] },
-  { itemName: '神祕冥界幽靈騎士鞋子', setNames: ['神祕冥界套裝(劍士)'] },
-  { itemName: '神祕冥界幽靈魔劍', setNames: ['神祕冥界套裝(劍士)'] },
-
-  // 神祕冥界套裝(弓箭手)
-  { itemName: '神祕冥界幽靈之弓', setNames: ['神祕冥界套裝(弓箭手)'] },
-  { itemName: '神祕冥界幽靈弓手手套', setNames: ['神祕冥界套裝(弓箭手)'] },
-  { itemName: '神祕冥界幽靈古代之弓', setNames: ['神祕冥界套裝(弓箭手)'] },
-  { itemName: '神祕冥界幽靈弓手斗篷', setNames: ['神祕冥界套裝(弓箭手)'] },
-  { itemName: '神祕冥界幽靈弓手護肩', setNames: ['神祕冥界套裝(弓箭手)'] },
-  { itemName: '神祕冥界幽靈弓手帽', setNames: ['神祕冥界套裝(弓箭手)'] },
-  { itemName: '神祕冥界幽靈弓手鞋子', setNames: ['神祕冥界套裝(弓箭手)'] },
-
-  // 神祕冥界套裝(法師)
-  { itemName: '神祕冥界幽靈魔導士手套', setNames: ['神祕冥界套裝(法師)'] },
-  { itemName: '神祕冥界幽靈法師斗篷', setNames: ['神祕冥界套裝(法師)'] },
-  { itemName: '神祕冥界幽靈魔法護肩', setNames: ['神祕冥界套裝(法師)'] },
-  { itemName: '神祕冥界幽靈長杖', setNames: ['神祕冥界套裝(法師)'] },
-  { itemName: '神祕冥界幽靈陰陽扇', setNames: ['神祕冥界套裝(法師)'] },
-  { itemName: '神祕冥界幽靈魔法帽', setNames: ['神祕冥界套裝(法師)'] },
-  { itemName: '神祕冥界幽靈短杖', setNames: ['神祕冥界套裝(法師)'] },
-  { itemName: '神祕冥界幽靈魔導士鞋子', setNames: ['神祕冥界套裝(法師)'] },
-
-  // 神祕冥界套裝(海盜)
-  { itemName: '神祕冥界幽靈海盜手套', setNames: ['神祕冥界套裝(海盜)'] },
-  { itemName: '神祕冥界幽靈海盜斗篷', setNames: ['神祕冥界套裝(海盜)'] },
-  { itemName: '神祕冥界幽靈海盜護肩', setNames: ['神祕冥界套裝(海盜)'] },
-  { itemName: '神祕冥界幽靈海盜套裝', setNames: ['神祕冥界套裝(海盜)'] },
-  { itemName: '神祕冥界幽靈海盜帽', setNames: ['神祕冥界套裝(海盜)'] },
-  { itemName: '神祕冥界幽靈海盜鞋子', setNames: ['神祕冥界套裝(海盜)'] },
-
-  // 神祕冥界套裝(盜賊)
-  { itemName: '神祕冥界幽靈小偷手套', setNames: ['神祕冥界套裝(盜賊)'] },
-  { itemName: '神祕冥界幽靈小偷斗篷', setNames: ['神祕冥界套裝(盜賊)'] },
-  { itemName: '神祕冥界幽靈小偷護肩', setNames: ['神祕冥界套裝(盜賊)'] },
-  { itemName: '神祕冥界幽靈小偷帽', setNames: ['神祕冥界套裝(盜賊)'] },
-  { itemName: '神祕冥界幽靈短刀', setNames: ['神祕冥界套裝(盜賊)'] },
-  { itemName: '神祕冥界幽靈小偷鞋子', setNames: ['神祕冥界套裝(盜賊)'] },
-  { itemName: '神祕冥界幽靈之刃', setNames: ['神祕冥界套裝(盜賊)'] },
-
-  // 航海師套裝(劍士)
-  { itemName: '航海師劍士手套', setNames: ['航海師套裝(劍士)'] },
-  { itemName: '航海師劍士斗篷', setNames: ['航海師套裝(劍士)'] },
-  { itemName: '航海師劍士護肩', setNames: ['航海師套裝(劍士)'] },
-  { itemName: '航海師劍士頭盔', setNames: ['航海師套裝(劍士)'] },
-  { itemName: '航海師劍士鞋', setNames: ['航海師套裝(劍士)'] },
-
-  // 航海師套裝(弓箭手)
-  { itemName: '航海師弓箭手手套', setNames: ['航海師套裝(弓箭手)'] },
-  { itemName: '航海師弓箭手斗篷', setNames: ['航海師套裝(弓箭手)'] },
-  { itemName: '航海師弓箭手護肩', setNames: ['航海師套裝(弓箭手)'] },
-  { itemName: '航海師弓箭手鞋', setNames: ['航海師套裝(弓箭手)'] },
-
-  // 航海師套裝(法師)
-  { itemName: '航海師法師手套', setNames: ['航海師套裝(法師)'] },
-  { itemName: '航海師法師斗篷', setNames: ['航海師套裝(法師)'] },
-  { itemName: '航海師法師護肩', setNames: ['航海師套裝(法師)'] },
-  { itemName: '航海師法師套裝', setNames: ['航海師套裝(法師)'] },
-  { itemName: '航海師法師帽', setNames: ['航海師套裝(法師)'] },
-  { itemName: '航海師法師鞋', setNames: ['航海師套裝(法師)'] },
-
-  // 航海師套裝(海盜)
-  { itemName: '航海師海盜手套', setNames: ['航海師套裝(海盜)'] },
-  { itemName: '航海師海盜斗篷', setNames: ['航海師套裝(海盜)'] },
-  { itemName: '航海師海盜護肩', setNames: ['航海師套裝(海盜)'] },
-  { itemName: '航海師海盜帽', setNames: ['航海師套裝(海盜)'] },
-  { itemName: '航海師調節器', setNames: ['航海師套裝(海盜)'] },
-  { itemName: '航海師海盜鞋', setNames: ['航海師套裝(海盜)'] },
-
-  // 航海師套裝(盜賊)
-  { itemName: '航海師盜賊手套', setNames: ['航海師套裝(盜賊)'] },
-  { itemName: '航海師盜賊斗篷', setNames: ['航海師套裝(盜賊)'] },
-  { itemName: '航海師盜賊護肩', setNames: ['航海師套裝(盜賊)'] },
-  { itemName: '航海師盜賊套裝', setNames: ['航海師套裝(盜賊)'] },
-  { itemName: '航海師盜賊帽', setNames: ['航海師套裝(盜賊)'] },
-  { itemName: '航海師盜賊鞋', setNames: ['航海師套裝(盜賊)'] },
-
-  // 創世／命運武器同時是永恆套裝的武器欄，又能以「幸運道具」身分計入另一組套裝。
-  // 注意：第二組是玩家自己選的，屬於個人設定而非道具屬性，之後應該做成可設定。
-  { itemName: '創世長杖', setNames: ['永恆套裝(法師)', '航海師套裝(法師)'] },
-
-  // ── 頂級培羅德套裝（不分職業）────────────────
-  { itemName: '頂級培羅德耳環', setNames: ['頂級培羅德套裝'] },
-  { itemName: '頂級培羅德烙印墜飾', setNames: ['頂級培羅德套裝'] },
-  { itemName: '頂級培羅德烙印腰帶', setNames: ['頂級培羅德套裝'] },
-  { itemName: '頂級培羅德戒指', setNames: ['頂級培羅德套裝'] },
-
-  // ── 漆黑BOSS套裝（成員名稱不規則，只能逐一列）──
-  { itemName: '口紅控制器標誌', setNames: ['漆黑BOSS套裝'] },
-  { itemName: '附有魔力的眼罩', setNames: ['漆黑BOSS套裝'] },
-  { itemName: '苦痛的根源', setNames: ['漆黑BOSS套裝'] },
-  { itemName: '巨大的恐怖', setNames: ['漆黑BOSS套裝'] },
-  { itemName: '受詛咒的青魔導書', setNames: ['漆黑BOSS套裝'] },
-  { itemName: '黑心', setNames: ['漆黑BOSS套裝'] },
-  { itemName: '全面控制核心', setNames: ['漆黑BOSS套裝'] },
-  { itemName: '夢幻的腰帶', setNames: ['漆黑BOSS套裝'] },
-  { itemName: '創世的胸章', setNames: ['漆黑BOSS套裝'] },
-  { itemName: '指揮官力量耳環', setNames: ['漆黑BOSS套裝'] },
-  // 套裝視窗寫「在米特拉的憤怒中選1」，實際道具名依職業不同
-  { itemName: '米特拉的憤怒：法師', setNames: ['漆黑BOSS套裝'] },
-  { itemName: '米特拉的憤怒：劍士', setNames: ['漆黑BOSS套裝'] },
-  { itemName: '米特拉的憤怒：弓箭手', setNames: ['漆黑BOSS套裝'] },
-  { itemName: '米特拉的憤怒：盜賊', setNames: ['漆黑BOSS套裝'] },
-  { itemName: '米特拉的憤怒：海盜', setNames: ['漆黑BOSS套裝'] },
-
-  // ── 死後世界的的痕跡（圖騰）───────────────────
-  { itemName: '萬事的痕跡', setNames: ['死後世界的的痕跡'] },
-  { itemName: '阿德勒的痕跡', setNames: ['死後世界的的痕跡'] },
-  { itemName: '貝奧武夫的痕跡', setNames: ['死後世界的的痕跡'] },
-  { itemName: '柏林的痕跡', setNames: ['死後世界的的痕跡'] },
-]
+/**
+ * 道具 → 所屬套裝的對照資料庫。
+ *
+ * 內容由 tools/building/crawlBases.mjs 維護，來源分三種：
+ *   observed — 由該角色的 set-effect 直接觀察到，最可信
+ *   inferred — 尚未被觀察到，暫時以道具名稱與部位推論（會被 observed 覆蓋）
+ *   manual   — 觀察法抓不到的：不分職業的套裝（頂級培羅德、漆黑BOSS、死後世界）
+ *              以及創世／命運武器（名稱不以系列名開頭）
+ */
+export const SET_MEMBERSHIPS: readonly SetMembership[] = setMembershipData as SetMembership[]
 
 const BY_ITEM_NAME = new Map<string, string[]>(SET_MEMBERSHIPS.map((m) => [m.itemName, m.setNames]))
 
@@ -237,6 +82,7 @@ export function countSetPieces(itemNames: readonly string[]): SetCountResult {
 // 交給文字解析器會誤判。
 
 import type { StatKey } from '../core/optionParser'
+import setMembershipData from './setMemberships.json'
 
 export interface SetTier {
   count: number
