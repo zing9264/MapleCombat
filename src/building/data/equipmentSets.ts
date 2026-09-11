@@ -72,6 +72,12 @@ export const SET_MEMBERSHIPS: readonly SetMembership[] = [
   { itemName: '夢幻的腰帶', setNames: ['漆黑BOSS套裝'] },
   { itemName: '創世的胸章', setNames: ['漆黑BOSS套裝'] },
   { itemName: '指揮官力量耳環', setNames: ['漆黑BOSS套裝'] },
+  // 套裝視窗寫「在米特拉的憤怒中選1」，實際道具名依職業不同
+  { itemName: '米特拉的憤怒：法師', setNames: ['漆黑BOSS套裝'] },
+  { itemName: '米特拉的憤怒：劍士', setNames: ['漆黑BOSS套裝'] },
+  { itemName: '米特拉的憤怒：弓箭手', setNames: ['漆黑BOSS套裝'] },
+  { itemName: '米特拉的憤怒：盜賊', setNames: ['漆黑BOSS套裝'] },
+  { itemName: '米特拉的憤怒：海盜', setNames: ['漆黑BOSS套裝'] },
 
   // ── 死後世界的的痕跡（圖騰）───────────────────
   { itemName: '萬事的痕跡', setNames: ['死後世界的的痕跡'] },

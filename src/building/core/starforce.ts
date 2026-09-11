@@ -32,6 +32,11 @@ export interface NumericOption {
   maxMp?: number
   speed?: number
   jump?: number
+  /** 以下為百分比類欄位，星力不會產生，但換裝比較需要在同一型別裡承載 */
+  bossDamage?: number
+  ignoreDefense?: number
+  allStat?: number
+  damage?: number
 }
 
 export interface StarforceInput {

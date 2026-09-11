@@ -7,6 +7,8 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import type { ItemOption } from '../services/nexonApi'
+import type { NumericOption } from '../core/starforce'
+import type { GearForCompare } from '../core/equipmentDelta'
 
 const STORAGE_KEY = 'mbInventoryV1'
 const MAX_NAME_LENGTH = 20
@@ -53,6 +55,60 @@ function load(): CraftedItem[] {
 
 function createId(): string {
   return `item_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`
+}
+
+/**
+ * 基底與卷軸層沿用 API 的底線命名（magic_power），星力與星火層是計算模組
+ * 產出的駝峰命名（magicPower）。兩種寫法混在同一件裝備裡，直接用欄位名稱
+ * 去讀就會漏 —— 實際發生過：物品欄的魔攻只顯示基底 6，漏了星力的 120。
+ * 所以一律經過這裡轉成駝峰再使用。
+ */
+const SNAKE_TO_CAMEL: Record<string, keyof NumericOption> = {
+  str: 'str',
+  dex: 'dex',
+  int: 'int',
+  luk: 'luk',
+  max_hp: 'maxHp',
+  maxHp: 'maxHp',
+  max_mp: 'maxMp',
+  maxMp: 'maxMp',
+  attack_power: 'attackPower',
+  attackPower: 'attackPower',
+  magic_power: 'magicPower',
+  magicPower: 'magicPower',
+  armor: 'armor',
+  boss_damage: 'bossDamage',
+  bossDamage: 'bossDamage',
+  ignore_monster_armor: 'ignoreDefense',
+  ignoreDefense: 'ignoreDefense',
+  all_stat: 'allStat',
+  allStat: 'allStat',
+  damage: 'damage',
+}
+
+export function normalizeLayer(layer: Record<string, unknown> | undefined): NumericOption {
+  const result: NumericOption = {}
+  for (const [key, value] of Object.entries(layer ?? {})) {
+    const camel = SNAKE_TO_CAMEL[key]
+    const num = Number(value ?? 0)
+    if (!camel || !num) continue
+    result[camel] = (result[camel] ?? 0) + num
+  }
+  return result
+}
+
+/** 轉成換裝比較引擎吃的格式 —— 與 API 抓下來的裝備同形 */
+export function toGearForCompare(item: CraftedItem): GearForCompare {
+  return {
+    name: item.baseName,
+    part: item.part,
+    base: normalizeLayer(item.base as Record<string, unknown>),
+    starforce: normalizeLayer(item.starforce),
+    etc: normalizeLayer(item.etc),
+    add: normalizeLayer(item.add),
+    potentials: item.potentials.filter(Boolean),
+    additionalPotentials: item.additionalPotentials.filter(Boolean),
+  }
 }
 
 export const useInventoryStore = defineStore('buildingInventory', () => {

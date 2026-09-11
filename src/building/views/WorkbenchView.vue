@@ -6,7 +6,7 @@
 // 成品資料與 API 抓下來的裝備同形，換裝比較引擎不需區分真實／自製。
 import { computed, reactive, ref } from 'vue'
 import { useItemLibraryStore, type BaseItem } from '../stores/itemLibrary'
-import { useInventoryStore, type AppliedScroll } from '../stores/inventory'
+import { normalizeLayer, useInventoryStore, type AppliedScroll } from '../stores/inventory'
 import { expectedOption, getScroll, scrollCategoryOf, scrollsFor } from '../data/scrolls'
 import {
   computeStarforce,
@@ -147,7 +147,8 @@ const starforce = computed<NumericOption>(() => {
     kind: gearKindOf(base.value.part, isWeaponPart.value),
     gainsMaxHp: partGainsMaxHp(base.value.part),
     base: numericBase.value,
-    upgrade: etc.value,
+    // 卷軸層是底線命名，星力計算讀駝峰；不轉的話武器 15 星以下會讀不到卷軸魔攻
+    upgrade: normalizeLayer(etc.value),
   })
 })
 
@@ -444,7 +445,9 @@ const saved = ref('')
             <span class="mb-preview-total">+{{ row.total }}</span>
             <span class="mb-preview-parts">
               (<span class="c-base">{{ row.base }}</span>
-              <span v-if="row.etc" class="c-etc"> +{{ fmt(row.etc) }}</span
+              <span v-if="row.star" class="c-star"> +{{ fmt(row.star) }}</span>
+              <span v-if="row.etc" class="c-etc"> +{{ fmt(row.etc) }}</span>
+              <span v-if="row.add" class="c-add"> +{{ fmt(row.add) }}</span
               >)
             </span>
           </div>
@@ -743,6 +746,21 @@ const saved = ref('')
   align-items: center;
   gap: 6px;
   padding: 3px 0;
+}
+
+.mb-flame select {
+  /* 上游全域樣式會把 select 設成 width:100%，兩個下拉互搶寬度，這裡明確指定 */
+  width: auto;
+}
+
+.mb-flame select:first-child {
+  flex: 1 1 auto;
+  min-width: 120px;
+}
+
+.mb-flame select:nth-child(2) {
+  flex: 0 0 72px;
+  width: 72px;
 }
 
 .mb-flame-value {

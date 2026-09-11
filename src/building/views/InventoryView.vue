@@ -1,24 +1,25 @@
 <script setup lang="ts">
 // 物品欄：製作台做出來的自製裝備。全域、跨裝備組共用。
 import { computed } from 'vue'
-import { useInventoryStore, type CraftedItem } from '../stores/inventory'
+import { normalizeLayer, useInventoryStore, type CraftedItem } from '../stores/inventory'
+import type { NumericOption } from '../core/starforce'
 import { getScroll } from '../data/scrolls'
 
 const store = useInventoryStore()
 
-const STAT_LABELS: ReadonlyArray<[string, string]> = [
+const STAT_LABELS: ReadonlyArray<[keyof NumericOption, string]> = [
   ['str', 'STR'],
   ['dex', 'DEX'],
   ['int', 'INT'],
   ['luk', 'LUK'],
-  ['max_hp', 'MaxHP'],
-  ['max_mp', 'MaxMP'],
-  ['attack_power', '攻擊力'],
-  ['magic_power', '魔法攻擊力'],
+  ['maxHp', 'MaxHP'],
+  ['maxMp', 'MaxMP'],
+  ['attackPower', '攻擊力'],
+  ['magicPower', '魔法攻擊力'],
   ['armor', '防禦力'],
-  ['boss_damage', 'BOSS傷害'],
-  ['ignore_monster_armor', '無視防禦'],
-  ['all_stat', '全屬性'],
+  ['bossDamage', 'BOSS傷害'],
+  ['ignoreDefense', '無視防禦'],
+  ['allStat', '全屬性'],
 ]
 
 interface Row {
@@ -34,12 +35,22 @@ function fmt(n: number): string {
   return Number.isInteger(n) ? String(n) : n.toFixed(1)
 }
 
+function layers(item: CraftedItem) {
+  return {
+    base: normalizeLayer(item.base as Record<string, unknown>),
+    etc: normalizeLayer(item.etc),
+    starforce: normalizeLayer(item.starforce),
+    add: normalizeLayer(item.add),
+  }
+}
+
 function rows(item: CraftedItem): Row[] {
+  const l = layers(item)
   return STAT_LABELS.map(([key, label]) => {
-    const base = Number(item.base[key as keyof CraftedItem['base']] ?? 0)
-    const etc = item.etc[key] ?? 0
-    const starforce = item.starforce[key] ?? 0
-    const add = item.add[key] ?? 0
+    const base = l.base[key] ?? 0
+    const etc = l.etc[key] ?? 0
+    const starforce = l.starforce[key] ?? 0
+    const add = l.add[key] ?? 0
     return { label, base, etc, starforce, add, total: fmt(base + etc + starforce + add) }
   }).filter((r) => r.base || r.etc || r.starforce || r.add)
 }
@@ -47,9 +58,13 @@ function rows(item: CraftedItem): Row[] {
 const selectedRows = computed(() => (store.selected ? rows(store.selected) : []))
 
 function summary(item: CraftedItem): string {
-  const magic = (Number(item.base.magic_power ?? 0) + (item.etc.magic_power ?? 0)) | 0
-  const int = (Number(item.base.int ?? 0) + (item.etc.int ?? 0)) | 0
+  const l = layers(item)
+  const total = (key: keyof NumericOption) =>
+    Math.round((l.base[key] ?? 0) + (l.etc[key] ?? 0) + (l.starforce[key] ?? 0) + (l.add[key] ?? 0))
+  const magic = total('magicPower')
+  const int = total('int')
   const bits = []
+  if (item.starCount) bits.push(`★${item.starCount}`)
   if (int) bits.push(`INT ${int}`)
   if (magic) bits.push(`魔攻 ${magic}`)
   if (item.scrolls.length) bits.push(`卷軸 ${item.scrolls.reduce((n, s) => n + s.count, 0)} 張`)
