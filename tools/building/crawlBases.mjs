@@ -138,6 +138,20 @@ function slimOption(option) {
 const isEmpty = (option) => Object.keys(option).length === 0
 
 /**
+ * 扣掉白金鐵鎚加開的格數，還原這件裝備原本有幾格。
+ *
+ * scroll_upgrade + scroll_upgradeable_count 是**當下**的總格數，別人敲過幾次鎚子
+ * 會直接算進來。scroll_resilience_count 在實測資料裡是負數，剛好是鐵鎚加開的量。
+ * 與 src/building/core/scrollSlots.ts 同一套規則，改動要一起改。
+ */
+function baseScrollSlots(item) {
+  const num = (v) => Number(v ?? 0) || 0
+  const current = num(item.scroll_upgrade) + num(item.scroll_upgradeable_count)
+  const resilience = num(item.scroll_resilience_count)
+  return Math.max(0, current - (resilience < 0 ? -resilience : 0))
+}
+
+/**
  * 一件裝備的基底定義。
  * 寶石的數值只存在 item_total_option（四個分層全是 0），這種情況改用 total 當基底。
  */
@@ -154,7 +168,7 @@ function toBase(item) {
     part: item.item_equipment_part,
     level: Number(item.item_base_option?.base_equipment_level ?? 0),
     base,
-    scrollSlots: Number(item.scroll_upgrade ?? 0) + Number(item.scroll_upgradeable_count ?? 0),
+    scrollSlots: baseScrollSlots(item),
     seen: 1,
   }
 }
@@ -301,6 +315,9 @@ async function main() {
           let entry = bases.get(item.item_name)
           if (entry) {
             entry.seen += 1
+            // 鐵鎚只會加格不會減格，所以多看幾個樣本取最小值會收斂到真正的原始格數。
+            // 上面的還原已經扣過鐵鎚，這裡是第二層保險 —— 那個欄位的語意是反推的。
+            entry.scrollSlots = Math.min(entry.scrollSlots, baseScrollSlots(item))
           } else {
             entry = toBase(item)
             bases.set(item.item_name, entry)

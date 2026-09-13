@@ -135,6 +135,11 @@ export interface EquipmentItem {
   starforce: string
   scroll_upgrade: string
   scroll_upgradeable_count: string
+  /**
+   * 相對於原始格數的差額，鐵鎚加開過就是負數（實測敲過 3 次的裝備是 -3）。
+   * 用來還原「這件裝備原本有幾格」—— 見 core/scrollSlots.ts
+   */
+  scroll_resilience_count?: string
   cuttable_count: string
   golden_hammer_flag: string
   potential_option_grade: string | null

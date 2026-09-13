@@ -13,6 +13,7 @@ import { computed, ref } from 'vue'
 import type { EquipmentItem, ItemOption } from '../services/nexonApi'
 import { countSetPieces } from '../data/equipmentSets'
 import bundledBases from '../data/itemBases.json'
+import { baseScrollSlots } from '../core/scrollSlots'
 
 interface BundledBase {
   name: string
@@ -82,7 +83,8 @@ function toBaseItem(item: EquipmentItem, source: BaseItem['source']): BaseItem {
     level: Number(base.base_equipment_level ?? 0),
     base,
     sets: Object.keys(counts),
-    scrollSlots: Number(item.scroll_upgrade ?? 0) + Number(item.scroll_upgradeable_count ?? 0),
+    // 扣掉鐵鎚加開的格數，才是這件裝備原本的格數（見 core/scrollSlots.ts）
+    scrollSlots: baseScrollSlots(item),
     source,
     updatedAt: new Date().toISOString(),
   }

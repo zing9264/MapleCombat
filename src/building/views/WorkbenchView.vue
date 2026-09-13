@@ -39,6 +39,7 @@ import {
 } from '../data/potentials'
 import { subcategoryOf } from '../data/partSubcategory'
 import { canFlame } from '../data/flameParts'
+import { HAMMER_OPTIONS, expectedHammers } from '../data/hammer'
 import { useCraftRequestStore } from '../stores/craftRequest'
 
 const library = useItemLibraryStore()
@@ -77,7 +78,7 @@ function pickBase(name: string): void {
   additionalPotentials.splice(0, 3, '', '', '')
   potRank.value = 'legendary'
   addPotRank.value = 'legendary'
-  slotBonus.value = 0
+  hammer.value = 0
 }
 
 /** 部位是不是武器 —— 卷軸分類已經判斷過，直接沿用 */
@@ -97,18 +98,17 @@ const scrollOptions = computed(() =>
 )
 const scrollCategory = computed(() => (base.value ? scrollCategoryOf(base.value.part) : null))
 /**
- * 卷軸格數的手動校正。
+ * 白金鐵鎚加開的格數（0~5）。黃金鐵鎚已從遊戲移除，所以只給白金。
  *
- * 底的格數不可靠：裝備庫收的是爬蟲從某一隻角色身上那件抓到的
- * 「已強化次數＋剩餘可強化次數」，那件被敲過鎚子的話會直接算進去。
- * 實際收錄到同一階的永恆手套有 8／11／12／13 四種格數，就是這個原因。
- *
- * 刻意不叫「鐵鎚」：黃金鎚已經從遊戲移除了，用它當欄位名會誤導成還能敲。
- * 這裡就是單純的校正 —— 玩家照自己裝備 tooltip 上的「強化 N 次」補差額。
+ * 底的格數本身已經在收錄時扣掉鐵鎚還原成原始值（見 core/scrollSlots.ts），
+ * 所以這裡是單純的「我要敲幾次」，不是校正歪掉的資料。
  */
-const slotBonus = ref(0)
+const hammer = ref(0)
 
-const scrollSlots = computed(() => (base.value?.scrollSlots ?? 0) + slotBonus.value)
+const scrollSlots = computed(() => (base.value?.scrollSlots ?? 0) + hammer.value)
+
+/** 敲到這個次數的成功率與期望鐵鎚成本，順便讓玩家知道自己在賭什麼 */
+const hammerCost = computed(() => HAMMER_OPTIONS[hammer.value])
 const scrollsUsed = computed(() => scrolls.reduce((n, s) => n + s.count, 0))
 const scrollsLeft = computed(() => Math.max(0, scrollSlots.value - scrollsUsed.value))
 
@@ -405,18 +405,18 @@ const saved = ref('')
           </span>
         </h3>
         <label class="mb-row mb-slot-bonus">
-          <span>格數校正</span>
-          <input
-            v-model.number="slotBonus"
-            class="mb-input mb-slot-bonus-input"
-            type="number"
-            min="-4"
-            max="4"
-          />
-          <small>
-            底的格數取自裝備庫收錄的那一件，會受那件敲過鎚子與否影響。對不上你手上的， 照 tooltip
-            的「卷軸 強化 N 次」補差額。
+          <span>白金鐵鎚</span>
+          <select v-model.number="hammer" class="mb-input mb-slot-bonus-input">
+            <option v-for="opt in HAMMER_OPTIONS" :key="opt.count" :value="opt.count">
+              {{ opt.label }}
+            </option>
+          </select>
+          <small v-if="hammer">
+            一路成功 {{ (hammerCost.chance * 100).toFixed(4) }}%，期望要
+            {{ Math.round(expectedHammers(hammer)) }} 支（約
+            {{ Math.round(hammerCost.expectedCost / 100000000) }} 億）
           </small>
+          <small v-else>失敗不會消耗強化次數，只消耗鐵鎚本身。</small>
         </label>
 
         <p v-if="!scrollSlots" class="mb-hint">
