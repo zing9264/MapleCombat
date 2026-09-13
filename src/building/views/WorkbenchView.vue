@@ -388,6 +388,8 @@ const saved = ref('')
             :class="{ active: item.name === baseName }"
             @click="pickBase(item.name)"
           >
+            <img v-if="item.icon" class="mb-thumb" :src="item.icon" alt="" loading="lazy" />
+            <span v-else class="mb-thumb mb-thumb--empty"></span>
             <span class="mb-pick-part">{{ item.part }}</span>
             <span class="mb-pick-name">{{ item.name }}</span>
             <small>Lv.{{ item.level }} · 卷軸 {{ item.scrollSlots }} 格</small>
@@ -626,6 +628,20 @@ const saved = ref('')
 
 .mb-field .mb-input {
   width: 72px;
+}
+
+/* 圖示是 CDN 網址，清單可能有五百多列，交給瀏覽器 lazy load */
+.mb-thumb {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.mb-thumb--empty {
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .mb-pick-list {

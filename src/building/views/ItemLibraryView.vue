@@ -91,6 +91,8 @@ function summary(item: BaseItem): string {
           :class="{ active: item.name === store.selectedName }"
           @click="store.select(item.name)"
         >
+          <img v-if="item.icon" class="mb-thumb" :src="item.icon" alt="" loading="lazy" />
+          <span v-else class="mb-thumb mb-thumb--empty"></span>
           <span class="mb-item-part">{{ item.part }}</span>
           <span class="mb-item-main">
             <b>{{ item.name }}</b>
@@ -153,6 +155,20 @@ function summary(item: BaseItem): string {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+/* 圖示是 CDN 網址，清單有五百多列，交給瀏覽器 lazy load */
+.mb-thumb {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.mb-thumb--empty {
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .mb-item {

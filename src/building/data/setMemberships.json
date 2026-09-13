@@ -199,7 +199,7 @@
     "setNames": [
       "永恆套裝(海盜)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "永恆海盜褲",
@@ -372,9 +372,9 @@
   {
     "itemName": "神祕冥界幽靈之弓",
     "setNames": [
-      "神祕冥界套裝(弓箭手)"
+      "神祕冥界套裝(弓手)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "神祕冥界幽靈古代之弓",
@@ -395,7 +395,7 @@
     "setNames": [
       "神祕冥界套裝(法師)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "神祕冥界幽靈陰陽扇",
@@ -465,7 +465,7 @@
     "setNames": [
       "神祕冥界套裝(海盜)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "神祕冥界幽靈海盜鞋子",
@@ -528,7 +528,7 @@
     "setNames": [
       "神祕冥界套裝(盜賊)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "神祕冥界幽靈刀",
@@ -619,7 +619,7 @@
     "setNames": [
       "航海師套裝(法師)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "航海師法師斗篷",
@@ -724,7 +724,7 @@
     "setNames": [
       "航海師套裝(盜賊)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "航海師盜賊鞋",
@@ -743,37 +743,37 @@
   {
     "itemName": "航海師劍士手套",
     "setNames": [
-      "航海師套裝(劍士)"
+      "航海師套裝(戰士)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "航海師劍士斗篷",
     "setNames": [
-      "航海師套裝(劍士)"
+      "航海師套裝(戰士)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "航海師劍士鞋",
     "setNames": [
-      "航海師套裝(劍士)"
+      "航海師套裝(戰士)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "航海師劍士頭盔",
     "setNames": [
-      "航海師套裝(劍士)"
+      "航海師套裝(戰士)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "航海師劍士護肩",
     "setNames": [
-      "航海師套裝(劍士)"
+      "航海師套裝(戰士)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "頂級培羅德耳環",

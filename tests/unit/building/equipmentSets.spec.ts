@@ -251,7 +251,9 @@ describe('其他職業的同系列裝備', () => {
 
   it('套裝的武器欄涵蓋各職業武器', () => {
     expect(countSetPieces(['神祕冥界幽靈長杖']).counts['神祕冥界套裝(法師)']).toBe(1)
-    expect(countSetPieces(['神祕冥界幽靈之弓']).counts['神祕冥界套裝(弓箭手)']).toBe(1)
     expect(countSetPieces(['航海師調節器']).counts['航海師套裝(海盜)']).toBe(1)
+    // 弓的套裝叫「弓手」不是「弓箭手」—— 早期是從道具名稱推論的，
+    // 爬蟲實際觀察到 set-effect 回傳的名稱後才發現推錯。一律以觀察到的為準。
+    expect(countSetPieces(['神祕冥界幽靈之弓']).counts['神祕冥界套裝(弓手)']).toBe(1)
   })
 })
