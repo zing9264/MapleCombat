@@ -6,7 +6,8 @@
 // 不含任何角色名稱或 OCID。續爬用的進度檔只存名稱的雜湊值，而且不進版控。
 //
 // 配額：開發階段金鑰每日 1000 次、每秒 5 次。每位角色耗 3 次（OCID + 裝備 + 套裝效果）。
-// 預設每日預算 950 次，用完就存檔結束；隔天執行同一個指令會從中斷處接續。
+// 預設每日預算 800 次，用完就存檔結束；隔天執行同一個指令會從中斷處接續。
+// 留下來的 200 次是給你在 app 裡自己同步角色用的，爬蟲不該把額度吃光。
 //
 // 角色名單來源有兩種，可以併用：
 //   --names  一行一個角色名稱
@@ -17,17 +18,33 @@
 //   NEXON_API_KEY=xxxx node tools/building/crawlBases.mjs --guilds tools/building/guilds.txt
 //
 // 選項：
-//   --budget 950     每日請求上限（以台灣時間換日）
-//   --redo           忽略進度紀錄，重跑名單上的角色（用來替既有基底補套裝觀察）
+//   --budget 800     每日請求上限（以台灣時間換日）。刻意不用滿 1000 —— 要留一些
+//                    給你在 app 裡自己同步角色（一次同步 10 次請求）
+//   --redo           清掉進度紀錄，從頭重跑名單（推導規則改了、要重新觀察時用）。
+//                    清完之後就照一般方式記錄進度，所以跑到一半沒額度了，
+//                    隔天**不要**再帶 --redo，直接跑同一個指令就會從中斷處接續。
 //   --stop-dry 50    連續 N 位角色都沒帶來新基底就提早結束（基底很快會飽和）
+//   --rebuild        完全不打 API，改用本機快取重建輸出檔
+//
+// 為什麼要留原始快取：
+//   實測踩過一次 —— 早期只存推導後的「卷軸格數」，後來發現那個數字被別人敲過的
+//   白金鐵鎚汙染了，想改推導規則卻沒有原始資料，只能重爬 447 個角色。
+//   現在每擷取一位就把精簡過的原始回應寫進快取，規則要改時 `--rebuild` 重跑即可，
+//   一次 API 都不用打。
 
 import { createHash } from 'node:crypto'
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { appendFileSync, existsSync, readFileSync, writeFileSync } from 'node:fs'
 
 const API_BASE = 'https://open.api.nexon.com/maplestorytw/v1'
 const OUT_FILE = 'src/building/data/itemBases.json'
 const MEMBERSHIP_FILE = 'src/building/data/setMemberships.json'
 const STATE_FILE = 'tools/building/.crawl-state.json'
+/**
+ * 原始回應快取（JSONL，一行一位角色）。不進版控：雖然已經剝掉名稱只留雜湊，
+ * 裝備組合本身仍可能指認到人。
+ */
+const LINE_BREAK = /\r?\n/
+const CACHE_FILE = 'tools/building/.crawl-cache.jsonl'
 const THROTTLE_MS = 220
 
 /**
@@ -60,6 +77,26 @@ const ACCESSORY_PARTS = new Set([
 ])
 const SAVE_EVERY = 10
 
+/**
+ * 快取要剝掉的欄位：外觀圖與說明文字佔掉絕大部分體積，而且對重建毫無用處。
+ * item_icon 留著 —— 它只是 65 字元的 CDN 網址，而且是裝備庫要用的圖。
+ * 其餘一律保留 —— 快取的意義就是「之後想改推導規則時還有料可用」，
+ * 現在覺得沒用而剝掉的欄位，就是下次重爬的理由。
+ */
+const CACHE_DROP_KEYS = [
+  'item_shape_icon',
+  'item_shape_name',
+  'item_description',
+  'item_gender',
+  'item_option_ability',
+]
+
+function slimForCache(item) {
+  const copy = { ...item }
+  for (const key of CACHE_DROP_KEYS) delete copy[key]
+  return copy
+}
+
 /** 只保留這些基底欄位，其餘（total、潛能等）與「基底」無關 */
 const BASE_KEYS = [
   'str',
@@ -80,7 +117,7 @@ const BASE_KEYS = [
 ]
 
 function parseArgs(argv) {
-  const args = { budget: 950, stopDry: 0, names: '', guilds: '', redo: false }
+  const args = { budget: 800, stopDry: 0, names: '', guilds: '', redo: false, rebuild: false }
   for (let i = 0; i < argv.length; i++) {
     const flag = argv[i]
     const value = argv[i + 1]
@@ -89,6 +126,7 @@ function parseArgs(argv) {
     if (flag === '--budget') args.budget = Number(value)
     if (flag === '--stop-dry') args.stopDry = Number(value)
     if (flag === '--redo') args.redo = true
+    if (flag === '--rebuild') args.rebuild = true
   }
   return args
 }
@@ -169,6 +207,8 @@ function toBase(item) {
     level: Number(item.item_base_option?.base_equipment_level ?? 0),
     base,
     scrollSlots: baseScrollSlots(item),
+    // 圖示是 CDN 網址（65 字元），515 件也才 33KB —— 存起來整個裝備庫就有圖
+    icon: item.item_icon ?? '',
     seen: 1,
   }
 }
@@ -203,14 +243,119 @@ function observeSets(items, setEffects) {
   return result
 }
 
+/**
+ * 把一位角色的裝備收進基底庫與套裝歸屬，回傳新增了幾件基底。
+ *
+ * 抽成函式是為了讓「線上爬取」與「離線重建」走同一段邏輯 ——
+ * 兩份實作遲早會分岔，那時重建出來的資料就不等於爬出來的了。
+ */
+function absorb(items, setEffects, bases, memberships) {
+  const observed = observeSets(items, setEffects)
+  let added = 0
+
+  for (const item of items) {
+    if (!item?.item_name || SKIP_PARTS.has(item.item_equipment_part)) continue
+    let entry = bases.get(item.item_name)
+    if (entry) {
+      entry.seen += 1
+      // 鐵鎚只會加格不會減格，所以多看幾個樣本取最小值會收斂到真正的原始格數。
+      // 上面的還原已經扣過鐵鎚，這裡是第二層保險 —— 那個欄位的語意是反推的。
+      entry.scrollSlots = Math.min(entry.scrollSlots, baseScrollSlots(item))
+      // 舊資料沒有圖，之後再看到同一件時補上
+      if (!entry.icon && item.item_icon) entry.icon = item.item_icon
+    } else {
+      entry = toBase(item)
+      bases.set(item.item_name, entry)
+      added += 1
+    }
+
+    const setName = observed.get(item.item_name)
+    if (!setName) continue
+    const membership = memberships.get(item.item_name)
+    if (!membership) {
+      memberships.set(item.item_name, {
+        itemName: item.item_name,
+        setNames: [setName],
+        source: 'observed',
+      })
+    } else if (membership.source === 'observed') {
+      if (!membership.setNames.includes(setName)) membership.setNames.push(setName)
+    } else {
+      // 推論的結果一旦被實際觀察推翻，就整筆換掉
+      membership.setNames = [setName]
+      membership.source = 'observed'
+    }
+  }
+
+  return added
+}
+
+/**
+ * 離線重建：完全不打 API，改用本機快取重新產出輸出檔。
+ *
+ * 推導規則改了就跑這個 —— 這正是當初沒留快取才得重爬 447 個角色的那件事。
+ * 基底從空的開始建，不沿用舊輸出：舊檔裡可能有用舊規則算壞的值，
+ * 沿用的話就白重建了。
+ */
+function rebuild() {
+  if (!existsSync(CACHE_FILE)) {
+    throw new Error(`找不到快取 ${CACHE_FILE}；先正常跑一次爬蟲才會有原始資料`)
+  }
+
+  const bases = new Map()
+  const memberships = new Map(
+    readJson(MEMBERSHIP_FILE, [])
+      // 只留「推論」來的；觀察來的會從快取重新產生
+      .filter((m) => m.source !== 'observed')
+      .map((m) => [m.itemName, m]),
+  )
+
+  // 同一位角色可能被爬過多次（--redo），以最後一筆為準：後面那筆比較新
+  const latest = new Map()
+  for (const line of readFileSync(CACHE_FILE, 'utf8').split(LINE_BREAK)) {
+    if (!line.trim()) continue
+    const record = JSON.parse(line)
+    latest.set(record.h, record)
+  }
+
+  for (const record of latest.values()) {
+    absorb(record.items ?? [], record.sets ?? [], bases, memberships)
+  }
+  const characters = latest.size
+
+  writeOutputs(bases, memberships)
+  console.log(`離線重建完成：讀了 ${characters} 筆快取，產出 ${bases.size} 件基底`)
+}
+
+/** 兩條路徑共用的輸出格式，避免線上與離線產出的檔案長得不一樣 */
+function writeOutputs(bases, memberships) {
+  const list = [...bases.values()].sort(
+    (a, b) => a.part.localeCompare(b.part) || b.level - a.level || a.name.localeCompare(b.name),
+  )
+  writeFileSync(OUT_FILE, `${JSON.stringify(list, null, 2)}\n`)
+
+  const membershipList = [...memberships.values()].sort(
+    (a, b) => a.setNames[0].localeCompare(b.setNames[0]) || a.itemName.localeCompare(b.itemName),
+  )
+  writeFileSync(MEMBERSHIP_FILE, `${JSON.stringify(membershipList, null, 2)}\n`)
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2))
+  if (args.rebuild) {
+    rebuild()
+    return
+  }
+
   const key = process.env.NEXON_API_KEY
   if (!key) throw new Error('請用環境變數 NEXON_API_KEY 提供金鑰（不要寫進檔案）')
   if (!args.names && !args.guilds) throw new Error('請用 --names 或 --guilds 指定名單來源')
 
   const state = readJson(STATE_FILE, { day: '', used: 0, done: [] })
   if (state.day !== today()) Object.assign(state, { day: today(), used: 0 })
+  // --redo 是「清一次進度重來」，不是「每次都忽略進度」——
+  // 忽略的話跑到一半沒額度，隔天再跑會從頭重複前面那幾百位，白燒額度。
+  if (args.redo) state.done = []
   const done = new Set(state.done)
 
   const bases = new Map(readJson(OUT_FILE, []).map((b) => [b.name, b]))
@@ -244,19 +389,7 @@ async function main() {
   function save() {
     state.done = [...done]
     writeFileSync(STATE_FILE, JSON.stringify(state))
-    const list = [...bases.values()].sort(
-      (a, b) => a.part.localeCompare(b.part) || b.level - a.level || a.name.localeCompare(b.name),
-    )
-    writeFileSync(OUT_FILE, `${JSON.stringify(list, null, 2)}\n`)
-
-    const membershipList = [...memberships.values()].sort(
-      (a, b) => a.setNames[0].localeCompare(b.setNames[0]) || a.itemName.localeCompare(b.itemName),
-    )
-    writeFileSync(
-      MEMBERSHIP_FILE,
-      `${JSON.stringify(membershipList, null, 2)}
-`,
-    )
+    writeOutputs(bases, memberships)
   }
 
   // 公會名單展開成成員名稱。名單只存在記憶體，不落地。
@@ -281,7 +414,7 @@ async function main() {
     }
   }
   const queue = [...new Set(names)]
-  const pending = queue.filter((name) => args.redo || !done.has(hashName(name))).length
+  const pending = queue.filter((name) => !done.has(hashName(name))).length
 
   let processed = 0
   let skipped = 0
@@ -297,7 +430,7 @@ async function main() {
   try {
     for (const name of queue) {
       const hash = hashName(name)
-      if (!args.redo && done.has(hash)) continue
+      if (done.has(hash)) continue
       if (state.used + 3 > args.budget) {
         stopReason = `今日預算 ${args.budget} 次已用完`
         break
@@ -308,38 +441,11 @@ async function main() {
         const { ocid } = await get('/id', { character_name: name })
         const { item_equipment: items = [] } = await get('/character/item-equipment', { ocid })
         const { set_effect: setEffects = [] } = await get('/character/set-effect', { ocid })
-        const observed = observeSets(items, setEffects)
-
-        for (const item of items) {
-          if (!item?.item_name || SKIP_PARTS.has(item.item_equipment_part)) continue
-          let entry = bases.get(item.item_name)
-          if (entry) {
-            entry.seen += 1
-            // 鐵鎚只會加格不會減格，所以多看幾個樣本取最小值會收斂到真正的原始格數。
-            // 上面的還原已經扣過鐵鎚，這裡是第二層保險 —— 那個欄位的語意是反推的。
-            entry.scrollSlots = Math.min(entry.scrollSlots, baseScrollSlots(item))
-          } else {
-            entry = toBase(item)
-            bases.set(item.item_name, entry)
-            added += 1
-          }
-          const setName = observed.get(item.item_name)
-          if (!setName) continue
-          const membership = memberships.get(item.item_name)
-          if (!membership) {
-            memberships.set(item.item_name, {
-              itemName: item.item_name,
-              setNames: [setName],
-              source: 'observed',
-            })
-          } else if (membership.source === 'observed') {
-            if (!membership.setNames.includes(setName)) membership.setNames.push(setName)
-          } else {
-            // 推論的結果一旦被實際觀察推翻，就整筆換掉
-            membership.setNames = [setName]
-            membership.source = 'observed'
-          }
-        }
+        appendFileSync(
+          CACHE_FILE,
+          `${JSON.stringify({ h: hash, items: items.map(slimForCache), sets: setEffects })}\n`,
+        )
+        added += absorb(items, setEffects, bases, memberships)
         processed += 1
       } catch (error) {
         if (error instanceof QuotaExhausted || error instanceof InvalidKey) throw error

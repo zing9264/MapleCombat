@@ -21,6 +21,7 @@ interface BundledBase {
   level: number
   base: ItemOption
   scrollSlots: number
+  icon?: string
   seen: number
 }
 
@@ -35,6 +36,7 @@ function loadBundled(): Record<string, BaseItem> {
       base: entry.base,
       sets: Object.keys(countSetPieces([entry.name]).counts),
       scrollSlots: entry.scrollSlots,
+      icon: entry.icon,
       source: 'bundled',
       updatedAt: '',
     }
@@ -54,8 +56,10 @@ export interface BaseItem {
   base: ItemOption
   /** 所屬套裝（查對照表得到，可能多組） */
   sets: string[]
-  /** 卷軸總格數 = 已升級次數 + 剩餘可升級次數（舊資料沒有此欄位時為 0，重新同步即可補上） */
+  /** 卷軸總格數（已扣掉白金鐵鎚加開的部分，見 core/scrollSlots.ts） */
   scrollSlots: number
+  /** 道具圖示的 CDN 網址；舊資料可能沒有 */
+  icon?: string
   /** bundled = 爬蟲收錄、隨程式發佈的內建基底，不寫進 localStorage */
   source: 'sync' | 'manual' | 'bundled'
   updatedAt: string
@@ -85,6 +89,7 @@ function toBaseItem(item: EquipmentItem, source: BaseItem['source']): BaseItem {
     sets: Object.keys(counts),
     // 扣掉鐵鎚加開的格數，才是這件裝備原本的格數（見 core/scrollSlots.ts）
     scrollSlots: baseScrollSlots(item),
+    icon: item.item_icon,
     source,
     updatedAt: new Date().toISOString(),
   }

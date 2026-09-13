@@ -133,6 +133,8 @@ export interface EquipmentItem {
   item_etc_option: ItemOption
   item_starforce_option: ItemOption
   starforce: string
+  /** 道具圖示的 CDN 網址 */
+  item_icon?: string
   scroll_upgrade: string
   scroll_upgradeable_count: string
   /**
