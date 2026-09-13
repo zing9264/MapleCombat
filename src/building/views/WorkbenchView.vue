@@ -4,7 +4,7 @@
 // 四層對應 API 的四個欄位（實測逐數字吻合）：
 //   白 base ＝ item_base_option、紫 etc ＝ 卷軸、黃 starforce ＝ 星力、藍綠 add ＝ 星火
 // 成品資料與 API 抓下來的裝備同形，換裝比較引擎不需區分真實／自製。
-import { computed, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { useItemLibraryStore, type BaseItem } from '../stores/itemLibrary'
 import { normalizeLayer, useInventoryStore, type AppliedScroll } from '../stores/inventory'
 import { expectedOption, getScroll, scrollCategoryOf, scrollsFor } from '../data/scrolls'
@@ -29,10 +29,21 @@ import {
 } from '../core/flame'
 import { useEquipmentSetsStore } from '../stores/equipmentSets'
 import { getJobStatLabelsByName } from '@/data/jobs'
+import {
+  POTENTIAL_RANKS,
+  RANK_LABELS,
+  hasPotential,
+  potentialLines,
+  type PotentialRank,
+  type PotentialSlot,
+} from '../data/potentials'
+import { subcategoryOf } from '../data/partSubcategory'
+import { useCraftRequestStore } from '../stores/craftRequest'
 
 const library = useItemLibraryStore()
 const inventory = useInventoryStore()
 const sets = useEquipmentSetsStore()
+const craftRequest = useCraftRequestStore()
 
 /** 星力的主副屬性依角色職業而定；沒有同步過的話預設戰士 */
 const jobCategory = computed(() =>
@@ -63,6 +74,8 @@ function pickBase(name: string): void {
   itemName.value = ''
   potentials.splice(0, 3, '', '', '')
   additionalPotentials.splice(0, 3, '', '', '')
+  potRank.value = 'legendary'
+  addPotRank.value = 'legendary'
 }
 
 /** 部位是不是武器 —— 卷軸分類已經判斷過，直接沿用 */
@@ -152,6 +165,17 @@ const starforce = computed<NumericOption>(() => {
   })
 })
 
+/**
+ * 從「裝備變更」點「用這格的底做一件」過來時，直接把底挑好。
+ *
+ * 用 take() 取走而不是讀值：請求只該消費一次，不然每次切回製作台都會把玩家
+ * 當下的挑選重設回去。
+ */
+onMounted(() => {
+  const requested = craftRequest.take()
+  if (requested && library.items[requested]) pickBase(requested)
+})
+
 // ── 星火層 ──────────────────────────────────────────
 const flames = reactive<FlameLine[]>([])
 const bossReward = ref(false)
@@ -186,8 +210,54 @@ function flamePreview(line: FlameLine): number {
 const FLAME_GRADES: FlameGrade[] = [1, 2, 3, 4, 5, 6, 7]
 
 // ── 潛能 ────────────────────────────────────────────
+//
+// 改成下拉而不是讓玩家自己打：同一條詞條在不同裝備等級數值不同
+// （INT% 151 級以上 13%、以下 12%），手打遲早會錯，而且打錯沒人會發現。
+//
+// 主潛能與附加潛能是兩組不同的詞條池，所以階級也各選各的。
 const potentials = reactive(['', '', ''])
 const additionalPotentials = reactive(['', '', ''])
+const potRank = ref<PotentialRank>('legendary')
+const addPotRank = ref<PotentialRank>('legendary')
+
+/** 這件裝備在潛能表上的分類；null 代表遊戲裡就沒有潛能欄 */
+const subcategory = computed(() =>
+  base.value ? subcategoryOf(base.value.part, base.value.name) : null,
+)
+
+const showMainPot = computed(() => !!subcategory.value && hasPotential(subcategory.value, 'main'))
+const showAddPot = computed(
+  () => !!subcategory.value && hasPotential(subcategory.value, 'additional'),
+)
+
+/**
+ * 星火沒有現成的部位表，借用潛能那份（有潛能欄的部位幾乎都能上星火），
+ * 唯一的例外是胸章 —— 它有潛能但沒有星火。
+ */
+const showFlame = computed(() => showMainPot.value && subcategory.value !== 'badge')
+
+/**
+ * 某一條可選的詞條。
+ *
+ * 第 1 條只會是該階級；第 2、3 條有機率掉一階，所以多給低一階那組
+ * （機率多少不重要，玩家是照自己實際的裝備挑）。
+ */
+function lineOptions(slot: PotentialSlot, rank: PotentialRank, index: number) {
+  const sub = subcategory.value
+  const level = base.value?.level ?? 0
+  if (!sub) return []
+
+  const ranks: PotentialRank[] = [rank]
+  if (index > 0) {
+    const lower = POTENTIAL_RANKS[POTENTIAL_RANKS.indexOf(rank) - 1]
+    if (lower) ranks.push(lower)
+  }
+
+  return ranks.map((r) => ({
+    label: RANK_LABELS[r],
+    lines: potentialLines(sub, level, r, slot),
+  }))
+}
 
 // ── 成品 ────────────────────────────────────────────
 const itemName = ref('')
@@ -375,7 +445,7 @@ const saved = ref('')
       </section>
 
       <!-- 4. 星火 -->
-      <section class="mb-card">
+      <section v-if="showFlame" class="mb-card">
         <h3 class="mb-card-title">
           4. 星火
           <span class="mb-badge">{{ flames.length }} / {{ MAX_FLAME_LINES }} 條</span>
@@ -405,32 +475,68 @@ const saved = ref('')
         </div>
       </section>
 
-      <!-- 4. 潛能 -->
-      <section class="mb-card">
+      <!-- 5. 潛能 -->
+      <section v-if="showMainPot || showAddPot" class="mb-card">
         <h3 class="mb-card-title">5. 潛能</h3>
         <div class="mb-pot-grid">
-          <div class="mb-pot-col">
-            <span class="mb-pot-label">潛在能力</span>
-            <input
+          <div v-if="showMainPot" class="mb-pot-col">
+            <label class="mb-pot-label">
+              潛在能力
+              <select v-model="potRank" class="mb-input mb-pot-rank">
+                <option v-for="r in POTENTIAL_RANKS" :key="r" :value="r">
+                  {{ RANK_LABELS[r] }}
+                </option>
+              </select>
+            </label>
+            <select
               v-for="(_, i) in potentials"
               :key="'p' + i"
               v-model="potentials[i]"
               class="mb-input"
-              :placeholder="`第 ${i + 1} 行，例：INT +13%`"
-            />
+            >
+              <option value="">第 {{ i + 1 }} 行（空白）</option>
+              <optgroup
+                v-for="group in lineOptions('main', potRank, i)"
+                :key="group.label"
+                :label="group.label"
+              >
+                <option v-for="line in group.lines" :key="line.text" :value="line.text">
+                  {{ line.text }}
+                </option>
+              </optgroup>
+            </select>
           </div>
-          <div class="mb-pot-col">
-            <span class="mb-pot-label">附加潛在能力</span>
-            <input
+          <div v-if="showAddPot" class="mb-pot-col">
+            <label class="mb-pot-label">
+              附加潛在能力
+              <select v-model="addPotRank" class="mb-input mb-pot-rank">
+                <option v-for="r in POTENTIAL_RANKS" :key="r" :value="r">
+                  {{ RANK_LABELS[r] }}
+                </option>
+              </select>
+            </label>
+            <select
               v-for="(_, i) in additionalPotentials"
               :key="'a' + i"
               v-model="additionalPotentials[i]"
               class="mb-input"
-              :placeholder="`第 ${i + 1} 行，例：魔法攻擊力 +12`"
-            />
+            >
+              <option value="">第 {{ i + 1 }} 行（空白）</option>
+              <optgroup
+                v-for="group in lineOptions('additional', addPotRank, i)"
+                :key="group.label"
+                :label="group.label"
+              >
+                <option v-for="line in group.lines" :key="line.text" :value="line.text">
+                  {{ line.text }}
+                </option>
+              </optgroup>
+            </select>
           </div>
         </div>
-        <p class="mb-hint">格式跟遊戲 tooltip 一樣即可，解析器會處理。之後會接方塊模擬。</p>
+        <p class="mb-hint">
+          第 2、3 行有機率掉一階，所以也列了低一階的詞條。詞條清單依<b>部位與裝備等級</b>自動帶出。
+        </p>
       </section>
 
       <!-- 預覽與存檔 -->
@@ -569,9 +675,24 @@ const saved = ref('')
   gap: 4px;
 }
 
+.mb-pot-rank {
+  width: auto;
+  min-width: 90px;
+  margin-left: auto;
+}
+
 .mb-pot-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 11px;
   opacity: 0.7;
+}
+
+.mb-pot-rank {
+  width: auto;
+  min-width: 84px;
+  margin-left: auto;
 }
 
 /* 仿遊戲 tooltip：合計 (白 +紫 +黃 +藍綠) */

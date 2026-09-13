@@ -11,6 +11,9 @@ import { computed, ref, watch } from 'vue'
 import { useEquipmentSetsStore } from '../stores/equipmentSets'
 import { toGearForCompare, useInventoryStore, type CraftedItem } from '../stores/inventory'
 import { useFamiliarStore } from '../stores/familiar'
+import { useCraftRequestStore } from '../stores/craftRequest'
+import { useItemLibraryStore } from '../stores/itemLibrary'
+import { useUiStore } from '@/stores/ui'
 // 戰鬥力公式是上游的純函式，我們只呼叫不修改。基準改用自己的 useBaseline
 // （角色資料頁那一份），不再依賴上游手動覆寫頁的 store。
 import { calculatePower, powerValue } from '@/core/combatPower'
@@ -27,6 +30,9 @@ import type { StatKey } from '../core/optionParser'
 const sets = useEquipmentSetsStore()
 const inventory = useInventoryStore()
 const familiar = useFamiliarStore()
+const craftRequest = useCraftRequestStore()
+const library = useItemLibraryStore()
+const ui = useUiStore()
 
 const data = computed(() => sets.active?.data ?? null)
 const baseItems = computed<readonly EquipmentItem[]>(() => data.value?.equipment ?? [])
@@ -181,6 +187,24 @@ function formatPower(value: number): string {
   return Math.abs(value).toLocaleString('en-US')
 }
 
+/**
+ * 直接拿這一格身上那件的底去製作。
+ *
+ * 底以名稱對應裝備庫；庫裡沒有就不給按 —— 與其跳過去讓玩家面對一個空的製作台，
+ * 不如在這裡就講清楚為什麼不能按。
+ */
+const craftableBase = computed(() => {
+  if (targetIndex.value === null) return null
+  const name = baseItems.value[targetIndex.value]?.item_name ?? ''
+  return name && library.items[name] ? name : null
+})
+
+function craftFromSlot(): void {
+  if (!craftableBase.value) return
+  craftRequest.request(craftableBase.value)
+  ui.activeView = 'workbench'
+}
+
 // ── 道具欄 ────────────────────────────────────────
 const targetPart = computed(() =>
   targetIndex.value === null ? '' : (baseItems.value[targetIndex.value]?.item_equipment_part ?? ''),
@@ -314,6 +338,9 @@ function signed(n: number): string {
           <h3 class="mb-card-title">
             道具欄
             <span v-if="targetPart" class="mb-badge">可換到「{{ targetPart }}」</span>
+            <button v-if="craftableBase" type="button" class="mb-link" @click="craftFromSlot">
+              用這格的底做一件
+            </button>
           </h3>
 
           <p v-if="targetIndex === null" class="mb-empty">先在左邊點一件要換掉的裝備。</p>
