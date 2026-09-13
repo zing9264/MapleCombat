@@ -10,7 +10,10 @@ import { fetchCharacter, type EquipmentItem, type FetchProgress } from '../servi
 import { useEquipmentSetsStore, type SetSlotId } from '../stores/equipmentSets'
 import { useItemLibraryStore } from '../stores/itemLibrary'
 import { useApiKeyStore } from '../stores/apiKey'
+import { useDialog } from '../composables/useDialog'
+import MbDialog from '../components/MbDialog.vue'
 
+const dialog = useDialog()
 const store = useEquipmentSetsStore()
 const library = useItemLibraryStore()
 const apiKey = useApiKeyStore()
@@ -62,12 +65,16 @@ async function onSync(id: SetSlotId): Promise<void> {
     const after = raw.stat.final_stat.find((s) => s.stat_name === '戰鬥力')?.stat_value ?? ''
 
     if (target?.data) {
-      const confirmed = window.confirm(
-        `以遊戲當下狀態覆蓋「${target.name}」？\n\n` +
-          `戰鬥力 ${formatPower(store.statOf(id, '戰鬥力'))} → ${formatPower(after)}\n` +
-          `上次同步 ${formatTime(target.data.fetchedAt)}\n\n` +
-          `請先確認遊戲內已切到這一組裝備 preset。`,
-      )
+      const confirmed = await dialog.confirm({
+        title: `以遊戲當下狀態覆蓋「${target.name}」？`,
+        lines: [
+          `戰鬥力 ${formatPower(store.statOf(id, '戰鬥力'))} → ${formatPower(after)}`,
+          `上次同步 ${formatTime(target.data.fetchedAt)}`,
+          '請先確認遊戲內已切到這一組裝備 preset。',
+        ],
+        confirmLabel: '覆蓋',
+        danger: true,
+      })
       if (!confirmed) return
     }
     store.syncInto(id, raw)
@@ -82,17 +89,29 @@ async function onSync(id: SetSlotId): Promise<void> {
   }
 }
 
-function onRename(id: SetSlotId): void {
+async function onRename(id: SetSlotId): Promise<void> {
   const target = store.sets.find((s) => s.id === id)
-  const name = window.prompt('裝備組名稱（例如：打王、刷怪、簡窩）', target?.name ?? '')
+  if (!target) return
+  const name = await dialog.prompt({
+    title: '裝備組名稱',
+    lines: ['例如：打王、刷怪、簡窩'],
+    initial: target.name,
+    maxLength: 12,
+  })
   if (name === null) return
   store.rename(id, name)
 }
 
-function onClear(id: SetSlotId): void {
+async function onClear(id: SetSlotId): Promise<void> {
   const target = store.sets.find((s) => s.id === id)
   if (!target?.data) return
-  if (window.confirm(`清除「${target.name}」的資料？`)) store.clear(id)
+  const confirmed = await dialog.confirm({
+    title: `清除「${target.name}」的資料？`,
+    lines: ['同步下來的裝備與能力值都會消失，替換草稿也會一併清掉。'],
+    confirmLabel: '清除',
+    danger: true,
+  })
+  if (confirmed) store.clear(id)
 }
 
 /** 從 final_stat 取值 */
@@ -150,6 +169,8 @@ const symbolTotals = computed(() => {
 
 <template>
   <div class="mb-sets">
+    <MbDialog :controller="dialog" />
+
     <!-- 裝備組槽位 -->
     <div class="mb-set-tabs" aria-label="裝備組切換">
       <button

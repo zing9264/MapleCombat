@@ -281,6 +281,62 @@ function collectDiffs(before: AggregatedStats, after: AggregatedStats): StatDiff
   return diffs.sort((x, y) => Math.abs(y.delta) - Math.abs(x.delta))
 }
 
+/** 把兩份加總結果整理成差異報告 */
+function compare(before: AggregatedStats, after: AggregatedStats): SwapResult {
+  const setNames = new Set([...Object.keys(before.setCounts), ...Object.keys(after.setCounts)])
+  const setChanges: SetCountChange[] = []
+  for (const setName of setNames) {
+    const b = before.setCounts[setName] ?? 0
+    const a = after.setCounts[setName] ?? 0
+    if (a !== b) setChanges.push({ setName, before: b, after: a })
+  }
+
+  return {
+    before,
+    after,
+    diffs: collectDiffs(before, after),
+    setChanges,
+    unrecognized: [...new Set([...before.unrecognized, ...after.unrecognized])],
+  }
+}
+
+export interface LoadoutReplacement {
+  /** 要換掉的裝備在 items 裡的位置 */
+  index: number
+  /** 換上的裝備；null 代表直接拔掉 */
+  replacement: GearForCompare | null
+}
+
+export interface LoadoutInput extends AggregateInput {
+  replacements: readonly LoadoutReplacement[]
+}
+
+/**
+ * 一次替換多件，算出整套的前後差異。
+ *
+ * 為什麼要有這個而不是把單件比較跑很多次：套裝件數是整套一起算的，
+ * 分開跑再把差值相加會重複計算套裝階層的得失。例如同時換掉兩件永恆裝，
+ * 分開算會各自認為「只掉一件、階層還在」，合起來卻已經掉了一整階。
+ *
+ * 同一個位置重複指定時以最後一筆為準；超出範圍的位置直接忽略。
+ */
+export function computeLoadoutDelta(input: LoadoutInput): SwapResult {
+  const before = aggregateEquipment(input)
+
+  const byIndex = new Map<number, GearForCompare | null>()
+  for (const entry of input.replacements) {
+    if (entry.index < 0 || entry.index >= input.items.length) continue
+    byIndex.set(entry.index, entry.replacement)
+  }
+
+  const afterItems = input.items.filter((_, index) => !byIndex.has(index))
+  for (const replacement of byIndex.values()) {
+    if (replacement) afterItems.push(replacement)
+  }
+
+  return compare(before, aggregateEquipment({ ...input, items: afterItems }))
+}
+
 export interface SwapInput extends AggregateInput {
   /** 要換掉的裝備名稱；找不到時視為「純新增」 */
   replaceName: string
@@ -304,21 +360,6 @@ export function computeSwapDelta(input: SwapInput): SwapResult {
       ? input.items.filter((_, index) => index !== input.replaceIndex)
       : input.items.filter((i) => i.name !== input.replaceName)
   if (input.replacement) afterItems.push(input.replacement)
-  const after = aggregateEquipment({ ...input, items: afterItems })
 
-  const setNames = new Set([...Object.keys(before.setCounts), ...Object.keys(after.setCounts)])
-  const setChanges: SetCountChange[] = []
-  for (const setName of setNames) {
-    const b = before.setCounts[setName] ?? 0
-    const a = after.setCounts[setName] ?? 0
-    if (a !== b) setChanges.push({ setName, before: b, after: a })
-  }
-
-  return {
-    before,
-    after,
-    diffs: collectDiffs(before, after),
-    setChanges,
-    unrecognized: [...new Set([...before.unrecognized, ...after.unrecognized])],
-  }
+  return compare(before, aggregateEquipment({ ...input, items: afterItems }))
 }

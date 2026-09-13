@@ -3,6 +3,7 @@ import { ref, watch } from 'vue'
 import { getStoredString } from './persist'
 
 export type ViewKey =
+  | 'character'
   | 'characterInput'
   | 'equipmentChange'
   | 'gearCompare'
@@ -10,10 +11,12 @@ export type ViewKey =
   | 'equipmentSets'
   | 'itemLibrary'
   | 'workbench'
+  | 'familiar'
   | 'inventory'
 export type CalculatorMode = 'calculator' | 'effStats'
 
 const VALID_VIEWS: ViewKey[] = [
+  'character',
   'characterInput',
   'equipmentChange',
   'gearCompare',
@@ -21,6 +24,7 @@ const VALID_VIEWS: ViewKey[] = [
   'equipmentSets',
   'itemLibrary',
   'workbench',
+  'familiar',
   'inventory',
 ]
 const VALID_MODES: CalculatorMode[] = ['calculator', 'effStats']

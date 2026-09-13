@@ -5,6 +5,7 @@ import { applyDensity } from '@/composables/useDensity'
 import { applyCompactTheme } from '@/composables/useTheme'
 import { setupAutoZoom } from '@/composables/useAutoZoom'
 import { setupDesktopWindow } from '@/services/desktopWindow'
+import { initDataFile } from '@/building/services/dataFile'
 
 // 樣式載入順序固定（影響 CSS 覆寫優先級）
 import '@/styles/base.css'
@@ -23,6 +24,14 @@ applyDensity()
 applyCompactTheme()
 
 async function bootstrap(): Promise<void> {
+  // 桌面版：先把資料檔灌進 localStorage 再建立 store。
+  // store 在建立當下就會讀 localStorage，順序顛倒就會拿到舊資料。
+  if (await initDataFile()) {
+    // 上面那兩個設定在模組載入時已讀過一次 localStorage，資料換掉了要重套
+    applyDensity()
+    applyCompactTheme()
+  }
+
   await setupDesktopWindow()
   setupAutoZoom()
 

@@ -9,7 +9,10 @@ import EquipmentSetView from '@/building/views/EquipmentSetView.vue'
 import GearCompareView from '@/building/views/GearCompareView.vue'
 import ItemLibraryView from '@/building/views/ItemLibraryView.vue'
 import WorkbenchView from '@/building/views/WorkbenchView.vue'
+import FamiliarView from '@/building/views/FamiliarView.vue'
 import InventoryView from '@/building/views/InventoryView.vue'
+import CharacterView from '@/building/views/CharacterView.vue'
+import { SHOW_STATE_SLOTS } from '@/building/featureFlags'
 import { useStateSlotsStore } from '@/stores/stateSlots'
 
 const ui = useUiStore()
@@ -19,8 +22,9 @@ const slots = useStateSlotsStore()
 <template>
   <CompactToolbar />
   <div class="container">
-    <WeightedAnalysisView v-if="slots.isWeightedActive" :view="ui.activeView" />
+    <WeightedAnalysisView v-if="SHOW_STATE_SLOTS && slots.isWeightedActive" :view="ui.activeView" />
     <template v-else>
+      <CharacterView v-if="ui.activeView === 'character'" />
       <CharacterInputView v-show="ui.activeView === 'characterInput'" />
       <EquipmentChangeView v-show="ui.activeView === 'equipmentChange'" />
       <ValueConversionView v-show="ui.activeView === 'valueConversion'" />
@@ -28,6 +32,7 @@ const slots = useStateSlotsStore()
       <EquipmentSetView v-if="ui.activeView === 'equipmentSets'" />
       <ItemLibraryView v-if="ui.activeView === 'itemLibrary'" />
       <WorkbenchView v-if="ui.activeView === 'workbench'" />
+      <FamiliarView v-if="ui.activeView === 'familiar'" />
       <InventoryView v-if="ui.activeView === 'inventory'" />
     </template>
   </div>

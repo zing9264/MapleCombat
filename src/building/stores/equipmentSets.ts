@@ -6,8 +6,8 @@
 //
 // 操作邏輯刻意比照上游的「狀態 1~5」：固定槽位、可命名、可清除。
 
-import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
+import { acceptHMRUpdate, defineStore } from 'pinia'
+import { computed, ref, watch } from 'vue'
 import type {
   EquipmentItem,
   SetEffectEntry,
@@ -20,6 +20,12 @@ import type {
 } from '../services/nexonApi'
 
 const STORAGE_KEY = 'mbEquipmentSetsV1'
+/**
+ * 選中的槽位要記住。不記的話重新整理會跳回 set1 ——
+ * 各槽的資料可能差很多（實測同一支角色三次同步差到 45%），
+ * 對到錯的快照卻毫無提示，基準就悄悄算錯了。
+ */
+const ACTIVE_KEY = 'mbActiveSetV1'
 const MAX_NAME_LENGTH = 12
 
 export const SET_SLOT_IDS = ['set1', 'set2', 'set3', 'set4', 'set5'] as const
@@ -43,10 +49,26 @@ export interface SetData {
   hexaStat: HexaStatCore[]
 }
 
+/**
+ * 一筆替換草稿：把某個位置的裝備換成物品欄裡的自製裝備。
+ *
+ * 刻意用「疊在同步資料上的草稿」而不是直接改寫 data.equipment：
+ * 重新同步時官方資料會整包覆蓋，直接改寫的內容會被吃掉，而且改寫之後
+ * 就再也算不出「跟原本差多少」。
+ */
+export interface DraftEntry {
+  /** 被換掉的裝備在 data.equipment 裡的位置 */
+  index: number
+  /** 換上的自製裝備 id；null 代表直接拔掉 */
+  itemId: string | null
+}
+
 export interface EquipmentSet {
   id: SetSlotId
   name: string
   data: SetData | null
+  /** 尚未套用的替換草稿，可同時存在多筆 */
+  draft: DraftEntry[]
 }
 
 function defaultName(id: SetSlotId): string {
@@ -54,17 +76,17 @@ function defaultName(id: SetSlotId): string {
 }
 
 function emptySets(): EquipmentSet[] {
-  return SET_SLOT_IDS.map((id) => ({ id, name: defaultName(id), data: null }))
+  return SET_SLOT_IDS.map((id) => ({ id, name: defaultName(id), data: null, draft: [] }))
 }
 
 /**
  * 存檔前剝掉圖片與說明文字。
- * 完整回應約 246KB，剝掉後約 61KB — 5 組約 300KB，localStorage 撐得住。
+ * 完整回應約 246KB，剝掉說明與外觀圖後約 61KB — 5 組約 300KB，localStorage 撐得住。
+ * item_icon 保留：裝備欄格子 UI 要用，29 件也才約 1.8KB。
  */
 function slimEquipment(items: EquipmentItem[]): EquipmentItem[] {
   return items.map((item) => {
     const copy = { ...item } as EquipmentItem & Record<string, unknown>
-    delete copy.item_icon
     delete copy.item_shape_icon
     delete copy.item_shape_name
     delete copy.item_description
@@ -90,6 +112,11 @@ function toSetData(raw: RawCharacterData): SetData {
   }
 }
 
+function loadActiveId(): SetSlotId {
+  const saved = localStorage.getItem(ACTIVE_KEY)
+  return SET_SLOT_IDS.includes(saved as SetSlotId) ? (saved as SetSlotId) : 'set1'
+}
+
 function load(): EquipmentSet[] {
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
@@ -105,6 +132,8 @@ function load(): EquipmentSet[] {
         id,
         name: saved?.name || defaultName(id),
         data: saved?.data ?? null,
+        // 舊版存檔沒有這個欄位
+        draft: Array.isArray(saved?.draft) ? saved.draft : [],
       }
     })
   } catch {
@@ -115,7 +144,15 @@ function load(): EquipmentSet[] {
 
 export const useEquipmentSetsStore = defineStore('buildingEquipmentSets', () => {
   const sets = ref<EquipmentSet[]>(load())
-  const activeId = ref<SetSlotId>('set1')
+  const activeId = ref<SetSlotId>(loadActiveId())
+
+  watch(activeId, (id) => {
+    try {
+      localStorage.setItem(ACTIVE_KEY, id)
+    } catch {
+      // 記不住只是回到預設槽位，不值得讓整頁掛掉
+    }
+  })
   const lastError = ref('')
 
   const active = computed(() => sets.value.find((s) => s.id === activeId.value) ?? sets.value[0])
@@ -140,7 +177,26 @@ export const useEquipmentSetsStore = defineStore('buildingEquipmentSets', () => 
     const target = sets.value.find((s) => s.id === id)
     if (!target) return
     target.data = toSetData(raw)
+    // 裝備陣列整個換掉了，草稿記的位置不再對應同一件裝備，只能作廢
+    target.draft = []
     activeId.value = id
+    persist()
+  }
+
+  /** 設定某個位置的替換；itemId 為 null 代表拔掉，傳 undefined 代表取消這筆草稿 */
+  function setDraftEntry(id: SetSlotId, index: number, itemId: string | null | undefined): void {
+    const target = sets.value.find((s) => s.id === id)
+    if (!target) return
+    const rest = target.draft.filter((entry) => entry.index !== index)
+    target.draft = itemId === undefined ? rest : [...rest, { index, itemId }]
+    persist()
+  }
+
+  /** 清掉某個槽位的全部草稿，回到同步當下的狀態 */
+  function clearDraft(id: SetSlotId): void {
+    const target = sets.value.find((s) => s.id === id)
+    if (!target) return
+    target.draft = []
     persist()
   }
 
@@ -172,8 +228,17 @@ export const useEquipmentSetsStore = defineStore('buildingEquipmentSets', () => 
     lastError,
     setActive,
     syncInto,
+    setDraftEntry,
+    clearDraft,
     rename,
     clear,
     statOf,
   }
 })
+
+// 開發時熱更新這個檔案會重新執行模組，但 Pinia 仍持有舊的 store 實例 ——
+// 新程式讀新欄位就會讀到 undefined 而整頁當掉（實際發生過，還連帶把使用者
+// 已經輸入的值洗掉）。掛上 acceptHMRUpdate 讓 store 跟著模組一起換。
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useEquipmentSetsStore, import.meta.hot))
+}

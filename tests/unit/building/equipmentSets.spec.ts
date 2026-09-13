@@ -73,9 +73,10 @@ describe('countSetPieces — 對照遊戲內套裝視窗', () => {
 
   it('查不到的裝備會被回報，不會靜默略過', () => {
     // 少算一件就可能少掉一整階套裝效果，必須讓使用者看得到
-    expect(unknownItems).toContain('惡魔賢者盾')
     expect(unknownItems).toContain('混沌貝倫殺手')
     expect(unknownItems).not.toContain('創世長杖')
+    // 惡魔賢者盾已確認無套裝（setNames: []），不該再混在未知清單裡當雜訊
+    expect(unknownItems).not.toContain('惡魔賢者盾')
   })
 
   it('空清單不會炸', () => {
@@ -151,6 +152,89 @@ describe('SET_TIERS — 對照先前完全吻合的對帳結果', () => {
   })
 })
 
+describe('黎明的BOSS套組', () => {
+  // 這組原本沒收錄，害「暮光印記」被當成陌生裝備。
+  // 效果取自遊戲內 tooltip 的套組效果欄，四件都是共用飾品、不分職業群。
+  const MEMBERS = ['暮光印記', '星耀耳環', '黎明守護者天使戒指', '破曉墜飾']
+
+  it('四個部件都認得', () => {
+    const { counts, unknownItems } = countSetPieces(MEMBERS)
+    expect(counts['黎明的BOSS套組']).toBe(4)
+    expect(unknownItems).toEqual([])
+  })
+
+  it('只有一件時不觸發任何階層', () => {
+    expect(activeTiers('黎明的BOSS套組', 1)).toHaveLength(0)
+  })
+
+  it('兩件給 BOSS 傷害 +10%，四件再給無視防禦 +10%', () => {
+    const two = activeTiers('黎明的BOSS套組', 2)
+    expect(two).toHaveLength(1)
+    expect(two[0].percent?.bossDamage).toBe(10)
+
+    const four = activeTiers('黎明的BOSS套組', 4)
+    expect(four).toHaveLength(3)
+    const ignore = four.reduce((sum, tier) => sum + Number(tier.percent?.ignoreDefense ?? 0), 0)
+    expect(ignore).toBe(10)
+  })
+
+  it('集滿四件的合計：全屬性 +30、攻擊力/魔力 +30、MaxHP +750、防禦力 +100', () => {
+    const tiers = activeTiers('黎明的BOSS套組', 4)
+    const sum = (key: 'allStat' | 'attackPower' | 'magicPower' | 'maxHp' | 'defense') =>
+      tiers.reduce((total, tier) => total + Number(tier.flat?.[key] ?? 0), 0)
+
+    expect(sum('allStat')).toBe(30)
+    expect(sum('attackPower')).toBe(30)
+    expect(sum('magicPower')).toBe(30)
+    expect(sum('maxHp')).toBe(750)
+    expect(sum('defense')).toBe(100)
+  })
+})
+
+describe('七曜套裝', () => {
+  it('兩個部件都認得，2 件給無視防禦 +10%', () => {
+    const { counts } = countSetPieces(['七日怪物公園看守者', '七日的胸章'])
+    expect(counts['七曜套裝']).toBe(2)
+
+    const tiers = activeTiers('七曜套裝', 2)
+    expect(tiers).toHaveLength(1)
+    expect(tiers[0].percent?.ignoreDefense).toBe(10)
+  })
+
+  it('只有勳章時不觸發效果', () => {
+    // 胸章戴的是 Sunday胸章 而不是七日的胸章，所以只有 1 件
+    const { counts } = countSetPieces(['七日怪物公園看守者', 'Sunday胸章'])
+    expect(counts['七曜套裝']).toBe(1)
+    expect(activeTiers('七曜套裝', 1)).toHaveLength(0)
+  })
+})
+
+describe('已確認沒有套裝的單品', () => {
+  // 「確認無套裝」與「還沒收錄」必須分開：前者不該再出現在警告裡，
+  // 否則單品會一直是雜訊，真正未知的反而被淹沒。
+  const STANDALONE = [
+    '覺醒戒指',
+    '永恆火焰戒指',
+    '惡魔賢者盾',
+    '菇菇機器人專用心臟',
+    'Sunday胸章',
+    '輪迴碑石',
+    '芙莉蓮圖騰',
+    '伊妮絲的寶玉',
+  ]
+
+  it('不會被當成未知裝備回報', () => {
+    const { counts, unknownItems } = countSetPieces(STANDALONE)
+    expect(unknownItems).toEqual([])
+    expect(counts).toEqual({})
+  })
+
+  it('真正沒收錄的還是要回報', () => {
+    const { unknownItems } = countSetPieces([...STANDALONE, '某個還沒收錄的裝備'])
+    expect(unknownItems).toEqual(['某個還沒收錄的裝備'])
+  })
+})
+
 describe('其他職業的同系列裝備', () => {
   it('劍士穿四件永恆裝也算得出 4 件', () => {
     const { counts } = countSetPieces(['永恆劍士頭盔', '永恆劍士鎧甲', '永恆劍士褲', '永恆劍士鞋'])
@@ -161,7 +245,8 @@ describe('其他職業的同系列裝備', () => {
     // 永恆火焰戒指、永恆時間徽章是獨立道具，只是名字剛好以「永恆」開頭
     const { counts, unknownItems } = countSetPieces(['永恆火焰戒指', '永恆時間徽章'])
     expect(counts['永恆套裝(法師)']).toBeUndefined()
-    expect(unknownItems).toHaveLength(2)
+    // 永恆火焰戒指已確認無套裝；永恆時間徽章還沒查過，仍然要回報
+    expect(unknownItems).toEqual(['永恆時間徽章'])
   })
 
   it('套裝的武器欄涵蓋各職業武器', () => {

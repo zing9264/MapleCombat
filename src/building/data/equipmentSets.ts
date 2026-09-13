@@ -18,6 +18,11 @@
 export interface SetMembership {
   /** `item_equipment` 的 `item_name` */
   itemName: string
+  /**
+   * 所屬套裝。**空陣列代表「已確認這件沒有套裝」**，與「還沒收錄」意義不同：
+   * 前者不會被列進 unknownItems，後者會。分開記才能讓那條警告只剩真正未知的，
+   * 否則單品（盾牌、寶石、圖騰…）會一直當雜訊掛在上面，久了就沒人看了。
+   */
   setNames: string[]
   /** 資料來源，見 SET_MEMBERSHIPS 的說明 */
   source?: 'observed' | 'inferred' | 'manual'
@@ -147,6 +152,21 @@ const BASE_SET_TIERS: Record<string, readonly SetTier[]> = {
     { count: 9, flat: { allStat: 15, maxHp: 375, ...power(15) }, percent: { critDamage: 5 } },
     { count: 10, flat: { allStat: 20, maxHp: 500, ...power(20) }, percent: { bossDamage: 10 } },
   ],
+  // 黎明的BOSS套組：全部是飾品，不分職業群。
+  // 資料來自遊戲內道具 tooltip 的套組效果欄（拍賣場預覽），四個部件為
+  // 臉飾 暮光印記／耳環 星耀耳環／戒指 黎明守護者天使戒指／墜飾 破曉墜飾。
+  黎明的BOSS套組: [
+    { count: 2, flat: { allStat: 10, maxHp: 250, ...power(10) }, percent: { bossDamage: 10 } },
+    { count: 3, flat: { allStat: 10, maxHp: 250, ...power(10) } },
+    {
+      count: 4,
+      flat: { allStat: 10, maxHp: 250, defense: 100, ...power(10) },
+      percent: { ignoreDefense: 10 },
+    },
+  ],
+  // 七曜套裝：勳章 七日怪物公園看守者 ＋ 胸章 七日的胸章，只有一階。
+  // 資料來自遊戲內道具 tooltip 的套組效果欄。
+  七曜套裝: [{ count: 2, percent: { ignoreDefense: 10 } }],
   死後世界的的痕跡: [{ count: 3, flat: power(10) }],
   // 小小時光音樂會套組只給技能，不進裝備道具的能力值加總
   小小時光音樂會套組: [],

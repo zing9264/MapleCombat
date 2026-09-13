@@ -6,6 +6,7 @@ import { useCompactTheme } from '@/composables/useTheme'
 import { useCharacterStore } from '@/stores/character'
 import { useStateSlotsStore, type StateSlotId } from '@/stores/stateSlots'
 import ApiKeyControl from '@/building/components/ApiKeyControl.vue'
+import { SHOW_STATE_SLOTS } from '@/building/featureFlags'
 
 const ui = useUiStore()
 const { fileInput, onExport, onImportFileChange } = useImportExport()
@@ -28,13 +29,15 @@ interface StateDialog {
 const stateDialog = ref<StateDialog | null>(null)
 
 const tabs: { view: ViewKey; label: string }[] = [
-  { view: 'characterInput', label: '角色資料' },
+  { view: 'character', label: '角色資料' },
   { view: 'gearCompare', label: '裝備變更' },
+  { view: 'characterInput', label: '手動覆寫' },
   { view: 'equipmentChange', label: '手動調整' },
   { view: 'valueConversion', label: '數值換算' },
   { view: 'equipmentSets', label: '裝備組' },
   { view: 'itemLibrary', label: '裝備庫' },
   { view: 'workbench', label: '製作台' },
+  { view: 'familiar', label: '萌獸' },
   { view: 'inventory', label: '物品欄' },
 ]
 
@@ -256,7 +259,7 @@ function canConfirmStateDialog(): boolean {
     </div>
 
     <div class="ct-state-row">
-      <div class="ct-state-tabs" aria-label="狀態切換">
+      <div v-if="SHOW_STATE_SLOTS" class="ct-state-tabs" aria-label="狀態切換">
         <button
           v-for="state in slots.workspace.states"
           :key="state.id"

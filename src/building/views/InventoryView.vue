@@ -4,8 +4,11 @@ import { computed } from 'vue'
 import { normalizeLayer, useInventoryStore, type CraftedItem } from '../stores/inventory'
 import type { NumericOption } from '../core/starforce'
 import { getScroll } from '../data/scrolls'
+import { useDialog } from '../composables/useDialog'
+import MbDialog from '../components/MbDialog.vue'
 
 const store = useInventoryStore()
+const dialog = useDialog()
 
 const STAT_LABELS: ReadonlyArray<[keyof NumericOption, string]> = [
   ['str', 'STR'],
@@ -71,21 +74,35 @@ function summary(item: CraftedItem): string {
   return bits.join(' · ') || '無數值'
 }
 
-function onRename(id: string): void {
+async function onRename(id: string): Promise<void> {
   const target = store.items.find((i) => i.id === id)
-  const name = window.prompt('物品名稱', target?.name ?? '')
+  if (!target) return
+  const name = await dialog.prompt({
+    title: '物品名稱',
+    initial: target.name,
+    placeholder: target.baseName,
+    maxLength: 20,
+  })
   if (name === null) return
   store.rename(id, name)
 }
 
-function onRemove(id: string): void {
+async function onRemove(id: string): Promise<void> {
   const target = store.items.find((i) => i.id === id)
-  if (target && window.confirm(`刪除「${target.name}」？`)) store.remove(id)
+  if (!target) return
+  const confirmed = await dialog.confirm({
+    title: `刪除「${target.name}」？`,
+    lines: ['刪除後無法復原。'],
+    confirmLabel: '刪除',
+    danger: true,
+  })
+  if (confirmed) store.remove(id)
 }
 </script>
 
 <template>
   <div class="mb-inv">
+    <MbDialog :controller="dialog" />
     <section class="mb-card">
       <h3 class="mb-card-title">
         物品欄 <span class="mb-badge">{{ store.count }} 件自製裝備</span>
