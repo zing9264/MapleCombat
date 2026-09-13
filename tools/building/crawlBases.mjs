@@ -17,8 +17,12 @@
 // 用法：
 //   NEXON_API_KEY=xxxx node tools/building/crawlBases.mjs --guilds tools/building/guilds.txt
 //
+// 額度是「每支金鑰每日 1000 次」，同一款遊戲可以註冊三個應用程式、各自獨立計算。
+// 所以 NEXON_API_KEY 可以用逗號串多支，用完一支自動換下一支 ——
+// 一次爬完 447 位需要 1341 次，單支金鑰當天一定不夠。
+//
 // 選項：
-//   --budget 800     每日請求上限（以台灣時間換日）。刻意不用滿 1000 —— 要留一些
+//   --budget 800     每支金鑰的每日請求上限（以台灣時間換日）。刻意不用滿 1000 —— 要留一些
 //                    給你在 app 裡自己同步角色（一次同步 10 次請求）
 //   --redo           清掉進度紀錄，從頭重跑名單（推導規則改了、要重新觀察時用）。
 //                    清完之後就照一般方式記錄進度，所以跑到一半沒額度了，
@@ -347,8 +351,12 @@ async function main() {
     return
   }
 
-  const key = process.env.NEXON_API_KEY
-  if (!key) throw new Error('請用環境變數 NEXON_API_KEY 提供金鑰（不要寫進檔案）')
+  const keys = (process.env.NEXON_API_KEY ?? '')
+    .split(',')
+    .map((k) => k.trim())
+    .filter(Boolean)
+  if (!keys.length) throw new Error('請用環境變數 NEXON_API_KEY 提供金鑰（不要寫進檔案）')
+  let keyIndex = 0
   if (!args.names && !args.guilds) throw new Error('請用 --names 或 --guilds 指定名單來源')
 
   const state = readJson(STATE_FILE, { day: '', used: 0, done: [] })
@@ -363,10 +371,24 @@ async function main() {
   const memberships = new Map(readJson(MEMBERSHIP_FILE, []).map((m) => [m.itemName, m]))
   const startCount = bases.size
 
+  /**
+   * 換下一支金鑰；沒有下一支就真的沒額度了。
+   * 額度是「每支金鑰每日 1000 次」，同一款遊戲可註冊三個應用程式、各自獨立計算，
+   * 所以換一支就等於多一整天的份。
+   */
+  function rotateKey() {
+    if (keyIndex + 1 >= keys.length) return false
+    keyIndex += 1
+    quota.remaining = null
+    console.log(`額度用完，換第 ${keyIndex + 1} 支金鑰（共 ${keys.length} 支）`)
+    return true
+  }
+
   async function get(path, params) {
-    if (state.used >= args.budget) throw new QuotaExhausted()
+    // --budget 是「每支金鑰」的上限，多支就乘上去
+    if (state.used >= args.budget * keys.length) throw new QuotaExhausted()
     const response = await fetch(`${API_BASE}${path}?${new URLSearchParams(params)}`, {
-      headers: { 'x-nxopen-api-key': key },
+      headers: { 'x-nxopen-api-key': keys[keyIndex] },
     })
     state.used += 1
     const remaining = Number(response.headers.get('x-ratelimit-remaining'))
@@ -374,8 +396,11 @@ async function main() {
     if (Number.isFinite(remaining)) quota.remaining = remaining
     if (Number.isFinite(limit)) quota.limit = limit
     await sleep(THROTTLE_MS)
-    if (response.status === 429) throw new QuotaExhausted()
-    if (quota.remaining !== null && quota.remaining <= 0) throw new QuotaExhausted()
+    const exhausted = response.status === 429 || (quota.remaining !== null && quota.remaining <= 0)
+    if (exhausted) {
+      if (!rotateKey()) throw new QuotaExhausted()
+      return get(path, params)
+    }
     if (response.status === 401 || response.status === 403) throw new InvalidKey()
     const body = await response.json().catch(() => ({}))
     if (!response.ok) {
