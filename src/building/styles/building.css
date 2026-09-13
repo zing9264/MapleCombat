@@ -7,3 +7,275 @@
  * 覆蓋上游樣式時寫在這裡，不要去改 src/styles/ 下的檔案 — 那些每次
  * 合併上游都會衝突。
  */
+
+/*
+ * MapleBuilding 共用元件樣式。
+ *
+ * 原本每個 view 的 scoped style 各自抄一份 .mb-card / .mb-input / .mb-btn，
+ * 七份互相分岔，而且數值是自己編的、跟上游對不起來。集中到這裡並改用上游的
+ * CSS 變數，外觀才會跟計算機本體一致，也才有單一改動點。
+ *
+ * 一律用上游 token（--input-bg / --radius-sm / --fs-md …）而不是寫死色碼：
+ * 上游有淺色與深色兩套主題，寫死的顏色只會在其中一套是對的。
+ *
+ * 注意：view 的 scoped style 具選擇器權重較高（.mb-card[data-v-x]），
+ * 在那邊留下同名規則會蓋掉這裡。要改樣式請改這個檔案，不要在 view 裡重定義。
+ */
+
+/* ── 卡片 ────────────────────────────────────────── */
+.mb-card {
+  background: var(--section-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-5) var(--space-5);
+  box-shadow:
+    0 14px 30px rgba(4, 11, 24, 0.15),
+    0 0 10px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.mb-card-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-3);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.mb-badge {
+  font-size: var(--fs-small, 11px);
+  font-weight: 400;
+  opacity: 0.72;
+}
+
+.mb-badge.ok {
+  color: #7ee2a8;
+  opacity: 1;
+}
+
+/* ── 文字 ────────────────────────────────────────── */
+.mb-hint {
+  margin: var(--space-2) 0 0;
+  font-size: var(--fs-small, 11px);
+  line-height: 1.5;
+  opacity: 0.65;
+}
+
+.mb-empty {
+  font-size: var(--fs-md);
+  opacity: 0.7;
+  text-align: center;
+}
+
+.mb-error {
+  margin: var(--space-2) 0 0;
+  font-size: var(--fs-md);
+  color: #ff8f8f;
+}
+
+.mb-warn {
+  margin: var(--space-2) 0 0;
+  font-size: var(--fs-small, 11px);
+  line-height: 1.6;
+  color: #ffc06a;
+}
+
+.mb-link {
+  margin-left: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent-color);
+  font-size: var(--fs-small, 11px);
+  cursor: pointer;
+}
+
+.mb-link:hover {
+  text-decoration: underline;
+}
+
+/* ── 表單 ────────────────────────────────────────── */
+.mb-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/*
+ * 內距沿用上游的 input（10px 12px），緊湊模式下 compact-desktop.css 的
+ * `:root[data-density='compact'] input` 會把它壓成 2px 6px —— 這正是我們要的：
+ * 密度交給上游的密度系統決定，不要自己另立一套，不然兩邊會在不同密度下走鐘。
+ * 只額外補 min-height，讓 grid 排版的儲存格對得齊。
+ */
+.mb-input {
+  width: 100%;
+  min-width: 0;
+  min-height: var(--density-control-h, 23px);
+  padding: 10px 12px;
+  border: 1px solid rgba(220, 235, 255, 0.22);
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
+  color: var(--text-color);
+  font-size: var(--fs-md);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  transition: all 0.2s ease;
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    0 4px 10px rgba(4, 11, 24, 0.08);
+}
+
+.mb-input::placeholder {
+  color: #a7b7ca;
+  font-weight: 400;
+}
+
+.mb-input:focus {
+  border-color: rgba(255, 255, 255, 0.58);
+  box-shadow: var(--focus-ring);
+  outline: none;
+}
+
+.mb-input:disabled {
+  background: var(--disabled-bg);
+  color: #8fa3ba;
+  border-color: rgba(116, 139, 169, 0.18);
+  cursor: not-allowed;
+}
+
+.mb-input--grow {
+  flex: 1;
+  min-width: 0;
+}
+
+/* select 沿用上游：置中、深色下拉 */
+select.mb-input {
+  color-scheme: dark;
+  text-align: center;
+  text-align-last: center;
+}
+
+/* ── 按鈕 ────────────────────────────────────────── */
+/* 按鈕比照 input 的玻璃外觀，密度同樣交給上游壓 */
+.mb-btn {
+  min-height: var(--density-control-h, 23px);
+  padding: 4px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
+  color: var(--text-color);
+  font-size: var(--fs-md);
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    0 4px 10px rgba(4, 11, 24, 0.08);
+}
+
+.mb-btn:hover:not(:disabled) {
+  border-color: rgba(255, 255, 255, 0.45);
+  filter: brightness(1.12);
+}
+
+.mb-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.mb-btn--primary {
+  border-color: transparent;
+  background: var(--accent-color);
+  color: #0d1730;
+}
+
+.mb-btn--sm {
+  min-height: 0;
+  padding: 3px 8px;
+  font-size: var(--fs-small, 11px);
+}
+
+.mb-btn:focus-visible,
+.mb-link:focus-visible,
+.mb-set-tab:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* ── 裝備組分頁 ──────────────────────────────────── */
+.mb-set-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.mb-set-tab {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1px;
+  padding: 5px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mb-set-tab:hover {
+  border-color: rgba(255, 255, 255, 0.45);
+  filter: brightness(1.12);
+}
+
+.mb-set-tab.active {
+  border-color: transparent;
+  background: var(--accent-color);
+  color: #0d1730;
+}
+
+.mb-set-tab.empty:not(.active) {
+  opacity: 0.5;
+}
+
+.mb-set-tab:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.mb-set-tab-name {
+  overflow: hidden;
+  font-size: var(--fs-md);
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mb-set-tab small {
+  font-size: 10px;
+  opacity: 0.75;
+}
+
+/*
+ * 裝備詞條的四個來源用固定色碼而不是主題變數：這組顏色對應遊戲內
+ * 白／黃／紫／藍綠的分層，換主題也不該變 —— 變了就對不上遊戲畫面。
+ */
+.c-base {
+  color: #fff;
+}
+
+.c-star {
+  color: #ffc857;
+}
+
+.c-etc {
+  color: #c9a3ff;
+}
+
+.c-add {
+  color: #7fe0d0;
+}

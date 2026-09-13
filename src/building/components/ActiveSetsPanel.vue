@@ -196,44 +196,6 @@ const activeCount = computed(
 </template>
 
 <style scoped>
-.mb-card {
-  background: var(--surface-1, rgba(255, 255, 255, 0.06));
-  border: 1px solid var(--outline, rgba(255, 255, 255, 0.12));
-  border-radius: 10px;
-  padding: 10px 12px;
-}
-
-.mb-card-title {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin: 0 0 8px;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.mb-badge {
-  font-size: 11px;
-  font-weight: 400;
-  opacity: 0.7;
-}
-
-.mb-empty {
-  margin: 0;
-  padding: 8px 0;
-  font-size: 12px;
-  text-align: center;
-  opacity: 0.7;
-}
-
-.mb-warn {
-  margin: 8px 0 0;
-  font-size: 11px;
-  line-height: 1.5;
-  color: #ffc857;
-}
-
 .mb-sets {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));

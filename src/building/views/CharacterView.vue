@@ -548,80 +548,6 @@ function signed(value: number): string {
   padding: 4px 0 24px;
 }
 
-.mb-card {
-  background: var(--surface-1, rgba(255, 255, 255, 0.06));
-  border: 1px solid var(--outline, rgba(255, 255, 255, 0.12));
-  border-radius: 10px;
-  padding: 10px 12px;
-}
-
-.mb-card-title {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin: 0 0 8px;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.mb-badge {
-  font-size: 11px;
-  font-weight: 400;
-  opacity: 0.7;
-}
-
-.mb-link {
-  margin-left: auto;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--accent, #6c8cff);
-  font-size: 11px;
-  cursor: pointer;
-}
-
-.mb-empty {
-  font-size: 12px;
-  text-align: center;
-  opacity: 0.7;
-}
-
-.mb-hint {
-  margin: 8px 0 0;
-  font-size: 11px;
-  line-height: 1.6;
-  opacity: 0.65;
-}
-
-.mb-set-tabs {
-  display: flex;
-  gap: 4px;
-}
-
-.mb-set-tab {
-  flex: 1;
-  min-width: 0;
-  height: 30px;
-  border: 1px solid var(--outline, rgba(255, 255, 255, 0.14));
-  border-radius: 8px;
-  background: transparent;
-  color: inherit;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.mb-set-tab.active {
-  border-color: transparent;
-  background: var(--accent, #6c8cff);
-  color: #fff;
-}
-
-.mb-set-tab:disabled {
-  opacity: 0.35;
-  cursor: default;
-}
-
 /* 戰鬥力 */
 .mb-power {
   display: flex;
@@ -750,10 +676,6 @@ function signed(value: number): string {
 }
 
 /* 戰鬥力基準 */
-.mb-badge.ok {
-  color: #7fe0a0;
-  opacity: 1;
-}
 
 .mb-check {
   margin-bottom: 8px;
@@ -870,15 +792,18 @@ function signed(value: number): string {
   opacity: 0.5;
 }
 
+/* 欄名與列名比照上游的 .st-cell-label：12px / 600 / 近白，只有表頭壓一級 */
 .mb-bl-head {
-  font-size: 10px;
-  opacity: 0.55;
+  font-size: var(--fs-small, 11px);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.62);
   text-align: center;
 }
 
 .mb-bl-rowlabel {
-  font-size: 11px;
-  opacity: 0.8;
+  font-size: var(--fs-base, 12px);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .mb-bl-cell {
@@ -923,17 +848,5 @@ function signed(value: number): string {
   flex-shrink: 0;
   font-size: 11px;
   opacity: 0.6;
-}
-
-.mb-input {
-  flex: 1;
-  min-width: 0;
-  height: 28px;
-  padding: 0 8px;
-  border: 1px solid var(--outline, rgba(255, 255, 255, 0.18));
-  border-radius: 6px;
-  background: var(--surface-0, rgba(0, 0, 0, 0.18));
-  color: inherit;
-  font-size: 12px;
 }
 </style>

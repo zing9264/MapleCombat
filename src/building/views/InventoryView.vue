@@ -191,48 +191,6 @@ async function onRemove(id: string): Promise<void> {
   padding: 4px 0 24px;
 }
 
-.mb-card {
-  background: var(--surface-1, rgba(255, 255, 255, 0.06));
-  border: 1px solid var(--outline, rgba(255, 255, 255, 0.12));
-  border-radius: 10px;
-  padding: 10px 12px;
-}
-
-.mb-card-title {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin: 0 0 8px;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.mb-badge {
-  font-size: 11px;
-  font-weight: 400;
-  opacity: 0.7;
-}
-
-.mb-empty {
-  padding: 8px 0;
-  font-size: 12px;
-  text-align: center;
-  opacity: 0.7;
-}
-
-.mb-error {
-  margin: 6px 0 0;
-  font-size: 12px;
-  color: #ff8080;
-}
-
-.mb-hint {
-  margin: 8px 0 0;
-  font-size: 11px;
-  opacity: 0.65;
-}
-
 .mb-list {
   margin: 0;
   padding: 0;
@@ -287,24 +245,6 @@ async function onRemove(id: string): Promise<void> {
   gap: 4px;
 }
 
-.mb-btn {
-  height: 28px;
-  padding: 0 10px;
-  border: 1px solid var(--outline, rgba(255, 255, 255, 0.18));
-  border-radius: 6px;
-  background: transparent;
-  color: inherit;
-  font-size: 12px;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.mb-btn--sm {
-  height: 22px;
-  padding: 0 7px;
-  font-size: 11px;
-}
-
 .mb-tip {
   display: flex;
   flex-direction: column;
@@ -343,21 +283,5 @@ async function onRemove(id: string): Promise<void> {
 
 .mb-line {
   opacity: 0.9;
-}
-
-.c-base {
-  color: #fff;
-}
-
-.c-star {
-  color: #ffc857;
-}
-
-.c-etc {
-  color: #c9a3ff;
-}
-
-.c-add {
-  color: #7fe0d0;
 }
 </style>

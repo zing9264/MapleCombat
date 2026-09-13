@@ -140,88 +140,8 @@ function summary(item: BaseItem): string {
   padding: 4px 0 24px;
 }
 
-.mb-card {
-  background: var(--surface-1, rgba(255, 255, 255, 0.06));
-  border: 1px solid var(--outline, rgba(255, 255, 255, 0.12));
-  border-radius: 10px;
-  padding: 10px 12px;
-}
-
-.mb-card-title {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin: 0 0 8px;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.mb-badge {
-  font-size: 11px;
-  font-weight: 400;
-  opacity: 0.7;
-}
-
-.mb-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
 .mb-actions {
   margin-top: 8px;
-}
-
-.mb-input {
-  height: 28px;
-  padding: 0 8px;
-  border: 1px solid var(--outline, rgba(255, 255, 255, 0.18));
-  border-radius: 6px;
-  background: var(--surface-0, rgba(0, 0, 0, 0.18));
-  color: inherit;
-  font-size: 12px;
-}
-
-.mb-input--grow {
-  flex: 1;
-  min-width: 0;
-}
-
-.mb-btn {
-  height: 28px;
-  padding: 0 10px;
-  border: 1px solid var(--outline, rgba(255, 255, 255, 0.18));
-  border-radius: 6px;
-  background: transparent;
-  color: inherit;
-  font-size: 12px;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.mb-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.mb-hint {
-  margin: 6px 0 0;
-  font-size: 11px;
-  line-height: 1.5;
-  opacity: 0.65;
-}
-
-.mb-error {
-  margin: 6px 0 0;
-  font-size: 12px;
-  color: #ff8080;
-}
-
-.mb-empty {
-  padding: 8px 0;
-  font-size: 12px;
-  text-align: center;
-  opacity: 0.7;
 }
 
 .mb-list-card {

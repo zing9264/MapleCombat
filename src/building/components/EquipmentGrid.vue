@@ -460,22 +460,6 @@ const tooltipPotentials = computed(() => {
   opacity: 0.85;
 }
 
-.c-base {
-  color: #fff;
-}
-
-.c-star {
-  color: #ffc857;
-}
-
-.c-etc {
-  color: #c9a3ff;
-}
-
-.c-add {
-  color: #7fe0d0;
-}
-
 .mb-tip-pot {
   margin-top: 6px;
   padding-top: 5px;
