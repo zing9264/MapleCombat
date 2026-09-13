@@ -1,556 +1,16 @@
 [
   {
-    "itemName": "永恆弓箭手手套",
-    "setNames": ["永恆套裝(弓箭手)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆弓箭手斗篷",
-    "setNames": ["永恆套裝(弓箭手)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆弓箭手肩膀",
-    "setNames": ["永恆套裝(弓箭手)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆弓箭手連帽衫",
-    "setNames": ["永恆套裝(弓箭手)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆弓箭手帽",
-    "setNames": ["永恆套裝(弓箭手)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆弓箭手鞋",
-    "setNames": ["永恆套裝(弓箭手)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆弓箭手褲",
-    "setNames": ["永恆套裝(弓箭手)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆法師手套",
-    "setNames": ["永恆套裝(法師)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆法師斗篷",
-    "setNames": ["永恆套裝(法師)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆法師肩膀",
-    "setNames": ["永恆套裝(法師)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆法師長袍",
-    "setNames": ["永恆套裝(法師)"],
-    "source": "observed"
-  },
-  {
-    "itemName": "永恆法師帽",
-    "setNames": ["永恆套裝(法師)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆法師鞋",
-    "setNames": ["永恆套裝(法師)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆法師褲",
-    "setNames": ["永恆套裝(法師)"],
-    "source": "observed"
-  },
-  {
-    "itemName": "創世長杖",
-    "setNames": ["永恆套裝(法師)", "航海師套裝(法師)"],
-    "source": "manual"
-  },
-  {
-    "itemName": "永恆海盜大衣",
-    "setNames": ["永恆套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆海盜手套",
-    "setNames": ["永恆套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆海盜斗篷",
-    "setNames": ["永恆套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆海盜肩膀",
-    "setNames": ["永恆套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆海盜帽",
-    "setNames": ["永恆套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆海盜鞋",
-    "setNames": ["永恆套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆海盜褲",
-    "setNames": ["永恆套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆盜賊上衣",
-    "setNames": ["永恆套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆盜賊手套",
-    "setNames": ["永恆套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆盜賊斗篷",
-    "setNames": ["永恆套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆盜賊肩膀",
-    "setNames": ["永恆套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆盜賊鞋",
-    "setNames": ["永恆套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆盜賊褲",
-    "setNames": ["永恆套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆盜賊頭巾",
-    "setNames": ["永恆套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆劍士手套",
-    "setNames": ["永恆套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆劍士斗篷",
-    "setNames": ["永恆套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆劍士肩膀",
-    "setNames": ["永恆套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆劍士鞋",
-    "setNames": ["永恆套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆劍士褲",
-    "setNames": ["永恆套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆劍士頭盔",
-    "setNames": ["永恆套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "永恆劍士鎧甲",
-    "setNames": ["永恆套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "貝奧武夫的痕跡",
-    "setNames": ["死後世界的的痕跡"],
-    "source": "manual"
-  },
-  {
-    "itemName": "阿德勒的痕跡",
-    "setNames": ["死後世界的的痕跡"],
-    "source": "manual"
-  },
-  {
-    "itemName": "柏林的痕跡",
-    "setNames": ["死後世界的的痕跡"],
-    "source": "manual"
-  },
-  {
-    "itemName": "萬事的痕跡",
-    "setNames": ["死後世界的的痕跡"],
-    "source": "manual"
-  },
-  {
-    "itemName": "神祕冥界幽靈弓手手套",
-    "setNames": ["神祕冥界套裝(弓箭手)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈弓手斗篷",
-    "setNames": ["神祕冥界套裝(弓箭手)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈弓手帽",
-    "setNames": ["神祕冥界套裝(弓箭手)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈弓手鞋子",
-    "setNames": ["神祕冥界套裝(弓箭手)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈弓手護肩",
-    "setNames": ["神祕冥界套裝(弓箭手)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈之弓",
-    "setNames": ["神祕冥界套裝(弓箭手)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈古代之弓",
-    "setNames": ["神祕冥界套裝(弓箭手)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈法師斗篷",
-    "setNames": ["神祕冥界套裝(法師)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈長杖",
-    "setNames": ["神祕冥界套裝(法師)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈陰陽扇",
-    "setNames": ["神祕冥界套裝(法師)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈短杖",
-    "setNames": ["神祕冥界套裝(法師)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈魔法帽",
-    "setNames": ["神祕冥界套裝(法師)"],
-    "source": "observed"
-  },
-  {
-    "itemName": "神祕冥界幽靈魔法護肩",
-    "setNames": ["神祕冥界套裝(法師)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈魔導士手套",
-    "setNames": ["神祕冥界套裝(法師)"],
-    "source": "observed"
-  },
-  {
-    "itemName": "神祕冥界幽靈魔導士鞋子",
-    "setNames": ["神祕冥界套裝(法師)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈海盜手套",
-    "setNames": ["神祕冥界套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈海盜斗篷",
-    "setNames": ["神祕冥界套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈海盜套裝",
-    "setNames": ["神祕冥界套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈海盜帽",
-    "setNames": ["神祕冥界套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈海盜鞋子",
-    "setNames": ["神祕冥界套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈海盜護肩",
-    "setNames": ["神祕冥界套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈小偷手套",
-    "setNames": ["神祕冥界套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈小偷斗篷",
-    "setNames": ["神祕冥界套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈小偷帽",
-    "setNames": ["神祕冥界套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈小偷鞋子",
-    "setNames": ["神祕冥界套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈小偷護肩",
-    "setNames": ["神祕冥界套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈之刃",
-    "setNames": ["神祕冥界套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈短刀",
-    "setNames": ["神祕冥界套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈刀",
-    "setNames": ["神祕冥界套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈騎士手套",
-    "setNames": ["神祕冥界套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈騎士斗篷",
-    "setNames": ["神祕冥界套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈騎士套裝",
-    "setNames": ["神祕冥界套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈騎士帽",
-    "setNames": ["神祕冥界套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈騎士鞋子",
-    "setNames": ["神祕冥界套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈騎士護肩",
-    "setNames": ["神祕冥界套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "神祕冥界幽靈魔劍",
-    "setNames": ["神祕冥界套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師弓箭手手套",
-    "setNames": ["航海師套裝(弓箭手)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師弓箭手斗篷",
-    "setNames": ["航海師套裝(弓箭手)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師弓箭手鞋",
-    "setNames": ["航海師套裝(弓箭手)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師弓箭手護肩",
-    "setNames": ["航海師套裝(弓箭手)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師法師手套",
-    "setNames": ["航海師套裝(法師)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師法師斗篷",
-    "setNames": ["航海師套裝(法師)"],
-    "source": "observed"
-  },
-  {
-    "itemName": "航海師法師套裝",
-    "setNames": ["航海師套裝(法師)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師法師帽",
-    "setNames": ["航海師套裝(法師)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師法師鞋",
-    "setNames": ["航海師套裝(法師)"],
-    "source": "observed"
-  },
-  {
-    "itemName": "航海師法師護肩",
-    "setNames": ["航海師套裝(法師)"],
-    "source": "observed"
-  },
-  {
-    "itemName": "航海師海盜手套",
-    "setNames": ["航海師套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師海盜斗篷",
-    "setNames": ["航海師套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師海盜帽",
-    "setNames": ["航海師套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師海盜鞋",
-    "setNames": ["航海師套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師海盜護肩",
-    "setNames": ["航海師套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師調節器",
-    "setNames": ["航海師套裝(海盜)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師盜賊手套",
-    "setNames": ["航海師套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師盜賊斗篷",
-    "setNames": ["航海師套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師盜賊套裝",
-    "setNames": ["航海師套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師盜賊帽",
-    "setNames": ["航海師套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師盜賊鞋",
-    "setNames": ["航海師套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師盜賊護肩",
-    "setNames": ["航海師套裝(盜賊)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師劍士手套",
-    "setNames": ["航海師套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師劍士斗篷",
-    "setNames": ["航海師套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師劍士鞋",
-    "setNames": ["航海師套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師劍士頭盔",
-    "setNames": ["航海師套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "航海師劍士護肩",
-    "setNames": ["航海師套裝(劍士)"],
-    "source": "inferred"
-  },
-  {
-    "itemName": "頂級培羅德耳環",
-    "setNames": ["頂級培羅德套裝"],
-    "source": "manual"
-  },
-  {
-    "itemName": "頂級培羅德戒指",
-    "setNames": ["頂級培羅德套裝"],
-    "source": "manual"
-  },
-  {
-    "itemName": "頂級培羅德烙印腰帶",
-    "setNames": ["頂級培羅德套裝"],
-    "source": "manual"
-  },
-  {
-    "itemName": "頂級培羅德烙印墜飾",
-    "setNames": ["頂級培羅德套裝"],
-    "source": "manual"
-  },
-  {
-    "itemName": "七日怪物公園看守者",
-    "setNames": ["七曜套裝"],
-    "source": "manual"
-  },
-  {
-    "itemName": "七日的胸章",
-    "setNames": ["七曜套裝"],
-    "source": "manual"
-  },
-  {
-    "itemName": "覺醒戒指",
+    "itemName": "永恆火焰戒指",
     "setNames": [],
     "source": "manual"
   },
   {
-    "itemName": "永恆火焰戒指",
+    "itemName": "伊妮絲的寶玉",
+    "setNames": [],
+    "source": "manual"
+  },
+  {
+    "itemName": "芙莉蓮圖騰",
     "setNames": [],
     "source": "manual"
   },
@@ -565,118 +25,915 @@
     "source": "manual"
   },
   {
-    "itemName": "Sunday胸章",
-    "setNames": [],
-    "source": "manual"
-  },
-  {
     "itemName": "輪迴碑石",
     "setNames": [],
     "source": "manual"
   },
   {
-    "itemName": "芙莉蓮圖騰",
+    "itemName": "覺醒戒指",
     "setNames": [],
     "source": "manual"
   },
   {
-    "itemName": "伊妮絲的寶玉",
+    "itemName": "Sunday胸章",
     "setNames": [],
     "source": "manual"
   },
   {
-    "itemName": "暮光印記",
-    "setNames": ["黎明的BOSS套組"],
+    "itemName": "七日怪物公園看守者",
+    "setNames": [
+      "七曜套裝"
+    ],
     "source": "manual"
   },
   {
-    "itemName": "星耀耳環",
-    "setNames": ["黎明的BOSS套組"],
+    "itemName": "七日的胸章",
+    "setNames": [
+      "七曜套裝"
+    ],
     "source": "manual"
   },
   {
-    "itemName": "黎明守護者天使戒指",
-    "setNames": ["黎明的BOSS套組"],
+    "itemName": "永恆弓箭手手套",
+    "setNames": [
+      "永恆套裝(弓箭手)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆弓箭手斗篷",
+    "setNames": [
+      "永恆套裝(弓箭手)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆弓箭手肩膀",
+    "setNames": [
+      "永恆套裝(弓箭手)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆弓箭手連帽衫",
+    "setNames": [
+      "永恆套裝(弓箭手)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆弓箭手帽",
+    "setNames": [
+      "永恆套裝(弓箭手)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆弓箭手鞋",
+    "setNames": [
+      "永恆套裝(弓箭手)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆弓箭手褲",
+    "setNames": [
+      "永恆套裝(弓箭手)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆法師手套",
+    "setNames": [
+      "永恆套裝(法師)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆法師斗篷",
+    "setNames": [
+      "永恆套裝(法師)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆法師肩膀",
+    "setNames": [
+      "永恆套裝(法師)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆法師長袍",
+    "setNames": [
+      "永恆套裝(法師)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆法師帽",
+    "setNames": [
+      "永恆套裝(法師)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆法師鞋",
+    "setNames": [
+      "永恆套裝(法師)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆法師褲",
+    "setNames": [
+      "永恆套裝(法師)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "創世長杖",
+    "setNames": [
+      "永恆套裝(法師)",
+      "航海師套裝(法師)"
+    ],
     "source": "manual"
   },
   {
-    "itemName": "破曉墜飾",
-    "setNames": ["黎明的BOSS套組"],
+    "itemName": "永恆海盜大衣",
+    "setNames": [
+      "永恆套裝(海盜)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆海盜手套",
+    "setNames": [
+      "永恆套裝(海盜)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆海盜斗篷",
+    "setNames": [
+      "永恆套裝(海盜)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆海盜肩膀",
+    "setNames": [
+      "永恆套裝(海盜)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆海盜帽",
+    "setNames": [
+      "永恆套裝(海盜)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆海盜鞋",
+    "setNames": [
+      "永恆套裝(海盜)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "永恆海盜褲",
+    "setNames": [
+      "永恆套裝(海盜)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆盜賊上衣",
+    "setNames": [
+      "永恆套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆盜賊手套",
+    "setNames": [
+      "永恆套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆盜賊斗篷",
+    "setNames": [
+      "永恆套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆盜賊肩膀",
+    "setNames": [
+      "永恆套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆盜賊鞋",
+    "setNames": [
+      "永恆套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆盜賊褲",
+    "setNames": [
+      "永恆套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆盜賊頭巾",
+    "setNames": [
+      "永恆套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆劍士手套",
+    "setNames": [
+      "永恆套裝(劍士)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆劍士斗篷",
+    "setNames": [
+      "永恆套裝(劍士)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆劍士肩膀",
+    "setNames": [
+      "永恆套裝(劍士)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆劍士鞋",
+    "setNames": [
+      "永恆套裝(劍士)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆劍士褲",
+    "setNames": [
+      "永恆套裝(劍士)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆劍士頭盔",
+    "setNames": [
+      "永恆套裝(劍士)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "永恆劍士鎧甲",
+    "setNames": [
+      "永恆套裝(劍士)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "貝奧武夫的痕跡",
+    "setNames": [
+      "死後世界的的痕跡"
+    ],
+    "source": "manual"
+  },
+  {
+    "itemName": "阿德勒的痕跡",
+    "setNames": [
+      "死後世界的的痕跡"
+    ],
+    "source": "manual"
+  },
+  {
+    "itemName": "柏林的痕跡",
+    "setNames": [
+      "死後世界的的痕跡"
+    ],
+    "source": "manual"
+  },
+  {
+    "itemName": "萬事的痕跡",
+    "setNames": [
+      "死後世界的的痕跡"
+    ],
+    "source": "manual"
+  },
+  {
+    "itemName": "神祕冥界幽靈弓手手套",
+    "setNames": [
+      "神祕冥界套裝(弓手)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈弓手斗篷",
+    "setNames": [
+      "神祕冥界套裝(弓手)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈弓手帽",
+    "setNames": [
+      "神祕冥界套裝(弓手)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈弓手鞋子",
+    "setNames": [
+      "神祕冥界套裝(弓手)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈弓手護肩",
+    "setNames": [
+      "神祕冥界套裝(弓手)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈之弓",
+    "setNames": [
+      "神祕冥界套裝(弓箭手)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "神祕冥界幽靈古代之弓",
+    "setNames": [
+      "神祕冥界套裝(弓箭手)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "神祕冥界幽靈法師斗篷",
+    "setNames": [
+      "神祕冥界套裝(法師)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈長杖",
+    "setNames": [
+      "神祕冥界套裝(法師)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "神祕冥界幽靈陰陽扇",
+    "setNames": [
+      "神祕冥界套裝(法師)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "神祕冥界幽靈短杖",
+    "setNames": [
+      "神祕冥界套裝(法師)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "神祕冥界幽靈魔法帽",
+    "setNames": [
+      "神祕冥界套裝(法師)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈魔法護肩",
+    "setNames": [
+      "神祕冥界套裝(法師)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈魔導士手套",
+    "setNames": [
+      "神祕冥界套裝(法師)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈魔導士鞋子",
+    "setNames": [
+      "神祕冥界套裝(法師)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈海盜手套",
+    "setNames": [
+      "神祕冥界套裝(海盜)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈海盜斗篷",
+    "setNames": [
+      "神祕冥界套裝(海盜)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈海盜套裝",
+    "setNames": [
+      "神祕冥界套裝(海盜)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "神祕冥界幽靈海盜帽",
+    "setNames": [
+      "神祕冥界套裝(海盜)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "神祕冥界幽靈海盜鞋子",
+    "setNames": [
+      "神祕冥界套裝(海盜)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈海盜護肩",
+    "setNames": [
+      "神祕冥界套裝(海盜)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈小偷手套",
+    "setNames": [
+      "神祕冥界套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈小偷斗篷",
+    "setNames": [
+      "神祕冥界套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈小偷帽",
+    "setNames": [
+      "神祕冥界套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈小偷鞋子",
+    "setNames": [
+      "神祕冥界套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈小偷護肩",
+    "setNames": [
+      "神祕冥界套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈之刃",
+    "setNames": [
+      "神祕冥界套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈短刀",
+    "setNames": [
+      "神祕冥界套裝(盜賊)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "神祕冥界幽靈刀",
+    "setNames": [
+      "神祕冥界套裝(劍士)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "神祕冥界幽靈騎士套裝",
+    "setNames": [
+      "神祕冥界套裝(劍士)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "神祕冥界幽靈魔劍",
+    "setNames": [
+      "神祕冥界套裝(劍士)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "神祕冥界幽靈騎士手套",
+    "setNames": [
+      "神祕冥界套裝(戰士)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈騎士斗篷",
+    "setNames": [
+      "神祕冥界套裝(戰士)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈騎士帽",
+    "setNames": [
+      "神祕冥界套裝(戰士)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈騎士鞋子",
+    "setNames": [
+      "神祕冥界套裝(戰士)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈騎士護肩",
+    "setNames": [
+      "神祕冥界套裝(戰士)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "航海師弓箭手手套",
+    "setNames": [
+      "航海師套裝(弓箭手)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "航海師弓箭手斗篷",
+    "setNames": [
+      "航海師套裝(弓箭手)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "航海師弓箭手鞋",
+    "setNames": [
+      "航海師套裝(弓箭手)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "航海師弓箭手護肩",
+    "setNames": [
+      "航海師套裝(弓箭手)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "航海師法師手套",
+    "setNames": [
+      "航海師套裝(法師)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "航海師法師斗篷",
+    "setNames": [
+      "航海師套裝(法師)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "航海師法師套裝",
+    "setNames": [
+      "航海師套裝(法師)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "航海師法師帽",
+    "setNames": [
+      "航海師套裝(法師)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "航海師法師鞋",
+    "setNames": [
+      "航海師套裝(法師)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "航海師法師護肩",
+    "setNames": [
+      "航海師套裝(法師)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "航海師海盜手套",
+    "setNames": [
+      "航海師套裝(海盜)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "航海師海盜斗篷",
+    "setNames": [
+      "航海師套裝(海盜)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "航海師海盜帽",
+    "setNames": [
+      "航海師套裝(海盜)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "航海師海盜鞋",
+    "setNames": [
+      "航海師套裝(海盜)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "航海師海盜護肩",
+    "setNames": [
+      "航海師套裝(海盜)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "航海師調節器",
+    "setNames": [
+      "航海師套裝(海盜)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "航海師盜賊手套",
+    "setNames": [
+      "航海師套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "航海師盜賊斗篷",
+    "setNames": [
+      "航海師套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "航海師盜賊套裝",
+    "setNames": [
+      "航海師套裝(盜賊)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "航海師盜賊帽",
+    "setNames": [
+      "航海師套裝(盜賊)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "航海師盜賊鞋",
+    "setNames": [
+      "航海師套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "航海師盜賊護肩",
+    "setNames": [
+      "航海師套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "航海師劍士手套",
+    "setNames": [
+      "航海師套裝(劍士)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "航海師劍士斗篷",
+    "setNames": [
+      "航海師套裝(劍士)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "航海師劍士鞋",
+    "setNames": [
+      "航海師套裝(劍士)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "航海師劍士頭盔",
+    "setNames": [
+      "航海師套裝(劍士)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "航海師劍士護肩",
+    "setNames": [
+      "航海師套裝(劍士)"
+    ],
+    "source": "inferred"
+  },
+  {
+    "itemName": "頂級培羅德耳環",
+    "setNames": [
+      "頂級培羅德套裝"
+    ],
+    "source": "manual"
+  },
+  {
+    "itemName": "頂級培羅德戒指",
+    "setNames": [
+      "頂級培羅德套裝"
+    ],
+    "source": "manual"
+  },
+  {
+    "itemName": "頂級培羅德烙印腰帶",
+    "setNames": [
+      "頂級培羅德套裝"
+    ],
+    "source": "manual"
+  },
+  {
+    "itemName": "頂級培羅德烙印墜飾",
+    "setNames": [
+      "頂級培羅德套裝"
+    ],
     "source": "manual"
   },
   {
     "itemName": "口紅控制器標誌",
-    "setNames": ["漆黑BOSS套裝"],
+    "setNames": [
+      "漆黑BOSS套裝"
+    ],
     "source": "manual"
   },
   {
     "itemName": "巨大的恐怖",
-    "setNames": ["漆黑BOSS套裝"],
+    "setNames": [
+      "漆黑BOSS套裝"
+    ],
     "source": "manual"
   },
   {
     "itemName": "全面控制核心",
-    "setNames": ["漆黑BOSS套裝"],
+    "setNames": [
+      "漆黑BOSS套裝"
+    ],
     "source": "manual"
   },
   {
     "itemName": "米特拉的憤怒：弓箭手",
-    "setNames": ["漆黑BOSS套裝"],
+    "setNames": [
+      "漆黑BOSS套裝"
+    ],
     "source": "manual"
   },
   {
     "itemName": "米特拉的憤怒：法師",
-    "setNames": ["漆黑BOSS套裝"],
+    "setNames": [
+      "漆黑BOSS套裝"
+    ],
     "source": "manual"
   },
   {
     "itemName": "米特拉的憤怒：海盜",
-    "setNames": ["漆黑BOSS套裝"],
+    "setNames": [
+      "漆黑BOSS套裝"
+    ],
     "source": "manual"
   },
   {
     "itemName": "米特拉的憤怒：盜賊",
-    "setNames": ["漆黑BOSS套裝"],
+    "setNames": [
+      "漆黑BOSS套裝"
+    ],
     "source": "manual"
   },
   {
     "itemName": "米特拉的憤怒：劍士",
-    "setNames": ["漆黑BOSS套裝"],
+    "setNames": [
+      "漆黑BOSS套裝"
+    ],
     "source": "manual"
   },
   {
     "itemName": "受詛咒的青魔導書",
-    "setNames": ["漆黑BOSS套裝"],
+    "setNames": [
+      "漆黑BOSS套裝"
+    ],
     "source": "manual"
   },
   {
     "itemName": "附有魔力的眼罩",
-    "setNames": ["漆黑BOSS套裝"],
+    "setNames": [
+      "漆黑BOSS套裝"
+    ],
     "source": "manual"
   },
   {
     "itemName": "指揮官力量耳環",
-    "setNames": ["漆黑BOSS套裝"],
+    "setNames": [
+      "漆黑BOSS套裝"
+    ],
     "source": "manual"
   },
   {
     "itemName": "苦痛的根源",
-    "setNames": ["漆黑BOSS套裝"],
+    "setNames": [
+      "漆黑BOSS套裝"
+    ],
     "source": "manual"
   },
   {
     "itemName": "創世的胸章",
-    "setNames": ["漆黑BOSS套裝"],
+    "setNames": [
+      "漆黑BOSS套裝"
+    ],
     "source": "manual"
   },
   {
     "itemName": "黑心",
-    "setNames": ["漆黑BOSS套裝"],
+    "setNames": [
+      "漆黑BOSS套裝"
+    ],
     "source": "manual"
   },
   {
     "itemName": "夢幻的腰帶",
-    "setNames": ["漆黑BOSS套裝"],
+    "setNames": [
+      "漆黑BOSS套裝"
+    ],
+    "source": "manual"
+  },
+  {
+    "itemName": "星耀耳環",
+    "setNames": [
+      "黎明的BOSS套組"
+    ],
+    "source": "manual"
+  },
+  {
+    "itemName": "破曉墜飾",
+    "setNames": [
+      "黎明的BOSS套組"
+    ],
+    "source": "manual"
+  },
+  {
+    "itemName": "暮光印記",
+    "setNames": [
+      "黎明的BOSS套組"
+    ],
+    "source": "manual"
+  },
+  {
+    "itemName": "黎明守護者天使戒指",
+    "setNames": [
+      "黎明的BOSS套組"
+    ],
     "source": "manual"
   }
 ]

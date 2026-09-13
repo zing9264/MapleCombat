@@ -60,6 +60,7 @@ const craftedById = computed(() => new Map(inventory.items.map((item) => [item.i
 function craftedToDisplayItem(crafted: CraftedItem, part: string): EquipmentItem {
   return {
     item_name: crafted.name || crafted.baseName,
+    item_icon: crafted.icon ?? '',
     item_equipment_part: part,
     item_equipment_slot: part,
     starforce: String(crafted.starCount ?? 0),

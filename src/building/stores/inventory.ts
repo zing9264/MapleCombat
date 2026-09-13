@@ -27,6 +27,8 @@ export interface CraftedItem {
   baseName: string
   part: string
   level: number
+  /** 基底的圖示網址；自製裝備沿用基底的圖，不然格子上只會剩一串名字 */
+  icon?: string
   sets: string[]
   /** 白：基底 */
   base: ItemOption

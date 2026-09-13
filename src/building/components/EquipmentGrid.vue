@@ -165,7 +165,8 @@ const tooltipPotentials = computed(() => {
             :class="{ empty: !petAt(c) }"
             :title="petAt(c)?.name ?? cell.cell.label"
           >
-            <span class="mb-cell-label">{{ petAt(c)?.name ?? cell.cell.label }}</span>
+            <img v-if="petAt(c)?.icon" :src="petAt(c)!.icon" alt="" />
+            <span v-else class="mb-cell-label">{{ petAt(c)?.name ?? cell.cell.label }}</span>
           </div>
           <div
             v-else-if="cell.cell.kind === 'petItem'"
@@ -173,7 +174,8 @@ const tooltipPotentials = computed(() => {
             :class="{ empty: !petAt(c)?.itemName }"
             :title="petAt(c)?.itemName ?? cell.cell.label"
           >
-            <span class="mb-cell-label">{{ petAt(c)?.itemName ?? cell.cell.label }}</span>
+            <img v-if="petAt(c)?.itemIcon" :src="petAt(c)!.itemIcon" alt="" />
+            <span v-else class="mb-cell-label">{{ petAt(c)?.itemName ?? cell.cell.label }}</span>
           </div>
 
           <!-- 萌獸：顯示合計終傷，內容在製作台編輯 -->

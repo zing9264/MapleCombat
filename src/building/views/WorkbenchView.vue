@@ -346,6 +346,7 @@ function save(): void {
     baseName: base.value.name,
     part: base.value.part,
     level: base.value.level,
+    icon: base.value.icon,
     sets: base.value.sets,
     base: base.value.base,
     etc: { ...etc.value },

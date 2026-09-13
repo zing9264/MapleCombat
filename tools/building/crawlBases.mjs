@@ -253,12 +253,13 @@ function observeSets(items, setEffects) {
  * 抽成函式是為了讓「線上爬取」與「離線重建」走同一段邏輯 ——
  * 兩份實作遲早會分岔，那時重建出來的資料就不等於爬出來的了。
  */
-function absorb(items, setEffects, bases, memberships) {
+function absorb(items, setEffects, bases, memberships, refreshed) {
   const observed = observeSets(items, setEffects)
   let added = 0
 
   for (const item of items) {
     if (!item?.item_name || SKIP_PARTS.has(item.item_equipment_part)) continue
+    refreshed?.add(item.item_name)
     let entry = bases.get(item.item_name)
     if (entry) {
       entry.seen += 1
@@ -339,7 +340,10 @@ function writeOutputs(bases, memberships) {
   writeFileSync(OUT_FILE, `${JSON.stringify(list, null, 2)}\n`)
 
   const membershipList = [...memberships.values()].sort(
-    (a, b) => a.setNames[0].localeCompare(b.setNames[0]) || a.itemName.localeCompare(b.itemName),
+    // setNames 可能是空的（手動標記「這件沒有套裝效果」的項目），不能直接取 [0]
+    (a, b) =>
+      (a.setNames[0] ?? '').localeCompare(b.setNames[0] ?? '') ||
+      a.itemName.localeCompare(b.itemName),
   )
   writeFileSync(MEMBERSHIP_FILE, `${JSON.stringify(membershipList, null, 2)}\n`)
 }
@@ -370,6 +374,8 @@ async function main() {
   // 道具 → 套裝的對照資料庫。實際觀察到的會蓋掉先前用名稱推論的 inferred 項目。
   const memberships = new Map(readJson(MEMBERSHIP_FILE, []).map((m) => [m.itemName, m]))
   const startCount = bases.size
+  /** 這一輪重新觀察到的基底名稱，用來判斷重跑何時可以收工 */
+  const refreshed = new Set()
 
   /**
    * 換下一支金鑰；沒有下一支就真的沒額度了。
@@ -391,10 +397,18 @@ async function main() {
       headers: { 'x-nxopen-api-key': keys[keyIndex] },
     })
     state.used += 1
-    const remaining = Number(response.headers.get('x-ratelimit-remaining'))
-    const limit = Number(response.headers.get('x-ratelimit-limit'))
-    if (Number.isFinite(remaining)) quota.remaining = remaining
-    if (Number.isFinite(limit)) quota.limit = limit
+    // 標頭不一定會有（實測 guild/id 就沒回）。不能直接 Number()：Number(null) 是 0，
+    // 會被下面判成「額度歸零」而第一次請求就中止 —— 實際踩過這個坑。
+    const header = (name) => {
+      const raw = response.headers.get(name)
+      if (raw === null || raw === '') return null
+      const value = Number(raw)
+      return Number.isFinite(value) ? value : null
+    }
+    const remaining = header('x-ratelimit-remaining')
+    const limit = header('x-ratelimit-limit')
+    if (remaining !== null) quota.remaining = remaining
+    if (limit !== null) quota.limit = limit
     await sleep(THROTTLE_MS)
     const exhausted = response.status === 429 || (quota.remaining !== null && quota.remaining <= 0)
     if (exhausted) {
@@ -470,7 +484,7 @@ async function main() {
           CACHE_FILE,
           `${JSON.stringify({ h: hash, items: items.map(slimForCache), sets: setEffects })}\n`,
         )
-        added += absorb(items, setEffects, bases, memberships)
+        added += absorb(items, setEffects, bases, memberships, refreshed)
         processed += 1
       } catch (error) {
         if (error instanceof QuotaExhausted || error instanceof InvalidKey) throw error
@@ -485,6 +499,12 @@ async function main() {
         console.log(
           `進度 ${done.size}/${queue.length}　今日已用 ${state.used} 次　基底 ${bases.size} 件`,
         )
+      }
+      // 重跑的目的是「用新規則重新觀察既有基底」，不是把公會 2664 人跑完。
+      // 每件都重新看過一次就收工 —— 再跑下去只是重複同樣的資料、白燒額度。
+      if (args.redo && startCount > 0 && refreshed.size >= startCount) {
+        stopReason = `既有 ${startCount} 件基底都已重新觀察`
+        break
       }
       if (args.stopDry && dryStreak >= args.stopDry) {
         stopReason = `連續 ${dryStreak} 位角色沒有新基底，判斷已飽和`
@@ -502,7 +522,7 @@ async function main() {
   console.log(`
 結束原因：${stopReason}
 本次處理 ${processed} 位、跳過 ${skipped} 位　今日已用 ${state.used}/${args.budget} 次　API 回報剩餘 ${quota.remaining ?? '不明'}/${quota.limit ?? '不明'}
-基底 ${startCount} → ${bases.size} 件（新增 ${bases.size - startCount}）
+基底 ${startCount} → ${bases.size} 件（新增 ${bases.size - startCount}、本輪重新觀察 ${refreshed.size} 件）
 名單共 ${queue.length} 位（公會展開 ${fromGuilds} 位），本次待處理 ${pending} 位`)
 }
 

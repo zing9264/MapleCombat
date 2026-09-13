@@ -11,7 +11,8 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 9
+    "seen": 17,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPLCHNA"
   },
   {
     "name": "極限的力量之盾",
@@ -38,7 +39,8 @@
       "armor": "81"
     },
     "scrollSlots": 0,
-    "seen": 14
+    "seen": 17,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPLCHPE"
   },
   {
     "name": "永恆弓箭手連帽衫",
@@ -52,7 +54,8 @@
       "ignore_monster_armor": "5"
     },
     "scrollSlots": 8,
-    "seen": 46
+    "seen": 62,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPGJDNE"
   },
   {
     "name": "永恆法師長袍",
@@ -65,8 +68,9 @@
       "armor": "325",
       "ignore_monster_armor": "5"
     },
-    "scrollSlots": 11,
-    "seen": 89
+    "scrollSlots": 8,
+    "seen": 121,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPGJDNF"
   },
   {
     "name": "永恆海盜大衣",
@@ -79,8 +83,9 @@
       "armor": "325",
       "ignore_monster_armor": "5"
     },
-    "scrollSlots": 13,
-    "seen": 15
+    "scrollSlots": 8,
+    "seen": 20,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPGJDNG"
   },
   {
     "name": "永恆盜賊上衣",
@@ -93,8 +98,9 @@
       "armor": "325",
       "ignore_monster_armor": "5"
     },
-    "scrollSlots": 13,
-    "seen": 113
+    "scrollSlots": 8,
+    "seen": 158,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPGJDNH"
   },
   {
     "name": "永恆劍士鎧甲",
@@ -107,8 +113,9 @@
       "armor": "325",
       "ignore_monster_armor": "5"
     },
-    "scrollSlots": 11,
-    "seen": 84
+    "scrollSlots": 8,
+    "seen": 106,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPGJDNC"
   },
   {
     "name": "菇菇敦威治長袍",
@@ -195,7 +202,8 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 105
+    "seen": 136,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOEJHGB"
   },
   {
     "name": "受詛咒的青魔導書",
@@ -212,7 +220,8 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 111
+    "seen": 150,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOEJHGA"
   },
   {
     "name": "受詛咒的黃魔導書",
@@ -229,7 +238,8 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 131
+    "seen": 177,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOEJHGC"
   },
   {
     "name": "受詛咒的綠魔導書",
@@ -246,7 +256,8 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 64
+    "seen": 86,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOEJHGD"
   },
   {
     "name": "查‧克羅斯",
@@ -263,7 +274,8 @@
       "speed": "2"
     },
     "scrollSlots": 0,
-    "seen": 17
+    "seen": 18,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOEJHNH"
   },
   {
     "name": "粉紅聖杯",
@@ -310,7 +322,8 @@
       "magic_power": "12"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 3,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOEJHGG"
   },
   {
     "name": "阿斯特拉刀鞘",
@@ -322,7 +335,8 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 6
+    "seen": 7,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIAOHOB"
   },
   {
     "name": "妖蝶姬之小太刀",
@@ -357,7 +371,8 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 9
+    "seen": 12,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMHJPNE"
   },
   {
     "name": "命運弓箭",
@@ -372,7 +387,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 16
+    "seen": 26,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KELHJFGE"
   },
   {
     "name": "神祕冥界幽靈之弓",
@@ -402,7 +418,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 13
+    "seen": 14,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KELHJFIH"
   },
   {
     "name": "阿斯特拉靶心",
@@ -440,7 +457,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 10
+    "seen": 13,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEKGJGKI"
   },
   {
     "name": "神祕冥界幽靈刀",
@@ -468,7 +486,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 6
+    "seen": 7,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEKGJGMJ"
   },
   {
     "name": "命運手杖",
@@ -482,7 +501,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 5
+    "seen": 6,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMEJGIA"
   },
   {
     "name": "創世手杖",
@@ -509,7 +529,8 @@
       "armor": "325"
     },
     "scrollSlots": 8,
-    "seen": 18
+    "seen": 23,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPKJAID"
   },
   {
     "name": "永恆法師手套",
@@ -521,8 +542,9 @@
       "magic_power": "12",
       "armor": "325"
     },
-    "scrollSlots": 12,
-    "seen": 44
+    "scrollSlots": 8,
+    "seen": 61,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPKJAIA"
   },
   {
     "name": "永恆海盜手套",
@@ -534,8 +556,9 @@
       "attack_power": "12",
       "armor": "325"
     },
-    "scrollSlots": 13,
-    "seen": 7
+    "scrollSlots": 8,
+    "seen": 8,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPKJAIF"
   },
   {
     "name": "永恆盜賊手套",
@@ -547,8 +570,9 @@
       "attack_power": "12",
       "armor": "325"
     },
-    "scrollSlots": 13,
-    "seen": 39
+    "scrollSlots": 8,
+    "seen": 55,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPKJAIC"
   },
   {
     "name": "永恆劍士手套",
@@ -560,8 +584,9 @@
       "attack_power": "12",
       "armor": "325"
     },
-    "scrollSlots": 11,
-    "seen": 36
+    "scrollSlots": 8,
+    "seen": 40,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPKJAIB"
   },
   {
     "name": "神祕冥界幽靈小偷手套",
@@ -574,7 +599,8 @@
       "armor": "250"
     },
     "scrollSlots": 8,
-    "seen": 86
+    "seen": 114,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPKJBHJ"
   },
   {
     "name": "神祕冥界幽靈弓手手套",
@@ -587,7 +613,8 @@
       "armor": "250"
     },
     "scrollSlots": 8,
-    "seen": 36
+    "seen": 48,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPKJBHG"
   },
   {
     "name": "神祕冥界幽靈海盜手套",
@@ -599,8 +626,9 @@
       "attack_power": "9",
       "armor": "250"
     },
-    "scrollSlots": 8,
-    "seen": 9
+    "scrollSlots": 7,
+    "seen": 13,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPKJBHI"
   },
   {
     "name": "神祕冥界幽靈騎士手套",
@@ -612,8 +640,9 @@
       "attack_power": "9",
       "armor": "250"
     },
-    "scrollSlots": 11,
-    "seen": 72
+    "scrollSlots": 8,
+    "seen": 95,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPKJBHE"
   },
   {
     "name": "神祕冥界幽靈魔導士手套",
@@ -626,7 +655,8 @@
       "armor": "250"
     },
     "scrollSlots": 8,
-    "seen": 64
+    "seen": 84,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPKJBHH"
   },
   {
     "name": "航海師弓箭手手套",
@@ -638,8 +668,9 @@
       "attack_power": "5",
       "armor": "150"
     },
-    "scrollSlots": 12,
-    "seen": 2
+    "scrollSlots": 8,
+    "seen": 3,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPKJBNJ"
   },
   {
     "name": "航海師法師手套",
@@ -678,7 +709,8 @@
       "armor": "150"
     },
     "scrollSlots": 8,
-    "seen": 7
+    "seen": 9,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPKJBNI"
   },
   {
     "name": "航海師劍士手套",
@@ -744,8 +776,9 @@
     "base": {
       "armor": "30"
     },
-    "scrollSlots": 6,
-    "seen": 4
+    "scrollSlots": 3,
+    "seen": 8,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPKJFGC"
   },
   {
     "name": "楓葉手套",
@@ -767,7 +800,8 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 3,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIAKGOD"
   },
   {
     "name": "盾牌防禦",
@@ -791,7 +825,8 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 4,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIAIOOA"
   },
   {
     "name": "不滅的手鐲",
@@ -803,7 +838,8 @@
       "attack_power": "9"
     },
     "scrollSlots": 0,
-    "seen": 7
+    "seen": 10,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMHPHOG"
   },
   {
     "name": "高貴手鐲",
@@ -815,7 +851,8 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 8
+    "seen": 11,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMHPHOC"
   },
   {
     "name": "進化貴族手鐲",
@@ -881,7 +918,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 5
+    "seen": 6,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENLJHLB"
   },
   {
     "name": "創世仙扇",
@@ -895,7 +933,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 6
+    "seen": 7,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENLJHMD"
   },
   {
     "name": "創世加農砲",
@@ -922,7 +961,8 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 5
+    "seen": 6,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIAJFOA"
   },
   {
     "name": "新者卡牌",
@@ -945,7 +985,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 3
+    "seen": 5,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEKLJHKI"
   },
   {
     "name": "神祕冥界幽靈古代之弓",
@@ -989,7 +1030,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KELGJFHI"
   },
   {
     "name": "創世矛",
@@ -1068,8 +1110,9 @@
       "magic_power": "5",
       "armor": "100"
     },
-    "scrollSlots": 7,
-    "seen": 62
+    "scrollSlots": 6,
+    "seen": 85,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPBJEPH"
   },
   {
     "name": "星耀耳環",
@@ -1087,7 +1130,8 @@
       "armor": "100"
     },
     "scrollSlots": 7,
-    "seen": 4
+    "seen": 6,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPBJENB"
   },
   {
     "name": "頂級培羅德耳環",
@@ -1104,8 +1148,9 @@
       "magic_power": "10",
       "armor": "100"
     },
-    "scrollSlots": 8,
-    "seen": 341
+    "scrollSlots": 5,
+    "seen": 444,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPBJFMC"
   },
   {
     "name": "高級培羅德耳環",
@@ -1141,7 +1186,8 @@
       "armor": "100"
     },
     "scrollSlots": 7,
-    "seen": 4
+    "seen": 5,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPBJFPH"
   },
   {
     "name": "中級培羅德耳環",
@@ -1219,8 +1265,9 @@
     "base": {
       "max_hp": "30"
     },
-    "scrollSlots": 7,
-    "seen": 5
+    "scrollSlots": 6,
+    "seen": 10,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPBJHNB"
   },
   {
     "name": "被遺忘的神話耳環",
@@ -1235,7 +1282,8 @@
       "magic_power": "100"
     },
     "scrollSlots": 4,
-    "seen": 11
+    "seen": 15,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPBJFPI"
   },
   {
     "name": "玫瑰耳環",
@@ -1282,8 +1330,9 @@
       "attack_power": "5",
       "magic_power": "5"
     },
-    "scrollSlots": 9,
-    "seen": 7
+    "scrollSlots": 4,
+    "seen": 8,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIEIB"
   },
   {
     "name": "根源的耳語",
@@ -1299,8 +1348,9 @@
       "attack_power": "5",
       "magic_power": "5"
     },
-    "scrollSlots": 9,
-    "seen": 23
+    "scrollSlots": 4,
+    "seen": 31,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIEKA"
   },
   {
     "name": "巨大的恐怖",
@@ -1316,8 +1366,9 @@
       "attack_power": "4",
       "magic_power": "4"
     },
-    "scrollSlots": 3,
-    "seen": 214
+    "scrollSlots": 2,
+    "seen": 284,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIEOH"
   },
   {
     "name": "守護者天使戒指",
@@ -1334,7 +1385,8 @@
       "magic_power": "2"
     },
     "scrollSlots": 3,
-    "seen": 28
+    "seen": 37,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIEPC"
   },
   {
     "name": "強力的魔性戒指",
@@ -1350,8 +1402,9 @@
       "attack_power": "3",
       "magic_power": "3"
     },
-    "scrollSlots": 4,
-    "seen": 128
+    "scrollSlots": 2,
+    "seen": 164,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIGHH"
   },
   {
     "name": "黎明守護者天使戒指",
@@ -1367,8 +1420,9 @@
       "attack_power": "2",
       "magic_power": "2"
     },
-    "scrollSlots": 3,
-    "seen": 77
+    "scrollSlots": 2,
+    "seen": 91,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIEPH"
   },
   {
     "name": "魔性的戒指",
@@ -1382,8 +1436,9 @@
       "attack_power": "2",
       "magic_power": "2"
     },
-    "scrollSlots": 4,
-    "seen": 67
+    "scrollSlots": 2,
+    "seen": 90,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIGHE"
   },
   {
     "name": "天上的氣息",
@@ -1401,8 +1456,9 @@
       "speed": "18",
       "jump": "10"
     },
-    "scrollSlots": 5,
-    "seen": 190
+    "scrollSlots": 2,
+    "seen": 257,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIFPA"
   },
   {
     "name": "頂級培羅德戒指",
@@ -1420,8 +1476,9 @@
       "armor": "150",
       "speed": "10"
     },
-    "scrollSlots": 7,
-    "seen": 327
+    "scrollSlots": 5,
+    "seen": 427,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIHJE"
   },
   {
     "name": "梅斯特戒指",
@@ -1439,7 +1496,8 @@
       "armor": "150"
     },
     "scrollSlots": 2,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIHLE"
   },
   {
     "name": "紫翼戒指",
@@ -1491,7 +1549,8 @@
       "magic_power": "20"
     },
     "scrollSlots": 0,
-    "seen": 12
+    "seen": 14,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODPEMG"
   },
   {
     "name": "永恆火焰戒指",
@@ -1508,7 +1567,8 @@
       "magic_power": "25"
     },
     "scrollSlots": 0,
-    "seen": 40
+    "seen": 47,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODPEMF"
   },
   {
     "name": "宇宙戒指",
@@ -1516,7 +1576,8 @@
     "level": 120,
     "base": {},
     "scrollSlots": 20,
-    "seen": 6
+    "seen": 8,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODPEOC"
   },
   {
     "name": "非常堅固的烏龜戒指",
@@ -1531,7 +1592,8 @@
       "max_mp": "40"
     },
     "scrollSlots": 10,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIFLE"
   },
   {
     "name": "泰涅布利斯遠征隊戒指",
@@ -1548,7 +1610,8 @@
       "magic_power": "10"
     },
     "scrollSlots": 3,
-    "seen": 77
+    "seen": 99,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODPEOG"
   },
   {
     "name": "高貴的伊菲亞的戒指",
@@ -1590,7 +1653,8 @@
     "level": 120,
     "base": {},
     "scrollSlots": 20,
-    "seen": 13
+    "seen": 16,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODPEOB"
   },
   {
     "name": "黃金菇菇戒指",
@@ -1641,7 +1705,26 @@
       "magic_power": "10"
     },
     "scrollSlots": 3,
-    "seen": 89
+    "seen": 113,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODPEPJ"
+  },
+  {
+    "name": "GLORY小隊戒指：禁衛軍",
+    "part": "戒指",
+    "level": 120,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "int": "20",
+      "luk": "20",
+      "max_hp": "2000",
+      "max_mp": "2000",
+      "attack_power": "20",
+      "magic_power": "20"
+    },
+    "scrollSlots": 0,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODPEPF",
+    "seen": 1
   },
   {
     "name": "GLORY小隊戒指：總司令",
@@ -1658,7 +1741,26 @@
       "magic_power": "25"
     },
     "scrollSlots": 0,
-    "seen": 79
+    "seen": 106,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODPEPH"
+  },
+  {
+    "name": "GLORY小隊戒指：護衛者",
+    "part": "戒指",
+    "level": 120,
+    "base": {
+      "str": "20",
+      "dex": "20",
+      "int": "20",
+      "luk": "20",
+      "max_hp": "2000",
+      "max_mp": "2000",
+      "attack_power": "20",
+      "magic_power": "20"
+    },
+    "scrollSlots": 0,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODPEPC",
+    "seen": 1
   },
   {
     "name": "SS級大師珠寶戒指",
@@ -1675,7 +1777,8 @@
       "magic_power": "20"
     },
     "scrollSlots": 0,
-    "seen": 17
+    "seen": 23,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIFNA"
   },
   {
     "name": "永續戒指",
@@ -1690,7 +1793,8 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
-    "seen": 202
+    "seen": 270,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIEMI"
   },
   {
     "name": "武器泡泡 - L環",
@@ -1705,7 +1809,8 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 4,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIGPH"
   },
   {
     "name": "真˙降魔的十字旅團的戒指",
@@ -1720,8 +1825,9 @@
       "magic_power": "3",
       "armor": "65"
     },
-    "scrollSlots": 4,
-    "seen": 45
+    "scrollSlots": 1,
+    "seen": 71,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIFOC"
   },
   {
     "name": "銀花戒指",
@@ -1736,7 +1842,8 @@
       "magic_power": "2"
     },
     "scrollSlots": 3,
-    "seen": 5
+    "seen": 7,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIGKI"
   },
   {
     "name": "希拉的憤怒",
@@ -1754,7 +1861,8 @@
       "jump": "10"
     },
     "scrollSlots": 2,
-    "seen": 3
+    "seen": 5,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODJOLD"
   },
   {
     "name": "風暴戒指",
@@ -1769,7 +1877,8 @@
       "magic_power": "2"
     },
     "scrollSlots": 2,
-    "seen": 4
+    "seen": 5,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODJAKJ"
   },
   {
     "name": "梅格耐斯的憤怒",
@@ -1821,7 +1930,8 @@
       "jump": "10"
     },
     "scrollSlots": 2,
-    "seen": 11
+    "seen": 15,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIGND"
   },
   {
     "name": "新星戒指",
@@ -1839,8 +1949,9 @@
       "speed": "18",
       "jump": "10"
     },
-    "scrollSlots": 2,
-    "seen": 15
+    "scrollSlots": 1,
+    "seen": 20,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODJOLH"
   },
   {
     "name": "骷顱頭戒指",
@@ -1859,7 +1970,41 @@
       "jump": "10"
     },
     "scrollSlots": 2,
-    "seen": 17
+    "seen": 27,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIHGC"
+  },
+  {
+    "name": "戰神祝福",
+    "part": "戒指",
+    "level": 100,
+    "base": {
+      "str": "12",
+      "dex": "12",
+      "int": "12",
+      "luk": "12",
+      "max_hp": "150",
+      "max_mp": "150",
+      "speed": "18",
+      "jump": "10"
+    },
+    "scrollSlots": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIHMB",
+    "seen": 1
+  },
+  {
+    "name": "守護者的梅斯特永恆之戒",
+    "part": "戒指",
+    "level": 90,
+    "base": {
+      "str": "10",
+      "dex": "10",
+      "int": "10",
+      "luk": "10",
+      "armor": "150"
+    },
+    "scrollSlots": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIHIC",
+    "seen": 1
   },
   {
     "name": "阿克魯德永恆之戒",
@@ -1877,6 +2022,21 @@
     "seen": 1
   },
   {
+    "name": "梅斯特超強力戒指",
+    "part": "戒指",
+    "level": 75,
+    "base": {
+      "str": "6",
+      "dex": "6",
+      "int": "6",
+      "luk": "6",
+      "armor": "28"
+    },
+    "scrollSlots": 3,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIHIG",
+    "seen": 1
+  },
+  {
     "name": "降魔的十字旅團的戒指",
     "part": "戒指",
     "level": 70,
@@ -1890,7 +2050,8 @@
       "armor": "30"
     },
     "scrollSlots": 3,
-    "seen": 5
+    "seen": 9,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIFOD"
   },
   {
     "name": "瑪瑙戒指 \"完成\"",
@@ -1913,8 +2074,9 @@
     "part": "戒指",
     "level": 0,
     "base": {},
-    "scrollSlots": 8,
-    "seen": 2
+    "scrollSlots": 6,
+    "seen": 3,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODJOPE"
   },
   {
     "name": "卡勒馬彈",
@@ -1922,7 +2084,8 @@
     "level": 100,
     "base": {},
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMHJDOC"
   },
   {
     "name": "命運十字弓",
@@ -1937,7 +2100,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 3
+    "seen": 4,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KELEJFIJ"
   },
   {
     "name": "創世十字弓",
@@ -1964,7 +2128,8 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 4,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMHJFPD"
   },
   {
     "name": "漆黑念珠",
@@ -1991,8 +2156,9 @@
       "magic_power": "9",
       "armor": "600"
     },
-    "scrollSlots": 12,
-    "seen": 16
+    "scrollSlots": 8,
+    "seen": 21,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOCIDNE"
   },
   {
     "name": "永恆法師斗篷",
@@ -2007,8 +2173,9 @@
       "magic_power": "9",
       "armor": "600"
     },
-    "scrollSlots": 11,
-    "seen": 43
+    "scrollSlots": 8,
+    "seen": 57,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOCIDNF"
   },
   {
     "name": "永恆海盜斗篷",
@@ -2023,8 +2190,9 @@
       "magic_power": "9",
       "armor": "600"
     },
-    "scrollSlots": 13,
-    "seen": 8
+    "scrollSlots": 8,
+    "seen": 9,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOCIDNG"
   },
   {
     "name": "永恆盜賊斗篷",
@@ -2039,8 +2207,9 @@
       "magic_power": "9",
       "armor": "600"
     },
-    "scrollSlots": 12,
-    "seen": 38
+    "scrollSlots": 8,
+    "seen": 56,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOCIDNH"
   },
   {
     "name": "永恆劍士斗篷",
@@ -2055,8 +2224,9 @@
       "magic_power": "9",
       "armor": "600"
     },
-    "scrollSlots": 11,
-    "seen": 36
+    "scrollSlots": 8,
+    "seen": 42,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOCIDNC"
   },
   {
     "name": "神祕冥界幽靈小偷斗篷",
@@ -2071,8 +2241,9 @@
       "magic_power": "6",
       "armor": "450"
     },
-    "scrollSlots": 12,
-    "seen": 89
+    "scrollSlots": 8,
+    "seen": 117,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOCJOKC"
   },
   {
     "name": "神祕冥界幽靈弓手斗篷",
@@ -2087,8 +2258,9 @@
       "magic_power": "6",
       "armor": "450"
     },
-    "scrollSlots": 11,
-    "seen": 36
+    "scrollSlots": 8,
+    "seen": 48,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOCJOKD"
   },
   {
     "name": "神祕冥界幽靈法師斗篷",
@@ -2103,8 +2275,9 @@
       "magic_power": "6",
       "armor": "450"
     },
-    "scrollSlots": 11,
-    "seen": 63
+    "scrollSlots": 8,
+    "seen": 88,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOCJOKA"
   },
   {
     "name": "神祕冥界幽靈海盜斗篷",
@@ -2119,8 +2292,9 @@
       "magic_power": "6",
       "armor": "450"
     },
-    "scrollSlots": 12,
-    "seen": 7
+    "scrollSlots": 8,
+    "seen": 10,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOCJOKF"
   },
   {
     "name": "神祕冥界幽靈騎士斗篷",
@@ -2135,8 +2309,9 @@
       "magic_power": "6",
       "armor": "450"
     },
-    "scrollSlots": 9,
-    "seen": 70
+    "scrollSlots": 5,
+    "seen": 92,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOCJOKB"
   },
   {
     "name": "航海師弓箭手斗篷",
@@ -2151,8 +2326,9 @@
       "magic_power": "2",
       "armor": "250"
     },
-    "scrollSlots": 9,
-    "seen": 2
+    "scrollSlots": 8,
+    "seen": 3,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOCJAHE"
   },
   {
     "name": "航海師法師斗篷",
@@ -2199,8 +2375,9 @@
       "magic_power": "2",
       "armor": "250"
     },
-    "scrollSlots": 11,
-    "seen": 3
+    "scrollSlots": 8,
+    "seen": 4,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOCJAHH"
   },
   {
     "name": "航海師劍士斗篷",
@@ -2250,7 +2427,8 @@
       "jump": "6"
     },
     "scrollSlots": 8,
-    "seen": 5
+    "seen": 6,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOCJPGG"
   },
   {
     "name": "佩沙里洛戰鬥斗篷",
@@ -2317,7 +2495,8 @@
       "armor": "450"
     },
     "scrollSlots": 2,
-    "seen": 39
+    "seen": 52,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOHJFPF"
   },
   {
     "name": "永恆法師肩膀",
@@ -2332,8 +2511,9 @@
       "magic_power": "28",
       "armor": "450"
     },
-    "scrollSlots": 5,
-    "seen": 74
+    "scrollSlots": 2,
+    "seen": 101,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOHJFPC"
   },
   {
     "name": "永恆海盜肩膀",
@@ -2348,8 +2528,9 @@
       "magic_power": "28",
       "armor": "450"
     },
-    "scrollSlots": 7,
-    "seen": 13
+    "scrollSlots": 2,
+    "seen": 17,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOHJFPH"
   },
   {
     "name": "永恆盜賊肩膀",
@@ -2364,8 +2545,9 @@
       "magic_power": "28",
       "armor": "450"
     },
-    "scrollSlots": 6,
-    "seen": 93
+    "scrollSlots": 2,
+    "seen": 133,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOHJFPE"
   },
   {
     "name": "永恆劍士肩膀",
@@ -2380,8 +2562,9 @@
       "magic_power": "28",
       "armor": "450"
     },
-    "scrollSlots": 5,
-    "seen": 71
+    "scrollSlots": 2,
+    "seen": 89,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOHJFPD"
   },
   {
     "name": "神祕冥界幽靈小偷護肩",
@@ -2396,8 +2579,9 @@
       "magic_power": "20",
       "armor": "300"
     },
-    "scrollSlots": 6,
-    "seen": 37
+    "scrollSlots": 2,
+    "seen": 43,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOHJGHI"
   },
   {
     "name": "神祕冥界幽靈弓手護肩",
@@ -2412,8 +2596,9 @@
       "magic_power": "20",
       "armor": "300"
     },
-    "scrollSlots": 6,
-    "seen": 15
+    "scrollSlots": 2,
+    "seen": 19,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOHJGHJ"
   },
   {
     "name": "神祕冥界幽靈海盜護肩",
@@ -2428,8 +2613,9 @@
       "magic_power": "20",
       "armor": "300"
     },
-    "scrollSlots": 7,
-    "seen": 4
+    "scrollSlots": 2,
+    "seen": 5,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOHJFOB"
   },
   {
     "name": "神祕冥界幽靈騎士護肩",
@@ -2444,8 +2630,9 @@
       "magic_power": "20",
       "armor": "300"
     },
-    "scrollSlots": 5,
-    "seen": 38
+    "scrollSlots": 2,
+    "seen": 48,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOHJGHH"
   },
   {
     "name": "神祕冥界幽靈魔法護肩",
@@ -2460,8 +2647,9 @@
       "magic_power": "20",
       "armor": "300"
     },
-    "scrollSlots": 6,
-    "seen": 28
+    "scrollSlots": 2,
+    "seen": 38,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOHJGHG"
   },
   {
     "name": "航海師弓箭手護肩",
@@ -2476,8 +2664,9 @@
       "magic_power": "10",
       "armor": "100"
     },
-    "scrollSlots": 5,
-    "seen": 2
+    "scrollSlots": 2,
+    "seen": 3,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOHJGJG"
   },
   {
     "name": "航海師法師護肩",
@@ -2524,8 +2713,9 @@
       "magic_power": "10",
       "armor": "100"
     },
-    "scrollSlots": 5,
-    "seen": 3
+    "scrollSlots": 2,
+    "seen": 4,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOHJGJJ"
   },
   {
     "name": "航海師劍士護肩",
@@ -2621,7 +2811,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 24
+    "seen": 37,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMKJFGG"
   },
   {
     "name": "神祕冥界幽靈長杖",
@@ -2651,7 +2842,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 23
+    "seen": 25,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMKJFJF"
   },
   {
     "name": "命運之劍",
@@ -2707,7 +2899,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 7
+    "seen": 10,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KELKJFKE"
   },
   {
     "name": "創世之爪",
@@ -2744,8 +2937,9 @@
       "luk": "50",
       "attack_power": "47"
     },
-    "scrollSlots": 15,
-    "seen": 3
+    "scrollSlots": 10,
+    "seen": 4,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPLJGNA"
   },
   {
     "name": "阿斯特拉卓越盾",
@@ -2756,8 +2950,9 @@
       "luk": "15",
       "magic_power": "47"
     },
-    "scrollSlots": 12,
-    "seen": 3
+    "scrollSlots": 9,
+    "seen": 5,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPLJGNI"
   },
   {
     "name": "阿斯特拉幽影盾",
@@ -2768,8 +2963,9 @@
       "luk": "15",
       "magic_power": "47"
     },
-    "scrollSlots": 13,
-    "seen": 1
+    "scrollSlots": 9,
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPLJGKD"
   },
   {
     "name": "阿斯特拉祕法盾",
@@ -2780,8 +2976,9 @@
       "luk": "20",
       "magic_power": "47"
     },
-    "scrollSlots": 13,
-    "seen": 12
+    "scrollSlots": 10,
+    "seen": 17,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPLJGMJ"
   },
   {
     "name": "惡魔黑暗盾",
@@ -2803,7 +3000,8 @@
       "armor": "71"
     },
     "scrollSlots": 8,
-    "seen": 48
+    "seen": 60,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPLJHGI"
   },
   {
     "name": "致命劍盾",
@@ -2841,7 +3039,8 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIAKOOD"
   },
   {
     "name": "天龍錘",
@@ -2898,8 +3097,9 @@
       "boss_damage": "30",
       "ignore_monster_armor": "30"
     },
-    "scrollSlots": 16,
-    "seen": 61
+    "scrollSlots": 10,
+    "seen": 76,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPHJAMC"
   },
   {
     "name": "航海師法師套裝",
@@ -2950,7 +3150,8 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 5
+    "seen": 6,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIAPCOA"
   },
   {
     "name": "不滅的扇墜",
@@ -2974,7 +3175,8 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 5
+    "seen": 6,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMHIPOC"
   },
   {
     "name": "命運鬥拳",
@@ -2988,7 +3190,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 35
+    "seen": 56,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KELFJFGJ"
   },
   {
     "name": "創世鬥拳",
@@ -3002,7 +3205,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 19
+    "seen": 22,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KELFJFJE"
   },
   {
     "name": "阿斯特拉拳環",
@@ -3029,7 +3233,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 4
+    "seen": 5,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEKEJHPA"
   },
   {
     "name": "創世琉",
@@ -3061,7 +3266,8 @@
       "jump": "10"
     },
     "scrollSlots": 0,
-    "seen": 181
+    "seen": 253,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOKJFGE"
   },
   {
     "name": "水晶溫杜斯胸章",
@@ -3078,7 +3284,8 @@
       "jump": "10"
     },
     "scrollSlots": 0,
-    "seen": 76
+    "seen": 78,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOKJHGG"
   },
   {
     "name": "七日的胸章",
@@ -3094,7 +3301,8 @@
       "ignore_monster_armor": "10"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 4,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOKJFOB"
   },
   {
     "name": "Monday胸章",
@@ -3109,7 +3317,8 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOKJGHC"
   },
   {
     "name": "Saturday胸章",
@@ -3203,7 +3412,8 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 81
+    "seen": 107,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOKJGLJ"
   },
   {
     "name": "MX-131",
@@ -3222,7 +3432,8 @@
       "jump": "20"
     },
     "scrollSlots": 0,
-    "seen": 45
+    "seen": 64,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOKJGNH"
   },
   {
     "name": "VIP休菲凱曼的黃金胸章道具",
@@ -3239,8 +3450,9 @@
       "magic_power": "8",
       "speed": "10"
     },
-    "scrollSlots": 7,
-    "seen": 37
+    "scrollSlots": 2,
+    "seen": 55,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOKJHPG"
   },
   {
     "name": "VIP休菲凱曼黃金胸章道具",
@@ -3257,8 +3469,22 @@
       "magic_power": "6",
       "speed": "5"
     },
-    "scrollSlots": 7,
-    "seen": 3
+    "scrollSlots": 2,
+    "seen": 4,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOKJHPH"
+  },
+  {
+    "name": "阿斯特拉能量手環",
+    "part": "能量手環",
+    "level": 200,
+    "base": {
+      "dex": "15",
+      "luk": "15",
+      "attack_power": "7"
+    },
+    "scrollSlots": 0,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIAPGOA",
+    "seen": 1
   },
   {
     "name": "無限能量手環",
@@ -3329,7 +3555,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENDJGMI"
   },
   {
     "name": "阿斯特拉四玉飾品",
@@ -3353,7 +3580,8 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIAPFOA"
   },
   {
     "name": "終極通行券",
@@ -3380,8 +3608,9 @@
       "max_mp": "240",
       "armor": "120"
     },
-    "scrollSlots": 6,
-    "seen": 74
+    "scrollSlots": 5,
+    "seen": 98,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPAJFPA"
   },
   {
     "name": "附有魔力的眼罩",
@@ -3396,8 +3625,9 @@
       "magic_power": "3",
       "armor": "300"
     },
-    "scrollSlots": 4,
-    "seen": 260
+    "scrollSlots": 3,
+    "seen": 354,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPAJFJJ"
   },
   {
     "name": "拉圖斯標誌",
@@ -3413,7 +3643,8 @@
       "armor": "150"
     },
     "scrollSlots": 6,
-    "seen": 33
+    "seen": 40,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPAJFJG"
   },
   {
     "name": "混沌粉豆標誌",
@@ -3428,8 +3659,9 @@
       "magic_power": "1",
       "armor": "120"
     },
-    "scrollSlots": 6,
-    "seen": 8
+    "scrollSlots": 3,
+    "seen": 11,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPAJGKF"
   },
   {
     "name": "黑豆標記",
@@ -3445,7 +3677,8 @@
       "armor": "120"
     },
     "scrollSlots": 6,
-    "seen": 26
+    "seen": 29,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPAJFND"
   },
   {
     "name": "神祕面具",
@@ -3469,7 +3702,8 @@
       "armor": "120"
     },
     "scrollSlots": 2,
-    "seen": 2
+    "seen": 3,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPAJGKJ"
   },
   {
     "name": "水中信紙眼飾",
@@ -3485,7 +3719,8 @@
       "armor": "100"
     },
     "scrollSlots": 4,
-    "seen": 23
+    "seen": 24,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPAJFNA"
   },
   {
     "name": "黑狐狸猴",
@@ -3495,8 +3730,9 @@
       "attack_power": "1",
       "magic_power": "1"
     },
-    "scrollSlots": 9,
-    "seen": 1
+    "scrollSlots": 8,
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPAJHIG"
   },
   {
     "name": "狐猴眼部裝飾",
@@ -3516,7 +3752,8 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 14
+    "seen": 23,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIALOOD"
   },
   {
     "name": "妖蝶姬之咒符",
@@ -3528,7 +3765,8 @@
       "attack_power": "9"
     },
     "scrollSlots": 0,
-    "seen": 4
+    "seen": 6,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMHJFHI"
   },
   {
     "name": "破斜部",
@@ -3540,7 +3778,8 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 26
+    "seen": 35,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMHJFHD"
   },
   {
     "name": "命運陰陽扇",
@@ -3555,7 +3794,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 31
+    "seen": 47,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENHPHMI"
   },
   {
     "name": "神祕冥界幽靈陰陽扇",
@@ -3585,7 +3825,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 12
+    "seen": 13,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENHPHMJ"
   },
   {
     "name": "命運斧頭",
@@ -3599,7 +3840,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 3
+    "seen": 6,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMDJFMH"
   },
   {
     "name": "創世之斧",
@@ -3613,7 +3855,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMDJFPC"
   },
   {
     "name": "永恆弓箭手帽",
@@ -3626,8 +3869,9 @@
       "armor": "750",
       "ignore_monster_armor": "15"
     },
-    "scrollSlots": 15,
-    "seen": 41
+    "scrollSlots": 12,
+    "seen": 56,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPCOOGD"
   },
   {
     "name": "永恆法師帽",
@@ -3640,8 +3884,9 @@
       "armor": "750",
       "ignore_monster_armor": "15"
     },
-    "scrollSlots": 15,
-    "seen": 66
+    "scrollSlots": 7,
+    "seen": 95,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPCOOGA"
   },
   {
     "name": "永恆海盜帽",
@@ -3654,8 +3899,9 @@
       "armor": "750",
       "ignore_monster_armor": "15"
     },
-    "scrollSlots": 17,
-    "seen": 13
+    "scrollSlots": 12,
+    "seen": 18,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPCOOGF"
   },
   {
     "name": "永恆盜賊頭巾",
@@ -3668,8 +3914,9 @@
       "armor": "750",
       "ignore_monster_armor": "15"
     },
-    "scrollSlots": 17,
-    "seen": 82
+    "scrollSlots": 12,
+    "seen": 114,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPCOOGC"
   },
   {
     "name": "永恆劍士頭盔",
@@ -3682,8 +3929,9 @@
       "armor": "750",
       "ignore_monster_armor": "15"
     },
-    "scrollSlots": 15,
-    "seen": 63
+    "scrollSlots": 12,
+    "seen": 81,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPCOOGB"
   },
   {
     "name": "神祕冥界幽靈小偷帽",
@@ -3696,8 +3944,9 @@
       "armor": "600",
       "ignore_monster_armor": "15"
     },
-    "scrollSlots": 17,
-    "seen": 48
+    "scrollSlots": 12,
+    "seen": 63,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPCPPPA"
   },
   {
     "name": "神祕冥界幽靈弓手帽",
@@ -3710,8 +3959,9 @@
       "armor": "600",
       "ignore_monster_armor": "15"
     },
-    "scrollSlots": 17,
-    "seen": 15
+    "scrollSlots": 12,
+    "seen": 18,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPCPPPB"
   },
   {
     "name": "神祕冥界幽靈海盜帽",
@@ -3738,8 +3988,9 @@
       "armor": "600",
       "ignore_monster_armor": "15"
     },
-    "scrollSlots": 13,
-    "seen": 46
+    "scrollSlots": 12,
+    "seen": 56,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPCPPOJ"
   },
   {
     "name": "神祕冥界幽靈魔法帽",
@@ -3752,8 +4003,9 @@
       "armor": "600",
       "ignore_monster_armor": "15"
     },
-    "scrollSlots": 15,
-    "seen": 41
+    "scrollSlots": 4,
+    "seen": 50,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPCPPOI"
   },
   {
     "name": "航海師法師帽",
@@ -3913,7 +4165,8 @@
       "armor": "30"
     },
     "scrollSlots": 6,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPCIGNF"
   },
   {
     "name": "阿斯特拉發信器",
@@ -3925,7 +4178,8 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 3,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIAICOD"
   },
   {
     "name": "發信器 type:N",
@@ -3964,7 +4218,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 8
+    "seen": 13,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMFJFLA"
   },
   {
     "name": "神祕冥界幽靈短杖",
@@ -4019,7 +4274,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 33
+    "seen": 51,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMBJEOC"
   },
   {
     "name": "神祕冥界幽靈短刀",
@@ -4047,7 +4303,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 24
+    "seen": 26,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMBJFGI"
   },
   {
     "name": "楓葉修羅短刃",
@@ -4087,8 +4344,9 @@
       "magic_power": "6",
       "armor": "150"
     },
-    "scrollSlots": 7,
-    "seen": 108
+    "scrollSlots": 4,
+    "seen": 145,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOBJEOJ"
   },
   {
     "name": "頂級培羅德烙印腰帶",
@@ -4105,8 +4363,9 @@
       "magic_power": "35",
       "armor": "100"
     },
-    "scrollSlots": 4,
-    "seen": 319
+    "scrollSlots": 3,
+    "seen": 420,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOBJFKH"
   },
   {
     "name": "金花草腰帶",
@@ -4203,7 +4462,8 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 237
+    "seen": 336,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJFGG"
   },
   {
     "name": "姆嗚圖騰",
@@ -4218,7 +4478,8 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 36
+    "seen": 49,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJFGI"
   },
   {
     "name": "公會城紅胸章",
@@ -4233,7 +4494,8 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 12
+    "seen": 14,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJEOH"
   },
   {
     "name": "公會城綠胸章",
@@ -4263,7 +4525,8 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 9
+    "seen": 11,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJEOE"
   },
   {
     "name": "貝奧武夫的痕跡",
@@ -4275,7 +4538,8 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 41
+    "seen": 44,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJFNG"
   },
   {
     "name": "阿德勒的痕跡",
@@ -4287,7 +4551,8 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 28
+    "seen": 30,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJFNI"
   },
   {
     "name": "柏林的痕跡",
@@ -4311,7 +4576,8 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 38
+    "seen": 41,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJFNJ"
   },
   {
     "name": "五個碎片的橘子樂園圖騰",
@@ -4326,7 +4592,8 @@
       "magic_power": "9"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJFKH"
   },
   {
     "name": "芙莉蓮圖騰",
@@ -4334,7 +4601,8 @@
     "level": 10,
     "base": {},
     "scrollSlots": 0,
-    "seen": 20
+    "seen": 22,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJEMC"
   },
   {
     "name": "修塔爾克圖騰",
@@ -4349,7 +4617,8 @@
       "magic_power": "15"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 5,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJEMD"
   },
   {
     "name": "真安茲圖騰",
@@ -4361,7 +4630,8 @@
       "magic_power": "20"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 5,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJFGF"
   },
   {
     "name": "真和真圖騰",
@@ -4373,7 +4643,8 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 17
+    "seen": 23,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJEOJ"
   },
   {
     "name": "真阿克婭圖騰",
@@ -4385,7 +4656,8 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 8
+    "seen": 13,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJEOI"
   },
   {
     "name": "真昴圖騰",
@@ -4397,7 +4669,8 @@
       "magic_power": "20"
     },
     "scrollSlots": 0,
-    "seen": 4
+    "seen": 7,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJFGC"
   },
   {
     "name": "真惠惠圖騰",
@@ -4409,7 +4682,8 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 9
+    "seen": 12,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJEPB"
   },
   {
     "name": "真達克妮絲圖騰",
@@ -4421,7 +4695,8 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 8
+    "seen": 10,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJEPA"
   },
   {
     "name": "真譚雅圖騰",
@@ -4433,7 +4708,8 @@
       "magic_power": "20"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 3,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJFGD"
   },
   {
     "name": "費倫圖騰",
@@ -4441,7 +4717,8 @@
     "level": 10,
     "base": {},
     "scrollSlots": 0,
-    "seen": 6
+    "seen": 8,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJEMF"
   },
   {
     "name": "上杉謙信圖騰",
@@ -4471,7 +4748,8 @@
       "magic_power": "15"
     },
     "scrollSlots": 0,
-    "seen": 30
+    "seen": 44,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJGIB"
   },
   {
     "name": "水之精靈圖騰",
@@ -4482,7 +4760,8 @@
       "magic_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 4
+    "seen": 6,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJGID"
   },
   {
     "name": "火之精靈圖騰",
@@ -4493,7 +4772,8 @@
       "attack_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 4,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJGIA"
   },
   {
     "name": "本多忠勝圖騰",
@@ -4519,7 +4799,8 @@
       "attack_power": "10"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJGIC"
   },
   {
     "name": "赤之寶石圖騰",
@@ -4530,7 +4811,8 @@
       "attack_power": "12"
     },
     "scrollSlots": 0,
-    "seen": 7
+    "seen": 10,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJFHE"
   },
   {
     "name": "來自戰場的邀請",
@@ -4569,7 +4851,8 @@
       "luk": "25"
     },
     "scrollSlots": 3,
-    "seen": 69
+    "seen": 86,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJEMI"
   },
   {
     "name": "風之精靈圖騰",
@@ -4593,7 +4876,8 @@
       "luk": "25"
     },
     "scrollSlots": 3,
-    "seen": 5
+    "seen": 7,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJENF"
   },
   {
     "name": "真田幸村圖騰",
@@ -4623,7 +4907,8 @@
       "magic_power": "17"
     },
     "scrollSlots": 0,
-    "seen": 256
+    "seen": 357,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJFHI"
   },
   {
     "name": "異界的西格諾斯圖騰",
@@ -4679,7 +4964,8 @@
       "attack_power": "12"
     },
     "scrollSlots": 0,
-    "seen": 12
+    "seen": 17,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJFHJ"
   },
   {
     "name": "綠之寶石圖騰",
@@ -4690,7 +4976,8 @@
       "attack_power": "12"
     },
     "scrollSlots": 0,
-    "seen": 7
+    "seen": 8,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJFHH"
   },
   {
     "name": "輪迴碑石",
@@ -4705,7 +4992,8 @@
       "magic_power": "15"
     },
     "scrollSlots": 0,
-    "seen": 295
+    "seen": 405,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENCJGHC"
   },
   {
     "name": "命運長槍",
@@ -4760,7 +5048,8 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
-    "seen": 5
+    "seen": 6,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIGPE"
   },
   {
     "name": "武器泡泡 - S環",
@@ -4790,7 +5079,8 @@
       "magic_power": "4"
     },
     "scrollSlots": 0,
-    "seen": 194
+    "seen": 261,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEODIHHJ"
   },
   {
     "name": "等級泡泡 - D環",
@@ -4820,8 +5110,9 @@
       "magic_power": "5",
       "armor": "300"
     },
-    "scrollSlots": 12,
-    "seen": 23
+    "scrollSlots": 7,
+    "seen": 28,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOAJDKG"
   },
   {
     "name": "苦痛的根源",
@@ -4836,8 +5127,9 @@
       "magic_power": "3",
       "armor": "200"
     },
-    "scrollSlots": 9,
-    "seen": 184
+    "scrollSlots": 6,
+    "seen": 250,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOAJDNB"
   },
   {
     "name": "頂級培羅德烙印墜飾",
@@ -4854,8 +5146,9 @@
       "magic_power": "5",
       "armor": "100"
     },
-    "scrollSlots": 7,
-    "seen": 341
+    "scrollSlots": 3,
+    "seen": 441,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOAJFIG"
   },
   {
     "name": "死神的項鍊",
@@ -4870,7 +5163,8 @@
       "magic_power": "4"
     },
     "scrollSlots": 12,
-    "seen": 7
+    "seen": 9,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOAJFHH"
   },
   {
     "name": "支配者墜飾",
@@ -4902,7 +5196,8 @@
       "armor": "100"
     },
     "scrollSlots": 6,
-    "seen": 62
+    "seen": 74,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOAJDKC"
   },
   {
     "name": "高級培羅德烙印墜飾",
@@ -4985,7 +5280,8 @@
       "armor": "65"
     },
     "scrollSlots": 4,
-    "seen": 4
+    "seen": 9,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOAJGOB"
   },
   {
     "name": "佩斯綠色墜飾",
@@ -5011,7 +5307,8 @@
       "armor": "65"
     },
     "scrollSlots": 4,
-    "seen": 2
+    "seen": 3,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOAJHHD"
   },
   {
     "name": "狼綠色墜飾",
@@ -5037,8 +5334,9 @@
       "luk": "3",
       "armor": "100"
     },
-    "scrollSlots": 7,
-    "seen": 77
+    "scrollSlots": 4,
+    "seen": 99,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOAJFPI"
   },
   {
     "name": "特別版精靈墜飾",
@@ -5051,7 +5349,8 @@
       "luk": "2"
     },
     "scrollSlots": 0,
-    "seen": 5
+    "seen": 7,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOAJGLH"
   },
   {
     "name": "準備好的精靈墜飾",
@@ -5059,7 +5358,8 @@
     "level": 0,
     "base": {},
     "scrollSlots": 0,
-    "seen": 66
+    "seen": 93,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOAJENF"
   },
   {
     "name": "精靈墜飾",
@@ -5067,7 +5367,8 @@
     "level": 0,
     "base": {},
     "scrollSlots": 0,
-    "seen": 65
+    "seen": 94,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOAJFPE"
   },
   {
     "name": "阿斯特拉獎牌",
@@ -5079,7 +5380,8 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 4
+    "seen": 5,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIALHOD"
   },
   {
     "name": "妖蝶姬之妖章",
@@ -5091,7 +5393,8 @@
       "attack_power": "9"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMHJFOI"
   },
   {
     "name": "普邱斯獎牌",
@@ -5103,7 +5406,8 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 8
+    "seen": 9,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMHJFOD"
   },
   {
     "name": "命運璃",
@@ -5117,7 +5421,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 4
+    "seen": 5,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEKFJHPA"
   },
   {
     "name": "創世璃",
@@ -5143,7 +5448,8 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 3,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIAJPOD"
   },
   {
     "name": "狂野棒",
@@ -5203,7 +5509,8 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 8
+    "seen": 10,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMHJFID"
   },
   {
     "name": "命運調節器",
@@ -5217,7 +5524,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 8
+    "seen": 12,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENDIHLC"
   },
   {
     "name": "創世調節器",
@@ -5231,7 +5539,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 9
+    "seen": 12,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENDIHMD"
   },
   {
     "name": "航海師調節器",
@@ -5259,8 +5568,9 @@
       "speed": "10",
       "jump": "7"
     },
-    "scrollSlots": 12,
-    "seen": 18
+    "scrollSlots": 8,
+    "seen": 23,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPFIBNA"
   },
   {
     "name": "永恆法師鞋",
@@ -5274,8 +5584,9 @@
       "speed": "10",
       "jump": "7"
     },
-    "scrollSlots": 11,
-    "seen": 48
+    "scrollSlots": 8,
+    "seen": 64,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPFIBNB"
   },
   {
     "name": "永恆海盜鞋",
@@ -5304,8 +5615,9 @@
       "speed": "10",
       "jump": "7"
     },
-    "scrollSlots": 11,
-    "seen": 40
+    "scrollSlots": 8,
+    "seen": 58,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPFIBND"
   },
   {
     "name": "永恆劍士鞋",
@@ -5319,8 +5631,9 @@
       "speed": "10",
       "jump": "7"
     },
-    "scrollSlots": 11,
-    "seen": 37
+    "scrollSlots": 8,
+    "seen": 42,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPFIBMI"
   },
   {
     "name": "神祕冥界幽靈小偷鞋子",
@@ -5334,8 +5647,9 @@
       "speed": "10",
       "jump": "7"
     },
-    "scrollSlots": 13,
-    "seen": 92
+    "scrollSlots": 8,
+    "seen": 121,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPFIGIA"
   },
   {
     "name": "神祕冥界幽靈弓手鞋子",
@@ -5349,8 +5663,9 @@
       "speed": "10",
       "jump": "7"
     },
-    "scrollSlots": 11,
-    "seen": 35
+    "scrollSlots": 8,
+    "seen": 48,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPFIGIB"
   },
   {
     "name": "神祕冥界幽靈海盜鞋子",
@@ -5364,8 +5679,9 @@
       "speed": "10",
       "jump": "7"
     },
-    "scrollSlots": 12,
-    "seen": 8
+    "scrollSlots": 8,
+    "seen": 12,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPFIGID"
   },
   {
     "name": "神祕冥界幽靈騎士鞋子",
@@ -5379,8 +5695,9 @@
       "speed": "10",
       "jump": "7"
     },
-    "scrollSlots": 10,
-    "seen": 71
+    "scrollSlots": 2,
+    "seen": 94,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPFIGLJ"
   },
   {
     "name": "神祕冥界幽靈魔導士鞋子",
@@ -5394,8 +5711,9 @@
       "speed": "10",
       "jump": "7"
     },
-    "scrollSlots": 10,
-    "seen": 57
+    "scrollSlots": 8,
+    "seen": 79,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPFIGLI"
   },
   {
     "name": "航海師弓箭手鞋",
@@ -5454,8 +5772,9 @@
       "speed": "10",
       "jump": "7"
     },
-    "scrollSlots": 12,
-    "seen": 5
+    "scrollSlots": 8,
+    "seen": 6,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPFIHNF"
   },
   {
     "name": "航海師劍士鞋",
@@ -5518,7 +5837,8 @@
       "boss_damage": "10"
     },
     "scrollSlots": 0,
-    "seen": 47
+    "seen": 67,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGIDJA"
   },
   {
     "name": "找回四季之人",
@@ -5586,7 +5906,8 @@
       "magic_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGIEJB"
   },
   {
     "name": "深掘根源之人",
@@ -5603,7 +5924,8 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 4,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGIEII"
   },
   {
     "name": "黑暗天堂的敵對者",
@@ -5677,7 +5999,8 @@
       "ignore_monster_armor": "10"
     },
     "scrollSlots": 0,
-    "seen": 83
+    "seen": 103,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGJOMD"
   },
   {
     "name": "星期二當然就要去怪物公園",
@@ -5730,7 +6053,8 @@
     "level": 33,
     "base": {},
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGIEJJ"
   },
   {
     "name": "安提利昂守護者",
@@ -5762,7 +6086,8 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 11
+    "seen": 14,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGJAMD"
   },
   {
     "name": "異世界生活勳章",
@@ -5779,7 +6104,8 @@
       "jump": "10"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 3,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGIHOG"
   },
   {
     "name": "☆Maple19☆",
@@ -5796,7 +6122,8 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 22
+    "seen": 26,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGIEOF"
   },
   {
     "name": "人見人愛的兔兔",
@@ -5847,7 +6174,26 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 4,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGIFJA"
+  },
+  {
+    "name": "穿越時空",
+    "part": "勳章",
+    "level": 0,
+    "base": {
+      "str": "5",
+      "dex": "5",
+      "int": "5",
+      "luk": "5",
+      "max_hp": "250",
+      "max_mp": "250",
+      "attack_power": "2",
+      "magic_power": "2"
+    },
+    "scrollSlots": 0,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGIFII",
+    "seen": 1
   },
   {
     "name": "混沌貝倫殺手",
@@ -5857,7 +6203,8 @@
       "boss_damage": "5"
     },
     "scrollSlots": 0,
-    "seen": 65
+    "seen": 81,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGJOOE"
   },
   {
     "name": "新復古英雄",
@@ -5874,7 +6221,8 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGIGII"
   },
   {
     "name": "楓之樹",
@@ -5891,7 +6239,8 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 4
+    "seen": 5,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGIFIH"
   },
   {
     "name": "維多利亞盃",
@@ -5908,7 +6257,8 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 32
+    "seen": 41,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGIELD"
   },
   {
     "name": "BLACK",
@@ -5926,7 +6276,8 @@
       "armor": "808"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGIFHG"
   },
   {
     "name": "Hotel Maple VIP會員",
@@ -5943,7 +6294,8 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGIFOJ"
   },
   {
     "name": "Intuitive  KINETIC！",
@@ -5951,7 +6303,8 @@
     "level": 0,
     "base": {},
     "scrollSlots": 0,
-    "seen": 78
+    "seen": 111,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGICOA"
   },
   {
     "name": "Reboot達人勳章",
@@ -5968,7 +6321,8 @@
       "magic_power": "21"
     },
     "scrollSlots": 0,
-    "seen": 53
+    "seen": 73,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGJOJB"
   },
   {
     "name": "VIP金牌",
@@ -6003,7 +6357,8 @@
       "boss_damage": "5"
     },
     "scrollSlots": 0,
-    "seen": 16
+    "seen": 21,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOGIDMC"
   },
   {
     "name": "阿斯特拉十核控制器",
@@ -6051,8 +6406,9 @@
       "magic_power": "15",
       "ignore_monster_armor": "30"
     },
-    "scrollSlots": 13,
-    "seen": 203
+    "scrollSlots": 10,
+    "seen": 286,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEJFJHHE"
   },
   {
     "name": "M-DAY機器心臟",
@@ -6065,8 +6421,9 @@
       "luk": "5",
       "max_hp": "500"
     },
-    "scrollSlots": 16,
-    "seen": 26
+    "scrollSlots": 12,
+    "seen": 37,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEJFJHJE"
   },
   {
     "name": "女武神之心",
@@ -6079,8 +6436,9 @@
       "luk": "5",
       "max_hp": "500"
     },
-    "scrollSlots": 14,
-    "seen": 132
+    "scrollSlots": 11,
+    "seen": 168,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEJFJHII"
   },
   {
     "name": "電漿之心",
@@ -6098,7 +6456,8 @@
       "ignore_monster_armor": "15"
     },
     "scrollSlots": 10,
-    "seen": 25
+    "seen": 27,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEJFJHHI"
   },
   {
     "name": "黑心",
@@ -6146,7 +6505,8 @@
       "max_hp": "50"
     },
     "scrollSlots": 10,
-    "seen": 13
+    "seen": 14,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEJFJHKB"
   },
   {
     "name": "金之心",
@@ -6180,7 +6540,8 @@
       "max_hp": "50"
     },
     "scrollSlots": 8,
-    "seen": 8
+    "seen": 10,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEJFJHGH"
   },
   {
     "name": "永恆弓箭手褲",
@@ -6194,7 +6555,8 @@
       "ignore_monster_armor": "5"
     },
     "scrollSlots": 8,
-    "seen": 46
+    "seen": 62,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPEJFGG"
   },
   {
     "name": "永恆法師褲",
@@ -6207,8 +6569,9 @@
       "armor": "325",
       "ignore_monster_armor": "5"
     },
-    "scrollSlots": 11,
-    "seen": 89
+    "scrollSlots": 8,
+    "seen": 121,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPEJFGH"
   },
   {
     "name": "永恆海盜褲",
@@ -6221,8 +6584,9 @@
       "armor": "325",
       "ignore_monster_armor": "5"
     },
-    "scrollSlots": 13,
-    "seen": 14
+    "scrollSlots": 8,
+    "seen": 19,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPEJFGI"
   },
   {
     "name": "永恆盜賊褲",
@@ -6235,8 +6599,9 @@
       "armor": "325",
       "ignore_monster_armor": "5"
     },
-    "scrollSlots": 13,
-    "seen": 112
+    "scrollSlots": 8,
+    "seen": 157,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPEJFGJ"
   },
   {
     "name": "永恆劍士褲",
@@ -6249,8 +6614,9 @@
       "armor": "325",
       "ignore_monster_armor": "5"
     },
-    "scrollSlots": 11,
-    "seen": 85
+    "scrollSlots": 8,
+    "seen": 107,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPEJFGE"
   },
   {
     "name": "菇菇敦威治褲",
@@ -6346,7 +6712,8 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIALPOD"
   },
   {
     "name": "不滅的遺跡",
@@ -6370,7 +6737,8 @@
       "attack_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 7
+    "seen": 8,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMHIAOC"
   },
   {
     "name": "真理超新星的精華",
@@ -6384,7 +6752,8 @@
       "armor": "30"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMHJCOC"
   },
   {
     "name": "米特拉的憤怒：弓箭手",
@@ -6397,7 +6766,8 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 47
+    "seen": 65,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOLLCLH"
   },
   {
     "name": "米特拉的憤怒：法師",
@@ -6410,7 +6780,8 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 95
+    "seen": 129,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOLLCLG"
   },
   {
     "name": "米特拉的憤怒：海盜",
@@ -6423,7 +6794,8 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 17
+    "seen": 22,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOLLCLI"
   },
   {
     "name": "米特拉的憤怒：盜賊",
@@ -6436,7 +6808,8 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 109
+    "seen": 152,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOLLCLJ"
   },
   {
     "name": "米特拉的憤怒：劍士",
@@ -6450,7 +6823,8 @@
       "magic_power": "5"
     },
     "scrollSlots": 0,
-    "seen": 89
+    "seen": 115,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOLLCLE"
   },
   {
     "name": "永恆時間徽章",
@@ -6570,7 +6944,8 @@
       "magic_power": "2"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 4,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOLLCPG"
   },
   {
     "name": "黃金惡魔徽章",
@@ -6586,7 +6961,8 @@
       "magic_power": "2"
     },
     "scrollSlots": 0,
-    "seen": 8
+    "seen": 10,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOLLAOA"
   },
   {
     "name": "黃金楓葉徽章",
@@ -6601,7 +6977,8 @@
       "magic_power": "2"
     },
     "scrollSlots": 0,
-    "seen": 49
+    "seen": 54,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEOLLEOA"
   },
   {
     "name": "黃金騎士徽章",
@@ -6647,7 +7024,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KELCPHKH"
   },
   {
     "name": "傲慢的原罪",
@@ -6679,7 +7057,8 @@
       "armor": "50"
     },
     "scrollSlots": 0,
-    "seen": 5
+    "seen": 8,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPDJGJF"
   },
   {
     "name": "口紅控制器標誌",
@@ -6694,8 +7073,9 @@
       "magic_power": "10",
       "armor": "200"
     },
-    "scrollSlots": 11,
-    "seen": 251
+    "scrollSlots": 6,
+    "seen": 334,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPDJBND"
   },
   {
     "name": "波賽頓紋身",
@@ -6710,8 +7090,9 @@
       "max_mp": "120",
       "armor": "38"
     },
-    "scrollSlots": 6,
-    "seen": 57
+    "scrollSlots": 4,
+    "seen": 83,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPDJDNJ"
   },
   {
     "name": "神祕紋身",
@@ -6729,7 +7110,8 @@
       "armor": "120"
     },
     "scrollSlots": 4,
-    "seen": 3
+    "seen": 5,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPDJCNI"
   },
   {
     "name": "暮光印記",
@@ -6744,8 +7126,9 @@
       "magic_power": "5",
       "armor": "100"
     },
-    "scrollSlots": 4,
-    "seen": 95
+    "scrollSlots": 3,
+    "seen": 115,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPDJALG"
   },
   {
     "name": "楓之谷口香糖",
@@ -6777,7 +7160,8 @@
       "armor": "100"
     },
     "scrollSlots": 6,
-    "seen": 18
+    "seen": 19,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPDJDJJ"
   },
   {
     "name": "不滅的傳說楓葉",
@@ -6803,8 +7187,9 @@
     "base": {
       "dex": "4"
     },
-    "scrollSlots": 13,
-    "seen": 2
+    "scrollSlots": 11,
+    "seen": 3,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEPDJEOF"
   },
   {
     "name": "命運鎖鏈",
@@ -6818,7 +7203,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 3
+    "seen": 4,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENFJHLF"
   },
   {
     "name": "創世鎖鏈",
@@ -6846,8 +7232,9 @@
       "boss_damage": "30",
       "ignore_monster_armor": "10"
     },
-    "scrollSlots": 14,
-    "seen": 14
+    "scrollSlots": 8,
+    "seen": 23,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMGJGMG"
   },
   {
     "name": "神祕冥界幽靈之刃",
@@ -6857,8 +7244,9 @@
       "luk": "65",
       "attack_power": "140"
     },
-    "scrollSlots": 14,
-    "seen": 11
+    "scrollSlots": 9,
+    "seen": 14,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMGJGOF"
   },
   {
     "name": "波賽頓雙刀",
@@ -6870,8 +7258,9 @@
       "boss_damage": "30",
       "ignore_monster_armor": "10"
     },
-    "scrollSlots": 11,
-    "seen": 26
+    "scrollSlots": 8,
+    "seen": 32,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMGJHHB"
   },
   {
     "name": "無名刀",
@@ -6882,7 +7271,8 @@
       "attack_power": "20"
     },
     "scrollSlots": 8,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMGJHOB"
   },
   {
     "name": "命運雙手斧",
@@ -6938,7 +7328,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 7
+    "seen": 10,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KELCJFHB"
   },
   {
     "name": "創世雙手劍",
@@ -6952,7 +7343,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 7
+    "seen": 9,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KELCJFIJ"
   },
   {
     "name": "命運雙弩槍",
@@ -6967,7 +7359,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 7
+    "seen": 11,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEKAJGIF"
   },
   {
     "name": "創世雙弩槍",
@@ -6992,7 +7385,8 @@
       "int": "1850"
     },
     "scrollSlots": 0,
-    "seen": 433
+    "seen": 571,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIKLHOB"
   },
   {
     "name": "阿斯特拉祖母綠",
@@ -7004,7 +7398,8 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 9
+    "seen": 17,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIAKBOD"
   },
   {
     "name": "阿斯特拉黃玉",
@@ -7028,7 +7423,8 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 4,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIAKAOD"
   },
   {
     "name": "阿斯特拉藍寶石",
@@ -7040,7 +7436,8 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 1
+    "seen": 2,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIAKPOA"
   },
   {
     "name": "妖蝶姬之花寶石",
@@ -7070,7 +7467,8 @@
       "magic_power": "3"
     },
     "scrollSlots": 0,
-    "seen": 10
+    "seen": 12,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMHJOJD"
   },
   {
     "name": "漆黑耶雷弗之光",
@@ -7121,7 +7519,8 @@
       "magic_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 2
+    "seen": 3,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIAPHOD"
   },
   {
     "name": "不滅的魔法翅膀",
@@ -7145,7 +7544,8 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 4
+    "seen": 6,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIAJGOD"
   },
   {
     "name": "妖蝶姬之咒式矢",
@@ -7164,7 +7564,8 @@
     "level": 100,
     "base": {},
     "scrollSlots": 0,
-    "seen": 4
+    "seen": 6,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMHJHOC"
   },
   {
     "name": "命運魔法護腕",
@@ -7179,7 +7580,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 2
+    "seen": 3,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENKJHLF"
   },
   {
     "name": "創世魔法護腕",
@@ -7208,7 +7610,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 7
+    "seen": 12,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENBJGNE"
   },
   {
     "name": "神祕冥界幽靈魔劍",
@@ -7236,7 +7639,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 11
+    "seen": 13,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENBJGMD"
   },
   {
     "name": "白金之書 <終章>",
@@ -7259,8 +7663,9 @@
       "luk": "60",
       "magic_power": "175"
     },
-    "scrollSlots": 14,
-    "seen": 26
+    "scrollSlots": 9,
+    "seen": 37,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMHPEOI"
   },
   {
     "name": "阿斯特拉靈符",
@@ -7272,7 +7677,8 @@
       "magic_power": "260"
     },
     "scrollSlots": 9,
-    "seen": 16
+    "seen": 21,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEMHPEPB"
   },
   {
     "name": "阿斯特拉靈魂戒指",
@@ -7284,7 +7690,8 @@
       "attack_power": "7"
     },
     "scrollSlots": 0,
-    "seen": 3
+    "seen": 5,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KEIAIBOA"
   },
   {
     "name": "妖蝶姬之魂戒",
@@ -7327,7 +7734,8 @@
       "ignore_monster_armor": "20"
     },
     "scrollSlots": 8,
-    "seen": 3
+    "seen": 5,
+    "icon": "https://open.api.nexon.com/static/maplestorytw/item/icon/KENAJGNE"
   },
   {
     "name": "創世靈魂射手",

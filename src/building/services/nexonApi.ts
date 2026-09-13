@@ -176,6 +176,10 @@ export interface PetOption {
 export interface PetInfo {
   name: string
   itemName: string
+  /** 寵物本身的圖示網址 */
+  icon?: string
+  /** 寵物裝備的圖示網址 */
+  itemIcon?: string
   options: PetOption[]
 }
 
@@ -318,11 +322,18 @@ function normalizePets(res: Record<string, unknown>): PetInfo[] {
     if (typeof name !== 'string' || !name) continue
     const equipment = res[`pet_${index}_equipment`] as {
       item_name?: string
+      item_icon?: string
       item_option?: { option_type?: string; option_value?: string }[]
     } | null
     pets.push({
       name,
       itemName: equipment?.item_name ?? '',
+      // 寵物與寵物裝備各有各的圖，都是 CDN 網址（65 字元），存下來格子才不會只有文字
+      icon:
+        typeof res[`pet_${index}_icon`] === 'string'
+          ? (res[`pet_${index}_icon`] as string)
+          : undefined,
+      itemIcon: equipment?.item_icon,
       options: (equipment?.item_option ?? []).map((option) => ({
         type: String(option.option_type ?? ''),
         value: String(option.option_value ?? ''),
