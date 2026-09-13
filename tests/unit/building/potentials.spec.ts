@@ -11,6 +11,7 @@ import {
   potentialLines,
 } from '@/building/data/potentials'
 import siteLegendary from './fixtures/cubeSiteLegendary.json'
+import siteLegendaryAdditional from './fixtures/cubeSiteLegendaryAdditional.json'
 
 const textsOf = (lines: ReturnType<typeof potentialLines>) => lines.map((l) => l.text)
 
@@ -141,4 +142,21 @@ describe('階級名稱', () => {
     expect(potentialLines('hat', 200, 'unique').find((l) => l.name === 'INT%')?.x).toBe(10)
     expect(potentialLines('hat', 200, 'legendary').find((l) => l.name === 'INT%')?.x).toBe(13)
   })
+})
+
+describe('對照站方查詢頁：21 個部位的傳說附加潛能', () => {
+  // 附加潛能是另一組詞條池，適用範圍跟主潛能不一樣，所以要分開驗。
+  // 這組抓到一件事：附加的「防具專用」涵蓋副武器，卻不含胸章與機器心臟 ——
+  // 跟主潛能剛好相反，照 category 推兩邊一定會錯一邊。
+  for (const [subcategory, entry] of Object.entries(
+    siteLegendaryAdditional as unknown as Record<string, { level: number; lines: string[] }>,
+  )) {
+    if (subcategory.startsWith('_')) continue
+    it(`${subcategory}（Lv.${entry.level}）`, () => {
+      const got = potentialLines(subcategory, entry.level, 'legendary', 'additional').map(
+        (l) => l.text,
+      )
+      expect(new Set(got)).toEqual(new Set(entry.lines))
+    })
+  }
 })

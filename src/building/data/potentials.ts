@@ -88,7 +88,7 @@ const OPTIONS = raw.options as Record<string, RawOption>
  * 得自己寫。判斷一律走 category／subcategory，不要列舉部位名單 —— 站方之後
  * 新增部位時，列舉式的名單會安靜地漏掉它。
  */
-function applies(type: string, equip: EquipType): boolean {
+function applies(type: string, equip: EquipType, slot: PotentialSlot): boolean {
   switch (type) {
     case '共用':
       return true
@@ -96,10 +96,25 @@ function applies(type: string, equip: EquipType): boolean {
       return equip.category === 'weapon'
     case '只有武器不可':
       return equip.category !== 'weapon'
-    // 這兩組**不能**用 category 判斷：站方的 category 只是選單分組，
-    // 肩膀與腰帶掛在 accessory 卻吃防具詞條、胸章與機器心臟掛在 other 也吃防具詞條。
-    // 逐一比對過 21 個部位的查詢結果才定出下面這條線。
+    /*
+     * 「防具專用」不能用 category 判斷，而且**主潛能與附加潛能的範圍不一樣**。
+     * 兩者都是逐一比對站方 21 個部位的查詢結果定出來的：
+     *
+     *   主潛能   ＝ 非武器，扣掉五個真飾品（胸章與機器心臟算在內）
+     *   附加潛能 ＝ 上面那組再扣掉胸章與機器心臟，但**加上兩種副武器**
+     *
+     * 副武器明明是武器卻吃防具詞條，看起來不合理，但站方的表就是這樣，
+     * 而且遊戲內副武器確實拿得到爆擊傷害 +1%。照 category 推會少列這條。
+     */
     case '防具專用':
+      if (slot === 'additional') {
+        if (SUB_WEAPONS.has(equip.subcategory)) return true
+        return (
+          equip.category !== 'weapon' &&
+          equip.category !== 'other' &&
+          !TRUE_ACCESSORIES.has(equip.subcategory)
+        )
+      }
       return equip.category !== 'weapon' && !TRUE_ACCESSORIES.has(equip.subcategory)
     case '飾品專用':
       return TRUE_ACCESSORIES.has(equip.subcategory)
@@ -126,6 +141,9 @@ function applies(type: string, equip: EquipType): boolean {
  * 肩膀與腰帶雖然在遊戲裡也算飾品欄，潛能上卻是走防具那組。
  */
 const TRUE_ACCESSORIES = new Set(['ring', 'pendant', 'earrings', 'face', 'eye'])
+
+/** 副武器兩種。附加潛能的「防具專用」會涵蓋它們，見 applies() */
+const SUB_WEAPONS = new Set(['secondary-weapon', 'secondary-weapon-other'])
 
 /** 取該等級適用的數值：規則是「不超過裝備等級的最大 minLevel」 */
 function valueAt(rule: RawRule, itemLevel: number, subcategory: string): RawValue | null {
@@ -167,13 +185,13 @@ export function potentialLines(
   const lines: PotentialLine[] = []
   const seen = new Set<string>()
   // 型錄上有、方塊實際抽不到的，見 potentialExclusions.ts
-  const unavailable = new Set(UNAVAILABLE_LINES[subcategory] ?? [])
+  const unavailable = new Set(UNAVAILABLE_LINES[slot][subcategory] ?? [])
 
   for (const [name, def] of Object.entries(OPTIONS)) {
     // 同一條詞條在同一階級可能有多條規則（無視傷害 20% 與 40% 是兩條），
     // 所以不能配到一條就 break —— 那會少掉其中一個選項。
     for (const rule of def[slot]) {
-      if (rule.rank !== rank || !applies(rule.type, equip)) continue
+      if (rule.rank !== rank || !applies(rule.type, equip, slot)) continue
       const value = valueAt(rule, itemLevel, subcategory)
       if (!value) continue
 
