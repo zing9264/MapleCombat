@@ -77,6 +77,7 @@ function pickBase(name: string): void {
   additionalPotentials.splice(0, 3, '', '', '')
   potRank.value = 'legendary'
   addPotRank.value = 'legendary'
+  slotBonus.value = 0
 }
 
 /** 部位是不是武器 —— 卷軸分類已經判斷過，直接沿用 */
@@ -95,7 +96,19 @@ const scrollOptions = computed(() =>
   base.value ? scrollsFor(base.value.part, base.value.level) : [],
 )
 const scrollCategory = computed(() => (base.value ? scrollCategoryOf(base.value.part) : null))
-const scrollSlots = computed(() => base.value?.scrollSlots ?? 0)
+/**
+ * 鐵鎚追加的卷軸格數。
+ *
+ * 遊戲裡黃金鎚／白金鎚可以加開強化次數，而且**底本身的格數也不可靠** ——
+ * 裝備庫的格數是爬蟲從某一隻角色身上那件抓的（已強化次數＋剩餘可強化次數），
+ * 那個人有沒有敲過鎚子會直接反映進去。實際看到同一階的永恆手套有 8/11/12/13 格
+ * 四種值，就是這個原因。
+ *
+ * 所以做成可調而不是寫死某個鎚子加幾格：玩家看著自己裝備上的「強化 N 次」填即可。
+ */
+const slotBonus = ref(0)
+
+const scrollSlots = computed(() => (base.value?.scrollSlots ?? 0) + slotBonus.value)
 const scrollsUsed = computed(() => scrolls.reduce((n, s) => n + s.count, 0))
 const scrollsLeft = computed(() => Math.max(0, scrollSlots.value - scrollsUsed.value))
 
@@ -391,6 +404,21 @@ const saved = ref('')
             {{ scrollCategory ?? '此部位無法上卷' }} · 已用 {{ scrollsUsed }} / {{ scrollSlots }} 格
           </span>
         </h3>
+        <label class="mb-row mb-slot-bonus">
+          <span>鐵鎚追加格數</span>
+          <input
+            v-model.number="slotBonus"
+            class="mb-input mb-slot-bonus-input"
+            type="number"
+            min="0"
+            max="4"
+          />
+          <small>
+            黃金鎚／白金鎚會加開強化次數。底的格數取自裝備庫收錄的那一件，對不上你手上的
+            就用這裡補。
+          </small>
+        </label>
+
         <p v-if="!scrollSlots" class="mb-hint">
           這個基底沒有卷軸格數資料（舊版收錄）。到「裝備組」重新同步一次就會補上。
         </p>
@@ -683,6 +711,21 @@ const saved = ref('')
   width: auto;
   min-width: 90px;
   margin-left: auto;
+}
+
+.mb-slot-bonus {
+  margin-bottom: 6px;
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+.mb-slot-bonus-input {
+  width: 64px;
+  text-align: right;
+}
+
+.mb-slot-bonus small {
+  opacity: 0.7;
 }
 
 .mb-pot-label {
