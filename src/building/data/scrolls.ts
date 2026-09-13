@@ -4,7 +4,8 @@
 // 只收常用的幾張；遊戲內種類太多，全做不划算。
 //
 // 卷軸效果依「部位類別」不同（防具／武器／飾品…），同一名稱不同部位的數值不同，
-// 因此 id 要帶部位類別。目前只有「防具 · 魔力」系列，其他系列等截圖再補。
+// 因此 id 要帶部位類別。目前是「防具 · 魔力」全系列 ＋「防具 · 攻擊力」命運卷，
+// 其他系列等截圖再補。
 //
 // 隨機卷（命運／星彩／救世）以「各結果的機率」保存，製作台用期望值套用，
 // 但保留分布供成本策略使用。
@@ -37,12 +38,34 @@ export interface ScrollDef {
 
 const fixed = (option: Partial<ItemOption>): ScrollOutcome[] => [{ option, probability: 1 }]
 
-/** 只有魔力一種數值的隨機卷 */
-const magicRange = (table: Record<number, number>): ScrollOutcome[] =>
+/** 單一能力值的隨機卷：value → 出現機率(%) */
+const range = (
+  key: 'magic_power' | 'attack_power',
+  table: Record<number, number>,
+): ScrollOutcome[] =>
   Object.entries(table).map(([value, pct]) => ({
-    option: { magic_power: value },
+    option: { [key]: value },
     probability: pct / 100,
   }))
+
+const magicRange = (table: Record<number, number>): ScrollOutcome[] => range('magic_power', table)
+const attackRange = (table: Record<number, number>): ScrollOutcome[] => range('attack_power', table)
+
+/**
+ * 命運卷的數值分布，攻擊力與魔力兩版完全相同（兩張 tooltip 逐行比對過）。
+ * 寫成共用常數而不是複製一份：改了一邊忘了另一邊會很難發現。
+ */
+const DESTINY_TABLE: Record<number, number> = {
+  7: 4,
+  8: 6,
+  9: 31,
+  10: 30,
+  11: 14,
+  12: 7,
+  13: 5,
+  14: 2,
+  15: 1,
+}
 
 export const SCROLLS: readonly ScrollDef[] = [
   {
@@ -83,8 +106,19 @@ export const SCROLLS: readonly ScrollDef[] = [
     category: '防具',
     successRate: 1,
     maxItemLevel: 200,
-    outcomes: magicRange({ 7: 4, 8: 6, 9: 31, 10: 30, 11: 14, 12: 7, 13: 5, 14: 2, 15: 1 }),
+    outcomes: magicRange(DESTINY_TABLE),
     referencePrice: 8_500_000_000,
+    note: '僅限 200 等級以下（含）裝備',
+  },
+  {
+    id: 'armor-attack-destiny',
+    name: '命運防具攻擊力卷軸',
+    category: '防具',
+    successRate: 1,
+    maxItemLevel: 200,
+    outcomes: attackRange(DESTINY_TABLE),
+    // 7 日平均單個交易價 53億7619萬0476（單個最低 55億4444萬4444）
+    referencePrice: 5_376_190_476,
     note: '僅限 200 等級以下（含）裝備',
   },
   {
