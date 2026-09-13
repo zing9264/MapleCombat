@@ -38,6 +38,7 @@ import {
   type PotentialSlot,
 } from '../data/potentials'
 import { subcategoryOf } from '../data/partSubcategory'
+import { canFlame } from '../data/flameParts'
 import { useCraftRequestStore } from '../stores/craftRequest'
 
 const library = useItemLibraryStore()
@@ -234,10 +235,10 @@ const showAddPot = computed(
 )
 
 /**
- * 星火沒有現成的部位表，借用潛能那份（有潛能欄的部位幾乎都能上星火），
- * 唯一的例外是胸章 —— 它有潛能但沒有星火。
+ * 星火有自己的部位表，不能借用潛能那份：口袋道具有星火卻沒有潛能欄，
+ * 機器心臟有潛能卻不能上星火（遊戲內 tooltip 寫「追加屬性 無法強化」）。
  */
-const showFlame = computed(() => showMainPot.value && subcategory.value !== 'badge')
+const showFlame = computed(() => !!base.value && canFlame(base.value.part))
 
 /**
  * 某一條可選的詞條。
