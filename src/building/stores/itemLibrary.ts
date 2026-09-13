@@ -8,7 +8,7 @@
 // 都會自動進庫。庫是全域的 —— 跟裝備組無關，任何一組同步到的基底都能拿去
 // 套用在其他組上。
 
-import { defineStore } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import type { EquipmentItem, ItemOption } from '../services/nexonApi'
 import { countSetPieces } from '../data/equipmentSets'
@@ -162,3 +162,10 @@ export const useItemLibraryStore = defineStore('buildingItemLibrary', () => {
     clearAll,
   }
 })
+
+// 開發時熱更新這個檔案會重新執行模組，但 Pinia 仍持有舊的 store 實例 ——
+// 新程式讀新欄位就會讀到 undefined 而整頁當掉（實際發生過，還連帶把使用者
+// 已經輸入的值洗掉）。掛上 acceptHMRUpdate 讓 store 跟著模組一起換。
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useItemLibraryStore, import.meta.hot))
+}

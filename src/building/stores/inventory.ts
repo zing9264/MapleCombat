@@ -4,7 +4,7 @@
 // 黃 starforce、藍綠 add(星火)，四層各自獨立 —— 換裝比較引擎不需要區分
 // 真實裝備與自製裝備。
 
-import { defineStore } from 'pinia'
+import { acceptHMRUpdate, defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import type { ItemOption } from '../services/nexonApi'
 import type { GearForCompare } from '../core/equipmentDelta'
@@ -117,3 +117,10 @@ export const useInventoryStore = defineStore('buildingInventory', () => {
 
   return { items, count, selected, selectedId, lastError, add, rename, remove, select }
 })
+
+// 開發時熱更新這個檔案會重新執行模組，但 Pinia 仍持有舊的 store 實例 ——
+// 新程式讀新欄位就會讀到 undefined 而整頁當掉（實際發生過，還連帶把使用者
+// 已經輸入的值洗掉）。掛上 acceptHMRUpdate 讓 store 跟著模組一起換。
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useInventoryStore, import.meta.hot))
+}
