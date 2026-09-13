@@ -97,14 +97,14 @@ const scrollOptions = computed(() =>
 )
 const scrollCategory = computed(() => (base.value ? scrollCategoryOf(base.value.part) : null))
 /**
- * 鐵鎚追加的卷軸格數。
+ * 卷軸格數的手動校正。
  *
- * 遊戲裡黃金鎚／白金鎚可以加開強化次數，而且**底本身的格數也不可靠** ——
- * 裝備庫的格數是爬蟲從某一隻角色身上那件抓的（已強化次數＋剩餘可強化次數），
- * 那個人有沒有敲過鎚子會直接反映進去。實際看到同一階的永恆手套有 8/11/12/13 格
- * 四種值，就是這個原因。
+ * 底的格數不可靠：裝備庫收的是爬蟲從某一隻角色身上那件抓到的
+ * 「已強化次數＋剩餘可強化次數」，那件被敲過鎚子的話會直接算進去。
+ * 實際收錄到同一階的永恆手套有 8／11／12／13 四種格數，就是這個原因。
  *
- * 所以做成可調而不是寫死某個鎚子加幾格：玩家看著自己裝備上的「強化 N 次」填即可。
+ * 刻意不叫「鐵鎚」：黃金鎚已經從遊戲移除了，用它當欄位名會誤導成還能敲。
+ * 這裡就是單純的校正 —— 玩家照自己裝備 tooltip 上的「強化 N 次」補差額。
  */
 const slotBonus = ref(0)
 
@@ -405,17 +405,17 @@ const saved = ref('')
           </span>
         </h3>
         <label class="mb-row mb-slot-bonus">
-          <span>鐵鎚追加格數</span>
+          <span>格數校正</span>
           <input
             v-model.number="slotBonus"
             class="mb-input mb-slot-bonus-input"
             type="number"
-            min="0"
+            min="-4"
             max="4"
           />
           <small>
-            黃金鎚／白金鎚會加開強化次數。底的格數取自裝備庫收錄的那一件，對不上你手上的
-            就用這裡補。
+            底的格數取自裝備庫收錄的那一件，會受那件敲過鎚子與否影響。對不上你手上的， 照 tooltip
+            的「卷軸 強化 N 次」補差額。
           </small>
         </label>
 
