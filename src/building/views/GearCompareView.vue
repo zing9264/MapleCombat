@@ -188,20 +188,19 @@ function formatPower(value: number): string {
 }
 
 /**
- * 直接拿這一格身上那件的底去製作。
+ * 跳到製作台，並把底的清單篩成這一格的部位。
  *
- * 底以名稱對應裝備庫；庫裡沒有就不給按 —— 與其跳過去讓玩家面對一個空的製作台，
- * 不如在這裡就講清楚為什麼不能按。
+ * 刻意不預選身上那一件：玩家要換裝備，想看的是這個部位**所有**的底
+ * （永恆、神秘、航海…）再自己挑，預選反而把挑選那一步吃掉了。
  */
-const craftableBase = computed(() => {
-  if (targetIndex.value === null) return null
-  const name = baseItems.value[targetIndex.value]?.item_name ?? ''
-  return name && library.items[name] ? name : null
+const craftablePart = computed(() => {
+  if (!targetPart.value) return null
+  return library.all.some((item) => item.part === targetPart.value) ? targetPart.value : null
 })
 
 function craftFromSlot(): void {
-  if (!craftableBase.value) return
-  craftRequest.request(craftableBase.value)
+  if (!craftablePart.value) return
+  craftRequest.request(craftablePart.value)
   ui.activeView = 'workbench'
 }
 
@@ -338,8 +337,8 @@ function signed(n: number): string {
           <h3 class="mb-card-title">
             道具欄
             <span v-if="targetPart" class="mb-badge">可換到「{{ targetPart }}」</span>
-            <button v-if="craftableBase" type="button" class="mb-link" @click="craftFromSlot">
-              用這格的底做一件
+            <button v-if="craftablePart" type="button" class="mb-link" @click="craftFromSlot">
+              做一件「{{ targetPart }}」
             </button>
           </h3>
 

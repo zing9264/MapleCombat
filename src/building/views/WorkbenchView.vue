@@ -166,14 +166,17 @@ const starforce = computed<NumericOption>(() => {
 })
 
 /**
- * 從「裝備變更」點「用這格的底做一件」過來時，直接把底挑好。
+ * 從「裝備變更」點「做一件○○」過來時，把底的清單篩成那個部位，讓玩家自己挑。
  *
  * 用 take() 取走而不是讀值：請求只該消費一次，不然每次切回製作台都會把玩家
- * 當下的挑選重設回去。
+ * 當下的篩選重設回去。
  */
 onMounted(() => {
   const requested = craftRequest.take()
-  if (requested && library.items[requested]) pickBase(requested)
+  if (!requested) return
+  partFilter.value = requested
+  keyword.value = ''
+  baseName.value = ''
 })
 
 // ── 星火層 ──────────────────────────────────────────
