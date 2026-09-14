@@ -57,12 +57,33 @@ async fn save_export_file(
     Ok(true)
 }
 
+/// 便攜模式的資料夾：執行檔旁邊有 portable.txt 就用同一個資料夾存資料。
+///
+/// 為什麼用標記檔而不是「一律存在執行檔旁邊」：安裝版會被放進 Program Files，
+/// 那裡一般使用者沒有寫入權限，靜靜地存檔失敗比存到別處更糟。
+/// 有標記才切換，安裝版與便攜版可以用同一個執行檔。
+fn portable_dir() -> Option<std::path::PathBuf> {
+    let exe = std::env::current_exe().ok()?;
+    let dir = exe.parent()?;
+    if dir.join("portable.txt").exists() {
+        Some(dir.to_path_buf())
+    } else {
+        None
+    }
+}
+
 /// 整台機器共用的資料檔位置：使用者的 app data 目錄。
 ///
 /// 用這裡而不是安裝目錄：安裝目錄在 Program Files 底下通常沒有寫入權限，
 /// 而且重新安裝／升級會被覆蓋。app data 目錄跟著使用者帳號走，升級不受影響。
+///
+/// 便攜模式例外 —— 見 portable_dir()。
 fn data_file_path(app: &tauri::AppHandle) -> Result<std::path::PathBuf, String> {
     use tauri::Manager;
+
+    if let Some(dir) = portable_dir() {
+        return Ok(dir.join("mapledata.json"));
+    }
 
     let dir = app
         .path()
@@ -70,7 +91,6 @@ fn data_file_path(app: &tauri::AppHandle) -> Result<std::path::PathBuf, String> 
         .map_err(|error| format!("取不到資料目錄：{error}"))?;
     Ok(dir.join("mapledata.json"))
 }
-
 /// 讀取資料檔。檔案不存在時回傳 Ok(None)，那是全新安裝的正常狀況，不是錯誤。
 #[tauri::command]
 fn read_data_file(app: tauri::AppHandle) -> Result<Option<String>, String> {
