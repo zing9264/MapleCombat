@@ -19,6 +19,7 @@ import '@/styles/density.css'
 import '@/styles/compact-desktop.css'
 // MapleBuilding 自有樣式（必須排在 compact-desktop.css 之後才蓋得過去）
 import '@/building/styles/building.css'
+import { restoreFromBackup, watchForBackup } from '@/building/services/devAutosave'
 
 applyDensity()
 applyCompactTheme()
@@ -26,6 +27,11 @@ applyCompactTheme()
 async function bootstrap(): Promise<void> {
   // 桌面版：先把資料檔灌進 localStorage 再建立 store。
   // store 在建立當下就會讀 localStorage，順序顛倒就會拿到舊資料。
+  // 開發時的保險：預覽視窗的儲存分割區被換掉時，從磁碟備份補回來。
+  // 跟資料檔一樣要排在建立 store 之前。
+  await restoreFromBackup()
+  watchForBackup()
+
   if (await initDataFile()) {
     // 上面那兩個設定在模組載入時已讀過一次 localStorage，資料換掉了要重套
     applyDensity()
