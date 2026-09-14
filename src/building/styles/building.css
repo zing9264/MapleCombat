@@ -279,3 +279,17 @@ select.mb-input {
 .c-add {
   color: #7fe0d0;
 }
+
+/*
+ * 分頁的分組分隔線。
+ *
+ * 十個分頁平鋪成一排，三種不同用途混在一起，第一次進來看不出從哪開始。
+ * 用一條細線把「角色／模擬／製作／原版計算機」分開 —— 不改功能，只讓順序說話。
+ */
+.ct-tab-divider {
+  width: 1px;
+  align-self: stretch;
+  margin: 4px 3px;
+  background: var(--border-color);
+  opacity: 0.5;
+}

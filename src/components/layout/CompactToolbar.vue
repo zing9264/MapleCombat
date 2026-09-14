@@ -28,17 +28,47 @@ interface StateDialog {
 }
 const stateDialog = ref<StateDialog | null>(null)
 
-const tabs: { view: ViewKey; label: string }[] = [
-  { view: 'character', label: '角色資料' },
-  { view: 'gearCompare', label: '裝備變更' },
-  { view: 'characterInput', label: '手動覆寫' },
-  { view: 'equipmentChange', label: '手動調整' },
-  { view: 'valueConversion', label: '數值換算' },
-  { view: 'equipmentSets', label: '裝備組' },
-  { view: 'itemLibrary', label: '裝備庫' },
-  { view: 'workbench', label: '製作台' },
-  { view: 'familiar', label: '萌獸' },
-  { view: 'inventory', label: '物品欄' },
+/**
+ * 分頁照「實際使用順序」排，而不是加進來的順序。
+ *
+ * 原本十個分頁平鋪成一排，而且三種不同的東西混在一起：MapleBuilding 自己的流程、
+ * 裝備製作的素材頁、還有上游計算機留下來的手動頁。第一次進來的人不知道從哪開始 ——
+ * 實際上什麼都得先同步才有資料。
+ *
+ * 分組只是視覺上的分隔線，不影響功能；上游那三頁擺最後並標明出處，
+ * 免得跟我們自己的「裝備變更」搞混。
+ */
+const tabGroups: { label: string; tabs: { view: ViewKey; label: string }[] }[] = [
+  {
+    label: '角色',
+    tabs: [
+      { view: 'equipmentSets', label: '同步裝備' },
+      { view: 'character', label: '角色資料' },
+    ],
+  },
+  {
+    label: '模擬',
+    tabs: [
+      { view: 'gearCompare', label: '換裝比較' },
+      { view: 'familiar', label: '萌獸' },
+    ],
+  },
+  {
+    label: '製作',
+    tabs: [
+      { view: 'itemLibrary', label: '裝備庫' },
+      { view: 'workbench', label: '製作台' },
+      { view: 'inventory', label: '物品欄' },
+    ],
+  },
+  {
+    label: '原版計算機',
+    tabs: [
+      { view: 'characterInput', label: '手動輸入' },
+      { view: 'equipmentChange', label: '換裝效益' },
+      { view: 'valueConversion', label: '數值換算' },
+    ],
+  },
 ]
 
 function activateState(id: StateSlotId | 'weighted') {
@@ -224,16 +254,20 @@ function canConfirmStateDialog(): boolean {
   <div class="compact-toolbar">
     <div class="ct-main-row">
       <div class="ct-tabs">
-        <button
-          v-for="tab in tabs"
-          :key="tab.view"
-          type="button"
-          class="ct-tab"
-          :class="{ active: ui.activeView === tab.view }"
-          @click="ui.activeView = tab.view"
-        >
-          {{ tab.label }}
-        </button>
+        <template v-for="(group, index) in tabGroups" :key="group.label">
+          <span v-if="index" class="ct-tab-divider" aria-hidden="true" />
+          <button
+            v-for="tab in group.tabs"
+            :key="tab.view"
+            type="button"
+            class="ct-tab"
+            :class="{ active: ui.activeView === tab.view }"
+            :title="group.label"
+            @click="ui.activeView = tab.view"
+          >
+            {{ tab.label }}
+          </button>
+        </template>
       </div>
       <div class="ct-actions">
         <button type="button" class="ct-btn" title="匯入資料" @click="fileInput?.click()">

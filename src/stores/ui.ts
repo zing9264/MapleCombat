@@ -32,13 +32,16 @@ const VALID_MODES: CalculatorMode[] = ['calculator', 'effStats']
 function restoreView(): ViewKey {
   // view id 遷移：current→characterInput、equipment→valueConversion；
   // 已移除的 apiImport 分頁退回 characterInput
+  //
+  // 預設是「同步裝備」而不是上游的手動輸入：MapleBuilding 的每一頁都要有同步過的
+  // 資料才有東西可看，第一次打開停在手動輸入只會讓人不知道要幹嘛。
   const migration: Record<string, ViewKey> = {
     current: 'characterInput',
     equipment: 'valueConversion',
   }
-  let saved = getStoredString('activeView', 'characterInput')
+  let saved = getStoredString('activeView', 'equipmentSets')
   if (migration[saved]) saved = migration[saved]
-  return VALID_VIEWS.includes(saved as ViewKey) ? (saved as ViewKey) : 'characterInput'
+  return VALID_VIEWS.includes(saved as ViewKey) ? (saved as ViewKey) : 'equipmentSets'
 }
 
 function restoreMode(): CalculatorMode {

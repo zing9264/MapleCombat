@@ -13,12 +13,10 @@
     "windows": [
       {
         "title": "MapleBuilding",
-        "width": 670,
-        "height": 820,
-        "minWidth": 580,
-        "minHeight": 520,
-        "maxWidth": 980,
-        "maxHeight": 960,
+        "width": 1280,
+        "height": 900,
+        "minWidth": 900,
+        "minHeight": 620,
         "center": true,
         "preventOverflow": true,
         "resizable": true,
@@ -31,12 +29,22 @@
   },
   "bundle": {
     "active": true,
-    "targets": ["nsis"],
-    "icon": ["icons/icon.png", "icons/icon.ico"],
+    "targets": [
+      "nsis"
+    ],
+    "icon": [
+      "icons/icon.png",
+      "icons/icon.ico"
+    ],
     "windows": {
-      "webviewInstallMode": { "type": "downloadBootstrapper" },
+      "webviewInstallMode": {
+        "type": "downloadBootstrapper"
+      },
       "nsis": {
-        "languages": ["TradChinese", "English"]
+        "languages": [
+          "TradChinese",
+          "English"
+        ]
       }
     }
   }

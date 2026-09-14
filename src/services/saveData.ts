@@ -14,6 +14,12 @@ export interface SaveDataV1 {
   values: Record<string, unknown>
   buffState?: BuffExportState
   workspace?: CompactStateWorkspaceV1
+  /**
+   * MapleBuilding 自己的 localStorage 資料（裝備組、戰鬥力基準、萌獸、物品欄、裝備庫）。
+   * 見 src/building/services/saveBundle.ts —— 上游的格式只含計算機欄位，
+   * 少了這一段，匯出的檔案會是個只有一半的備份。
+   */
+  maplebuilding?: Record<string, string>
 }
 
 /** 剝除 BOM / ```json 圍欄 / 前後雜訊後解析 JSON */
