@@ -1,71 +1,139 @@
-// 萌獸的合計與草稿。
+// 萌獸的合計與詞條換算。
+//
+// 測資照遊戲畫面來：暗黑半人馬（傳說）的三條是
+// 加持技能持續時間 +50%、魔法攻擊力 +14%、最終傷害 +20%。
 import { describe, expect, it } from 'vitest'
-import { summarize, type Familiar } from '@/building/stores/familiar'
+import { summarize, type Familiar, type FamiliarLine } from '@/building/stores/familiar'
+import { familiarEffect, familiarLineText } from '@/building/data/familiarLines'
 
-const make = (over: Partial<Familiar>): Familiar => ({
-  id: over.id ?? 'x',
-  label: '',
-  finalDamage: 0,
-  magicPowerPercent: 0,
-  attackPowerPercent: 0,
-  equipped: true,
-  ...over,
+function make(
+  id: string,
+  lines: Array<[string, number]>,
+  slot: Familiar['slot'] = 'summon',
+): Familiar {
+  const filled: FamiliarLine[] = lines.map(([name, value]) => ({ name, value }))
+  while (filled.length < 3) filled.push({ name: '', value: 0 })
+  return { id, name: id, grade: '傳說', lines: filled, slot }
+}
+
+describe('familiarEffect — 哪些詞條進得了戰鬥力', () => {
+  it('終傷、攻擊力%、屬性% 認得', () => {
+    expect(familiarEffect('最終傷害%', 20)).toEqual({ kind: 'finalDamage', value: 20 })
+    expect(familiarEffect('魔法攻擊力%', 14)).toEqual({
+      kind: 'attackPercent',
+      value: 14,
+      magic: true,
+    })
+    expect(familiarEffect('INT%', 20)).toEqual({ kind: 'statPercent', value: 20, stat: 'int' })
+  })
+
+  it('不在戰鬥力公式裡的一律回 null —— 不是漏掉，是確定不算', () => {
+    for (const name of ['加持技能持續時間', '爆擊機率%', '無視怪物防禦率%', '增加被動技能等級']) {
+      expect(familiarEffect(name, 50)).toBeNull()
+    }
+  })
+
+  it('固定值不算：萌獸給的是萌獸自己的數值，不是角色的', () => {
+    expect(familiarEffect('魔法攻擊力', 25)).toBeNull()
+    expect(familiarEffect('INT', 25)).toBeNull()
+  })
+
+  it('數值是 0 就沒有效果', () => {
+    expect(familiarEffect('最終傷害%', 0)).toBeNull()
+  })
+})
+
+describe('familiarLineText', () => {
+  it('照模板套上玩家填的數字', () => {
+    expect(familiarLineText('魔法攻擊力%', 14)).toBe('魔法攻擊力 +14%')
+    expect(familiarLineText('最終傷害%', 20)).toBe('最終傷害 +20%')
+  })
+
+  it('不認得的詞條原樣回傳，不要吞掉', () => {
+    expect(familiarLineText('某個新詞條', 5)).toBe('某個新詞條')
+  })
 })
 
 describe('summarize', () => {
-  it('終傷逐條累加（float32），魔力%／物攻% 相加', () => {
-    // 玩家實際的組合：主萌獸 20%+14% ×2、羈絆 2%+4%
-    const list = [
-      make({ id: 'a', finalDamage: 20, magicPowerPercent: 14 }),
-      make({ id: 'b', finalDamage: 20, magicPowerPercent: 14 }),
-      make({ id: 'c', finalDamage: 2, magicPowerPercent: 4 }),
-    ]
-    const result = summarize(list)
+  it('暗黑半人馬：只有魔攻% 與終傷 進得了公式', () => {
+    const totals = summarize([
+      make('暗黑半人馬', [
+        ['加持技能持續時間', 50],
+        ['魔法攻擊力%', 14],
+        ['最終傷害%', 20],
+      ]),
+    ])
 
-    expect(result.totalPercent).toBe(42)
-    expect(result.magicPowerPercent).toBe(32)
-    // float32 逐條累加，與遊戲內的運算順序一致
-    expect(result.multiplier).toBeCloseTo(1.42, 6)
+    expect(totals.finalDamageSources).toEqual([20])
+    expect(totals.magicPowerPercent).toBe(14)
+    expect(totals.multiplier).toBeCloseTo(1.2, 6)
   })
 
-  it('終傷 0 的萌獸不算一條來源', () => {
-    // 只給魔力不給終傷的萌獸，送進乘算會多乘一個 ×1.00，來源數也會錯
-    const result = summarize([make({ finalDamage: 0, magicPowerPercent: 10 })])
-    expect(result.sources).toEqual([])
-    expect(result.multiplier).toBe(1)
-    expect(result.magicPowerPercent).toBe(10)
+  it('同一隻可以有重複的詞條（巡邏機器人兩條都是加持時間）', () => {
+    const totals = summarize([
+      make('巡邏機器人', [
+        ['加持技能持續時間', 50],
+        ['加持技能持續時間', 50],
+        ['增加被動技能等級', 2],
+      ]),
+    ])
+    expect(totals.finalDamageSources).toEqual([])
+    expect(totals.multiplier).toBe(1)
+  })
+
+  it('終傷逐條收進來源，不先加總', () => {
+    // 每一條終傷都是獨立的一筆，怎麼合成交給 famMultFromSources 決定
+    const totals = summarize([
+      make('a', [['最終傷害%', 20]]),
+      make('b', [['最終傷害%', 20]], 'bond'),
+      make('c', [['最終傷害%', 2]], 'bond'),
+    ])
+    expect(totals.finalDamageSources).toEqual([20, 20, 2])
+    expect(totals.finalDamageTotal).toBe(42)
+  })
+
+  it('魔攻% 與物攻% 分開累計，不互相污染', () => {
+    const totals = summarize([
+      make('a', [
+        ['魔法攻擊力%', 14],
+        ['物理攻擊力%', 14],
+      ]),
+    ])
+    expect(totals.magicPowerPercent).toBe(14)
+    expect(totals.attackPowerPercent).toBe(14)
+  })
+
+  it('屬性% 依屬性分開記，全屬性% 另計', () => {
+    const totals = summarize([
+      make('a', [
+        ['LUK%', 14],
+        ['INT%', 20],
+        ['全屬性%', 12],
+      ]),
+    ])
+    expect(totals.statPercent.luk).toBe(14)
+    expect(totals.statPercent.int).toBe(20)
+    expect(totals.statPercent.str).toBe(0)
+    expect(totals.allStatPercent).toBe(12)
   })
 
   it('空清單是 ×1，不是 0', () => {
     expect(summarize([]).multiplier).toBe(1)
-    expect(summarize([]).totalPercent).toBe(0)
-  })
-
-  it('逐條與先加總的差距極小，但我們照遊戲逐條算', () => {
-    const split = summarize([
-      make({ id: 'a', finalDamage: 20 }),
-      make({ id: 'b', finalDamage: 20 }),
-      make({ id: 'c', finalDamage: 2 }),
-    ]).multiplier
-    const merged = summarize([make({ finalDamage: 42 })]).multiplier
-
-    expect(split).not.toBe(merged)
-    expect(Math.abs(split / merged - 1)).toBeLessThan(0.000001)
+    expect(summarize([]).finalDamageTotal).toBe(0)
   })
 })
 
 describe('換萌獸的倍率比值', () => {
-  it('卸下一隻主萌獸，倍率比值就是換裝要乘的係數', () => {
+  it('拿掉一隻有終傷的，比值就是換裝要乘的係數', () => {
     // 裝備變更頁把這個比值丟進上游的 __eqFamFinalMultiplierFactor
     const before = summarize([
-      make({ id: 'a', finalDamage: 20 }),
-      make({ id: 'b', finalDamage: 20 }),
-      make({ id: 'c', finalDamage: 2 }),
+      make('a', [['最終傷害%', 20]]),
+      make('b', [['最終傷害%', 20]], 'bond'),
     ])
-    const after = summarize([make({ id: 'b', finalDamage: 20 }), make({ id: 'c', finalDamage: 2 })])
+    const after = summarize([make('b', [['最終傷害%', 20]], 'bond')])
 
-    expect(before.multiplier).toBeCloseTo(1.42, 6)
-    expect(after.multiplier).toBeCloseTo(1.22, 6)
-    expect(after.multiplier / before.multiplier).toBeCloseTo(1.22 / 1.42, 6)
+    expect(before.multiplier).toBeCloseTo(1.4, 6)
+    expect(after.multiplier).toBeCloseTo(1.2, 6)
+    expect(after.multiplier / before.multiplier).toBeCloseTo(1.2 / 1.4, 6)
   })
 })

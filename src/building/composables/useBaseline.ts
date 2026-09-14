@@ -76,9 +76,9 @@ export function useBaseline() {
       // 舊快照沒有 pets 這個鍵，要能撐住
       petBaseline(current.pets ?? []),
       familiarBaseline(
-        familiar.magicPowerPercent,
-        familiar.attackPowerPercent,
-        familiar.totalPercent,
+        familiar.current.magicPowerPercent,
+        familiar.current.attackPowerPercent,
+        familiar.current.finalDamageTotal,
       ),
     ])
   })

@@ -10,7 +10,8 @@
 import { computed, ref, watch } from 'vue'
 import { useEquipmentSetsStore } from '../stores/equipmentSets'
 import { toGearForCompare, useInventoryStore, type CraftedItem } from '../stores/inventory'
-import { useFamiliarStore } from '../stores/familiar'
+import { useFamiliarStore, type Familiar, type FamiliarSlot } from '../stores/familiar'
+import { familiarLineText } from '../data/familiarLines'
 import { useCraftRequestStore } from '../stores/craftRequest'
 import { useItemLibraryStore } from '../stores/itemLibrary'
 import { useUiStore } from '@/stores/ui'
@@ -53,6 +54,25 @@ const familiarSelected = ref(false)
 function selectSlot(index: number): void {
   familiarSelected.value = false
   targetIndex.value = index
+}
+
+const SLOT_LABELS: Record<string, string> = { summon: '召喚中', bond: '羈絆', off: '沒上場' }
+
+/** 點一下依序換位置。三種狀態用一個按鍵切換，比三顆按鈕省空間也好點 */
+function cycleFamiliarSlot(id: string): void {
+  // 順序是 沒上場 → 羈絆 → 召喚中：把一隻沒上場的拉進來，多半是要放羈絆，
+  // 先跳召喚中會把現在召喚的那隻踢下去，很容易誤操作
+  const order: Array<FamiliarSlot> = [null, 'bond', 'summon']
+  const at = order.indexOf(familiar.slotOf(id))
+  familiar.setDraftSlot(id, order[(at + 1) % order.length])
+}
+
+/** 一隻萌獸的三條詞條，只列填過的 */
+function familiarLineSummary(item: Familiar): string {
+  const lines = item.lines
+    .filter((line) => line.name)
+    .map((line) => familiarLineText(line.name, line.value))
+  return lines.length ? lines.join('、') : '（還沒填詞條）'
 }
 
 function selectFamiliar(): void {
@@ -210,9 +230,17 @@ const familiarDelta = computed<FieldValues | null>(() => {
   if (!statSlots) return null
 
   const percentKey = statSlots.attack === 'magicPower' ? 'magicPowerPercent' : 'attackPowerPercent'
+  // 全屬性% 同時吃主副屬，所以兩邊都要加上去
+  const statDiff = (key: keyof typeof before.statPercent) =>
+    after.statPercent[key] -
+    before.statPercent[key] +
+    (after.allStatPercent - before.allStatPercent)
+
   return {
     __eqFamFinalMultiplierFactor: after.multiplier / before.multiplier,
     percentAtk: after[percentKey] - before[percentKey],
+    percentMain: statDiff(statSlots.main as keyof typeof before.statPercent),
+    percentSub: statDiff(statSlots.sub as keyof typeof before.statPercent),
   }
 })
 
@@ -376,7 +404,10 @@ function signed(n: number): string {
             :pets="data.pets ?? []"
             :selected-index="targetIndex"
             :states="slotStates"
-            :familiar="{ total: familiar.draft.totalPercent, count: familiar.draftEquipped.length }"
+            :familiar="{
+              total: familiar.draft.finalDamageTotal,
+              count: familiar.draftActive.length,
+            }"
             :familiar-selected="familiarSelected"
             @select="selectSlot"
             @select-familiar="selectFamiliar"
@@ -388,7 +419,8 @@ function signed(n: number): string {
           <h3 class="mb-card-title">
             道具欄
             <span v-if="familiarSelected" class="mb-badge">
-              勾選要裝備的萌獸（{{ familiar.draftEquipped.length }} / {{ familiar.lines.length }}）
+              點一下切換位置（生效中 {{ familiar.draftActive.length }} /
+              {{ familiar.list.length }} 隻）
             </span>
             <span v-else-if="targetPart" class="mb-badge">可換到「{{ targetPart }}」</span>
             <button
@@ -403,26 +435,20 @@ function signed(n: number): string {
 
           <!-- 萌獸：勾選誰要裝備，下面的戰鬥力差值會即時算 -->
           <template v-if="familiarSelected">
-            <ul v-if="familiar.lines.length" class="mb-list">
+            <ul v-if="familiar.list.length" class="mb-list">
               <li
-                v-for="item in familiar.lines"
+                v-for="item in familiar.list"
                 :key="item.id"
                 class="mb-item"
-                :class="{ active: familiar.draftEquipped.includes(item) }"
-                @click="familiar.toggleDraft(item.id)"
+                :class="{ active: familiar.slotOf(item.id) !== null }"
+                @click="cycleFamiliarSlot(item.id)"
               >
-                <span class="mb-item-part">
-                  {{ familiar.draftEquipped.includes(item) ? '裝備中' : '未裝備' }}
-                </span>
-                <span class="mb-item-name">{{ item.label || '（未命名）' }}</span>
-                <span class="mb-item-star">
-                  終傷 {{ item.finalDamage }}%
-                  <template v-if="item.magicPowerPercent">
-                    · 魔力 {{ item.magicPowerPercent }}%
-                  </template>
-                  <template v-if="item.attackPowerPercent">
-                    · 物攻 {{ item.attackPowerPercent }}%
-                  </template>
+                <span class="mb-item-part">{{
+                  SLOT_LABELS[familiar.slotOf(item.id) ?? 'off']
+                }}</span>
+                <span class="mb-item-main">
+                  <b>{{ item.name || '（未命名）' }}</b>
+                  <small>{{ familiarLineSummary(item) }}</small>
                 </span>
               </li>
             </ul>
@@ -434,8 +460,10 @@ function signed(n: number): string {
               </button>
               <button class="mb-btn" @click="familiar.clearDraft()">取消</button>
             </div>
+            <p v-if="familiar.lastError" class="mb-error">{{ familiar.lastError }}</p>
             <p class="mb-hint">
-              勾選只是試算，按「套用這組」才會真的換掉。萌獸不隨裝備組切換，五組共用同一批。
+              點一下依序切換「沒上場 → 羈絆 → 召喚中」。這裡只是試算，按「套用這組」才會真的換掉。
+              召喚中只能一隻、羈絆最多 4 格。
             </p>
           </template>
 

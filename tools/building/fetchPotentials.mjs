@@ -114,6 +114,31 @@ const cubesSrc = bundle
 const cubes = new Function(`return ${cubesSrc}`)()
 const equipTypes = new Function(`return ${bundle.slice(typesStart, typesEnd)}`)()
 
+/*
+ * 萌獸詞條表。
+ *
+ * 跟裝備潛能是完全不同的一組：遊戲裡每隻萌獸有三條詞條、而且可以重複
+ * （實際看過巡邏機器人兩條都是「加持技能持續時間 +50%」）。
+ *
+ * 表上的值是滿值，實際數字隨萌獸階級而不同（傳說的暗黑半人馬是魔攻 +14%，
+ * 表上寫 +20%）。階級係數沒有在 bundle 裡找到，所以 app 讓玩家自己填數字、
+ * 只用這張表提供「有哪些詞條」的選單 —— 猜係數不如照抄遊戲畫面。
+ */
+const moeAt = bundle.indexOf('weights:{moeCube')
+if (moeAt < 0) throw new Error('bundle 裡找不到萌獸詞條表')
+let moeStart = moeAt
+for (let depth = 0; moeStart > 0; moeStart--) {
+  const c = bundle[moeStart]
+  if (c === ']') depth++
+  else if (c === '[') {
+    if (depth === 0) break
+    depth--
+  }
+}
+const moeLines = new Function(
+  `return ${bundle.slice(moeStart, matchBracket(bundle, moeStart, '[', ']'))}`,
+)()
+
 const payload = {
   source: SITE,
   note: '社群整理的機率資料，非官方數據。由 tools/building/fetchPotentials.mjs 產生，請勿手改。',
@@ -129,6 +154,14 @@ const payload = {
     isFixedLevel: t.isFixedLevel === true,
   })),
   cubes: cubes.map((c) => ({ id: c.id, name: c.name, apply: c.apply })),
+  // 萌獸詞條（與裝備潛能無關的另一組）
+  familiarLines: moeLines.map((line) => ({
+    name: line.name,
+    template: line.template,
+    field: line.field ?? null,
+    // 滿值，僅供參考；實際值隨階級不同，由玩家自己填
+    maxValue: line.value ?? null,
+  })),
   // 攤平成「規則 id → 部位 → 各方塊權重」；0 或缺項代表該方塊抽不到
   weights: (() => {
     const byRule = {}
@@ -178,3 +211,4 @@ for (const def of Object.values(payload.options)) {
 console.log(`${out}：${lines} 種詞條、${payload.equipTypes.length} 種裝備`)
 console.log(`適用標記：${[...types].join('、')}`)
 console.log(`權重分組：${weightGroups.length} 組、${Object.keys(payload.weights).length} 條規則`)
+console.log(`萌獸詞條：${payload.familiarLines.length} 種`)

@@ -1,7 +1,7 @@
 {
   "source": "https://maplestorycube.org",
   "note": "社群整理的機率資料，非官方數據。由 tools/building/fetchPotentials.mjs 產生，請勿手改。",
-  "fetchedAt": "2026-09-13",
+  "fetchedAt": "2026-09-14",
   "equipTypes": [
     {
       "name": "命運武器",
@@ -363,6 +363,312 @@
       "id": "combineAdditionalCube",
       "name": "結合附加方塊",
       "apply": "additionalPot"
+    }
+  ],
+  "familiarLines": [
+    {
+      "name": "STR",
+      "template": "STR +{x}",
+      "field": "str",
+      "maxValue": {
+        "x": 25
+      }
+    },
+    {
+      "name": "DEX",
+      "template": "DEX +{x}",
+      "field": "dex",
+      "maxValue": {
+        "x": 25
+      }
+    },
+    {
+      "name": "INT",
+      "template": "INT +{x}",
+      "field": "int",
+      "maxValue": {
+        "x": 25
+      }
+    },
+    {
+      "name": "LUK",
+      "template": "LUK +{x}",
+      "field": "luk",
+      "maxValue": {
+        "x": 25
+      }
+    },
+    {
+      "name": "MaxHP",
+      "template": "MaxHP +{x}",
+      "field": "mhp",
+      "maxValue": {
+        "x": 500
+      }
+    },
+    {
+      "name": "MaxMP",
+      "template": "MaxMP +{x}",
+      "field": "mmp",
+      "maxValue": {
+        "x": 500
+      }
+    },
+    {
+      "name": "物理攻擊力",
+      "template": "物理攻擊力 +{x}",
+      "field": "pad",
+      "maxValue": {
+        "x": 25
+      }
+    },
+    {
+      "name": "魔法攻擊力",
+      "template": "魔法攻擊力 +{x}",
+      "field": "mad",
+      "maxValue": {
+        "x": 25
+      }
+    },
+    {
+      "name": "防禦力",
+      "template": "防禦力 +{x}",
+      "field": null,
+      "maxValue": {
+        "x": 300
+      }
+    },
+    {
+      "name": "爆擊機率%",
+      "template": "爆擊機率 +{x}%",
+      "field": "crit",
+      "maxValue": {
+        "x": 25
+      }
+    },
+    {
+      "name": "最終傷害%",
+      "template": "最終傷害 +{x}%",
+      "field": "finalDam",
+      "maxValue": {
+        "x": 25
+      }
+    },
+    {
+      "name": "全屬性",
+      "template": "全屬性 +{x}",
+      "field": "allStat",
+      "maxValue": {
+        "x": 25
+      }
+    },
+    {
+      "name": "一定秒數內恢復HP",
+      "template": "一定秒數內恢復{x}HP",
+      "field": null,
+      "maxValue": {
+        "x": 20
+      }
+    },
+    {
+      "name": "一定秒數內恢復MP",
+      "template": "一定秒數內恢復{x}MP",
+      "field": null,
+      "maxValue": {
+        "x": 20
+      }
+    },
+    {
+      "name": "STR%",
+      "template": "STR +{x}%",
+      "field": "strR",
+      "maxValue": {
+        "x": 20
+      }
+    },
+    {
+      "name": "DEX%",
+      "template": "DEX +{x}%",
+      "field": "dexR",
+      "maxValue": {
+        "x": 20
+      }
+    },
+    {
+      "name": "INT%",
+      "template": "INT +{x}%",
+      "field": "intR",
+      "maxValue": {
+        "x": 20
+      }
+    },
+    {
+      "name": "LUK%",
+      "template": "LUK +{x}%",
+      "field": "lukR",
+      "maxValue": {
+        "x": 20
+      }
+    },
+    {
+      "name": "MaxHP%",
+      "template": "最大HP +{x}%",
+      "field": "mhpR",
+      "maxValue": {
+        "x": 20
+      }
+    },
+    {
+      "name": "MaxMP%",
+      "template": "最大MP +{x}%",
+      "field": "mmpR",
+      "maxValue": {
+        "x": 20
+      }
+    },
+    {
+      "name": "全屬性%",
+      "template": "全屬性 +{x}%",
+      "field": "allStatR",
+      "maxValue": {
+        "x": 12
+      }
+    },
+    {
+      "name": "物理攻擊力%",
+      "template": "物理攻擊力 +{x}%",
+      "field": "padR",
+      "maxValue": {
+        "x": 20
+      }
+    },
+    {
+      "name": "魔法攻擊力%",
+      "template": "魔法攻擊力 +{x}%",
+      "field": "madR",
+      "maxValue": {
+        "x": 20
+      }
+    },
+    {
+      "name": "防禦力%",
+      "template": "防禦力 +{x}%",
+      "field": null,
+      "maxValue": {
+        "x": 14
+      }
+    },
+    {
+      "name": "攻擊時有一定的機率恢復HP",
+      "template": "攻擊時有{x}%機率恢復{y}HP",
+      "field": null,
+      "maxValue": {
+        "x": 3,
+        "y": 50
+      }
+    },
+    {
+      "name": "攻擊時有一定的機率恢復MP",
+      "template": "攻擊時有{x}%機率恢復{y}MP",
+      "field": null,
+      "maxValue": {
+        "x": 3,
+        "y": 50
+      }
+    },
+    {
+      "name": "攻擊時有一定的機率發動一定等級的中毒效果",
+      "template": "攻擊時有{x}%機率發動{y}級中毒效果",
+      "field": null,
+      "maxValue": {
+        "x": 12,
+        "y": 3
+      }
+    },
+    {
+      "name": "攻擊時有一定的機率發動一定等級的暈眩效果",
+      "template": "攻擊時有{x}%機率發動{y}級暈眩效果",
+      "field": null,
+      "maxValue": {
+        "x": 12,
+        "y": 3
+      }
+    },
+    {
+      "name": "攻擊時有一定的機率發動一定等級的緩慢效果",
+      "template": "攻擊時有{x}%機率發動{y}級緩慢效果",
+      "field": null,
+      "maxValue": {
+        "x": 12,
+        "y": 3
+      }
+    },
+    {
+      "name": "攻擊時有一定的機率發動一定等級的闇黑效果",
+      "template": "攻擊時有{x}%機率發動{y}級闇黑效果",
+      "field": null,
+      "maxValue": {
+        "x": 12,
+        "y": 3
+      }
+    },
+    {
+      "name": "攻擊時有一定的機率發動一定等級的冰結效果",
+      "template": "攻擊時有{x}%機率發動{y}級冰結效果",
+      "field": null,
+      "maxValue": {
+        "x": 12,
+        "y": 3
+      }
+    },
+    {
+      "name": "攻擊時有一定的機率發動一定等級的封印效果",
+      "template": "攻擊時有{x}%機率發動{y}級封印效果",
+      "field": null,
+      "maxValue": {
+        "x": 12,
+        "y": 3
+      }
+    },
+    {
+      "name": "無視怪物防禦率%",
+      "template": "無視怪物防禦率 +{x}%",
+      "field": "imdR",
+      "maxValue": {
+        "x": 50
+      }
+    },
+    {
+      "name": "依照角色一定的攻擊力來追加萌獸攻擊力",
+      "template": "依照角色{x}%攻擊力來追加萌獸攻擊力",
+      "field": null,
+      "maxValue": {
+        "x": 90
+      }
+    },
+    {
+      "name": "依照角色一定的屬性來追加萌獸攻擊力",
+      "template": "依照角色{x}%屬性來追加萌獸攻擊力",
+      "field": null,
+      "maxValue": {
+        "x": 90
+      }
+    },
+    {
+      "name": "加持技能持續時間",
+      "template": "加持技能持續時間 +{x}%",
+      "field": "buffTime",
+      "maxValue": {
+        "x": 55
+      }
+    },
+    {
+      "name": "增加被動技能等級",
+      "template": "依照被動技能 {x} 來增加",
+      "field": "passiveLevel",
+      "maxValue": {
+        "x": 2
+      }
     }
   ],
   "weights": {

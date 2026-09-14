@@ -33,7 +33,7 @@ export function usePowerContext(): ComputedRef<CombatPowerContext> {
       daPowerCoefficientRaw: '',
       // 萌獸終傷是乘算，逐條餵進去 —— 先加總再換算會有 float32 精度差。
       // 創世武器的 10% 終傷不在這裡，它是 genesisFinalChecked 那個獨立乘數。
-      famFinalSources: familiar.sources,
+      famFinalSources: familiar.current.finalDamageSources,
     }
   })
 }

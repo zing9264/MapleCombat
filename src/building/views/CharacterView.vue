@@ -332,13 +332,19 @@ function signed(value: number): string {
           <span class="mb-badge">在「萌獸」分頁編輯</span>
         </h3>
         <div class="mb-fam-summary">
-          <span v-if="familiar.lines.length" class="mb-fam-summary-value">
-            終傷 {{ familiar.totalPercent }}%（×{{ familiar.multiplier.toFixed(4) }}）
-            <template v-if="familiar.magicPowerPercent">
-              · 魔力 +{{ familiar.magicPowerPercent }}%
+          <span v-if="familiar.active.length" class="mb-fam-summary-value">
+            召喚 {{ familiar.summoned?.name || (familiar.summoned ? '（未命名）' : '無') }} · 羈絆
+            {{ familiar.bonds.length }} 隻 · 終傷 {{ familiar.current.finalDamageTotal }}%（×{{
+              familiar.current.multiplier.toFixed(4)
+            }}）
+            <template v-if="familiar.current.magicPowerPercent">
+              · 魔攻 +{{ familiar.current.magicPowerPercent }}%
             </template>
-            <template v-if="familiar.attackPowerPercent">
-              · 物攻 +{{ familiar.attackPowerPercent }}%
+            <template v-if="familiar.current.attackPowerPercent">
+              · 物攻 +{{ familiar.current.attackPowerPercent }}%
+            </template>
+            <template v-if="familiar.current.allStatPercent">
+              · 全屬性 +{{ familiar.current.allStatPercent }}%
             </template>
           </span>
           <span v-else class="mb-fam-summary-empty">尚未設定</span>

@@ -1,142 +1,202 @@
+// 萌獸 store：位置指派（召喚／羈絆）、草稿、存檔與舊版轉移。
+//
+// 詞條換算與合計在 familiarLoadout.spec.ts。
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
-import { useFamiliarStore } from '@/building/stores/familiar'
-import { famMultFromSources, overseasFamMult } from '@/core/familiar'
+import { MAX_BOND_SLOTS, useFamiliarStore } from '@/building/stores/familiar'
+
+const STORAGE_KEY = 'mbFamiliarV2'
+const LEGACY_KEY = 'mbFamiliarV1'
 
 beforeEach(() => {
   localStorage.clear()
   setActivePinia(createPinia())
 })
 
-describe('萌獸 — 終傷（乘算）', () => {
-  it('沒有任何萌獸時倍率是 1，不是 0', () => {
+describe('位置指派', () => {
+  it('新增的萌獸預設沒上場', () => {
     const store = useFamiliarStore()
-    expect(store.sources).toEqual([])
-    expect(store.totalPercent).toBe(0)
-    expect(store.multiplier).toBe(1)
+    const familiar = store.add({ name: '木妖' })
+    expect(familiar.slot).toBeNull()
+    expect(store.active).toHaveLength(0)
   })
 
-  it('三隻主萌獸 = 60%，倍率約 1.6', () => {
+  it('召喚中只能有一隻，指派第二隻會把第一隻踢下來', () => {
     const store = useFamiliarStore()
-    store.add({ finalDamage: 20 })
-    store.add({ finalDamage: 20 })
-    store.add({ finalDamage: 20 })
+    const a = store.add({ name: '暗黑半人馬' })
+    const b = store.add({ name: '木妖' })
 
-    expect(store.totalPercent).toBe(60)
-    expect(store.multiplier).toBeCloseTo(1.6, 5)
+    store.setSlot(a.id, 'summon')
+    store.setSlot(b.id, 'summon')
+
+    expect(store.summoned?.id).toBe(b.id)
+    expect(store.list.find((f) => f.id === a.id)?.slot).toBeNull()
   })
 
-  it('逐條累加與遊戲內的標準組合一致', () => {
-    // 三隻主萌獸 + 兩條羈絆 = 64%，與 overseasFamMult 由總值反推的結果必須相同
+  it(`羈絆最多 ${MAX_BOND_SLOTS} 格，滿了就拒絕並說明原因`, () => {
     const store = useFamiliarStore()
-    ;[20, 20, 20, 2, 2].forEach((n) => store.add({ finalDamage: n }))
+    const ids = Array.from(
+      { length: MAX_BOND_SLOTS + 1 },
+      (_, i) => store.add({ name: `m${i}` }).id,
+    )
 
-    expect(store.totalPercent).toBe(64)
-    expect(store.multiplier).toBeCloseTo(overseasFamMult(64), 10)
+    for (const id of ids) store.setSlot(id, 'bond')
+
+    expect(store.bonds).toHaveLength(MAX_BOND_SLOTS)
+    // 拒絕時要講原因，不然玩家只會看到「按了沒反應」
+    expect(store.lastError).toContain('羈絆')
+    expect(store.list.find((f) => f.id === ids[MAX_BOND_SLOTS])?.slot).toBeNull()
   })
 
-  it('終傷為 0 的條目不計入來源', () => {
+  it('已經在羈絆裡的再指派一次不會被當成超額', () => {
     const store = useFamiliarStore()
-    store.add({ finalDamage: 20 })
-    store.add({ magicPowerPercent: 3, label: '只有魔力' })
+    const ids = Array.from({ length: MAX_BOND_SLOTS }, (_, i) => store.add({ name: `m${i}` }).id)
+    for (const id of ids) store.setSlot(id, 'bond')
 
-    expect(store.sources).toEqual([20])
-    expect(store.lines).toHaveLength(2)
-  })
-})
-
-describe('萌獸 — 魔力%／物攻%（加算）', () => {
-  it('分開加總，不會混進終傷', () => {
-    const store = useFamiliarStore()
-    store.add({ finalDamage: 20, magicPowerPercent: 3 })
-    store.add({ magicPowerPercent: 2, attackPowerPercent: 4 })
-
-    expect(store.magicPowerPercent).toBe(5)
-    expect(store.attackPowerPercent).toBe(4)
-    // 終傷只認 finalDamage，不該被百分比詞條影響
-    expect(store.totalPercent).toBe(20)
-    expect(store.sources).toEqual([20])
+    store.setSlot(ids[0], 'bond')
+    expect(store.bonds).toHaveLength(MAX_BOND_SLOTS)
+    expect(store.lastError).toBe('')
   })
 
-  it('加算就是單純相加，不走 float32 累加', () => {
+  it('撤下來之後羈絆就空出一格', () => {
     const store = useFamiliarStore()
-    ;[1, 2, 3].forEach((n) => store.add({ magicPowerPercent: n }))
-    expect(store.magicPowerPercent).toBe(6)
-  })
+    const ids = Array.from({ length: MAX_BOND_SLOTS }, (_, i) => store.add({ name: `m${i}` }).id)
+    for (const id of ids) store.setSlot(id, 'bond')
 
-  it('沒填的欄位當 0，不會變成 NaN', () => {
-    const store = useFamiliarStore()
-    store.add({ finalDamage: 20 })
+    store.setSlot(ids[0], null)
+    const extra = store.add({ name: '新的' })
+    store.setSlot(extra.id, 'bond')
 
-    expect(store.magicPowerPercent).toBe(0)
-    expect(store.attackPowerPercent).toBe(0)
+    expect(store.bonds).toHaveLength(MAX_BOND_SLOTS)
+    expect(store.lastError).toBe('')
   })
 })
 
-describe('萌獸 — 編輯與存檔', () => {
-  it('改終傷會反映到倍率', () => {
+describe('草稿', () => {
+  it('沒開草稿時 hasDraft 是 false', () => {
     const store = useFamiliarStore()
-    const line = store.add({ finalDamage: 20 })
-    store.update(line.id, { finalDamage: 25 })
-
-    expect(store.sources).toEqual([25])
-    expect(store.multiplier).toBeCloseTo(famMultFromSources([25]), 10)
+    store.setSlot(store.add({ name: 'a' }).id, 'summon')
+    expect(store.hasDraft).toBe(false)
+    expect(store.draftActive).toEqual(store.active)
   })
 
-  it('可以只改其中一個百分比欄位', () => {
+  it('草稿只是試算，不影響實際位置', () => {
     const store = useFamiliarStore()
-    const line = store.add({ finalDamage: 20, magicPowerPercent: 3 })
-    store.update(line.id, { attackPowerPercent: 5 })
+    const a = store.add({ name: 'a', lines: [{ name: '最終傷害%', value: 20 }] })
+    store.setSlot(a.id, 'summon')
 
-    expect(store.lines[0].finalDamage).toBe(20)
-    expect(store.lines[0].magicPowerPercent).toBe(3)
-    expect(store.lines[0].attackPowerPercent).toBe(5)
+    store.setDraftSlot(a.id, null)
+
+    expect(store.hasDraft).toBe(true)
+    expect(store.draftActive).toHaveLength(0)
+    // 實際位置沒變
+    expect(store.summoned?.id).toBe(a.id)
+    expect(store.current.multiplier).toBeCloseTo(1.2, 6)
+    expect(store.draft.multiplier).toBe(1)
   })
 
-  it('刪除單一條目只影響那一條', () => {
+  it('套用草稿才會真的改位置', () => {
     const store = useFamiliarStore()
-    const first = store.add({ finalDamage: 20, label: '甲' })
-    store.add({ finalDamage: 25, label: '乙' })
-    store.remove(first.id)
+    const a = store.add({ name: 'a' })
+    store.setSlot(a.id, 'summon')
 
-    expect(store.lines).toHaveLength(1)
-    expect(store.lines[0].label).toBe('乙')
+    store.setDraftSlot(a.id, null)
+    store.applyDraft()
+
+    expect(store.summoned).toBeNull()
+    expect(store.hasDraft).toBe(false)
   })
 
-  it('存檔會寫進 localStorage 並在重建時讀回來', () => {
+  it('取消草稿會回到原本的位置', () => {
     const store = useFamiliarStore()
-    store.add({ finalDamage: 20, magicPowerPercent: 3, label: '小紅' })
+    const a = store.add({ name: 'a' })
+    store.setSlot(a.id, 'summon')
+
+    store.setDraftSlot(a.id, null)
+    store.clearDraft()
+
+    expect(store.hasDraft).toBe(false)
+    expect(store.draftActive.map((f) => f.id)).toEqual([a.id])
+  })
+
+  it('草稿裡指派召喚中也只能有一隻', () => {
+    const store = useFamiliarStore()
+    const a = store.add({ name: 'a' })
+    const b = store.add({ name: 'b' })
+    store.setSlot(a.id, 'summon')
+
+    store.setDraftSlot(b.id, 'summon')
+
+    expect(store.slotOf(a.id)).toBeNull()
+    expect(store.slotOf(b.id)).toBe('summon')
+  })
+})
+
+describe('存檔', () => {
+  it('寫進 localStorage 並在重建時讀回來', () => {
+    const store = useFamiliarStore()
+    const a = store.add({ name: '暗黑半人馬' })
+    store.updateLine(a.id, 0, { name: '最終傷害%', value: 20 })
+    store.setSlot(a.id, 'summon')
 
     setActivePinia(createPinia())
     const reloaded = useFamiliarStore()
-    expect(reloaded.sources).toEqual([20])
-    expect(reloaded.magicPowerPercent).toBe(3)
-    expect(reloaded.lines[0].label).toBe('小紅')
+
+    expect(reloaded.list).toHaveLength(1)
+    expect(reloaded.summoned?.name).toBe('暗黑半人馬')
+    expect(reloaded.current.multiplier).toBeCloseTo(1.2, 6)
   })
 
-  it('舊版存檔只有 finalDamage，缺的欄位補 0', () => {
-    // 加入魔力%／物攻% 之前存的資料，不能讓它變成 undefined 汙染加總
+  it('每隻固定三條詞條：缺的補空、多的裁掉', () => {
     localStorage.setItem(
-      'mbFamiliarV1',
-      JSON.stringify([{ id: 'old', label: '舊資料', finalDamage: 20 }]),
+      STORAGE_KEY,
+      JSON.stringify([{ id: 'x', name: 'a', lines: [{ name: '最終傷害%', value: 20 }] }]),
     )
-    setActivePinia(createPinia())
-
     const store = useFamiliarStore()
-    expect(store.lines[0].magicPowerPercent).toBe(0)
-    expect(store.magicPowerPercent).toBe(0)
-    expect(store.totalPercent).toBe(20)
+    expect(store.list[0].lines).toHaveLength(3)
   })
 
   it('存檔壞掉時當成空的，不讓整頁掛掉', () => {
-    localStorage.setItem('mbFamiliarV1', '{ 這不是陣列')
-    setActivePinia(createPinia())
-    expect(useFamiliarStore().lines).toEqual([])
+    localStorage.setItem(STORAGE_KEY, '{壞掉的 JSON')
+    expect(useFamiliarStore().list).toEqual([])
   })
 
   it('存檔內容不是陣列也要能撐住', () => {
-    localStorage.setItem('mbFamiliarV1', '{"a":1}')
-    setActivePinia(createPinia())
-    expect(useFamiliarStore().lines).toEqual([])
+    localStorage.setItem(STORAGE_KEY, '{"nope":true}')
+    expect(useFamiliarStore().list).toEqual([])
+  })
+})
+
+describe('舊版存檔轉移', () => {
+  it('舊的終傷/魔力/物攻 轉成一隻萌獸的詞條', () => {
+    // 舊版一筆就是一個數值組合，對應不到某一隻萌獸，只能保守地轉
+    localStorage.setItem(
+      LEGACY_KEY,
+      JSON.stringify([
+        { id: 'a', label: '主萌獸', finalDamage: 20, magicPowerPercent: 14, equipped: true },
+        { id: 'b', label: '羈絆', finalDamage: 2, magicPowerPercent: 4, equipped: true },
+      ]),
+    )
+
+    const store = useFamiliarStore()
+    expect(store.list).toHaveLength(2)
+    expect(store.summoned?.name).toBe('主萌獸')
+    expect(store.bonds).toHaveLength(1)
+    expect(store.current.finalDamageSources).toEqual([20, 2])
+    expect(store.current.magicPowerPercent).toBe(18)
+  })
+
+  it('舊版標為未裝備的轉過來也是沒上場', () => {
+    localStorage.setItem(
+      LEGACY_KEY,
+      JSON.stringify([{ id: 'a', label: 'x', finalDamage: 20, equipped: false }]),
+    )
+    expect(useFamiliarStore().active).toHaveLength(0)
+  })
+
+  it('已經有新版存檔時就不再讀舊版', () => {
+    localStorage.setItem(LEGACY_KEY, JSON.stringify([{ id: 'a', finalDamage: 20 }]))
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([]))
+    expect(useFamiliarStore().list).toEqual([])
   })
 })

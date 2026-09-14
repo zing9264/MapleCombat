@@ -1,49 +1,49 @@
-// 萌獸（萌獸卡）：一隻一隻分開存，可以裝備或卸下。
+// 萌獸：照遊戲的結構來 —— 一隻萌獸有三條詞條，一次召喚一隻，另外有羈絆欄位。
 //
-// 為什麼是「一隻一隻」而不是一堆詞條：玩家會想比較「換掉這隻會差多少」，
-// 那就必須有「這隻」這個單位。早期的模型只有一串詞條，換一隻等於手動改數字，
-// 比不出差值。
+// 早期的模型是「一堆各自有終傷/魔力/物攻的條目」，那是照上游計算機的簡化模型做的，
+// 跟遊戲對不上。遊戲實際是：
+//   - 召喚萌獸 1 隻，卡片上有三條詞條（可以重複）
+//   - 羈絆欄位最多 4 格（含一格 VIP），登錄其他萌獸進去
+//   - 下面是整個圖鑑，分 普通／特殊／稀有／罕見／傳說
 //
-// 為什麼終傷要跟其他詞條分開存：
-//   終傷是**乘算**，而且遊戲是以 float32 累加器逐條相加的（見 src/core/familiar.ts）；
-//   魔力%／物攻% 則是**加算**，直接進公式的 percentAtk。
-//   兩者混在一起遲早會被當成可以相加的同一種東西，那會算錯。
+// 終傷是**乘算**、其餘 % 是**加算**，兩者不能混在一起 —— 這點沒變。
 //
-// 萌獸不隨裝備組切換：五組裝備共用同一批萌獸，所以不存在裝備組裡。
+// 萌獸不隨裝備組切換：五組裝備共用同一批。
 
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import { famMultFromSources } from '@/core/familiar'
+import { familiarEffect } from '../data/familiarLines'
 
-const STORAGE_KEY = 'mbFamiliarV1'
-const MAX_LABEL_LENGTH = 20
+const STORAGE_KEY = 'mbFamiliarV2'
+/** 舊版（一條一個條目、沒有三條詞條的結構） */
+const LEGACY_KEY = 'mbFamiliarV1'
+const MAX_NAME_LENGTH = 20
+/** 遊戲裡每隻萌獸固定三條詞條 */
+export const LINES_PER_FAMILIAR = 3
+/** 羈絆欄位最多 4 格（一格 VIP） */
+export const MAX_BOND_SLOTS = 4
+
+export const FAMILIAR_GRADES = ['普通', '特殊', '稀有', '罕見', '傳說'] as const
+export type FamiliarGrade = (typeof FAMILIAR_GRADES)[number]
+
+/** 位置：召喚中／羈絆／沒上場 */
+export type FamiliarSlot = 'summon' | 'bond' | null
+
+export interface FamiliarLine {
+  /** 詞條名稱，對應 data/familiarLines.ts 的表 */
+  name: string
+  /** 實際數值。隨階級不同，所以由玩家照遊戲畫面填 */
+  value: number
+}
 
 export interface Familiar {
   id: string
-  /** 顯示用名稱，可留空 —— 玩家說過「基底名稱不重要，上面給的數值才是有影響的」 */
-  label: string
-  /** 最終傷害 %，**乘算** */
-  finalDamage: number
-  /** 魔法攻擊力 %，加算 */
-  magicPowerPercent: number
-  /** 攻擊力 %，加算 */
-  attackPowerPercent: number
-  /** 是否裝備中。卸下的萌獸留著不刪，才能拿來比較 */
-  equipped: boolean
+  name: string
+  grade: FamiliarGrade
+  lines: FamiliarLine[]
+  slot: FamiliarSlot
 }
-
-export type FamiliarInit = Partial<Omit<Familiar, 'id'>>
-
-/**
- * 遊戲裡的標準終傷值：主萌獸每條 20%（超貴萌獸 25%），羈絆每條 2%（最多 4 條）。
- * 20% 與 25% 互斥 —— 整組主萌獸要嘛全 20、要嘛全 25，不會混用。
- * 這裡只提供快速選項，不強制，因為玩家可能遇到我們沒收錄的來源。
- */
-export const FAMILIAR_PRESETS: ReadonlyArray<{ label: string; value: number }> = [
-  { label: '主萌獸', value: 20 },
-  { label: '主萌獸（超貴）', value: 25 },
-  { label: '羈絆', value: 2 },
-]
 
 function createId(): string {
   return `fam_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`
@@ -51,168 +51,287 @@ function createId(): string {
 
 const num = (value: unknown): number => Number(value) || 0
 
-function load(): Familiar[] {
+function emptyLines(): FamiliarLine[] {
+  return Array.from({ length: LINES_PER_FAMILIAR }, () => ({ name: '', value: 0 }))
+}
+
+function normalize(raw: Partial<Familiar>): Familiar {
+  const lines = Array.isArray(raw.lines) ? raw.lines : []
+  return {
+    id: String(raw.id || createId()),
+    name: String(raw.name ?? '').slice(0, MAX_NAME_LENGTH),
+    grade: FAMILIAR_GRADES.includes(raw.grade as FamiliarGrade)
+      ? (raw.grade as FamiliarGrade)
+      : '傳說',
+    // 固定三條，缺的補空、多的裁掉 —— 遊戲就是三條
+    lines: Array.from({ length: LINES_PER_FAMILIAR }, (_, i) => ({
+      name: String(lines[i]?.name ?? ''),
+      value: num(lines[i]?.value),
+    })),
+    slot: raw.slot === 'summon' || raw.slot === 'bond' ? raw.slot : null,
+  }
+}
+
+/**
+ * 舊版存檔轉過來。
+ *
+ * 舊版一筆就是一個「終傷 N%／魔力 N%／物攻 N%」的組合，對應不到某一隻萌獸，
+ * 所以轉成一隻萌獸、把有值的欄位放進它的詞條裡。第一筆當召喚中，其餘當羈絆 ——
+ * 寧可轉得保守一點讓玩家自己調，也不要憑空丟掉他填過的數字。
+ */
+function migrateLegacy(): Familiar[] {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY)
+    const raw = localStorage.getItem(LEGACY_KEY)
     if (!raw) return []
     const parsed: unknown = JSON.parse(raw)
     if (!Array.isArray(parsed)) return []
-    return (parsed as Familiar[])
-      .filter((line) => line && typeof line === 'object')
-      .map((line) => ({
-        id: String(line.id || createId()),
-        label: String(line.label ?? ''),
-        finalDamage: num(line.finalDamage),
-        magicPowerPercent: num(line.magicPowerPercent),
-        attackPowerPercent: num(line.attackPowerPercent),
-        // 舊存檔沒有這個欄位，那時候的每一筆都是生效中的
-        equipped: line.equipped !== false,
-      }))
+
+    return (parsed as Array<Record<string, unknown>>)
+      .filter((entry) => entry && typeof entry === 'object')
+      .map((entry, index) => {
+        const lines: FamiliarLine[] = []
+        if (num(entry.finalDamage)) lines.push({ name: '最終傷害%', value: num(entry.finalDamage) })
+        if (num(entry.magicPowerPercent)) {
+          lines.push({ name: '魔法攻擊力%', value: num(entry.magicPowerPercent) })
+        }
+        if (num(entry.attackPowerPercent)) {
+          lines.push({ name: '物理攻擊力%', value: num(entry.attackPowerPercent) })
+        }
+        return normalize({
+          name: String(entry.label ?? ''),
+          lines,
+          slot: entry.equipped === false ? null : index === 0 ? 'summon' : 'bond',
+        })
+      })
   } catch {
     return []
   }
 }
 
-/** 一組萌獸的合計。抽出來是為了讓「目前」與「草稿」用同一套算法 */
-export function summarize(list: readonly Familiar[]) {
-  const sources = list.map((f) => f.finalDamage).filter((n) => n !== 0)
-  return {
-    sources,
-    totalPercent: sources.reduce((sum, n) => sum + n, 0),
-    multiplier: famMultFromSources(sources),
-    magicPowerPercent: list.reduce((sum, f) => sum + f.magicPowerPercent, 0),
-    attackPowerPercent: list.reduce((sum, f) => sum + f.attackPowerPercent, 0),
+function load(): Familiar[] {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (!raw) return migrateLegacy()
+    const parsed: unknown = JSON.parse(raw)
+    if (!Array.isArray(parsed)) return []
+    return (parsed as Partial<Familiar>[]).filter(Boolean).map(normalize)
+  } catch {
+    return []
   }
 }
 
+export interface FamiliarTotals {
+  /** 終傷逐條來源（乘算），直接餵給公式的 famFinalSources */
+  finalDamageSources: number[]
+  finalDamageTotal: number
+  multiplier: number
+  magicPowerPercent: number
+  attackPowerPercent: number
+  /** 主副屬性的 %，依職業決定要用哪一個 */
+  statPercent: Record<'str' | 'dex' | 'int' | 'luk', number>
+  allStatPercent: number
+}
+
+/** 一組萌獸的合計。抽出來是為了讓「目前」與「草稿」用同一套算法 */
+export function summarize(source: readonly Familiar[]): FamiliarTotals {
+  const totals: FamiliarTotals = {
+    finalDamageSources: [],
+    finalDamageTotal: 0,
+    multiplier: 1,
+    magicPowerPercent: 0,
+    attackPowerPercent: 0,
+    statPercent: { str: 0, dex: 0, int: 0, luk: 0 },
+    allStatPercent: 0,
+  }
+
+  for (const familiar of source) {
+    for (const line of familiar.lines) {
+      const effect = familiarEffect(line.name, line.value)
+      if (!effect) continue
+      switch (effect.kind) {
+        case 'finalDamage':
+          totals.finalDamageSources.push(effect.value)
+          break
+        case 'attackPercent':
+          if (effect.magic) totals.magicPowerPercent += effect.value
+          else totals.attackPowerPercent += effect.value
+          break
+        case 'statPercent':
+          totals.statPercent[effect.stat] += effect.value
+          break
+        case 'allStatPercent':
+          totals.allStatPercent += effect.value
+          break
+      }
+    }
+  }
+
+  totals.finalDamageTotal = totals.finalDamageSources.reduce((sum, n) => sum + n, 0)
+  totals.multiplier = famMultFromSources(totals.finalDamageSources)
+  return totals
+}
+
+/**
+ * 讀草稿裡的位置。
+ *
+ * 不能寫 `slots[id] ?? familiar.slot`：null 在這裡同時是「沒上場」與「沒有覆寫」，
+ * ?? 會把前者當成後者，於是「草稿把某隻撤下來」永遠偵測不到（實際踩過）。
+ * 一律用 key 有沒有存在來判斷。
+ */
+function resolveSlot(slots: Record<string, FamiliarSlot> | null, familiar: Familiar): FamiliarSlot {
+  if (!slots || !Object.prototype.hasOwnProperty.call(slots, familiar.id)) return familiar.slot
+  return slots[familiar.id]
+}
 export const useFamiliarStore = defineStore('buildingFamiliar', () => {
-  const lines = ref<Familiar[]>(load())
+  const list = ref<Familiar[]>(load())
   const lastError = ref('')
 
-  /**
-   * 草稿：裝備變更頁用來試算「換一隻會差多少」的那一份裝備中清單（id 集合）。
-   * null 代表沒有草稿，一切以實際裝備中的為準。
-   */
-  const draftIds = ref<string[] | null>(null)
+  /** 草稿：裝備變更頁試算「換一隻會差多少」時用的位置指派（id → slot） */
+  const draftSlots = ref<Record<string, FamiliarSlot> | null>(null)
 
-  const equipped = computed(() => lines.value.filter((f) => f.equipped))
-  const current = computed(() => summarize(equipped.value))
+  const summoned = computed(() => list.value.find((f) => f.slot === 'summon') ?? null)
+  const bonds = computed(() => list.value.filter((f) => f.slot === 'bond'))
+  /** 實際生效的：召喚中 ＋ 羈絆 */
+  const active = computed(() => list.value.filter((f) => f.slot !== null))
 
-  /** 草稿下的裝備中清單；沒有草稿時等同目前 */
-  const draftEquipped = computed(() =>
-    draftIds.value === null
-      ? equipped.value
-      : lines.value.filter((f) => draftIds.value?.includes(f.id)),
-  )
-  const draft = computed(() => summarize(draftEquipped.value))
-  const hasDraft = computed(
-    () =>
-      draftIds.value !== null &&
-      (draftIds.value.length !== equipped.value.length ||
-        equipped.value.some((f) => !draftIds.value?.includes(f.id))),
-  )
+  const current = computed(() => summarize(active.value))
 
-  // 這幾個是給戰鬥力基準用的，一律看「目前裝備中的」
-  const sources = computed(() => current.value.sources)
-  const totalPercent = computed(() => current.value.totalPercent)
-  const multiplier = computed(() => current.value.multiplier)
-  const magicPowerPercent = computed(() => current.value.magicPowerPercent)
-  const attackPowerPercent = computed(() => current.value.attackPowerPercent)
+  const draftActive = computed(() => {
+    const slots = draftSlots.value
+    if (!slots) return active.value
+    return list.value.filter((f) => resolveSlot(slots, f) !== null)
+  })
+  const draft = computed(() => summarize(draftActive.value))
+  const hasDraft = computed(() => {
+    const slots = draftSlots.value
+    if (!slots) return false
+    return list.value.some((f) => resolveSlot(slots, f) !== f.slot)
+  })
+
+  function slotOf(id: string): FamiliarSlot {
+    const familiar = list.value.find((f) => f.id === id)
+    if (!familiar) return null
+    return resolveSlot(draftSlots.value, familiar)
+  }
 
   function persist(): void {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(lines.value))
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list.value))
       lastError.value = ''
     } catch (error) {
       lastError.value = `萌獸儲存失敗：${(error as Error).message}`
     }
   }
 
-  function add(init: FamiliarInit = {}): Familiar {
-    const familiar: Familiar = {
-      id: createId(),
-      label: (init.label ?? '').slice(0, MAX_LABEL_LENGTH),
-      finalDamage: num(init.finalDamage),
-      magicPowerPercent: num(init.magicPowerPercent),
-      attackPowerPercent: num(init.attackPowerPercent),
-      equipped: init.equipped !== false,
+  /**
+   * 指派位置。召喚中只能有一隻、羈絆最多 4 格 —— 這是遊戲的限制，
+   * 讓使用者能違反只會做出一份算不出來的設定。
+   */
+  function setSlot(id: string, slot: FamiliarSlot): void {
+    const target = list.value.find((f) => f.id === id)
+    if (!target) return
+
+    if (slot === 'summon') {
+      for (const familiar of list.value) {
+        if (familiar.slot === 'summon') familiar.slot = null
+      }
     }
-    lines.value.push(familiar)
+    if (slot === 'bond' && target.slot !== 'bond' && bonds.value.length >= MAX_BOND_SLOTS) {
+      lastError.value = `羈絆欄位最多 ${MAX_BOND_SLOTS} 格，請先把其中一隻撤下來`
+      return
+    }
+
+    target.slot = slot
+    lastError.value = ''
+    persist()
+  }
+
+  function add(init: Partial<Familiar> = {}): Familiar {
+    const familiar = normalize({ lines: emptyLines(), slot: null, ...init })
+    list.value.push(familiar)
     persist()
     return familiar
   }
 
-  function update(id: string, patch: FamiliarInit): void {
-    const target = lines.value.find((f) => f.id === id)
+  function update(id: string, patch: Partial<Omit<Familiar, 'id' | 'lines'>>): void {
+    const target = list.value.find((f) => f.id === id)
     if (!target) return
-    if (patch.label !== undefined) target.label = patch.label.slice(0, MAX_LABEL_LENGTH)
-    if (patch.finalDamage !== undefined) target.finalDamage = num(patch.finalDamage)
-    if (patch.magicPowerPercent !== undefined) {
-      target.magicPowerPercent = num(patch.magicPowerPercent)
-    }
-    if (patch.attackPowerPercent !== undefined) {
-      target.attackPowerPercent = num(patch.attackPowerPercent)
-    }
-    if (patch.equipped !== undefined) target.equipped = patch.equipped
+    if (patch.name !== undefined) target.name = patch.name.slice(0, MAX_NAME_LENGTH)
+    if (patch.grade !== undefined) target.grade = patch.grade
+    if (patch.slot !== undefined) setSlot(id, patch.slot)
+    else persist()
+  }
+
+  function updateLine(id: string, index: number, patch: Partial<FamiliarLine>): void {
+    const target = list.value.find((f) => f.id === id)
+    const line = target?.lines[index]
+    if (!line) return
+    if (patch.name !== undefined) line.name = patch.name
+    if (patch.value !== undefined) line.value = num(patch.value)
     persist()
   }
 
   function remove(id: string): void {
-    lines.value = lines.value.filter((f) => f.id !== id)
-    draftIds.value = draftIds.value?.filter((x) => x !== id) ?? null
+    list.value = list.value.filter((f) => f.id !== id)
+    if (draftSlots.value) delete draftSlots.value[id]
     persist()
   }
 
   function clear(): void {
-    lines.value = []
-    draftIds.value = null
+    list.value = []
+    draftSlots.value = null
     persist()
   }
 
   // ── 草稿 ──────────────────────────────────────────
   function startDraft(): void {
-    if (draftIds.value === null) draftIds.value = equipped.value.map((f) => f.id)
+    draftSlots.value ??= Object.fromEntries(list.value.map((f) => [f.id, f.slot]))
   }
 
-  function toggleDraft(id: string): void {
+  function setDraftSlot(id: string, slot: FamiliarSlot): void {
     startDraft()
-    const list = draftIds.value ?? []
-    draftIds.value = list.includes(id) ? list.filter((x) => x !== id) : [...list, id]
+    const slots = { ...(draftSlots.value ?? {}) }
+    if (slot === 'summon') {
+      for (const key of Object.keys(slots)) {
+        if (slots[key] === 'summon') slots[key] = null
+      }
+    }
+    slots[id] = slot
+    draftSlots.value = slots
   }
 
   function clearDraft(): void {
-    draftIds.value = null
+    draftSlots.value = null
   }
 
-  /** 把草稿變成實際裝備中的狀態 */
   function applyDraft(): void {
-    if (draftIds.value === null) return
-    const wanted = new Set(draftIds.value)
-    for (const familiar of lines.value) familiar.equipped = wanted.has(familiar.id)
-    draftIds.value = null
+    const slots = draftSlots.value
+    if (!slots) return
+    for (const familiar of list.value) familiar.slot = resolveSlot(slots, familiar)
+    draftSlots.value = null
     persist()
   }
 
   return {
-    lines,
-    equipped,
+    list,
+    summoned,
+    bonds,
+    active,
     current,
-    draftIds,
-    draftEquipped,
+    draftSlots,
+    draftActive,
     draft,
     hasDraft,
-    sources,
-    totalPercent,
-    multiplier,
-    magicPowerPercent,
-    attackPowerPercent,
     lastError,
+    slotOf,
     add,
     update,
+    updateLine,
+    setSlot,
     remove,
     clear,
     startDraft,
-    toggleDraft,
+    setDraftSlot,
     clearDraft,
     applyDraft,
   }
