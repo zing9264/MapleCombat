@@ -4,6 +4,7 @@
 // 唯一入口，所以對應表的每一條都要有測試守著。
 import { describe, expect, it } from 'vitest'
 import { familiarIdFor, familiarsFromApi } from '@/building/core/familiarImport'
+import { MAX_BOND_SLOTS } from '@/building/stores/familiar'
 import { familiarEffect, familiarLineDef, familiarLineFromApi } from '@/building/data/familiarLines'
 import type { FamiliarData, FamiliarEntry } from '@/building/services/nexonApi'
 
@@ -184,5 +185,42 @@ describe('familiarsFromApi', () => {
   it('沒有資料時回空陣列，不要炸掉', () => {
     expect(familiarsFromApi(undefined)).toEqual([])
     expect(familiarsFromApi(data([]))).toEqual([])
+  })
+})
+
+describe('位置上限', () => {
+  // 匯入是直接寫進 store 的，繞過 setSlot() 的檢查。API 照理不會回不合法的狀態，
+  // 但真的回了的話，後果是安靜地算錯：summoned 只取第一隻、active 卻兩隻都算。
+  it('召喚中超過一隻時只留第一隻', () => {
+    const result = familiarsFromApi(
+      data([
+        entry({ familiar_name: 'a', summoned_flag: 'true' }),
+        entry({ familiar_name: 'b', summoned_flag: 'true' }),
+      ]),
+    )
+    expect(result.map((f) => f.slot)).toEqual(['summon', null])
+  })
+
+  it('羈絆超過上限時多的撤下來', () => {
+    const result = familiarsFromApi(
+      data(
+        Array.from({ length: MAX_BOND_SLOTS + 2 }, (_, i) =>
+          entry({ familiar_name: `m${i}`, slot_id: '1' }),
+        ),
+      ),
+    )
+    expect(result.filter((f) => f.slot === 'bond')).toHaveLength(MAX_BOND_SLOTS)
+    expect(result.filter((f) => f.slot === null)).toHaveLength(2)
+  })
+
+  it('合法的狀態原封不動', () => {
+    const result = familiarsFromApi(
+      data([
+        entry({ familiar_name: 'a', summoned_flag: 'true' }),
+        entry({ familiar_name: 'b', slot_id: '1' }),
+        entry({ familiar_name: 'c', slot_id: '2' }),
+      ]),
+    )
+    expect(result.map((f) => f.slot)).toEqual(['summon', 'bond', 'bond'])
   })
 })

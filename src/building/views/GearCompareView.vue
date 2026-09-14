@@ -75,9 +75,38 @@ function familiarLineSummary(item: Familiar): string {
   return lines.length ? lines.join('、') : '（還沒填詞條）'
 }
 
+/**
+ * 萌獸挑選清單。
+ *
+ * 同步之後這裡是一百多隻（API 會把全部登錄過的都撈回來），整批畫出來等於
+ * 找不到東西，所以：實際上場的排最前面、可以搜尋、一次只畫 PAGE 筆。
+ *
+ * 排序刻意用 item.slot（真實位置）而不是 slotOf()（含草稿）——
+ * 用草稿的話每點一下就整列重排，點到哪一隻都會跑掉。
+ */
+const FAMILIAR_PAGE = 30
+const familiarSearch = ref('')
+const familiarShown = ref(FAMILIAR_PAGE)
+
+const familiarChoices = computed(() => {
+  const keyword = familiarSearch.value.trim().toLowerCase()
+  const matched = familiar.list.filter((item) => {
+    if (!keyword) return true
+    return (
+      item.name.toLowerCase().includes(keyword) ||
+      item.lines.some((line) => line.name.toLowerCase().includes(keyword))
+    )
+  })
+  return matched.slice().sort((a, b) => Number(a.slot === null) - Number(b.slot === null))
+})
+
+const visibleFamiliars = computed(() => familiarChoices.value.slice(0, familiarShown.value))
+
 function selectFamiliar(): void {
   targetIndex.value = null
   familiarSelected.value = true
+  familiarSearch.value = ''
+  familiarShown.value = FAMILIAR_PAGE
   familiar.startDraft()
 }
 
@@ -435,9 +464,17 @@ function signed(n: number): string {
 
           <!-- 萌獸：勾選誰要裝備，下面的戰鬥力差值會即時算 -->
           <template v-if="familiarSelected">
-            <ul v-if="familiar.list.length" class="mb-list">
+            <div v-if="familiar.list.length > FAMILIAR_PAGE" class="mb-row mb-fam-search">
+              <input
+                v-model="familiarSearch"
+                class="mb-input mb-input--grow"
+                type="search"
+                placeholder="搜尋萌獸名稱或詞條"
+              />
+            </div>
+            <ul v-if="familiarChoices.length" class="mb-list">
               <li
-                v-for="item in familiar.list"
+                v-for="item in visibleFamiliars"
                 :key="item.id"
                 class="mb-item"
                 :class="{ active: familiar.slotOf(item.id) !== null }"
@@ -452,7 +489,13 @@ function signed(n: number): string {
                 </span>
               </li>
             </ul>
-            <p v-else class="mb-hint">還沒有任何萌獸，到「萌獸」分頁新增。</p>
+            <p v-else-if="familiar.list.length" class="mb-hint">沒有符合的萌獸。</p>
+            <p v-else class="mb-hint">還沒有任何萌獸。到「同步裝備」按同步就會一起撈回來。</p>
+            <div v-if="familiarChoices.length > familiarShown" class="mb-row">
+              <button class="mb-btn" @click="familiarShown += FAMILIAR_PAGE">
+                還有 {{ familiarChoices.length - familiarShown }} 隻，再顯示 {{ FAMILIAR_PAGE }} 隻
+              </button>
+            </div>
 
             <div v-if="familiar.hasDraft" class="mb-row mb-fam-actions">
               <button class="mb-btn mb-btn--primary" @click="familiar.applyDraft()">

@@ -7,7 +7,12 @@
 // （暗黑半人馬是魔攻 14%、終傷 20%），不是詞條表上的滿值。
 
 import { familiarLineFromApi } from '../data/familiarLines'
-import { LINES_PER_FAMILIAR, type Familiar, type FamiliarLine } from '../stores/familiar'
+import {
+  LINES_PER_FAMILIAR,
+  MAX_BOND_SLOTS,
+  type Familiar,
+  type FamiliarLine,
+} from '../stores/familiar'
 import type { FamiliarData, FamiliarEntry } from '../services/nexonApi'
 
 /** 沒登錄羈絆時 API 給的 slot_id */
@@ -75,5 +80,23 @@ export function familiarsFromApi(data: FamiliarData | undefined): Familiar[] {
     })
   }
 
-  return out
+  return enforceSlotLimits(out)
+}
+
+/**
+ * 把位置壓回遊戲的規則：召喚中一隻、羈絆最多 MAX_BOND_SLOTS 格。
+ *
+ * 匯入是直接寫進 store 的，繞過了 setSlot() 的檢查。API 照理不會回不合法的
+ * 狀態，但萬一回了，後果是安靜地算錯而不是報錯 —— summoned 用 find() 只取第一隻，
+ * active 卻兩隻都算，於是標題顯示一隻、終傷卻多算一份。
+ * 這一頁的價值就在「數字跟遊戲面板對得上」，寧可多這幾行。
+ */
+function enforceSlotLimits(familiars: Familiar[]): Familiar[] {
+  let summons = 0
+  let bonds = 0
+  for (const item of familiars) {
+    if (item.slot === 'summon' && ++summons > 1) item.slot = null
+    else if (item.slot === 'bond' && ++bonds > MAX_BOND_SLOTS) item.slot = null
+  }
+  return familiars
 }
