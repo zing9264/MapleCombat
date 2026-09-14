@@ -137,3 +137,40 @@ describe('換萌獸的倍率比值', () => {
     expect(after.multiplier / before.multiplier).toBeCloseTo(1.2 / 1.4, 6)
   })
 })
+
+describe('終傷的合成方式（遊戲實測）', () => {
+  /*
+   * 遊戲內「最終傷害」tooltip 寫著：
+   *   「以萌獸屬性套用的最終傷害彼此之間會進行加總，最後會相乘套用並計算。」
+   *
+   * 藍色緞帶肥肥（稀有）兩條都是最終傷害 +8%，面板的［套用中的數值］顯示
+   * 「萌獸：16.00%」—— 相加，不是相乘（相乘會是 16.64%）。
+   */
+  it('同一隻的兩條 8% 相加成 16%，不是相乘成 16.64%', () => {
+    const totals = summarize([
+      make('藍色緞帶肥肥', [
+        ['最終傷害%', 8],
+        ['最終傷害%', 8],
+        ['攻擊時有一定的機率發動一定等級的冰結效果', 5],
+      ]),
+    ])
+
+    expect(totals.finalDamageSources).toEqual([8, 8])
+    expect(totals.finalDamageTotal).toBe(16)
+    // 面板顯示 16.00%
+    expect((totals.multiplier - 1) * 100).toBeCloseTo(16, 4)
+    expect(totals.multiplier).not.toBeCloseTo(1.08 * 1.08, 4)
+  })
+
+  it('萌獸的合計會再與技能終傷相乘 —— 面板 286.85% 的來源', () => {
+    // (1 + 技能 233.49%) × (1 + 萌獸 16%) = 3.86848 → 最終傷害 286.85%
+    const familiar = summarize([
+      make('藍色緞帶肥肥', [
+        ['最終傷害%', 8],
+        ['最終傷害%', 8],
+      ]),
+    ])
+    const panel = (1 + 233.49 / 100) * familiar.multiplier
+    expect((panel - 1) * 100).toBeCloseTo(286.85, 2)
+  })
+})

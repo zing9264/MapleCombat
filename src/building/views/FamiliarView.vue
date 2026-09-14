@@ -91,6 +91,10 @@ function slotValue(item: Familiar): string {
         </template>
         <template v-if="totals.allStatPercent"> · 全屬性 +{{ totals.allStatPercent }}% </template>
       </p>
+      <p class="mb-hint mb-fam-check">
+        上面的終傷 <b>{{ totals.finalDamageTotal }}%</b> 應該等於遊戲內「最終傷害」提示框裡
+        <b>［套用中的數值］的「萌獸」那一行</b>。對不上就是這裡的詞條跟遊戲不一致。
+      </p>
 
       <div v-for="item in familiar.list" :key="item.id" class="mb-fam" :class="{ off: !item.slot }">
         <div class="mb-fam-head">
@@ -155,6 +159,10 @@ function slotValue(item: Familiar): string {
         數值請照遊戲畫面填 —— 同一條詞條的數字會隨萌獸階級不同，表上的是滿值。
       </p>
       <p class="mb-hint">
+        萌獸之間的終傷是<b>相加</b>的，加完才乘進總傷害 —— 遊戲內「最終傷害」的提示框就是
+        這樣寫的，實測也吻合（兩條 +8% 顯示成萌獸 16.00%，不是 16.64%）。
+      </p>
+      <p class="mb-hint">
         只有<b>終傷、攻擊力%、屬性%</b>會進戰鬥力公式；加持時間、爆擊機率、無視防禦、中毒暈眩那些
         不在公式裡，選了也不會影響數字（下拉選單已經分成兩組）。
       </p>
@@ -174,8 +182,12 @@ function slotValue(item: Familiar): string {
   padding: 4px 0 24px;
 }
 
-.mb-fam-total {
+.mb-fam-check {
   margin: 0 0 8px;
+}
+
+.mb-fam-total {
+  margin: 0 0 2px;
   font-size: 12px;
 }
 
