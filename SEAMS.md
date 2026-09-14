@@ -119,6 +119,31 @@ localStorage，順序顛倒的話 store 會拿到舊資料，之後再被檔案�
 
 `stateSlots` store、加權頁與其計算邏輯全部保留，未來要恢復只要把旗標改回 `true`。
 
+### 桌面視窗大小接縫
+
+| 檔案                               | 改動                                                   |
+| ---------------------------------- | ------------------------------------------------------ |
+| `src/services/desktopWindow.ts`    | 放大預設值、移除寬度硬上限與 `setMaxSize`、儲存鍵改 V2 |
+| `tests/unit/desktopWindow.spec.ts` | 期望值跟著改，並加一條寬螢幕迴歸測試                   |
+
+上游把視窗鎖死在 **980×960**：`resolveDesktopWindowSize()` 內 `availableWidth`
+取 `Math.min(DEFAULT_MAX_WIDTH, ...)`，`setupDesktopWindow()` 又呼叫
+`setMaxSize(980, 960)`。這對上游那個單欄計算機夠用，但 MapleBuilding 的裝備格、
+製作台與分頁列需要更寬。
+
+**只改 `src-tauri/tauri.conf.json` 是沒有用的** —— 那裡的 `maxWidth` 拿掉之後，
+前端仍然在啟動時重新鎖上。踩過一次：設定檔已經是 1280×900，實際視窗卻還是 996×999
+（= 980+邊框 / 960+標題列）。而且 `setMaxSize` **不套用在全螢幕**，所以症狀是
+「全螢幕正常、視窗化拉不動」，很容易誤判成設定檔沒生效。
+
+要確認目前生效的上限，對視窗送 `WM_GETMINMAXINFO`（0x0024）讀 `ptMaxTrackSize`
+比看設定檔可靠。
+
+儲存鍵從 `desktopWindowSizeV1` 改成 `V2`，是為了讓舊版存下來的窄尺寸作廢一次；
+不然升級後視窗還是開在 980 寬，看起來像沒修好。
+
+---
+
 ## 尚未使用但已規劃的接縫
 
 新增輸入欄位時：

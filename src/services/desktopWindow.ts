@@ -1,14 +1,16 @@
 import { LogicalSize, currentMonitor, getCurrentWindow } from '@tauri-apps/api/window'
 import { isTauri } from '@/services/tauri'
 
-const WINDOW_SIZE_STORAGE_KEY = 'desktopWindowSizeV1'
+const WINDOW_SIZE_STORAGE_KEY = 'desktopWindowSizeV2'
 const WINDOW_EDGE_MARGIN = 24
 const MIN_WIDTH = 580
 const MIN_HEIGHT = 520
-const DEFAULT_MIN_WIDTH = 670
-const DEFAULT_MIN_HEIGHT = 680
-const DEFAULT_MAX_WIDTH = 980
-const DEFAULT_MAX_HEIGHT = 960
+// 這四個只決定「第一次開啟時的預設大小」，不是可調整範圍的上限。
+// 上限交給螢幕工作區，視窗才拉得動（MapleBuilding 的裝備格與製作台需要寬度）。
+const DEFAULT_MIN_WIDTH = 1100
+const DEFAULT_MIN_HEIGHT = 760
+const DEFAULT_MAX_WIDTH = 1600
+const DEFAULT_MAX_HEIGHT = 1200
 
 export interface DesktopWindowSize {
   width: number
@@ -34,10 +36,7 @@ export function resolveDesktopWindowSize(
   workArea: DesktopWindowSize,
   savedSize?: DesktopWindowSize,
 ): DesktopWindowSize {
-  const availableWidth = Math.min(
-    DEFAULT_MAX_WIDTH,
-    Math.max(MIN_WIDTH, Math.floor(workArea.width - WINDOW_EDGE_MARGIN)),
-  )
+  const availableWidth = Math.max(MIN_WIDTH, Math.floor(workArea.width - WINDOW_EDGE_MARGIN))
   const availableHeight = Math.max(MIN_HEIGHT, Math.floor(workArea.height - WINDOW_EDGE_MARGIN))
 
   if (savedSize) {
@@ -53,7 +52,7 @@ export function resolveDesktopWindowSize(
   const defaultMaxHeight = Math.min(DEFAULT_MAX_HEIGHT, availableHeight)
 
   return {
-    width: clamp(Math.round(workArea.width * 0.55), defaultMinWidth, defaultMaxWidth),
+    width: clamp(Math.round(workArea.width * 0.66), defaultMinWidth, defaultMaxWidth),
     height: clamp(Math.round(workArea.height * 0.88), defaultMinHeight, defaultMaxHeight),
   }
 }
@@ -85,7 +84,6 @@ export async function setupDesktopWindow(): Promise<void> {
     }
     const size = resolveDesktopWindowSize(workArea, readSavedSize())
 
-    await appWindow.setMaxSize(new LogicalSize(DEFAULT_MAX_WIDTH, DEFAULT_MAX_HEIGHT))
     await appWindow.setSize(new LogicalSize(size.width, size.height))
     await appWindow.center()
 
