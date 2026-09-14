@@ -1,6 +1,6 @@
 [package]
 name = "maplebuilding-app"
-version = "1.2.1"
+version = "1.0.0"
 description = "楓之谷角色構築模擬器"
 edition = "2021"
 
