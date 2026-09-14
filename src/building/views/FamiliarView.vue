@@ -1,27 +1,24 @@
 <script setup lang="ts">
 // 萌獸：照遊戲的結構 —— 一隻萌獸三條詞條，一次召喚一隻，另外有羈絆欄位。
 //
-// 為什麼獨立成一個分頁而不是掛在製作台裡：
-//   製作台的流程是「挑底 → 疊卷軸／星力／潛能／追加」，萌獸沒有基底可挑，
-//   詞條是直接給的，塞在那條流程尾巴上只會讓兩邊都難找。
+// 資料從「同步裝備」一起撈回來（/character/familiar）。API 給的是**實際生效的
+// 數值**，不是詞條表上的滿值 —— 暗黑半人馬就是魔攻 14%、終傷 20%，跟遊戲畫面
+// 一致。所以這頁預設不需要玩家輸入任何數字，只要指定誰上場。
 //
-// 為什麼數值要玩家自己填：詞條表上的是滿值，實際數字隨階級不同
-//   （傳說的暗黑半人馬是魔攻 +14%，表上寫 +20%）。階級係數沒有公開資料，
-//   猜一個係數不如照抄遊戲畫面 —— 那本來就是精確的。
+// 為什麼分成「上場中」與「沒上場」兩段：同步回來通常是一百多隻，全部攤成卡片
+// 沒人找得到東西。會影響戰鬥力的只有上場的那幾隻，其餘用搜尋挑就好。
 //
-// 實際的替換在「裝備變更」頁做，這裡只負責建檔與編輯。
+// 實際的替換在「裝備變更」頁做，這裡負責指定位置與（必要時）手動修正。
 
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import {
-  FAMILIAR_GRADES,
   LINES_PER_FAMILIAR,
   MAX_BOND_SLOTS,
   useFamiliarStore,
   type Familiar,
-  type FamiliarGrade,
   type FamiliarSlot,
 } from '../stores/familiar'
-import { FAMILIAR_LINE_GROUPS } from '../data/familiarLines'
+import { FAMILIAR_LINE_GROUPS, familiarLineText } from '../data/familiarLines'
 
 const familiar = useFamiliarStore()
 
@@ -33,12 +30,41 @@ const SLOT_OPTIONS: ReadonlyArray<{ value: FamiliarSlot; label: string }> = [
 
 const totals = computed(() => familiar.current)
 
-function onName(id: string, event: Event): void {
-  familiar.update(id, { name: (event.target as HTMLInputElement).value })
+const search = ref('')
+const category = ref('')
+
+/** 一次只畫這麼多；一百多隻全畫出來會拖慢輸入，而且沒人往下捲那麼遠 */
+const PAGE_SIZE = 40
+const shown = ref(PAGE_SIZE)
+
+const categories = computed(() => {
+  const found = new Set<string>()
+  for (const item of familiar.list) if (item.category) found.add(item.category)
+  return [...found].sort()
+})
+
+const bench = computed(() => {
+  const keyword = search.value.trim().toLowerCase()
+  return familiar.list.filter((item) => {
+    if (item.slot) return false
+    if (category.value && item.category !== category.value) return false
+    if (!keyword) return true
+    return (
+      item.name.toLowerCase().includes(keyword) ||
+      item.lines.some((line) => line.name.toLowerCase().includes(keyword))
+    )
+  })
+})
+
+const visible = computed(() => bench.value.slice(0, shown.value))
+
+function summaryOf(item: Familiar): string {
+  const parts = item.lines.filter((line) => line.name).map((l) => familiarLineText(l.name, l.value))
+  return parts.join('、') || '（沒有詞條）'
 }
 
-function onGrade(id: string, event: Event): void {
-  familiar.update(id, { grade: (event.target as HTMLSelectElement).value as FamiliarGrade })
+function onName(id: string, event: Event): void {
+  familiar.update(id, { name: (event.target as HTMLInputElement).value })
 }
 
 function onSlot(id: string, event: Event): void {
@@ -56,7 +82,7 @@ function onLineValue(id: string, index: number, event: Event): void {
 
 /** 新增一隻空的，位置預設沒上場 —— 建檔跟上場是兩回事 */
 function addFamiliar(): void {
-  familiar.add({ name: '', grade: '傳說' })
+  familiar.add({ name: '' })
 }
 
 function slotValue(item: Familiar): string {
@@ -74,9 +100,6 @@ function slotValue(item: Familiar): string {
           {{ familiar.summoned?.name || (familiar.summoned ? '（未命名）' : '無') }} · 羈絆
           {{ familiar.bonds.length }} / {{ MAX_BOND_SLOTS }}
         </span>
-        <button v-if="familiar.list.length" type="button" class="mb-link" @click="familiar.clear()">
-          全部刪除
-        </button>
       </h3>
 
       <p class="mb-fam-total">
@@ -96,73 +119,117 @@ function slotValue(item: Familiar): string {
         <b>［套用中的數值］的「萌獸」那一行</b>。對不上就是這裡的詞條跟遊戲不一致。
       </p>
 
-      <div v-for="item in familiar.list" :key="item.id" class="mb-fam" :class="{ off: !item.slot }">
-        <div class="mb-fam-head">
-          <select
-            class="mb-input mb-fam-slot"
-            :value="slotValue(item)"
-            @change="onSlot(item.id, $event)"
-          >
-            <option v-for="opt in SLOT_OPTIONS" :key="opt.label" :value="opt.value ?? ''">
-              {{ opt.label }}
-            </option>
-          </select>
-          <select
-            class="mb-input mb-fam-grade"
-            :value="item.grade"
-            @change="onGrade(item.id, $event)"
-          >
-            <option v-for="grade in FAMILIAR_GRADES" :key="grade" :value="grade">
-              {{ grade }}
-            </option>
-          </select>
-          <input
-            class="mb-input mb-input--grow"
-            placeholder="萌獸名稱（例：暗黑半人馬）"
-            :value="item.name"
-            @input="onName(item.id, $event)"
-          />
-          <button class="mb-btn mb-btn--sm" @click="familiar.remove(item.id)">刪除</button>
-        </div>
+      <p v-if="!familiar.list.length" class="mb-hint">
+        還沒有任何萌獸。到「同步裝備」按同步就會一起撈回來 ——
+        詞條與數值都是遊戲當下的實際值，不用自己輸入。
+      </p>
 
-        <div v-for="index in LINES_PER_FAMILIAR" :key="index" class="mb-fam-line">
-          <select
-            class="mb-input"
-            :value="item.lines[index - 1].name"
-            @change="onLineName(item.id, index - 1, $event)"
-          >
-            <option value="">第 {{ index }} 條（空白）</option>
-            <optgroup v-for="group in FAMILIAR_LINE_GROUPS" :key="group.label" :label="group.label">
-              <option v-for="line in group.lines" :key="line.name" :value="line.name">
-                {{ line.name }}
+      <template v-if="familiar.active.length">
+        <h4 class="mb-fam-section">上場中</h4>
+        <div v-for="item in familiar.active" :key="item.id" class="mb-fam">
+          <div class="mb-fam-head">
+            <select
+              class="mb-input mb-fam-slot"
+              :value="slotValue(item)"
+              @change="onSlot(item.id, $event)"
+            >
+              <option v-for="opt in SLOT_OPTIONS" :key="opt.label" :value="opt.value ?? ''">
+                {{ opt.label }}
               </option>
-            </optgroup>
-          </select>
-          <input
-            class="mb-input mb-fam-value"
-            type="number"
-            :value="item.lines[index - 1].value"
-            @input="onLineValue(item.id, index - 1, $event)"
-          />
+            </select>
+            <input
+              class="mb-input mb-input--grow"
+              placeholder="萌獸名稱（例：暗黑半人馬）"
+              :value="item.name"
+              @input="onName(item.id, $event)"
+            />
+            <span v-if="item.category" class="mb-fam-cat">{{ item.category }}</span>
+            <button class="mb-btn mb-btn--sm" @click="familiar.remove(item.id)">刪除</button>
+          </div>
+
+          <div v-for="index in LINES_PER_FAMILIAR" :key="index" class="mb-fam-line">
+            <select
+              class="mb-input"
+              :value="item.lines[index - 1].name"
+              @change="onLineName(item.id, index - 1, $event)"
+            >
+              <option value="">第 {{ index }} 條（空白）</option>
+              <optgroup
+                v-for="group in FAMILIAR_LINE_GROUPS"
+                :key="group.label"
+                :label="group.label"
+              >
+                <option v-for="line in group.lines" :key="line.name" :value="line.name">
+                  {{ line.name }}
+                </option>
+              </optgroup>
+            </select>
+            <input
+              class="mb-input mb-fam-value"
+              type="number"
+              :value="item.lines[index - 1].value"
+              @input="onLineValue(item.id, index - 1, $event)"
+            />
+          </div>
         </div>
-      </div>
+      </template>
 
-      <p v-if="!familiar.list.length" class="mb-hint">還沒有任何萌獸。用下面的按鈕加一隻。</p>
+      <template v-if="familiar.list.length">
+        <h4 class="mb-fam-section">
+          沒上場
+          <span class="mb-badge">{{ bench.length }} 隻</span>
+        </h4>
+        <div class="mb-row mb-fam-filter">
+          <input
+            v-model="search"
+            class="mb-input mb-input--grow"
+            type="search"
+            placeholder="搜尋名稱或詞條"
+          />
+          <select v-model="category" class="mb-input mb-fam-catsel">
+            <option value="">全部分類</option>
+            <option v-for="name in categories" :key="name" :value="name">{{ name }}</option>
+          </select>
+        </div>
 
-      <div class="mb-row mb-fam-add">
-        <button class="mb-btn" @click="addFamiliar">＋新增一隻萌獸</button>
-      </div>
+        <ul class="mb-fam-list">
+          <li v-for="item in visible" :key="item.id">
+            <div class="mb-fam-listname">
+              {{ item.name || '（未命名）' }}
+              <span v-if="item.category" class="mb-fam-cat">{{ item.category }}</span>
+            </div>
+            <div class="mb-fam-listlines" :title="summaryOf(item)">{{ summaryOf(item) }}</div>
+            <div class="mb-fam-listact">
+              <button class="mb-btn mb-btn--sm" @click="familiar.setSlot(item.id, 'summon')">
+                召喚
+              </button>
+              <button class="mb-btn mb-btn--sm" @click="familiar.setSlot(item.id, 'bond')">
+                羈絆
+              </button>
+            </div>
+          </li>
+        </ul>
+        <p v-if="!bench.length" class="mb-hint">沒有符合的萌獸。</p>
+        <div v-if="bench.length > shown" class="mb-row">
+          <button class="mb-btn" @click="shown += PAGE_SIZE">
+            還有 {{ bench.length - shown }} 隻，再顯示 {{ PAGE_SIZE }} 隻
+          </button>
+        </div>
+      </template>
 
       <p v-if="familiar.lastError" class="mb-error">{{ familiar.lastError }}</p>
+
+      <div class="mb-row mb-fam-add">
+        <button class="mb-btn" @click="addFamiliar">＋手動新增一隻</button>
+        <button v-if="familiar.list.length" class="mb-btn" @click="familiar.clear()">
+          全部刪除
+        </button>
+      </div>
+
       <p class="mb-hint">
-        每隻固定<b>三條詞條</b>，而且<b>可以重複</b>（巡邏機器人就有兩條都是加持技能持續時間）。
-        數值請照遊戲畫面填 —— 同一條詞條的數字會隨萌獸階級不同，表上的是滿值。
-      </p>
-      <p class="mb-hint">
-        <b>羈絆欄位請填生效後的數值</b>，不是卡片上的原值。登錄進羈絆之後數字會被壓縮，
-        壓縮規則沒有公開資料，我們不猜 —— 你照面板看到的填，反而精確。
-        也因此，在「裝備變更」把同一隻在召喚中與羈絆之間搬動時，數字<b>不會</b>自動換算，
-        那是我們不知道的東西，不該假裝知道。
+        數值由「同步裝備」一起撈回來，是<b>實際生效的值</b>而不是詞條表上的滿值 ——
+        正常情況下你不需要在這裡輸入任何數字，只要指定誰上場。 重新同步會用遊戲當下的狀態<b>取代</b>
+        同步來的那批，手動新增的會留著。
       </p>
       <p class="mb-hint">
         萌獸之間的終傷是<b>相加</b>的，加完才乘進總傷害 —— 遊戲內「最終傷害」的提示框就是
@@ -173,8 +240,8 @@ function slotValue(item: Familiar): string {
         不在公式裡，選了也不會影響數字（下拉選單已經分成兩組）。
       </p>
       <p class="mb-hint">
-        召喚中只能一隻、羈絆最多 {{ MAX_BOND_SLOTS }} 格。要比較「換一隻差多少」，
-        到「裝備變更」點萌獸那一格。萌獸不隨裝備組切換，五組共用同一批。
+        召喚中只能一隻、羈絆最多 {{ MAX_BOND_SLOTS }} 格。要比較「換一隻差多少」， 到「裝備變更」
+        點萌獸那一格。萌獸不隨裝備組切換，五組共用同一批。
       </p>
     </section>
   </div>
@@ -197,16 +264,16 @@ function slotValue(item: Familiar): string {
   font-size: 12px;
 }
 
-/* 一隻一張小卡，卸下的仍然看得到但要一眼分得出沒在生效 */
+.mb-fam-section {
+  margin: 10px 0 4px;
+  font-size: 12px;
+}
+
 .mb-fam {
   margin-bottom: 8px;
   padding: 6px 8px;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
-}
-
-.mb-fam.off {
-  opacity: 0.5;
 }
 
 .mb-fam-head {
@@ -220,9 +287,13 @@ function slotValue(item: Familiar): string {
   flex: 0 0 auto;
 }
 
-.mb-fam-grade {
-  width: 72px;
-  flex: 0 0 auto;
+.mb-fam-cat {
+  padding: 1px 5px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  opacity: 0.75;
+  white-space: nowrap;
 }
 
 .mb-fam-line {
@@ -236,8 +307,54 @@ function slotValue(item: Familiar): string {
   text-align: right;
 }
 
+.mb-fam-filter {
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.mb-fam-catsel {
+  width: 150px;
+  flex: 0 0 auto;
+}
+
+/* 沒上場的用密列表：一百多隻，每隻一張卡會完全找不到東西 */
+.mb-fam-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mb-fam-list li {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) minmax(0, 2fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 4px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.mb-fam-listname {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.mb-fam-listlines {
+  overflow: hidden;
+  font-size: 11px;
+  opacity: 0.75;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mb-fam-listact {
+  display: flex;
+  gap: 4px;
+}
+
 .mb-fam-add {
   flex-wrap: wrap;
   gap: 4px;
+  margin-top: 8px;
 }
 </style>

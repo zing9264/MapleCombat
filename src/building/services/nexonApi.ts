@@ -212,6 +212,41 @@ export interface HexaStatCore {
 }
 
 /** 一次擷取回來的原始資料集合 */
+export interface FamiliarOption {
+  option_no: number
+  option_name: string
+  option_value: string
+}
+
+/**
+ * 一隻萌獸。`option` 裡是**實際生效的數值**，不是詞條表上的滿值 ——
+ * 暗黑半人馬在這裡就是魔攻 14%、終傷 20%，跟遊戲畫面一致。
+ * 這正是以前要玩家自己抄數字的原因，現在不必了。
+ */
+export interface FamiliarEntry {
+  familiar_name: string
+  familiar_nickname: string | null
+  familiar_state: string
+  familiar_grade: string | null
+  familiar_level: number
+  option_level: number
+  summoned_flag: string
+  /** 沒登錄羈絆時是 "not link"，否則是 link slot 的 id */
+  slot_id: string
+  option: FamiliarOption[]
+}
+
+export interface FamiliarLinkSlot {
+  slot_id: string
+  familiar_name: string | null
+  active_flag: string
+}
+
+export interface FamiliarData {
+  linkSlots: FamiliarLinkSlot[]
+  entries: FamiliarEntry[]
+}
+
 export interface RawCharacterData {
   ocid: string
   basic: CharacterBasic
@@ -222,6 +257,7 @@ export interface RawCharacterData {
   symbols: SymbolItem[]
   hyperStat: HyperStatEntry[]
   hexaStat: HexaStatCore[]
+  familiars: FamiliarData
 }
 
 export interface FetchProgress {
@@ -255,6 +291,7 @@ export async function fetchCharacter(
     '符文',
     '極限屬性',
     'HEXA 屬性',
+    '萌獸',
   ]
   const total = steps.length
   let step = 0
@@ -298,6 +335,12 @@ export async function fetchCharacter(
   advance()
   const hexaRes = await request<Record<string, unknown>>('/character/hexamatrix-stat', q)
 
+  advance()
+  const familiarRes = await request<{
+    familiar_link_slot?: FamiliarLinkSlot[]
+    familiar_info?: FamiliarEntry[]
+  }>('/character/familiar', q)
+
   return {
     ocid,
     basic,
@@ -308,6 +351,10 @@ export async function fetchCharacter(
     symbols: symbolRes.symbol ?? [],
     hyperStat: pickActiveHyperStat(hyperRes),
     hexaStat: collectHexaCores(hexaRes),
+    familiars: {
+      linkSlots: familiarRes.familiar_link_slot ?? [],
+      entries: familiarRes.familiar_info ?? [],
+    },
   }
 }
 

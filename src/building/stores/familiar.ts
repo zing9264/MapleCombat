@@ -25,6 +25,9 @@ import { famMultFromSources } from '@/core/familiar'
 import { familiarEffect } from '../data/familiarLines'
 
 const STORAGE_KEY = 'mbFamiliarV2'
+
+/** 從 API 匯入的萌獸 id 前綴；用來分辨哪些是同步來的、哪些是手動加的 */
+export const API_ID_PREFIX = 'api:'
 /** 舊版（一條一個條目、沒有三條詞條的結構） */
 const LEGACY_KEY = 'mbFamiliarV1'
 const MAX_NAME_LENGTH = 20
@@ -56,6 +59,12 @@ export interface Familiar {
   id: string
   name: string
   grade: FamiliarGrade
+  /**
+   * API 的 familiar_grade —— 不是稀有／傳說，而是羈絆分類
+   * （爆擊機率、BOSS怪物傷害、無視怪物防禦率、攻擊力/魔法攻擊力）。
+   * 不進戰鬥力公式，純粹讓人在一百多隻裡面找得到東西。
+   */
+  category?: string
   lines: FamiliarLine[]
   slot: FamiliarSlot
 }
@@ -83,6 +92,7 @@ function normalize(raw: Partial<Familiar>): Familiar {
       name: String(lines[i]?.name ?? ''),
       value: num(lines[i]?.value),
     })),
+    category: raw.category ? String(raw.category) : undefined,
     slot: raw.slot === 'summon' || raw.slot === 'bond' ? raw.slot : null,
   }
 }
@@ -327,6 +337,25 @@ export const useFamiliarStore = defineStore('buildingFamiliar', () => {
     persist()
   }
 
+  /**
+   * 用 API 撈回來的萌獸取代整份清單。
+   *
+   * 為什麼是「取代」而不是「合併」：API 回的是遊戲當下的完整狀態 ——
+   * 哪些登錄了、哪隻召喚中、每條詞條的實際數值。合併只會讓早期手動輸入的
+   * 舊數字留下來跟真實狀態打架，而那正是我們要擺脫的東西。
+   *
+   * 手動新增的（id 不是 api: 開頭）會留著：那是 API 表達不了的東西，
+   * 例如還沒同步過就先試算的假設。
+   */
+  function importFromApi(incoming: readonly Familiar[]): number {
+    const manual = list.value.filter((item) => !item.id.startsWith(API_ID_PREFIX))
+    list.value = [...incoming.map(normalize), ...manual]
+    draftSlots.value = null
+    lastError.value = ''
+    persist()
+    return incoming.length
+  }
+
   return {
     list,
     summoned,
@@ -349,6 +378,7 @@ export const useFamiliarStore = defineStore('buildingFamiliar', () => {
     setDraftSlot,
     clearDraft,
     applyDraft,
+    importFromApi,
   }
 })
 

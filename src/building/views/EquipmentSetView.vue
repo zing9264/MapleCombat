@@ -10,6 +10,8 @@ import { fetchCharacter, type EquipmentItem, type FetchProgress } from '../servi
 import { useEquipmentSetsStore, type SetSlotId } from '../stores/equipmentSets'
 import { useItemLibraryStore } from '../stores/itemLibrary'
 import { useApiKeyStore } from '../stores/apiKey'
+import { useFamiliarStore } from '../stores/familiar'
+import { familiarsFromApi } from '../core/familiarImport'
 import { useDialog } from '../composables/useDialog'
 import MbDialog from '../components/MbDialog.vue'
 
@@ -17,7 +19,9 @@ const dialog = useDialog()
 const store = useEquipmentSetsStore()
 const library = useItemLibraryStore()
 const apiKey = useApiKeyStore()
+const familiar = useFamiliarStore()
 const absorbedCount = ref(0)
+const familiarCount = ref(0)
 
 const characterName = ref(localStorage.getItem('mbLastCharacterName') || '')
 const syncing = ref(false)
@@ -80,6 +84,9 @@ async function onSync(id: SetSlotId): Promise<void> {
     store.syncInto(id, raw)
     // 同步順便把基底收進裝備庫（全域，跨裝備組共用）
     absorbedCount.value = library.absorb(raw.equipment)
+    // 萌獸不隨裝備組切換，五組共用同一批，所以直接寫進萌獸 store。
+    // API 給的是實際生效的數值（暗黑半人馬 = 魔攻 14%、終傷 20%），不必再手動抄。
+    familiarCount.value = familiar.importFromApi(familiarsFromApi(raw.familiars))
   } catch (error) {
     errorMessage.value = (error as Error).message
   } finally {
@@ -209,6 +216,9 @@ const symbolTotals = computed(() => {
         ({{ progress.step }}/{{ progress.total }}) {{ progress.label }}
       </p>
       <p v-if="absorbedCount" class="mb-hint">已收錄 {{ absorbedCount }} 件新基底到裝備庫。</p>
+      <p v-if="familiarCount" class="mb-hint">
+        已同步 {{ familiarCount }} 隻萌獸（含實際詞條數值），到「萌獸」分頁看。
+      </p>
       <p v-if="errorMessage" class="mb-error">{{ errorMessage }}</p>
       <p v-if="store.lastError" class="mb-error">{{ store.lastError }}</p>
       <p class="mb-hint">

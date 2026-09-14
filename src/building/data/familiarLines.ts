@@ -89,3 +89,44 @@ export const FAMILIAR_LINE_GROUPS: ReadonlyArray<{
     lines: FAMILIAR_LINES.filter((line) => familiarEffect(line.name, 1) === null),
   },
 ]
+
+/**
+ * API 的詞條名稱對應到本地的名稱。
+ *
+ * 大部分只差一個寫法：API 是「最終傷害 (%)」，本地是「最終傷害%」，
+ * 規則化就好。下面這張表放的是規則套不上去的那幾條 —— API 把數字寫死在
+ * 名稱裡（「4秒內恢復 HP」「攻擊時有3%機率恢復 HP」），本地寫成「一定秒數／
+ * 一定的機率」，字面對不起來。
+ *
+ * 對不到的名稱原樣回傳：familiarEffect() 會回 null，等於不計入戰鬥力。
+ * 這是安全的失敗方向 —— 但也可能默默漏掉一條傷害詞條，所以
+ * familiarImport.spec.ts 拿實際 API 回應裡的全部名稱當迴歸測試。
+ */
+const API_LINE_ALIASES: Readonly<Record<string, string>> = {
+  '4秒內恢復 HP': '一定秒數內恢復HP',
+  '4秒內恢復 MP': '一定秒數內恢復MP',
+  '攻擊時有3%機率恢復 HP': '攻擊時有一定的機率恢復HP',
+  '攻擊時有3%機率恢復 MP': '攻擊時有一定的機率恢復MP',
+  中毒效果: '攻擊時有一定的機率發動一定等級的中毒效果',
+  暈眩效果: '攻擊時有一定的機率發動一定等級的暈眩效果',
+  緩慢效果: '攻擊時有一定的機率發動一定等級的緩慢效果',
+  闇黑效果: '攻擊時有一定的機率發動一定等級的闇黑效果',
+  冰結效果: '攻擊時有一定的機率發動一定等級的冰結效果',
+  封印效果: '攻擊時有一定的機率發動一定等級的封印效果',
+  依照被動技能來增加: '增加被動技能等級',
+  '依照角色攻擊力來追加萌獸的攻擊力 (%)': '依照角色一定的攻擊力來追加萌獸攻擊力',
+  '依照角色全部屬性來追加萌獸的攻擊力 (%)': '依照角色一定的屬性來追加萌獸攻擊力',
+  '加持技能持續時間 (%)': '加持技能持續時間',
+}
+
+/** 把 API 的 option_name 轉成本地詞條名；對不到就原樣回傳 */
+export function familiarLineFromApi(optionName: string): string {
+  const name = optionName.trim()
+  const alias = API_LINE_ALIASES[name]
+  if (alias) return alias
+  if (BY_NAME.has(name)) return name
+
+  // 「最終傷害 (%)」→「最終傷害%」
+  const percent = name.replace(/\s*\(%\)$/, '%')
+  return BY_NAME.has(percent) ? percent : name
+}
