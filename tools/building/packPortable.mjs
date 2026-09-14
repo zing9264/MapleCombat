@@ -14,7 +14,7 @@
 // 就等於留著那個洞，而「剝乾淨了嗎」每次都要重新判斷一次。
 //
 // 用法：
-//   node tools/building/packPortable.mjs --out dist-portable
+//   node tools/building/packPortable.mjs --out dist-portable [--exe <路徑>]
 //
 // 產物永遠只有 exe 與讀我.txt。要驗證請用 verifyPackage.mjs，
 // 發布請用 buildRelease.mjs（從乾淨 clone 建）。
@@ -32,7 +32,7 @@ import {
 import { join, resolve } from 'node:path'
 import { execFileSync } from 'node:child_process'
 
-const EXE_SOURCE = 'src-tauri/target/release/maplebuilding-app.exe'
+const DEFAULT_EXE = 'src-tauri/target/release/maplebuilding-app.exe'
 
 const README =
   'MapleBuilding v1.0\n\n存檔預設就在這個資料夾裡的 mapledata.json，整個資料夾可以複製到隨身碟帶著走。\n\n想換位置：工具列的「管理 → 存檔位置 → 變更…」，現有的存檔會一起搬過去。\n\n這個資料夾如果寫不進去（例如放在 Program Files），會自動改存到\n%APPDATA%\\tw.maplebuilding.app\\。實際位置在「管理」裡看得到。\n\nNEXON API 金鑰請自己到 https://openapi.nexon.com 申請，貼進工具列的「管理」。\n金鑰不會跟著程式散布，每個人用自己的。\n'
@@ -48,14 +48,17 @@ function main() {
   const name = `MapleBuilding-${version}-portable`
   const dir = join(outRoot, name)
 
-  if (!existsSync(EXE_SOURCE)) {
-    throw new Error(`找不到 ${EXE_SOURCE} —— 先跑 npm run tauri build`)
+  // --exe 是給 buildRelease.mjs 用的：它共用 cargo 的編譯快取，
+  // 產物不會落在 clone 自己的 src-tauri/target 底下。
+  const exe = resolve(arg('--exe', DEFAULT_EXE))
+  if (!existsSync(exe)) {
+    throw new Error(`找不到 ${exe} —— 先跑 npm run tauri build`)
   }
 
   rmSync(dir, { recursive: true, force: true })
   mkdirSync(dir, { recursive: true })
 
-  copyFileSync(EXE_SOURCE, join(dir, 'MapleBuilding.exe'))
+  copyFileSync(exe, join(dir, 'MapleBuilding.exe'))
   writeFileSync(join(dir, '讀我.txt'), README)
 
   const zip = join(outRoot, `${name}.zip`)

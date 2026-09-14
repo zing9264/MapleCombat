@@ -79,7 +79,11 @@ function main() {
     run('npm', ['run', 'tauri', 'build'], { cwd: clone, env })
 
     console.log('\n── 打包')
-    run('node', ['tools/building/packPortable.mjs', '--out', outDir], { cwd: clone })
+    const targetDir = env.CARGO_TARGET_DIR ?? join(clone, 'src-tauri', 'target')
+    const exe = join(targetDir, 'release', 'maplebuilding-app.exe')
+    run('node', ['tools/building/packPortable.mjs', '--out', outDir, '--exe', exe], {
+      cwd: clone,
+    })
 
     // 閘門刻意在主工作樹跑：比對用的個資快照只有這裡才有。
     console.log('\n── 洩漏閘門')
