@@ -23,9 +23,14 @@ const props = defineProps<{
   states?: Readonly<Record<number, 'replaced' | 'removed'>>
   /** 萌獸摘要。不是 API 的裝備，所以獨立傳進來而不是混在 equipment 裡 */
   familiar?: { total: number; count: number }
+  /** 萌獸那一格是否被選中（與 selectedIndex 互斥，萌獸不在 equipment 陣列裡） */
+  familiarSelected?: boolean
 }>()
 
-const emit = defineEmits<{ (e: 'select', index: number): void }>()
+const emit = defineEmits<{
+  (e: 'select', index: number): void
+  (e: 'selectFamiliar'): void
+}>()
 
 const hovered = ref<Entry | null>(null)
 
@@ -178,20 +183,21 @@ const tooltipPotentials = computed(() => {
             <span v-else class="mb-cell-label">{{ petAt(c)?.itemName ?? cell.cell.label }}</span>
           </div>
 
-          <!-- 萌獸：顯示合計終傷，內容在製作台編輯 -->
+          <!-- 萌獸：顯示合計終傷。點下去跟裝備一樣可以換 -->
           <div
             v-else-if="cell.cell.kind === 'familiar'"
             class="mb-cell"
-            :class="{ empty: !familiar?.count }"
+            :class="{ empty: !familiar?.count, active: familiarSelected }"
             :title="
               familiar?.count
-                ? `萌獸 ${familiar.count} 條 · 合計最終傷害 ${familiar.total}%`
-                : '萌獸（到製作台新增）'
+                ? `萌獸 ${familiar.count} 隻 · 合計最終傷害 ${familiar.total}%`
+                : '萌獸（到「萌獸」分頁新增）'
             "
+            @click="emit('selectFamiliar')"
           >
             <span v-if="familiar?.count" class="mb-cell-fam">
               <b>{{ familiar.total }}%</b>
-              <small>萌獸 {{ familiar.count }}</small>
+              <small>萌獸 {{ familiar.count }} 隻</small>
             </span>
             <span v-else class="mb-cell-label">{{ cell.cell.label }}</span>
           </div>

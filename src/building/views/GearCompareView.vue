@@ -17,6 +17,7 @@ import { useUiStore } from '@/stores/ui'
 // 戰鬥力公式是上游的純函式，我們只呼叫不修改。基準改用自己的 useBaseline
 // （角色資料頁那一份），不再依賴上游手動覆寫頁的 store。
 import { calculatePower, powerValue } from '@/core/combatPower'
+import type { FieldValues } from '@/core/types'
 import { equipmentFieldDelta, isEmptyDelta } from '../core/powerDelta'
 import { useBaseline } from '../composables/useBaseline'
 import { usePowerContext } from '../composables/usePowerContext'
@@ -41,10 +42,30 @@ const draft = computed(() => sets.active?.draft ?? [])
 /** 目前點選的格子；只用來決定右邊道具欄要列哪個部位 */
 const targetIndex = ref<number | null>(null)
 
+/**
+ * 萌獸那一格是否被選中。
+ *
+ * 用獨立的旗標而不是塞進 targetIndex：萌獸不在 equipment 陣列裡，沒有 index 可用，
+ * 硬借一個哨兵值（-1 之類）遲早會被當成真的索引拿去查陣列。
+ */
+const familiarSelected = ref(false)
+
+function selectSlot(index: number): void {
+  familiarSelected.value = false
+  targetIndex.value = index
+}
+
+function selectFamiliar(): void {
+  targetIndex.value = null
+  familiarSelected.value = true
+  familiar.startDraft()
+}
+
 watch(
   () => sets.activeId,
   () => {
     targetIndex.value = null
+    familiarSelected.value = false
   },
 )
 
@@ -172,14 +193,39 @@ const { fields: baselineFields, slots, reconciled } = useBaseline()
 
 const powerContext = usePowerContext()
 
+/**
+ * 萌獸換裝的差值。
+ *
+ * 終傷是乘算、又藏在 CombatPowerContext 裡，而 context 是前後共用的，
+ * 沒辦法像裝備那樣用加法 delta 表達。上游留了 __eqFamFinalMultiplierFactor 這個
+ * 鉤子正是為此：傳「新倍率 ÷ 舊倍率」，公式會把它乘進 famMult。
+ *
+ * 魔力%／物攻% 則是加算，直接進 percentAtk。
+ */
+const familiarDelta = computed<FieldValues | null>(() => {
+  if (!familiar.hasDraft) return null
+  const before = familiar.current
+  const after = familiar.draft
+  const statSlots = slots.value
+  if (!statSlots) return null
+
+  const percentKey = statSlots.attack === 'magicPower' ? 'magicPowerPercent' : 'attackPowerPercent'
+  return {
+    __eqFamFinalMultiplierFactor: after.multiplier / before.multiplier,
+    percentAtk: after[percentKey] - before[percentKey],
+  }
+})
+
 const powerChange = computed(() => {
   const swap = result.value
   const statSlots = slots.value
   const base = baselineFields.value
-  if (!swap || !statSlots || !base) return null
+  if (!statSlots || !base) return null
 
-  const delta = equipmentFieldDelta(swap.before, swap.after, statSlots)
-  if (isEmptyDelta(delta)) return null
+  const gearDelta = swap ? equipmentFieldDelta(swap.before, swap.after, statSlots) : {}
+  const famDelta = familiarDelta.value ?? {}
+  const delta: FieldValues = { ...gearDelta, ...famDelta }
+  if (isEmptyDelta(gearDelta) && !familiarDelta.value) return null
 
   const before = powerValue(calculatePower(base, powerContext.value))
   const after = powerValue(calculatePower(base, powerContext.value, delta))
@@ -330,8 +376,10 @@ function signed(n: number): string {
             :pets="data.pets ?? []"
             :selected-index="targetIndex"
             :states="slotStates"
-            :familiar="{ total: familiar.totalPercent, count: familiar.sources.length }"
-            @select="targetIndex = $event"
+            :familiar="{ total: familiar.draft.totalPercent, count: familiar.draftEquipped.length }"
+            :familiar-selected="familiarSelected"
+            @select="selectSlot"
+            @select-familiar="selectFamiliar"
           />
         </section>
 
@@ -339,13 +387,61 @@ function signed(n: number): string {
         <section class="mb-card">
           <h3 class="mb-card-title">
             道具欄
-            <span v-if="targetPart" class="mb-badge">可換到「{{ targetPart }}」</span>
-            <button v-if="craftablePart" type="button" class="mb-link" @click="craftFromSlot">
+            <span v-if="familiarSelected" class="mb-badge">
+              勾選要裝備的萌獸（{{ familiar.draftEquipped.length }} / {{ familiar.lines.length }}）
+            </span>
+            <span v-else-if="targetPart" class="mb-badge">可換到「{{ targetPart }}」</span>
+            <button
+              v-if="craftablePart && !familiarSelected"
+              type="button"
+              class="mb-link"
+              @click="craftFromSlot"
+            >
               做一件「{{ targetPart }}」
             </button>
           </h3>
 
-          <p v-if="targetIndex === null" class="mb-empty">先在左邊點一件要換掉的裝備。</p>
+          <!-- 萌獸：勾選誰要裝備，下面的戰鬥力差值會即時算 -->
+          <template v-if="familiarSelected">
+            <ul v-if="familiar.lines.length" class="mb-list">
+              <li
+                v-for="item in familiar.lines"
+                :key="item.id"
+                class="mb-item"
+                :class="{ active: familiar.draftEquipped.includes(item) }"
+                @click="familiar.toggleDraft(item.id)"
+              >
+                <span class="mb-item-part">
+                  {{ familiar.draftEquipped.includes(item) ? '裝備中' : '未裝備' }}
+                </span>
+                <span class="mb-item-name">{{ item.label || '（未命名）' }}</span>
+                <span class="mb-item-star">
+                  終傷 {{ item.finalDamage }}%
+                  <template v-if="item.magicPowerPercent">
+                    · 魔力 {{ item.magicPowerPercent }}%
+                  </template>
+                  <template v-if="item.attackPowerPercent">
+                    · 物攻 {{ item.attackPowerPercent }}%
+                  </template>
+                </span>
+              </li>
+            </ul>
+            <p v-else class="mb-hint">還沒有任何萌獸，到「萌獸」分頁新增。</p>
+
+            <div v-if="familiar.hasDraft" class="mb-row mb-fam-actions">
+              <button class="mb-btn mb-btn--primary" @click="familiar.applyDraft()">
+                套用這組
+              </button>
+              <button class="mb-btn" @click="familiar.clearDraft()">取消</button>
+            </div>
+            <p class="mb-hint">
+              勾選只是試算，按「套用這組」才會真的換掉。萌獸不隨裝備組切換，五組共用同一批。
+            </p>
+          </template>
+
+          <p v-else-if="targetIndex === null" class="mb-empty">
+            先在左邊點一件要換掉的裝備，或點萌獸那一格。
+          </p>
 
           <template v-else>
             <ul class="mb-list">
@@ -403,8 +499,8 @@ function signed(n: number): string {
       <!-- 啟用套裝（已套用替換後的結果） -->
       <ActiveSetsPanel :item-names="setCountNames" :set-effects="data.setEffects ?? []" />
 
-      <!-- 換裝後的戰鬥力 -->
-      <section v-if="result" class="mb-card">
+      <!-- 換裝後的戰鬥力。萌獸也算換裝，所以不能只看裝備那邊的 result -->
+      <section v-if="result || familiar.hasDraft" class="mb-card">
         <h3 class="mb-card-title">戰鬥力</h3>
 
         <div v-if="powerChange" class="mb-power-row">
@@ -549,6 +645,11 @@ function signed(n: number): string {
 .mb-item-star {
   color: #ffc857;
   font-size: 11px;
+}
+
+.mb-fam-actions {
+  margin-top: 6px;
+  gap: 6px;
 }
 
 .mb-changes {
