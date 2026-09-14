@@ -210,3 +210,34 @@ export async function initDataFile(): Promise<boolean> {
   watchStorage()
   return replaced
 }
+
+// ── 存檔位置 ────────────────────────────────────────
+
+/** `source`：custom = 使用者指定、exe = 執行檔旁邊、appdata = %APPDATA% 退路 */
+export interface DataLocation {
+  dir: string
+  file: string
+  source: 'custom' | 'exe' | 'appdata'
+  writable: boolean
+}
+
+/** 網頁版沒有檔案可言，回 null 讓 UI 自己決定不顯示 */
+export async function getDataLocation(): Promise<DataLocation | null> {
+  if (!isTauri()) return null
+  return invoke<DataLocation>('get_data_location')
+}
+
+/**
+ * 換存檔位置；傳 null 恢復預設。
+ *
+ * 現有的存檔會一起搬過去。目標已經有 mapledata.json 時後端會拒絕而不是覆蓋 ——
+ * 指到另一份存檔然後默默被蓋掉，是這個功能最容易毀掉資料的方式。
+ */
+export async function setDataLocation(dir: string | null): Promise<DataLocation> {
+  return invoke<DataLocation>('set_data_location', { dir })
+}
+
+/** 跳資料夾選擇對話框；使用者取消時回傳 null */
+export async function pickDataDir(): Promise<string | null> {
+  return invoke<string | null>('pick_data_dir')
+}

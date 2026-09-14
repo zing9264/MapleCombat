@@ -119,6 +119,52 @@ localStorage，順序顛倒的話 store 會拿到舊資料，之後再被檔案�
 
 `stateSlots` store、加權頁與其計算邏輯全部保留，未來要恢復只要把旗標改回 `true`。
 
+### 存檔位置與 WebView2 設定檔（便攜版）
+
+| 檔案                                              | 改動                                                                  |
+| ------------------------------------------------- | --------------------------------------------------------------------- |
+| `src-tauri/src/lib.rs`                            | 存檔位置解析、三個 command、`pin_webview_data_dir()`                  |
+| `src/components/layout/CompactToolbar.vue`        | import 一行 + `<DataLocationControl />` 一行（接在 ApiKeyControl 後） |
+| `src/building/components/DataLocationControl.vue` | 自有元件                                                              |
+| `tools/building/packPortable.mjs`                 | 自有打包腳本                                                          |
+
+存檔位置的決定順序：**自訂路徑 → 執行檔旁邊 → `%APPDATA%`**。
+預設放在執行檔旁邊，整個資料夾複製走就能帶著跑；寫不進去（Program Files）才退回
+`%APPDATA%`。用「實際寫一個檔案測試」判斷，不看權限位元 —— Windows 上
+UAC 虛擬化與防毒鎖定都會讓權限看起來正常卻寫不了，靜靜地存檔失敗最難查。
+
+自訂路徑記在 `%APPDATA%\tw.maplebuilding.app\datadir.txt`，刻意不放執行檔旁邊：
+「要存去哪」本身必須先讀得到，不能跟著它想指向的地方走。
+
+#### `pin_webview_data_dir()` 為什麼非有不可
+
+WebView2 以**應用程式識別碼**當 key，預設把 localStorage 放在
+`%LOCALAPPDATA%\tw.maplebuilding.app\EBWebView`。這表示同一台機器上不管從哪個
+資料夾啟動、甚至全新解壓的一份，讀到的都是**同一份 localStorage**。
+
+實際踩過：全新解壓的空資料夾一開啟就長出 289KB 的 `mapledata.json`，
+裡面有另一個安裝的角色資料與 API 金鑰 —— 因為 `initDataFile()` 看到「沒有檔案」
+就拿當下的 localStorage 去建檔。便攜版的前提是「一個資料夾一份資料」，
+所以在 `run()` 最前面把 `WEBVIEW2_USER_DATA_FOLDER` 指到執行檔旁邊的 `webview\`。
+
+升級不會掉資料：`initDataFile()` 是**檔案優先**，webview 設定檔換新的之後
+localStorage 是空的，但 `mapledata.json` 仍會被讀回來（實測 276,686 bytes 進出一致）。
+
+#### 打包絕對不要手工做
+
+`dataFile.ts` 的 `EXCLUDED_KEYS` 刻意留空（使用者要整台機器共用），所以快照裡
+**有 API 金鑰、角色名、世界名、公會名與五組完整裝備**。手工 zip 等於把這些寄出去，
+實際發生過三次。一律用：
+
+```bash
+npm run pack:portable
+```
+
+預設**不帶資料檔**。要帶自己的資料自己加 `--data`，腳本會剝掉憑證並把找到的
+身分欄位印出來讓你有機會喊停。
+
+---
+
 ### 桌面視窗大小接縫
 
 | 檔案                               | 改動                                                   |

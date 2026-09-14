@@ -6,6 +6,7 @@ import { useCompactTheme } from '@/composables/useTheme'
 import { useCharacterStore } from '@/stores/character'
 import { useStateSlotsStore, type StateSlotId } from '@/stores/stateSlots'
 import ApiKeyControl from '@/building/components/ApiKeyControl.vue'
+import DataLocationControl from '@/building/components/DataLocationControl.vue'
 import { SHOW_STATE_SLOTS } from '@/building/featureFlags'
 
 const ui = useUiStore()
@@ -335,6 +336,7 @@ function canConfirmStateDialog(): boolean {
             重設目前狀態
           </button>
           <ApiKeyControl />
+          <DataLocationControl />
         </div>
       </details>
     </div>

@@ -15,7 +15,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "pack:portable": "node tools/building/packPortable.mjs"
   },
   "dependencies": {
     "@tauri-apps/api": "^2",
