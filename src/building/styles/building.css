@@ -293,3 +293,46 @@ select.mb-input {
   background: var(--border-color);
   opacity: 0.5;
 }
+
+/* ── 寬視窗下的版面 ─────────────────────────────────────────────
+ *
+ * 上游的計算機三頁是照 **635px 設計寬** 排的（composables/useAutoZoom.ts：
+ * zoom = innerWidth / 635，上限 1.5），而 compact-desktop.css 又把 .container
+ * 的 max-width 清成 none，讓內容恆滿寬。
+ *
+ * 那組假設在原本 980 寬的視窗成立：980 / 1.5 ≈ 653，剛好是設計寬。
+ * 視窗放寬到 1280~1600 之後 zoom 仍被鎖在 1.5，排版寬度變成 1067px ——
+ * 遠超設計寬，同一排的欄位就被越拉越開，看起來像跑版（實測 1600 寬）。
+ *
+ * 我們自己的分頁（裝備庫、製作台、同步裝備…）本來就吃得下寬度，那正是把視窗
+ * 放寬的理由，所以只夾上游那三頁。用 App.vue 的 data-view 區分，
+ * 不用 :has(#xxxView.active) —— 那些 id 在現在的 App.vue 裡已經不存在了。
+ */
+:root[data-density='compact'] .container[data-view='characterInput'],
+:root[data-density='compact'] .container[data-view='equipmentChange'],
+:root[data-density='compact'] .container[data-view='valueConversion'] {
+  max-width: 680px;
+  margin-inline: auto;
+}
+
+/* 分頁從 5 個變成 10 個之後，視窗窄的時候整排會壓到右邊的「匯入／儲存」上面
+ * （實測 980 寬：分頁需要 727px，容器只有 629px，最後兩個分頁直接畫到按鈕上）。
+ * 讓它換行而不是橫向捲：捲軸在這種一排小膠囊上幾乎看不出來，
+ * 使用者只會覺得分頁憑空消失。 */
+:root[data-density='compact'] .ct-tabs {
+  flex-wrap: wrap;
+}
+
+/* 上游把「管理」面板寫死 154px，只夠放狀態選單那幾個短標籤。
+ * 加了 API Key 與存檔位置之後內容更寬（實測要 197px），面板是 right:0 定位，
+ * 超出的部分會直接畫到面板外、在視窗右緣被切掉。 */
+:root[data-density='compact'] .ct-state-menu-panel {
+  width: 280px;
+}
+
+/* 數字一律等寬，跟上游一致 —— 上游在 calculator/equipment/buffs 三處都這樣做。
+ * 差一位數就跳動的數字，在對帳的時候特別難看。 */
+.mb-card,
+.mb-fam-page {
+  font-variant-numeric: tabular-nums;
+}

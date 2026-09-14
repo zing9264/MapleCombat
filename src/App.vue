@@ -21,7 +21,7 @@ const slots = useStateSlotsStore()
 
 <template>
   <CompactToolbar />
-  <div class="container">
+  <div class="container" :data-view="ui.activeView">
     <WeightedAnalysisView v-if="SHOW_STATE_SLOTS && slots.isWeightedActive" :view="ui.activeView" />
     <template v-else>
       <CharacterView v-if="ui.activeView === 'character'" />

@@ -99,6 +99,9 @@ onMounted(refresh)
 
 /* 路徑可能很長；截斷並靠尾端顯示，檔名比磁碟機代號有用 */
 .mb-datadir-path {
+  /* 面板寬度是固定的，沒有 min-width:0 的話 nowrap 會把整個面板撐開 */
+  min-width: 0;
+  max-width: 100%;
   direction: rtl;
   overflow: hidden;
   margin: 2px 0 4px;

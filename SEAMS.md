@@ -165,6 +165,37 @@ npm run pack:portable
 
 ---
 
+### 寬視窗版面接縫
+
+| 檔案                               | 改動                                                  |
+| ---------------------------------- | ----------------------------------------------------- |
+| `src/App.vue`                      | `.container` 加 `:data-view="ui.activeView"` 一個屬性 |
+| `src/building/styles/building.css` | 夾上游三頁的寬度、分頁列換行、管理面板加寬            |
+
+上游的計算機三頁照 **635px 設計寬** 排版（`composables/useAutoZoom.ts`：
+`zoom = innerWidth / 635`，上限 1.5），`compact-desktop.css` 又把 `.container`
+的 `max-width` 清成 `none` 讓內容恆滿寬。
+
+原本 980 寬的視窗剛好成立：980 / 1.5 ≈ 653 ≈ 設計寬。視窗放寬之後 zoom 仍鎖在 1.5，
+排版寬度變成 1067px（1600 視窗），同一排欄位被越拉越開 —— 看起來像跑版，
+其實是設計寬的假設破了。
+
+只夾 `characterInput` / `equipmentChange` / `valueConversion` 三頁；我們自己的分頁
+本來就吃得下寬度，那正是把視窗放寬的理由。
+
+**不要用 `layout.css` 裡的 `:has(#characterInputView.active)`** —— 那些 id 在現在的
+`App.vue` 裡已經不存在，選擇器是死的（實測 `document.querySelectorAll('[id$="View"]')`
+回空陣列）。
+
+另外兩條同一批的修正：
+
+- `.ct-tabs` 加 `flex-wrap: wrap`：分頁從 5 個變 10 個，980 寬時需要 727px 卻只有
+  629px，最後兩個分頁會直接畫到「匯入／儲存」上面。
+- `.ct-state-menu-panel` 從寫死的 154px 加寬到 280px：加了 API Key 與存檔位置之後
+  內容要 197px，面板是 `right: 0` 定位，超出的部分會在視窗右緣被切掉。
+
+---
+
 ### 桌面視窗大小接縫
 
 | 檔案                               | 改動                                                   |
