@@ -14,3 +14,6 @@ tools/building/parser.mjs
 tools/building/.crawl-state.json
 tools/building/names*.txt
 tools/building/guilds*.txt
+
+# 爬蟲原始回應快取：已剝掉名稱只留雜湊，但裝備組合仍可能指認到人，且檔案很大
+tools/building/.crawl-cache.jsonl

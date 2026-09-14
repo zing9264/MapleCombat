@@ -335,6 +335,13 @@
     "source": "manual"
   },
   {
+    "itemName": "神祕冥界幽靈十字弓",
+    "setNames": [
+      "神祕冥界套裝(弓手)"
+    ],
+    "source": "observed"
+  },
+  {
     "itemName": "神祕冥界幽靈弓手手套",
     "setNames": [
       "神祕冥界套裝(弓手)"
@@ -343,6 +350,13 @@
   },
   {
     "itemName": "神祕冥界幽靈弓手斗篷",
+    "setNames": [
+      "神祕冥界套裝(弓手)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈弓手套裝",
     "setNames": [
       "神祕冥界套裝(弓手)"
     ],
@@ -379,9 +393,16 @@
   {
     "itemName": "神祕冥界幽靈古代之弓",
     "setNames": [
-      "神祕冥界套裝(弓箭手)"
+      "神祕冥界套裝(弓手)"
     ],
-    "source": "inferred"
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈雙弩槍",
+    "setNames": [
+      "神祕冥界套裝(弓手)"
+    ],
+    "source": "observed"
   },
   {
     "itemName": "神祕冥界幽靈法師斗篷",
@@ -398,18 +419,25 @@
     "source": "observed"
   },
   {
+    "itemName": "神祕冥界幽靈記憶長杖",
+    "setNames": [
+      "神祕冥界套裝(法師)"
+    ],
+    "source": "observed"
+  },
+  {
     "itemName": "神祕冥界幽靈陰陽扇",
     "setNames": [
       "神祕冥界套裝(法師)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "神祕冥界幽靈短杖",
     "setNames": [
       "神祕冥界套裝(法師)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "神祕冥界幽靈魔法帽",
@@ -440,6 +468,27 @@
     "source": "observed"
   },
   {
+    "itemName": "神祕冥界幽靈ESP限制器",
+    "setNames": [
+      "神祕冥界套裝(法師)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈之爪",
+    "setNames": [
+      "神祕冥界套裝(海盜)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈武拳",
+    "setNames": [
+      "神祕冥界套裝(海盜)"
+    ],
+    "source": "observed"
+  },
+  {
     "itemName": "神祕冥界幽靈海盜手套",
     "setNames": [
       "神祕冥界套裝(海盜)"
@@ -458,7 +507,7 @@
     "setNames": [
       "神祕冥界套裝(海盜)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "神祕冥界幽靈海盜帽",
@@ -496,6 +545,13 @@
     "source": "observed"
   },
   {
+    "itemName": "神祕冥界幽靈小偷套裝",
+    "setNames": [
+      "神祕冥界套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
     "itemName": "神祕冥界幽靈小偷帽",
     "setNames": [
       "神祕冥界套裝(盜賊)"
@@ -524,6 +580,20 @@
     "source": "observed"
   },
   {
+    "itemName": "神祕冥界幽靈能量劍",
+    "setNames": [
+      "神祕冥界套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈鬥拳",
+    "setNames": [
+      "神祕冥界套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
     "itemName": "神祕冥界幽靈短刀",
     "setNames": [
       "神祕冥界套裝(盜賊)"
@@ -533,23 +603,37 @@
   {
     "itemName": "神祕冥界幽靈刀",
     "setNames": [
-      "神祕冥界套裝(劍士)"
+      "神祕冥界套裝(戰士)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
-    "itemName": "神祕冥界幽靈騎士套裝",
+    "itemName": "神祕冥界幽靈之矛",
     "setNames": [
-      "神祕冥界套裝(劍士)"
+      "神祕冥界套裝(戰士)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
-    "itemName": "神祕冥界幽靈魔劍",
+    "itemName": "神祕冥界幽靈之劍",
     "setNames": [
-      "神祕冥界套裝(劍士)"
+      "神祕冥界套裝(戰士)"
     ],
-    "source": "inferred"
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈調節器",
+    "setNames": [
+      "神祕冥界套裝(戰士)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈雙手劍",
+    "setNames": [
+      "神祕冥界套裝(戰士)"
+    ],
+    "source": "observed"
   },
   {
     "itemName": "神祕冥界幽靈騎士手套",
@@ -560,6 +644,13 @@
   },
   {
     "itemName": "神祕冥界幽靈騎士斗篷",
+    "setNames": [
+      "神祕冥界套裝(戰士)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "神祕冥界幽靈騎士套裝",
     "setNames": [
       "神祕冥界套裝(戰士)"
     ],
@@ -587,6 +678,13 @@
     "source": "observed"
   },
   {
+    "itemName": "神祕冥界幽靈魔劍",
+    "setNames": [
+      "神祕冥界套裝(戰士)"
+    ],
+    "source": "observed"
+  },
+  {
     "itemName": "航海師弓箭手手套",
     "setNames": [
       "航海師套裝(弓箭手)"
@@ -601,11 +699,25 @@
     "source": "observed"
   },
   {
+    "itemName": "航海師弓箭手套裝",
+    "setNames": [
+      "航海師套裝(弓箭手)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "航海師弓箭手帽",
+    "setNames": [
+      "航海師套裝(弓箭手)"
+    ],
+    "source": "observed"
+  },
+  {
     "itemName": "航海師弓箭手鞋",
     "setNames": [
       "航海師套裝(弓箭手)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "航海師弓箭手護肩",
@@ -633,14 +745,14 @@
     "setNames": [
       "航海師套裝(法師)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "航海師法師帽",
     "setNames": [
       "航海師套裝(法師)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "航海師法師鞋",
@@ -657,46 +769,67 @@
     "source": "observed"
   },
   {
+    "itemName": "航海師陰陽扇",
+    "setNames": [
+      "航海師套裝(法師)"
+    ],
+    "source": "observed"
+  },
+  {
     "itemName": "航海師海盜手套",
     "setNames": [
       "航海師套裝(海盜)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "航海師海盜斗篷",
     "setNames": [
       "航海師套裝(海盜)"
     ],
-    "source": "inferred"
+    "source": "observed"
+  },
+  {
+    "itemName": "航海師海盜套裝",
+    "setNames": [
+      "航海師套裝(海盜)"
+    ],
+    "source": "observed"
   },
   {
     "itemName": "航海師海盜帽",
     "setNames": [
       "航海師套裝(海盜)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "航海師海盜鞋",
     "setNames": [
       "航海師套裝(海盜)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "航海師海盜護肩",
     "setNames": [
       "航海師套裝(海盜)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
-    "itemName": "航海師調節器",
+    "itemName": "航海師靈魂射手",
     "setNames": [
       "航海師套裝(海盜)"
     ],
-    "source": "inferred"
+    "source": "observed"
+  },
+  {
+    "itemName": "航海師復仇拳套",
+    "setNames": [
+      "航海師套裝(盜賊)"
+    ],
+    "source": "observed"
   },
   {
     "itemName": "航海師盜賊手套",
@@ -717,7 +850,7 @@
     "setNames": [
       "航海師套裝(盜賊)"
     ],
-    "source": "inferred"
+    "source": "observed"
   },
   {
     "itemName": "航海師盜賊帽",
@@ -737,6 +870,13 @@
     "itemName": "航海師盜賊護肩",
     "setNames": [
       "航海師套裝(盜賊)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "航海師長劍",
+    "setNames": [
+      "航海師套裝(戰士)"
     ],
     "source": "observed"
   },
@@ -770,6 +910,13 @@
   },
   {
     "itemName": "航海師劍士護肩",
+    "setNames": [
+      "航海師套裝(戰士)"
+    ],
+    "source": "observed"
+  },
+  {
+    "itemName": "航海師調節器",
     "setNames": [
       "航海師套裝(戰士)"
     ],

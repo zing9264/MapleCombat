@@ -44,6 +44,21 @@ function loadBundled(): Record<string, BaseItem> {
   return result
 }
 
+/**
+ * 內建基底與本機同步的合併。
+ *
+ * 同步過的優先（玩家自己那件最準），但缺的欄位要用內建的補 ——
+ * icon 是後來才加的欄位，早期同步存下來的沒有，直接覆蓋的話那些裝備就一直沒有圖。
+ */
+function mergeLibrary(): Record<string, BaseItem> {
+  const bundled = loadBundled()
+  const stored = load()
+  const result: Record<string, BaseItem> = { ...bundled }
+  for (const [name, item] of Object.entries(stored)) {
+    result[name] = { ...item, icon: item.icon || bundled[name]?.icon }
+  }
+  return result
+}
 const STORAGE_KEY = 'mbItemLibraryV1'
 
 export interface BaseItem {
@@ -97,7 +112,7 @@ function toBaseItem(item: EquipmentItem, source: BaseItem['source']): BaseItem {
 
 export const useItemLibraryStore = defineStore('buildingItemLibrary', () => {
   // 使用者同步到的基底蓋過內建的（同名時以實際同步資料為準）
-  const items = ref<Record<string, BaseItem>>({ ...loadBundled(), ...load() })
+  const items = ref<Record<string, BaseItem>>(mergeLibrary())
   const selectedName = ref('')
   const lastError = ref('')
 

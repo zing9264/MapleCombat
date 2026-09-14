@@ -60,7 +60,9 @@ const craftedById = computed(() => new Map(inventory.items.map((item) => [item.i
 function craftedToDisplayItem(crafted: CraftedItem, part: string): EquipmentItem {
   return {
     item_name: crafted.name || crafted.baseName,
-    item_icon: crafted.icon ?? '',
+    // 舊的自製裝備存檔時還沒有 icon 欄位，改用基底名稱去裝備庫補 ——
+    // 不然那些先做好的裝備會一直只有文字
+    item_icon: crafted.icon || library.items[crafted.baseName]?.icon || '',
     item_equipment_part: part,
     item_equipment_slot: part,
     starforce: String(crafted.starCount ?? 0),

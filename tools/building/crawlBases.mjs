@@ -29,6 +29,9 @@
 //                    隔天**不要**再帶 --redo，直接跑同一個指令就會從中斷處接續。
 //   --stop-dry 50    連續 N 位角色都沒帶來新基底就提早結束（基底很快會飽和）
 //   --rebuild        完全不打 API，改用本機快取重建輸出檔
+//   --refresh        接續上次的進度，跑到「每件基底都用新規則看過」為止。
+//                    跟 --redo 的差別是不清進度 —— 中途沒額度時用這個續跑，
+//                    才不會從頭重跑已經修好的那幾百位。
 //
 // 為什麼要留原始快取：
 //   實測踩過一次 —— 早期只存推導後的「卷軸格數」，後來發現那個數字被別人敲過的
@@ -121,7 +124,15 @@ const BASE_KEYS = [
 ]
 
 function parseArgs(argv) {
-  const args = { budget: 800, stopDry: 0, names: '', guilds: '', redo: false, rebuild: false }
+  const args = {
+    budget: 800,
+    stopDry: 0,
+    names: '',
+    guilds: '',
+    redo: false,
+    rebuild: false,
+    refresh: false,
+  }
   for (let i = 0; i < argv.length; i++) {
     const flag = argv[i]
     const value = argv[i + 1]
@@ -131,6 +142,7 @@ function parseArgs(argv) {
     if (flag === '--stop-dry') args.stopDry = Number(value)
     if (flag === '--redo') args.redo = true
     if (flag === '--rebuild') args.rebuild = true
+    if (flag === '--refresh') args.refresh = true
   }
   return args
 }
@@ -194,6 +206,31 @@ function baseScrollSlots(item) {
 }
 
 /**
+ * 從各樣本的票數選出格數：取**眾數**。
+ *
+ * 扣掉鐵鎚之後，同一件裝備在不同人身上應該得到同一個數字，實際也是如此
+ * （全面控制核心 201 個樣本全是 10 格）。會偏掉的是少數特例：
+ *   - 卷軸強化失敗會吃掉格數，那個樣本會偏**低**
+ *   - 萬一 resilience 欄位沒帶到，敲過鎚子的樣本會偏**高**
+ * 取最小會被前者帶走（神祕冥界幽靈魔法帽 12格×30 vs 4格×1，取最小就變 4），
+ * 取最大會被後者帶走，只有眾數兩邊都擋得住。
+ *
+ * 平手時取大的：偏低的成因（強化失敗）比偏高的常見。
+ */
+function pickSlots(votes) {
+  let best = 0
+  let bestCount = -1
+  for (const [value, count] of Object.entries(votes)) {
+    const slots = Number(value)
+    if (count > bestCount || (count === bestCount && slots > best)) {
+      best = slots
+      bestCount = count
+    }
+  }
+  return best
+}
+
+/**
  * 一件裝備的基底定義。
  * 寶石的數值只存在 item_total_option（四個分層全是 0），這種情況改用 total 當基底。
  */
@@ -211,7 +248,9 @@ function toBase(item) {
     level: Number(item.item_base_option?.base_equipment_level ?? 0),
     base,
     scrollSlots: baseScrollSlots(item),
-    // 圖示是 CDN 網址（65 字元），515 件也才 33KB —— 存起來整個裝備庫就有圖
+    // 逐個樣本投票，取眾數當答案；理由見 pickSlots()
+    slotVotes: { [baseScrollSlots(item)]: 1 },
+    // 圖示是 CDN 網址（65 字元），五百多件也才 33KB —— 存起來整個裝備庫就有圖
     icon: item.item_icon ?? '',
     seen: 1,
   }
@@ -263,9 +302,10 @@ function absorb(items, setEffects, bases, memberships, refreshed) {
     let entry = bases.get(item.item_name)
     if (entry) {
       entry.seen += 1
-      // 鐵鎚只會加格不會減格，所以多看幾個樣本取最小值會收斂到真正的原始格數。
-      // 上面的還原已經扣過鐵鎚，這裡是第二層保險 —— 那個欄位的語意是反推的。
-      entry.scrollSlots = Math.min(entry.scrollSlots, baseScrollSlots(item))
+      entry.slotVotes ??= { [entry.scrollSlots]: 1 }
+      const slots = baseScrollSlots(item)
+      entry.slotVotes[slots] = (entry.slotVotes[slots] ?? 0) + 1
+      entry.scrollSlots = pickSlots(entry.slotVotes)
       // 舊資料沒有圖，之後再看到同一件時補上
       if (!entry.icon && item.item_icon) entry.icon = item.item_icon
     } else {
@@ -299,14 +339,17 @@ function absorb(items, setEffects, bases, memberships, refreshed) {
  * 離線重建：完全不打 API，改用本機快取重新產出輸出檔。
  *
  * 推導規則改了就跑這個 —— 這正是當初沒留快取才得重爬 447 個角色的那件事。
- * 基底從空的開始建，不沿用舊輸出：舊檔裡可能有用舊規則算壞的值，
- * 沿用的話就白重建了。
+ *
+ * 有快取的基底整個重算（舊檔裡可能有用舊規則算壞的值，沿用就白重建了）；
+ * 快取裡沒有的則原樣保留 —— 那些是開始存快取之前收錄的，重算不了，
+ * 但也不該因此消失（第一次這樣做就弄丟了 5 件）。
  */
 function rebuild() {
   if (!existsSync(CACHE_FILE)) {
     throw new Error(`找不到快取 ${CACHE_FILE}；先正常跑一次爬蟲才會有原始資料`)
   }
 
+  const previous = new Map(readJson(OUT_FILE, []).map((b) => [b.name, b]))
   const bases = new Map()
   const memberships = new Map(
     readJson(MEMBERSHIP_FILE, [])
@@ -328,8 +371,17 @@ function rebuild() {
   }
   const characters = latest.size
 
+  let kept = 0
+  for (const [name, entry] of previous) {
+    if (bases.has(name)) continue
+    bases.set(name, entry)
+    kept += 1
+  }
+
   writeOutputs(bases, memberships)
-  console.log(`離線重建完成：讀了 ${characters} 筆快取，產出 ${bases.size} 件基底`)
+  console.log(
+    `離線重建完成：讀了 ${characters} 筆快取，重算 ${bases.size - kept} 件、沿用 ${kept} 件（快取裡沒有），共 ${bases.size} 件`,
+  )
 }
 
 /** 兩條路徑共用的輸出格式，避免線上與離線產出的檔案長得不一樣 */
@@ -361,10 +413,16 @@ async function main() {
     .filter(Boolean)
   if (!keys.length) throw new Error('請用環境變數 NEXON_API_KEY 提供金鑰（不要寫進檔案）')
   let keyIndex = 0
+  /** 金鑰指紋：進度檔不該存明文金鑰 */
+  const fingerprints = keys.map((k) => createHash('sha256').update(k).digest('hex').slice(0, 12))
+  const usedNow = () => state.usedByKey[fingerprints[keyIndex]] ?? 0
   if (!args.names && !args.guilds) throw new Error('請用 --names 或 --guilds 指定名單來源')
 
-  const state = readJson(STATE_FILE, { day: '', used: 0, done: [] })
-  if (state.day !== today()) Object.assign(state, { day: today(), used: 0 })
+  const state = readJson(STATE_FILE, { day: '', used: 0, done: [], usedByKey: {} })
+  // 額度是「每支金鑰每日 1000 次」，所以用量要逐支記。共用一個計數器的話，
+  // 換上一支全新的金鑰卻還在扣前一支的帳，會誤判成沒額度 —— 實際踩過。
+  if (state.day !== today()) Object.assign(state, { day: today(), used: 0, usedByKey: {} })
+  state.usedByKey ??= {}
   // --redo 是「清一次進度重來」，不是「每次都忽略進度」——
   // 忽略的話跑到一半沒額度，隔天再跑會從頭重複前面那幾百位，白燒額度。
   if (args.redo) state.done = []
@@ -391,12 +449,15 @@ async function main() {
   }
 
   async function get(path, params) {
-    // --budget 是「每支金鑰」的上限，多支就乘上去
-    if (state.used >= args.budget * keys.length) throw new QuotaExhausted()
+    // --budget 是「每支金鑰」的上限：這支用滿就換下一支，沒有下一支才算真的沒額度
+    while (usedNow() >= args.budget) {
+      if (!rotateKey()) throw new QuotaExhausted()
+    }
     const response = await fetch(`${API_BASE}${path}?${new URLSearchParams(params)}`, {
       headers: { 'x-nxopen-api-key': keys[keyIndex] },
     })
     state.used += 1
+    state.usedByKey[fingerprints[keyIndex]] = usedNow() + 1
     // 標頭不一定會有（實測 guild/id 就沒回）。不能直接 Number()：Number(null) 是 0，
     // 會被下面判成「額度歸零」而第一次請求就中止 —— 實際踩過這個坑。
     const header = (name) => {
@@ -470,10 +531,16 @@ async function main() {
     for (const name of queue) {
       const hash = hashName(name)
       if (done.has(hash)) continue
-      if (state.used + 3 > args.budget) {
-        stopReason = `今日預算 ${args.budget} 次已用完`
-        break
+      // 一位角色要 3 次請求，開跑前先確認這支金鑰還夠；不夠就換下一支。
+      // 這裡要看**這支金鑰**的用量，不是跨金鑰的總量 —— 用總量的話，
+      // 換上全新的金鑰照樣會被前一支的帳擋住。
+      while (usedNow() + 3 > args.budget) {
+        if (!rotateKey()) {
+          stopReason = `每支金鑰的今日預算 ${args.budget} 次都已用完`
+          break
+        }
       }
+      if (usedNow() + 3 > args.budget) break
 
       let added = 0
       try {
@@ -497,13 +564,20 @@ async function main() {
       if ((processed + skipped) % SAVE_EVERY === 0) {
         save()
         console.log(
-          `進度 ${done.size}/${queue.length}　今日已用 ${state.used} 次　基底 ${bases.size} 件`,
+          `進度 ${done.size}/${queue.length}　第 ${keyIndex + 1} 支金鑰已用 ${usedNow()}/${args.budget}　基底 ${bases.size} 件`,
         )
       }
       // 重跑的目的是「用新規則重新觀察既有基底」，不是把公會 2664 人跑完。
-      // 每件都重新看過一次就收工 —— 再跑下去只是重複同樣的資料、白燒額度。
-      if (args.redo && startCount > 0 && refreshed.size >= startCount) {
-        stopReason = `既有 ${startCount} 件基底都已重新觀察`
+      //
+      // 用「每件都有圖」當收工條件，而不是這輪重新觀察的件數：icon 是新規則才會寫入的
+      // 欄位，所以「還沒有圖」正好等於「還沒被新規則看過」。用件數的話，中途沒額度
+      // 隔天續跑會從零重數，已經修好的又得再看一遍。
+      if (
+        (args.redo || args.refresh) &&
+        bases.size > 0 &&
+        [...bases.values()].every((b) => b.icon)
+      ) {
+        stopReason = `${bases.size} 件基底都已用新規則重新觀察過`
         break
       }
       if (args.stopDry && dryStreak >= args.stopDry) {
@@ -521,12 +595,15 @@ async function main() {
 
   console.log(`
 結束原因：${stopReason}
-本次處理 ${processed} 位、跳過 ${skipped} 位　今日已用 ${state.used}/${args.budget} 次　API 回報剩餘 ${quota.remaining ?? '不明'}/${quota.limit ?? '不明'}
+本次處理 ${processed} 位、跳過 ${skipped} 位　今日各金鑰用量 ${fingerprints.map((f) => state.usedByKey[f] ?? 0).join(' / ')}（上限 ${args.budget}）　API 回報剩餘 ${quota.remaining ?? '不明'}/${quota.limit ?? '不明'}
 基底 ${startCount} → ${bases.size} 件（新增 ${bases.size - startCount}、本輪重新觀察 ${refreshed.size} 件）
 名單共 ${queue.length} 位（公會展開 ${fromGuilds} 位），本次待處理 ${pending} 位`)
 }
 
 main().catch((error) => {
-  console.error(error.message)
+  // 只印 message 的話，訊息是空的就完全查不出原因（QuotaExhausted / InvalidKey
+  // 這類自訂錯誤就是空的）—— 實際為此連續誤判過三次。
+  console.error(error?.message || `${error?.constructor?.name ?? '未知'}（沒有訊息）`)
+  if (!error?.message) console.error(error?.stack ?? error)
   process.exit(1)
 })
