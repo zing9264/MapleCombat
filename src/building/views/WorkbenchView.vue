@@ -70,6 +70,8 @@ const candidates = computed(() => {
 function pickBase(name: string): void {
   baseName.value = name
   scrolls.splice(0)
+  clearManualEtc()
+  scrollMode.value = 'scrolls'
   flames.splice(0)
   starCount.value = 0
   bossReward.value = false
@@ -127,7 +129,28 @@ function removeScroll(scrollId: string): void {
 }
 
 /** 卷軸層合計（期望值） */
-const etc = computed<Record<string, number>>(() => {
+/**
+ * 卷軸層有兩種輸入方式。
+ *
+ * 疊卷軸是從零做一件；直接輸入是照抄別人已經做好的成品 —— 拍賣場上看到一件
+ * 想試算換上去差多少，一張一張回推當初上了什麼卷根本不可能，而且隨機卷本來就
+ * 只知道結果不知道過程。兩種都留著，不要逼玩家用不合用的那種。
+ */
+type ScrollMode = 'scrolls' | 'manual'
+const scrollMode = ref<ScrollMode>('scrolls')
+
+/** 直接輸入模式下的卷軸層數值（API 的底線命名，與四層其他資料同形） */
+const manualEtc = reactive<Record<string, number>>({})
+
+function onManualEtc(key: string, event: Event): void {
+  manualEtc[key] = Number((event.target as HTMLInputElement).value) || 0
+}
+
+function clearManualEtc(): void {
+  for (const key of Object.keys(manualEtc)) delete manualEtc[key]
+}
+
+const etcFromScrolls = computed<Record<string, number>>(() => {
   const total: Record<string, number> = {}
   for (const applied of scrolls) {
     const def = getScroll(applied.scrollId)
@@ -137,6 +160,12 @@ const etc = computed<Record<string, number>>(() => {
     }
   }
   return total
+})
+
+const etc = computed<Record<string, number>>(() => {
+  if (scrollMode.value === 'scrolls') return etcFromScrolls.value
+  // 0 的欄位不要留在資料裡，不然預覽會多出一堆 +0 的列
+  return Object.fromEntries(Object.entries(manualEtc).filter(([, value]) => value !== 0))
 })
 
 const scrollCost = computed(() =>
@@ -352,7 +381,8 @@ function save(): void {
     etc: { ...etc.value },
     starforce: { ...starforce.value } as Record<string, number>,
     add: { ...add.value } as Record<string, number>,
-    scrolls: scrolls.map((s) => ({ ...s })),
+    // 直接輸入模式沒有「上了哪幾張卷」這回事，存空的才不會誤導
+    scrolls: scrollMode.value === 'scrolls' ? scrolls.map((s) => ({ ...s })) : [],
     starCount: starCount.value,
     flameTier: flames.reduce((max, f) => Math.max(max, f.grade), 0),
     potentials: potentials.filter(Boolean),
@@ -404,10 +434,14 @@ const saved = ref('')
         <h3 class="mb-card-title">
           2. 卷軸
           <span class="mb-badge">
-            {{ scrollCategory ?? '此部位無法上卷' }} · 已用 {{ scrollsUsed }} / {{ scrollSlots }} 格
+            <template v-if="scrollMode === 'manual'">直接輸入卷軸層數值</template>
+            <template v-else>
+              {{ scrollCategory ?? '此部位無法上卷' }} · 已用 {{ scrollsUsed }} /
+              {{ scrollSlots }} 格
+            </template>
           </span>
         </h3>
-        <label class="mb-row mb-slot-bonus">
+        <label v-if="scrollMode === 'scrolls'" class="mb-row mb-slot-bonus">
           <span>白金鐵鎚</span>
           <select v-model.number="hammer" class="mb-input mb-slot-bonus-input">
             <option v-for="opt in HAMMER_OPTIONS" :key="opt.count" :value="opt.count">
@@ -422,7 +456,43 @@ const saved = ref('')
           <small v-else>失敗不會消耗強化次數，只消耗鐵鎚本身。</small>
         </label>
 
-        <p v-if="!scrollSlots" class="mb-hint">
+        <div class="mb-row mb-scroll-mode">
+          <button
+            class="mb-btn"
+            :class="{ 'mb-btn--primary': scrollMode === 'scrolls' }"
+            @click="scrollMode = 'scrolls'"
+          >
+            疊卷軸
+          </button>
+          <button
+            class="mb-btn"
+            :class="{ 'mb-btn--primary': scrollMode === 'manual' }"
+            @click="scrollMode = 'manual'"
+          >
+            直接輸入數值
+          </button>
+          <small>要照抄別人做好的成品就用直接輸入 —— 隨機卷本來就看不出上了什麼。</small>
+        </div>
+
+        <template v-if="scrollMode === 'manual'">
+          <div class="mb-etc-grid">
+            <label v-for="[key, label] in STAT_LABELS" :key="key" class="mb-etc-cell">
+              <span>{{ label }}</span>
+              <input
+                class="mb-input mb-etc-value"
+                type="number"
+                :value="manualEtc[key] ?? 0"
+                @input="onManualEtc(key, $event)"
+              />
+            </label>
+          </div>
+          <p class="mb-hint">
+            填的是<b>卷軸那一層</b>（遊戲 tooltip 括號裡的紫色數字），不是合計。
+            星力與星火各有自己的區塊，不要重複填進來。
+          </p>
+        </template>
+
+        <p v-else-if="!scrollSlots" class="mb-hint">
           這個基底沒有卷軸格數資料（舊版收錄）。到「裝備組」重新同步一次就會補上。
         </p>
         <p v-else-if="!scrollOptions.length" class="mb-hint">
@@ -688,6 +758,37 @@ const saved = ref('')
 .mb-pick small {
   font-size: 10px;
   opacity: 0.6;
+}
+
+.mb-scroll-mode {
+  margin-bottom: 6px;
+  gap: 6px;
+}
+
+.mb-scroll-mode small {
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+/* 十二個欄位排成格線，比一長串輸入框好掃 */
+.mb-etc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 4px 8px;
+}
+
+.mb-etc-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 11px;
+}
+
+.mb-etc-value {
+  width: 72px;
+  flex: 0 0 auto;
+  text-align: right;
 }
 
 .mb-scroll-list {
