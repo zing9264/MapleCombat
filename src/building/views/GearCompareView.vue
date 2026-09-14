@@ -463,7 +463,8 @@ function signed(n: number): string {
             <p v-if="familiar.lastError" class="mb-error">{{ familiar.lastError }}</p>
             <p class="mb-hint">
               點一下依序切換「沒上場 → 羈絆 → 召喚中」。這裡只是試算，按「套用這組」才會真的換掉。
-              召喚中只能一隻、羈絆最多 4 格。
+              召喚中與羈絆之間搬動時數值不會自動換算 —— 羈絆的壓縮規則沒有公開資料，
+              請到「萌獸」分頁把該位置實際生效的數字填對。 召喚中只能一隻、羈絆最多 4 格。
             </p>
           </template>
 

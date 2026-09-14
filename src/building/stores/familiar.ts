@@ -42,7 +42,13 @@ export type FamiliarSlot = 'summon' | 'bond' | null
 export interface FamiliarLine {
   /** 詞條名稱，對應 data/familiarLines.ts 的表 */
   name: string
-  /** 實際數值。隨階級不同，所以由玩家照遊戲畫面填 */
+  /**
+   * 實際數值，由玩家照遊戲畫面填。
+   *
+   * 隨萌獸階級不同，而且**羈絆欄位填的是壓縮後的生效值**：登錄進羈絆之後數字會被
+   * 壓縮，壓縮規則沒有公開資料。與其猜一個係數，不如讓玩家照面板填 —— 也因此
+   * 同一隻在召喚中與羈絆之間搬動時，數值不會自動換算。
+   */
   value: number
 }
 
