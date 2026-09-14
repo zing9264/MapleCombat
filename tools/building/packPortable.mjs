@@ -9,12 +9,15 @@
 //
 // 而且不只金鑰：快照裡還有角色名、世界名、公會名與五組完整裝備。
 // 金鑰是每個人自己去 openapi.nexon.com 申請的，角色資料是自己同步的，
-// 兩者都不該跟著程式走 —— 所以**預設不帶資料檔**，要帶得自己加 --data。
+// 兩者都不該跟著程式走 —— 所以這支**完全沒有帶資料檔的選項**。
+// 曾經有過 --data（會剝掉憑證再打包），後來拿掉了：留著那個能力，
+// 就等於留著那個洞，而「剝乾淨了嗎」每次都要重新判斷一次。
 //
 // 用法：
-//   node tools/building/packPortable.mjs                    # 乾淨的空包（要發布就用這個）
-//   node tools/building/packPortable.mjs --data tools/building/.autosave.json
 //   node tools/building/packPortable.mjs --out dist-portable
+//
+// 產物永遠只有 exe 與讀我.txt。要驗證請用 verifyPackage.mjs，
+// 發布請用 buildRelease.mjs（從乾淨 clone 建）。
 
 import { createHash } from 'node:crypto'
 import {
@@ -29,12 +32,6 @@ import {
 import { join, resolve } from 'node:path'
 import { execFileSync } from 'node:child_process'
 
-/** 絕對不能進打包檔的鍵。新增憑證類的鍵時記得加進來。 */
-const CREDENTIAL_KEYS = ['mbNexonApiKey']
-
-/** 帶著就代表「這包認得出是誰」的欄位。 */
-const IDENTITY_FIELDS = new Set(['characterName', 'worldName', 'guildName', 'ocid'])
-
 const EXE_SOURCE = 'src-tauri/target/release/maplebuilding-app.exe'
 
 const README =
@@ -43,37 +40,6 @@ const README =
 function arg(name, fallback) {
   const i = process.argv.indexOf(name)
   return i === -1 ? fallback : process.argv[i + 1]
-}
-
-/** 抽掉憑證，回傳 [清乾淨的快照, 被拿掉的鍵] */
-export function stripCredentials(snapshot) {
-  const keys = { ...(snapshot.keys ?? {}) }
-  const removed = CREDENTIAL_KEYS.filter((key) => key in keys)
-  for (const key of removed) delete keys[key]
-  return [{ ...snapshot, keys }, removed]
-}
-
-/** 掃出快照裡的身分欄位（角色名／世界／公會），純粹是提醒用 */
-export function findIdentities(keys) {
-  const found = new Set()
-  const visit = (value) => {
-    if (Array.isArray(value)) return value.forEach(visit)
-    if (!value || typeof value !== 'object') return
-    for (const [key, inner] of Object.entries(value)) {
-      if (IDENTITY_FIELDS.has(key) && typeof inner === 'string' && inner) {
-        found.add(`${key} = ${inner}`)
-      }
-      visit(inner)
-    }
-  }
-  for (const raw of Object.values(keys)) {
-    try {
-      visit(JSON.parse(raw))
-    } catch {
-      // 不是 JSON 的鍵沒有巢狀結構，跳過
-    }
-  }
-  return [...found]
 }
 
 function main() {
@@ -91,23 +57,6 @@ function main() {
 
   copyFileSync(EXE_SOURCE, join(dir, 'MapleBuilding.exe'))
   writeFileSync(join(dir, '讀我.txt'), README)
-
-  const dataSource = arg('--data')
-  if (dataSource) {
-    const snapshot = JSON.parse(readFileSync(dataSource, 'utf8'))
-    const [clean, removed] = stripCredentials(snapshot)
-    writeFileSync(join(dir, 'mapledata.json'), JSON.stringify(clean))
-    console.log(`資料檔：${dataSource} → ${Object.keys(clean.keys).length} 個鍵`)
-    console.log(removed.length ? `已移除憑證：${removed.join(', ')}` : '沒有憑證需要移除')
-    const identities = findIdentities(clean.keys)
-    if (identities.length) {
-      console.log(`
-⚠ 這包帶著個人資料，只適合自己留著，不要發給別人：`)
-      for (const line of identities) console.log('   ' + line)
-    }
-  } else {
-    console.log('資料檔：無（乾淨的空包）')
-  }
 
   const zip = join(outRoot, `${name}.zip`)
   rmSync(zip, { force: true })

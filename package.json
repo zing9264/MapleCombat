@@ -16,7 +16,9 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "pack:portable": "node tools/building/packPortable.mjs"
+    "pack:portable": "node tools/building/packPortable.mjs",
+    "build:release": "node tools/building/buildRelease.mjs",
+    "verify:package": "node tools/building/verifyPackage.mjs"
   },
   "dependencies": {
     "@tauri-apps/api": "^2",
