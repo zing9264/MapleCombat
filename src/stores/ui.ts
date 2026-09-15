@@ -3,6 +3,8 @@ import { ref, watch } from 'vue'
 import { getStoredString } from './persist'
 
 export type ViewKey =
+  | 'overview'
+  | 'craft'
   | 'character'
   | 'characterInput'
   | 'equipmentChange'
@@ -16,6 +18,8 @@ export type ViewKey =
 export type CalculatorMode = 'calculator' | 'effStats'
 
 const VALID_VIEWS: ViewKey[] = [
+  'overview',
+  'craft',
   'character',
   'characterInput',
   'equipmentChange',
@@ -33,15 +37,23 @@ function restoreView(): ViewKey {
   // view id 遷移：current→characterInput、equipment→valueConversion；
   // 已移除的 apiImport 分頁退回 characterInput
   //
-  // 預設是「同步裝備」而不是上游的手動輸入：MapleBuilding 的每一頁都要有同步過的
+  // 預設是「總覽」而不是上游的手動輸入：MapleBuilding 的每一頁都要有同步過的
   // 資料才有東西可看，第一次打開停在手動輸入只會讓人不知道要幹嘛。
+  // 原本的 7 個自有分頁併成兩個儀表板：同步裝備／角色資料／萌獸 → 總覽，
+  // 裝備庫／製作台／物品欄 → 製作。舊的 key 還留在 ViewKey 裡當錨點用。
   const migration: Record<string, ViewKey> = {
     current: 'characterInput',
     equipment: 'valueConversion',
+    equipmentSets: 'overview',
+    character: 'overview',
+    familiar: 'overview',
+    itemLibrary: 'craft',
+    workbench: 'craft',
+    inventory: 'craft',
   }
-  let saved = getStoredString('activeView', 'equipmentSets')
+  let saved = getStoredString('activeView', 'overview')
   if (migration[saved]) saved = migration[saved]
-  return VALID_VIEWS.includes(saved as ViewKey) ? (saved as ViewKey) : 'equipmentSets'
+  return VALID_VIEWS.includes(saved as ViewKey) ? (saved as ViewKey) : 'overview'
 }
 
 function restoreMode(): CalculatorMode {

@@ -90,6 +90,39 @@ localStorage，順序顛倒的話 store 會拿到舊資料，之後再被檔案�
 
 ---
 
+### 儀表板接縫（分頁列同時是目錄）
+
+| 檔案                                       | 改動                                                       |
+| ------------------------------------------ | ---------------------------------------------------------- |
+| `src/stores/ui.ts`                         | `ViewKey` 加 `overview`/`craft`、遷移表、預設改 `overview` |
+| `src/App.vue`                              | 兩個新 view 的 import 與 `v-if`                            |
+| `src/components/layout/CompactToolbar.vue` | `tabGroups` 改用 `dashboard.go()` 與 `isActiveTab()`       |
+
+七個自有分頁併成兩個儀表板：同步裝備／角色資料／萌獸 → **總覽**，
+裝備庫／製作台／物品欄 → **製作**。它們本來就各是一條動線的三段，
+卻要切三次分頁；而且同步裝備與角色資料各畫一張角色卡，內容有一半重疊。
+
+**分頁標籤全部留著**，點下去是「切到該儀表板 + 捲到那一段」。使用者不用重學，
+而「一直切頁」的摩擦消失了。舊的 `ViewKey`（`equipmentSets` 等）留在型別裡當
+錨點 key 用，`restoreView()` 會把存檔裡的舊值遷移到新的儀表板。
+
+實作分三塊，都在 `src/building/`：
+
+- `stores/dashboard.ts`：分頁列與儀表板之間的橋（雙向：要求捲動／回報位置）
+- `composables/useAnchorNav.ts`：捲動與 scroll-spy
+- `views/OverviewView.vue`、`views/CraftView.vue`：組合既有的 view
+
+兩個踩過的坑，改之前先看：
+
+1. **最後一段捲不到頂端**。物品欄只有 79px，整頁不夠高，點「製作台」實際會停在
+   頁面底部，分頁列亮的卻是「物品欄」。解法是 `.mb-dash-section:last-child` 撐滿
+   一個視窗高。也因此 scroll-spy **不能**用 IntersectionObserver —— 任何觀察帶都
+   涵蓋不到捲不上去的最後一段。
+2. **高亮被新掛載的儀表板蓋掉**。切到另一個儀表板時，新的那個會重算一次 `current`。
+   所以 `go()` 只寫 `pending`，`current` 一律由儀表板自己更新。
+
+---
+
 ### 分頁改名
 
 | 檔案                                       | 改動                                                                                 |

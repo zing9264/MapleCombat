@@ -191,7 +191,7 @@ const tooltipPotentials = computed(() => {
             :title="
               familiar?.count
                 ? `萌獸 ${familiar.count} 隻 · 合計最終傷害 ${familiar.total}%`
-                : '萌獸（到「萌獸」分頁新增）'
+                : '萌獸（到「總覽」的萌獸區新增）'
             "
             @click="emit('selectFamiliar')"
           >

@@ -731,13 +731,29 @@ describe('ui store', () => {
     let ui = useUiStore()
     expect(ui.activeView).toBe('valueConversion')
 
-    // 認不得的 id 退回預設分頁。預設是「同步裝備」而不是上游的手動輸入 ——
+    // 認不得的 id 退回預設分頁。預設是「總覽」而不是上游的手動輸入 ——
     // MapleBuilding 每一頁都要有同步過的資料才有東西看。
     localStorage.setItem('activeView', 'apiImport')
     setActivePinia(createPinia())
     ui = useUiStore()
-    expect(ui.activeView).toBe('equipmentSets')
+    expect(ui.activeView).toBe('overview')
 
+    // 併進儀表板的舊分頁要遷移，不然升級後會停在一個已經不存在的 view
+    for (const [saved, expected] of [
+      ['equipmentSets', 'overview'],
+      ['character', 'overview'],
+      ['familiar', 'overview'],
+      ['itemLibrary', 'craft'],
+      ['workbench', 'craft'],
+      ['inventory', 'craft'],
+    ]) {
+      localStorage.setItem('activeView', saved)
+      setActivePinia(createPinia())
+      expect(useUiStore().activeView).toBe(expected)
+    }
+
+    setActivePinia(createPinia())
+    ui = useUiStore()
     ui.activeView = 'equipmentChange'
     expect(localStorage.getItem('activeView')).toBe('equipmentChange')
   })

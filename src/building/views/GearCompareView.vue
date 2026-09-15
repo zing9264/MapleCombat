@@ -398,7 +398,7 @@ function signed(n: number): string {
 <template>
   <div class="mb-cmp">
     <section v-if="!data" class="mb-card mb-empty">
-      還沒有同步過的裝備組。先到「裝備組」同步一次，裝備欄才有東西可以換。
+      還沒有同步過的裝備組。先到「同步裝備」同步一次，裝備欄才有東西可以換。
     </section>
 
     <template v-else>
@@ -542,7 +542,7 @@ function signed(n: number): string {
               </li>
             </ul>
             <p v-if="!candidates.length" class="mb-hint">
-              物品欄沒有「{{ targetPart }}」部位的自製裝備，到「製作台」做一件再回來比較。
+              物品欄沒有「{{ targetPart }}」部位的自製裝備，到「製作」做一件再回來比較。
             </p>
           </template>
         </section>

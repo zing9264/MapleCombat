@@ -109,7 +109,7 @@ async function onRemove(id: string): Promise<void> {
       </h3>
       <p v-if="store.lastError" class="mb-error">{{ store.lastError }}</p>
       <div v-if="!store.count" class="mb-empty">
-        還沒有自製裝備。到「製作台」從裝備庫挑一個底做一件。
+        還沒有自製裝備。在上面的「製作台」從裝備庫挑一個底做一件。
       </div>
       <ul v-else class="mb-list">
         <li

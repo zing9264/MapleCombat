@@ -24,6 +24,14 @@ import {
 import { WEAPON_SET_OPTIONS } from '../data/weaponSets'
 import type { BaselineSource } from '../core/baseline'
 
+/**
+ * embedded：嵌在「總覽」儀表板裡。
+ *
+ * 同一頁上面已經有同步裝備那段的裝備組切換與角色名了，這裡再畫一次只是雜訊。
+ * 只藏重複的殼，卡片內容一個都不少。
+ */
+withDefaults(defineProps<{ embedded?: boolean }>(), { embedded: false })
+
 const sets = useEquipmentSetsStore()
 const familiar = useFamiliarStore()
 
@@ -233,7 +241,7 @@ function signed(value: number): string {
 <template>
   <div class="mb-char">
     <!-- 選裝備組 -->
-    <div class="mb-set-tabs" aria-label="選擇裝備組">
+    <div v-if="!embedded" class="mb-set-tabs" aria-label="選擇裝備組">
       <button
         v-for="item in sets.sets"
         :key="item.id"
@@ -248,14 +256,15 @@ function signed(value: number): string {
     </div>
 
     <section v-if="!data" class="mb-card mb-empty">
-      還沒有同步過的裝備組。先到「裝備組」同步一次。
+      還沒有同步過的裝備組。先在上面的「同步裝備」同步一次。
     </section>
 
     <template v-else>
       <!-- 戰鬥力 -->
       <section class="mb-card">
         <h3 class="mb-card-title">
-          {{ data.characterName }}
+          <template v-if="embedded">戰鬥力對帳</template>
+          <template v-else>{{ data.characterName }}</template>
           <span class="mb-badge">
             Lv.{{ data.level }} {{ data.job }} · {{ data.worldName }}
             <template v-if="data.guildName"> · {{ data.guildName }}</template>
@@ -329,7 +338,7 @@ function signed(value: number): string {
       <section class="mb-card">
         <h3 class="mb-card-title">
           萌獸
-          <span class="mb-badge">在「萌獸」分頁編輯</span>
+          <span class="mb-badge">在下面的「萌獸」編輯</span>
         </h3>
         <div class="mb-fam-summary">
           <span v-if="familiar.active.length" class="mb-fam-summary-value">

@@ -12,6 +12,8 @@ import WorkbenchView from '@/building/views/WorkbenchView.vue'
 import FamiliarView from '@/building/views/FamiliarView.vue'
 import InventoryView from '@/building/views/InventoryView.vue'
 import CharacterView from '@/building/views/CharacterView.vue'
+import OverviewView from '@/building/views/OverviewView.vue'
+import CraftView from '@/building/views/CraftView.vue'
 import { SHOW_STATE_SLOTS } from '@/building/featureFlags'
 import { useStateSlotsStore } from '@/stores/stateSlots'
 
@@ -24,7 +26,9 @@ const slots = useStateSlotsStore()
   <div class="container" :data-view="ui.activeView">
     <WeightedAnalysisView v-if="SHOW_STATE_SLOTS && slots.isWeightedActive" :view="ui.activeView" />
     <template v-else>
-      <CharacterView v-if="ui.activeView === 'character'" />
+      <OverviewView v-if="ui.activeView === 'overview'" />
+      <CraftView v-else-if="ui.activeView === 'craft'" />
+      <CharacterView v-else-if="ui.activeView === 'character'" />
       <CharacterInputView v-show="ui.activeView === 'characterInput'" />
       <EquipmentChangeView v-show="ui.activeView === 'equipmentChange'" />
       <ValueConversionView v-show="ui.activeView === 'valueConversion'" />

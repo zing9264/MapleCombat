@@ -65,7 +65,7 @@ function summary(item: BaseItem): string {
       <p v-if="store.lastError" class="mb-error">{{ store.lastError }}</p>
 
       <div v-if="!store.count" class="mb-empty">
-        還沒有任何基底。到「裝備組」同步一次，穿在身上的裝備會自動收錄進來。
+        還沒有任何基底。到「同步裝備」同步一次，穿在身上的裝備會自動收錄進來。
       </div>
 
       <template v-else>

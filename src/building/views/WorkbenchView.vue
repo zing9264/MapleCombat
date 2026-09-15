@@ -401,7 +401,7 @@ const saved = ref('')
         1. 從裝備庫挑一個底
         <span class="mb-badge">{{ library.count }} 件可選</span>
       </h3>
-      <div v-if="!library.count" class="mb-empty">裝備庫是空的。先到「裝備組」同步一次。</div>
+      <div v-if="!library.count" class="mb-empty">裝備庫是空的。先到「同步裝備」同步一次。</div>
       <template v-else>
         <div class="mb-row">
           <input v-model="keyword" class="mb-input mb-input--grow" placeholder="搜尋名稱或套裝" />
@@ -493,7 +493,7 @@ const saved = ref('')
         </template>
 
         <p v-else-if="!scrollSlots" class="mb-hint">
-          這個基底沒有卷軸格數資料（舊版收錄）。到「裝備組」重新同步一次就會補上。
+          這個基底沒有卷軸格數資料（舊版收錄）。到「同步裝備」重新同步一次就會補上。
         </p>
         <p v-else-if="!scrollOptions.length" class="mb-hint">
           還沒有「{{ scrollCategory }}」類別的卷軸資料，等截圖補表。

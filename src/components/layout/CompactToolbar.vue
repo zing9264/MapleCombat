@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import { useUiStore, type ViewKey } from '@/stores/ui'
+import { useUiStore } from '@/stores/ui'
+import { ANCHOR_OF, useDashboardStore } from '@/building/stores/dashboard'
 import { useImportExport } from '@/composables/useImportExport'
 import { useCompactTheme } from '@/composables/useTheme'
 import { useCharacterStore } from '@/stores/character'
@@ -10,6 +11,7 @@ import DataLocationControl from '@/building/components/DataLocationControl.vue'
 import { SHOW_STATE_SLOTS } from '@/building/featureFlags'
 
 const ui = useUiStore()
+const dashboard = useDashboardStore()
 const { fileInput, onExport, onImportFileChange } = useImportExport()
 const { theme, toggle } = useCompactTheme()
 const store = useCharacterStore()
@@ -30,29 +32,27 @@ interface StateDialog {
 const stateDialog = ref<StateDialog | null>(null)
 
 /**
- * 分頁照「實際使用順序」排，而不是加進來的順序。
+ * 分頁列同時是導覽與目錄。
  *
- * 原本十個分頁平鋪成一排，而且三種不同的東西混在一起：MapleBuilding 自己的流程、
- * 裝備製作的素材頁、還有上游計算機留下來的手動頁。第一次進來的人不知道從哪開始 ——
- * 實際上什麼都得先同步才有資料。
+ * 前七個標籤已經併成「總覽」與「製作」兩個儀表板（見 building/stores/dashboard.ts），
+ * 但標籤全部留著：點「角色資料」是切到總覽 + 捲到那一段。這樣使用者不用重學，
+ * 而「一直切頁」的摩擦消失了 —— 它們本來就是同一頁的不同段落。
  *
  * 分組只是視覺上的分隔線，不影響功能；上游那三頁擺最後並標明出處，
- * 免得跟我們自己的「裝備變更」搞混。
+ * 免得跟我們自己的「換裝比較」搞混。
  */
-const tabGroups: { label: string; tabs: { view: ViewKey; label: string }[] }[] = [
+const tabGroups: { label: string; tabs: { view: string; label: string }[] }[] = [
   {
-    label: '角色',
+    label: '總覽',
     tabs: [
       { view: 'equipmentSets', label: '同步裝備' },
       { view: 'character', label: '角色資料' },
+      { view: 'familiar', label: '萌獸' },
     ],
   },
   {
     label: '模擬',
-    tabs: [
-      { view: 'gearCompare', label: '換裝比較' },
-      { view: 'familiar', label: '萌獸' },
-    ],
+    tabs: [{ view: 'gearCompare', label: '換裝比較' }],
   },
   {
     label: '製作',
@@ -71,6 +71,13 @@ const tabGroups: { label: string; tabs: { view: ViewKey; label: string }[] }[] =
     ],
   },
 ]
+
+/** 併過的標籤要看「現在捲到哪一段」，沒併過的就是單純比對 view */
+function isActiveTab(view: string): boolean {
+  const anchor = ANCHOR_OF[view]
+  if (!anchor) return ui.activeView === view
+  return ui.activeView === anchor.view && dashboard.current === anchor.id
+}
 
 function activateState(id: StateSlotId | 'weighted') {
   closeStateMenu()
@@ -262,9 +269,9 @@ function canConfirmStateDialog(): boolean {
             :key="tab.view"
             type="button"
             class="ct-tab"
-            :class="{ active: ui.activeView === tab.view }"
+            :class="{ active: isActiveTab(tab.view) }"
             :title="group.label"
-            @click="ui.activeView = tab.view"
+            @click="dashboard.go(tab.view)"
           >
             {{ tab.label }}
           </button>

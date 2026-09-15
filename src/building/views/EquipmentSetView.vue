@@ -217,7 +217,7 @@ const symbolTotals = computed(() => {
       </p>
       <p v-if="absorbedCount" class="mb-hint">已收錄 {{ absorbedCount }} 件新基底到裝備庫。</p>
       <p v-if="familiarCount" class="mb-hint">
-        已同步 {{ familiarCount }} 隻萌獸（含實際詞條數值），到「萌獸」分頁看。
+        已同步 {{ familiarCount }} 隻萌獸（含實際詞條數值），往下捲到「萌獸」看。
       </p>
       <p v-if="errorMessage" class="mb-error">{{ errorMessage }}</p>
       <p v-if="store.lastError" class="mb-error">{{ store.lastError }}</p>
